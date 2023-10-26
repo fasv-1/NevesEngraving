@@ -1,16 +1,7 @@
-#container { 
-
-  background-color: red;
-
-  h1{
-    color :blue;
-  }
-
+.dash-content {
+  display: none;
 }
 
-.logo {
-  background-color: yellow;
-  h1{
-    color: red;
-  }
+.show {
+  display: block;
 }
