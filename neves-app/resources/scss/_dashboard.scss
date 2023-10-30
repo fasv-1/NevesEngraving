@@ -1,7 +1,74 @@
-.dash-content {
-  display: none;
+
+#dashboard{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
 }
+
+#dash-screen {
+  background-color: aqua;
+  width: 85%;
+
+  .titulo{
+    font: 2rem sans-serif;
+  }
+}
+
+#dash-menu {
+  width: 15%;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .dash-logo {
+    img{
+    width: 130px;
+    height: 14 0px;
+    }
+  }
+
+  .dash-nav-link{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 0.5rem 0 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid black;
+    a{
+      width: 80%;
+      cursor: pointer;
+
+    }
+    h3{
+      width: 20%;
+      cursor: pointer;
+    }
+
+  }
+}
+
+.dash-nav-option {
+  display: none;
+  margin: 0.5rem 0.8rem 0.5rem 0.8rem;
+  width: 100%;
+
+  li{
+    margin-top: 0.5rem;
+  }
+}
+
+.blank-space{
+  height: 2rem;
+
+}
+
+
 
 .show {
   display: block;
 }
+
