@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <!-----------------------Dashboard Menu---------------------------->
+    <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
     <section id="dash-menu">
       <!-----------------------Generate the menu home link ---------------------------->
       <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
@@ -27,8 +27,10 @@
       </div>
       <div class="blanck-sapce"></div>
     </section>
-    <!-----------------------Dashboard show-screen---------------------------->
+    <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
     <section id="dash-screen">
+      {{ activeLink }}
+      {{ selectPage }}
 
       <!---------------- If the active page is home ------------------>
       <div v-if="activePage == 0">
@@ -36,15 +38,17 @@
         <p>{{ pages[activePage].content }}</p>
       </div>
 
-      <!---------------- If the selected pages are the mais ones  ------------------>
+      <!---------------- If the selected pages are the principal ones  ------------------>
       <div v-else-if="activePage != 0 && selectPage == ''">
         <h1 class="titulo">{{ pages[activePage].pageTitle }}</h1>
         <p>{{ pages[activePage].content }}</p>
       </div>
       <!---------------- If the selected pages are the opcional ones  ------------------>
       <div v-else>
-        <h1 class="titulo">{{ pages[selectPage].pageTitle }}</h1>
-        <h1 class="titulo">{{ pages[selectPage].options[activeLink].info }}</h1>
+        <div class="page" v-if="activeLink == id && selectPage == 1">
+          <add-product :id="activeLink" :title="pages[selectPage].pageTitle" :metaTitle="pages[selectPage].options[activeLink].info"></add-product>
+
+        </div>
         <p>{{ pages[selectPage].options[activeLink].content }}</p>
       </div>
     </section>
@@ -75,7 +79,7 @@ export default {
           options: [
             {
               info: 'Todos',
-              content: 'Produtos'
+              content: 'Conteudo de Produtos'
             },
             {
               info: 'Adicionar',
@@ -181,17 +185,16 @@ export default {
         this.active = true;
         this.id = c;
       }
-
-      console.log(this.id);
-      console.log(this.active);
+      // console.log(this.id);
+      // console.log(this.active);
     },
-    principal(e){
+    principal(e) {
       this.activePage = e;
-      this.selectPage = '';
+      this.selectPage = '';// make the diference from menu options and principals
     },
-    opcao(x,y){
+    opcao(x, y) {
       this.activeLink = x;
-      this.activePage = x+1; //para que ao iniciar a pagina passe a validação de ser igual a 0, assim nunca vai ser 0 ao clicar nas opções
+      this.activePage = x + 1; //para que ao iniciar a pagina passe a validação de ser igual a 0, assim nunca vai ser 0 ao clicar nas opções
       this.selectPage = y;
     }
 
