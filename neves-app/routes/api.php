@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\MateriaPrimaController;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\DescontoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('produto', ProdutoController::class);
+Route::apiResource('desconto', DescontoController::class);
+
+Route::post('categoria', [CategoriaController::class, 'store']);
+Route::patch('categoria/{categoria}', [CategoriaController::class, 'update']);
+Route::get('categoria', [CategoriaController::class, 'show']);
+Route::delete('categoria/{categoria}', [CategoriaController::class, 'delete']);
+
+Route::post('materia', [MateriaPrimaController::class, 'store']);
+Route::patch('materia/{materia}', [MateriaPrimaController::class, 'update']);
+Route::get('materia', [MateriaPrimaController::class, 'show']);
+Route::delete('materia/{materia}', [MateriaPrimaController::class, 'delete']);
