@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\DescontoController;
+use App\Http\Controllers\ImagensController;
+use App\Http\Controllers\ImagensProdutoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('produto', ProdutoController::class);
 Route::apiResource('desconto', DescontoController::class);
+Route::apiResource('imagens', ImagensController::class);
+Route::apiResource('imagens_produto', ImagensProdutoController::class);
 
 Route::post('categoria', [CategoriaController::class, 'store']);
 Route::patch('categoria/{categoria}', [CategoriaController::class, 'update']);

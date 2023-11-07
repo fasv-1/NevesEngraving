@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('descontos', function (Blueprint $table) {
+        Schema::create('imagens', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique();
-            $table->text('descricao');
-            $table->decimal('desconto', 8, 2);
-            $table->boolean('ativo');
+            $table->string('nome');
+            $table->string('utilidade');
+            $table->integer('desconto_id')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('descontos');
+        Schema::dropIfExists('imagens');
     }
 };

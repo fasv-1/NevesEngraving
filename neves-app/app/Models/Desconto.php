@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class desconto extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome', 'descricao', 'desconto'];
+    protected $fillable = ['nome', 'descricao', 'desconto', 'ativo'];
 
     public function rules(){
         return [
             'nome' => 'required|unique:descontos,nome,'.$this->id.'|min:1',
             'descricao' => 'required',
-            'desconto' => 'required|decimal:2|min:0|max:1'
+            'desconto' => 'required|decimal:2|min:0|max:1',
+            'ativo' => 'required'
         ];
     }
     
