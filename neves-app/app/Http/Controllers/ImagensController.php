@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\imagens;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImagensController extends Controller
 {
@@ -33,8 +34,10 @@ class ImagensController extends Controller
         $imagens = new imagens();
         $request->validate($imagens->rules(), $imagens->feedback());
 
+        //capture the file and stores it with an acronym given by laravel
         $image = $request->file('nome');
 
+        //checks for an desconto_id to choose the right place to store
         if ($request->desconto_id != '') {
 
             $image_urn = $image->store('images/descontos', 'public');
@@ -82,13 +85,13 @@ class ImagensController extends Controller
 
         $regrasDinamicas = [];
 
-        if ($request->method() === 'PATCH') { //update com possibilidade de lidar com o metodo PUT e PATCH
+        if ($request->method() === 'PATCH') { //update with the possibility to use the method PUT and PATCH
 
-            //percorrer todas as regras definidas no Model
+            //browse every rules in the Model 
             foreach ($imagens->rules() as $input => $regra) {
 
-                //coletar apenas as regras aplicáveis aos parâmetros parciais da requesição
-                if (array_key_exists($input, $request->all())) { // array_key_exists(chave a ser pesquisada, array onde pesquisar essa chave)
+                //colect only the aplied rules of request 
+                if (array_key_exists($input, $request->all())) {
                     $regrasDinamicas[$input] = $regra;
                 }
             }
@@ -97,17 +100,22 @@ class ImagensController extends Controller
         } else {
             $request->validate($imagens->rules(), $imagens->feedback());
         }
-        // dd($request->method()); //retorna o verbo http utilizado 
+
+        //checks if a file is uploded and if it is delete the image that was stored before
+
+        if ($request->file('nome')) {
+            Storage::disk('public')->delete($imagens->nome);
+        }
 
         $imagens->fill($request->all());
 
-
-
-        // remove o arquivo antigo caso um novo arquivo tenha sido enviado no request
+        // checks for an uploaded image and if it exists stores it
         if ($request->file('nome')) {
-            // Storage::disk('public')->delete($imagens->nome);
+
             $image = $request->file('nome');
-            if ($request->desconto_id != '' || $imagens->desconto_id != '') {
+
+            //checks for an desconto_id to choose the right place to store
+            if ($imagens->desconto_id != '') {
                 $image_urn = $image->store('images/descontos', 'public');
             } else {
                 $image_urn = $image->store('images/gerais', 'public');
@@ -115,20 +123,22 @@ class ImagensController extends Controller
             $imagens->nome = $image_urn;
         }
 
-
-        //Como o laravel não reconhece o verbo PUT e PATCH é necessário defenir no Postman por baixo dos valore e através do metodo POST o key "_method" e o valor "put" ou "patch"
+        //as a parameter is sent, save() recognize that is an update
         $imagens->save();
-
-
-
-        // $imagens->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(imagens $imagens)
+    public function destroy($id)
     {
-        //
+        $imagens = imagens::find($id);
+
+        //remind to use the facades
+        Storage::disk('public')->delete($imagens->nome);
+
+        $imagens->delete();
+
+        return 'registo e imagem eliminada';
     }
 }

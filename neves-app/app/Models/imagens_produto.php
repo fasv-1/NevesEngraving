@@ -9,11 +9,12 @@ class imagens_produto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'produto_id'];
+    protected $fillable = ['nome', 'posicao', 'produto_id'];
 
     public function rules(){
         return[
-            'nome' => 'required|unique:imagens_produtos,nome,'.$this->id.'|min:1',
+            'nome' => 'required|image',
+            'posicao' => 'required',
             'produto_id' => 'required'
         ];
     }
@@ -21,7 +22,11 @@ class imagens_produto extends Model
     public function feedback(){
         return[
             'required' => 'o campo :attribute é obrigatório',
-            'nome.unique' => 'esta imagem já existe',
+            'image' => 'o ficheiro que carregou não é uma imagem'
         ];
+    }
+
+    public function produtos(){
+        return $this->hasMany('App\Models\Produto', 'produto_id','id');
     }
 }

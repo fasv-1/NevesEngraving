@@ -16,5 +16,8 @@ app.component('dashboard', dashboard);
 
 import addProduct from './components/dash-components/addProduct.vue';
 app.component('add-product', addProduct);
+
+import inputContainer from './components/dash-components/inputContainer.vue';
+app.component('input-container', inputContainer);
   
 app.mount("#app");

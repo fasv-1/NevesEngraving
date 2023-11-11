@@ -34,4 +34,14 @@ class Produto extends Model
             'decimal' => 'o valor deve ser um numero com 2 casas decimais (4.00 , 5.56, 200.57) e deve conter um ponto em vez de virgula '
         ];
     }
+
+    public function desconto() {
+        return $this->hasOne('App\Models\Desconto');
+    }
+    public function categoria() {
+        return $this->hasOne('App\Models\categoria');
+    }
+    public function materiaPrima() {
+        return $this->hasOne('App\Models\materia_prima');
+    }
 }

@@ -31,6 +31,7 @@
     <section id="dash-screen">
       {{ activeLink }}
       {{ selectPage }}
+      {{ activePage }}
 
       <!---------------- If the active page is home ------------------>
       <div v-if="activePage == 0">
@@ -47,7 +48,6 @@
       <div v-else>
         <div class="page" v-if="activeLink == id && selectPage == 1">
           <add-product :id="activeLink" :title="pages[selectPage].pageTitle" :metaTitle="pages[selectPage].options[activeLink].info"></add-product>
-
         </div>
         <p>{{ pages[selectPage].options[activeLink].content }}</p>
       </div>
