@@ -2,25 +2,34 @@
 #dashboard{
   display: flex;
   flex-direction: row;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+
+  
 }
 
 #dash-screen {
   background-color: aqua;
   width: 85%;
-  height: 100%;
+
 }
 
 #dash-menu {
   width: 15%;
-  margin: 1rem;
+
+
+}
+.sticky {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  align-self: flex-start;
+  position: -webkit-sticky;
+  position: sticky;
+  top:0;
 
-  .dash-logo {
+
+  .dash-link-cont {
+    margin: 1em;
     img{
     width: 130px;
     height: 14 0px;
@@ -31,9 +40,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    margin: 0 0.5rem 0 0.5rem;
-    padding-top: 1rem;
+    margin: 1em;
     border-top: 1px solid black;
     a{
       width: 80%;

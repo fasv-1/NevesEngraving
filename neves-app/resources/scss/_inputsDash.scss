@@ -1,30 +1,32 @@
+.titulo{
+  // width: 100%;
+  padding: 0.5em 0 0 1em;
+  font-weight: bolder;
+  display: inline-block;
+}
+
+.titulo_alt{
+  display: inline-block;
+  padding: 1em 0 0 1em ;
+}
 .productInputContent{
+  margin-top: 2em;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
-
-  .titulo{
-    width: 100%;
-    padding-left: 1em;
-    font-weight: bolder;
-  }
-
-  .titulo_alt{
-    width: 100%;
-    padding: 0.5em 0 0 2em ;
-  }
 
   .container-inputs{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0.8em 2em 0.8em 2em ;
+    margin: 0.8em 2em 1em 2em ;
     
     .inputContainer{
       display: flex;
       flex-direction: column;
+      padding: 0.5em;
     }
     
     .input-form-names{
@@ -40,7 +42,7 @@
     }
 
     .input-form-image{
-      width: 40%;
+      width: 50%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -50,36 +52,37 @@
       .form-label{
         height: 20%;
       }
+    }
 
-      input[type="file"] {
-        display: none;
+    input[type="file"] {
+      display: none;
+    }
+    .imageButton {
+      height: 20%;
+      display: inline-block;
+      margin: 1em 0 1em 0;
+      i{
+          border: 4px solid #b60b0b;
+          background-color: #e98481;
+          border-radius:10px;
+          color: #fff;
+          padding: 5px 20px 5px 20px;
       }
-      .imageButton {
-        height: 20%;
-        display: inline-block;
-        margin: 1em 0 1em 0;
-        i{
-            border: 4px solid #b60b0b;
-            background-color: #e98481;
-            border-radius:10px;
-            color: #fff;
-            padding: 5px 20px 5px 20px;
+      i:hover{
+        cursor: pointer;
+        background-color: #b60b0b;
+        border: 4px solid #e98481;
         }
-        i:hover{
-          cursor: pointer;
-          background-color: #b60b0b;
-          border: 4px solid #e98481;
-          }
-      }
+    }
 
-      .image-preview{
+    .image-preview{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin: 1em;
+      img{
+        width: 150px;
         height: 100%;
-        display: flex;
-        align-items: center;
-        img{
-          width: 100px;
-          height: 100px;
-        }
       }
     }
 
@@ -106,12 +109,12 @@
     }
 
     .form-label{
-      margin: 0.3em 0 0.3em 0;
+      margin: 0.6em 0 0.6em 0;
       font-weight: bold;
     }
 
     .form-help{
-      margin: 0.3em 0 0.3em 0;
+      margin: 0.5em 0 0.5em 0;
       font-size: 0.8em;
       color: #0000007c;
     }
@@ -121,7 +124,7 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: center;
+      // justify-content: center;
       .form-label-img{
         margin: 0.3em 0 0.3em 0;
         font-weight: bold;
@@ -131,16 +134,10 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        width: 15%;
         margin: 0.5em;
-        .image-preview{
-          width: 100%;
-          img{
-            width: 100px;
-            height: 100px;
-          }
+        width: 100%;
         }
-      }
+      
       .form-help-img{
         width: 100%;
         text-align: center;
@@ -166,24 +163,25 @@
         padding: 0.3em 0.5em 0.2em 0.5em ;
       }
 
-      .button-product{
-        margin-top: 0.5em;
-        width: 100%;
-        text-align: center;
-        .button-save{
-            border: 4px solid #b60b0b;
-            background-color: #e98481;
-            border-radius:10px;
-            color: #fff;
-            padding: 5px 20px 5px 20px;
-        }
-        .button-save:hover{
-          cursor: pointer;
-          background-color: #b60b0b;
-          border: 4px solid #e98481;
-          }
-        
-      }
+      
     }
+  }
+  .button-product{
+    margin-top: 2em;
+    width: 100%;
+    text-align: center;
+    .button-save{
+        border: 4px solid #b60b0b;
+        background-color: #e98481;
+        border-radius:10px;
+        color: #fff;
+        padding: 5px 20px 5px 20px;
+    }
+    .button-save:hover{
+      cursor: pointer;
+      background-color: #b60b0b;
+      border: 4px solid #e98481;
+      }
+    
   }
 }

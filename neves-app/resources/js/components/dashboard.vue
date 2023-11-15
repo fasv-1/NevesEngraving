@@ -2,30 +2,32 @@
   <div id="dashboard">
     <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
     <section id="dash-menu">
-      <!-----------------------Generate the menu home link ---------------------------->
-      <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
-        <div class="dash-logo-cont" v-if="index == 0">
-          <a class="dash-logo" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
-            @click.prevent="principal(index)">
-            <img :src="page.logoPath" :alt="page.logoPath">
-          </a>
-        </div>
-        <!-----------------------Generate the rest of the menu ---------------------------->
-        <div v-else>
-          <a aria-current="page" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
-            @click.prevent="principal(index)">{{ page.link.text }}</a>
-          <h3 @click='toogle(index)'>></h3>
-          <div class="dash-nav-option" :class="{ show: id == index && active }">
-            <ul>
-              <!-----------------------Generate the menu option options ---------------------------->
-              <li v-for="(option, chave) in page.options" :key="chave">
-                <a href="" @click.prevent="opcao(chave, index)">{{ option.info }}</a>
-              </li>
-            </ul>
+      <div class="sticky">
+        <!-----------------------Generate the menu home link ---------------------------->
+        <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
+          <div class="dash-link-cont" v-if="index == 0">
+            <a class="dash-logo" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
+              @click.prevent="principal(index)">
+              <img :src="page.logoPath" :alt="page.logoPath">
+            </a>
+          </div>
+          <!-----------------------Generate the rest of the menu ---------------------------->
+          <div class="dash-link-cont" v-else>
+            <a aria-current="page" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
+              @click.prevent="principal(index)">{{ page.link.text }}</a>
+            <h3 @click='toogle(index)'>></h3>
+            <div class="dash-nav-option" :class="{ show: id == index && active }">
+              <ul>
+                <!-----------------------Generate the menu option options ---------------------------->
+                <li v-for="(option, chave) in page.options" :key="chave">
+                  <a href="" @click.prevent="opcao(chave, index)">{{ option.info }}</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div class="blanck-sapce"></div>
       </div>
-      <div class="blanck-sapce"></div>
     </section>
     <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
     <section id="dash-screen">
@@ -47,9 +49,9 @@
       <!---------------- If the selected pages are the opcional ones  ------------------>
       <div v-else>
         <div class="page" v-if="activeLink == id && selectPage == 1">
-          <add-product :id="activeLink" :title="pages[selectPage].pageTitle" :metaTitle="pages[selectPage].options[activeLink].info"></add-product>
+          <add-product :id="activeLink" :title="pages[selectPage].pageTitle"
+            :metaTitle="pages[selectPage].options[activeLink].info"></add-product>
         </div>
-        <p>{{ pages[selectPage].options[activeLink].content }}</p>
       </div>
     </section>
   </div>
