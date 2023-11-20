@@ -31,6 +31,65 @@ h6{
   font-size: 1.15em;
 }
 
+
+$lfs-blue: #006ac6;
+$lfs-yellow: #d40000;
+$lfs-grey: #75787b;
+
+table{
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 15px;
+    border: 1px solid black;
+    caption {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: $lfs-yellow;
+        text-align: center;
+    }
+    thead {
+        // border: 2px solid $lfs-yellow;
+        // border-bottom: 2px solid $lfs-yellow;
+        th {
+            // text-transform: uppercase;
+            // border: 2px solid $lfs-yellow;
+            text-align: center;
+            padding: 10px;
+            color: $lfs-grey;
+            font-size: 12px;
+            // border: 1px solid #F1F1F1;
+        }
+    }
+    tbody {
+        tr {
+            // border: 1px solid #000;
+            color: #000;
+            td {
+                padding: 10px;
+                text-align: center;
+                // border: 1px solid #000;
+            }
+            th {
+                text-align: center;
+                // border: 1px solid #000;
+            }
+        }
+    }
+    tfoot {
+        color: $lfs-yellow;
+        font-style: italic;
+        border-bottom: 2px solid $lfs-yellow;
+        tr {
+            td {
+                padding: 10px;
+                border: 1px solid #F1F1F1;
+            }
+        }
+    }
+}
+
+
 input[type="text"],
 input[type="number"],
 input[type="checkbox"], select, textarea{

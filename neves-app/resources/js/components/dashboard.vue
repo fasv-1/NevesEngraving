@@ -15,12 +15,12 @@
           <div class="dash-link-cont" v-else>
             <a aria-current="page" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
               @click.prevent="principal(index)">{{ page.link.text }}</a>
-            <h3 @click='toogle(index)'>></h3>
+            <h3 @click.prevent='toogle(index)'>></h3>
             <div class="dash-nav-option" :class="{ show: id == index && active }">
               <ul>
                 <!-----------------------Generate the menu option options ---------------------------->
                 <li v-for="(option, chave) in page.options" :key="chave">
-                  <a href="" @click.prevent="opcao(chave, index)">{{ option.info }}</a>
+                  <a href="" @click.prevent="opcao(option.info, index)">{{ option.info }}</a>
                 </li>
               </ul>
             </div>
@@ -34,6 +34,7 @@
       {{ activeLink }}
       {{ selectPage }}
       {{ activePage }}
+      {{ id }}
 
       <!---------------- If the active page is home ------------------>
       <div v-if="activePage == 0">
@@ -48,10 +49,14 @@
       </div>
       <!---------------- If the selected pages are the opcional ones  ------------------>
       <div v-else>
-        <div class="page" v-if="activeLink == id && selectPage == 1">
-          <add-product :id="activeLink" :title="pages[selectPage].pageTitle"
-            :metaTitle="pages[selectPage].options[activeLink].info"></add-product>
+        <div class="page">
+          <content-component :id="selectPage" :title="pages[selectPage].pageTitle"
+            :metaTitle="activeLink"></content-component>
         </div>
+        <!-- <div class="page" v-if="activeLink == 'Defenições' && selectPage == 1">
+          <add-product :id="activeLink" :title="pages[selectPage].pageTitle"
+            :metaTitle="pages[selectPage].options[1].info"></add-product>
+        </div> -->
       </div>
     </section>
   </div>
@@ -63,8 +68,8 @@ export default {
     return {
       activePage: 0,
       selectPage: '',
-      activeLink: 0,
-      active: true,
+      activeLink: '',
+      active: false,
       id: "",
       pages: [
         {
@@ -94,7 +99,12 @@ export default {
             {
               info: 'Descontos',
               content: 'Conteudo de Descontos'
+            },
+            {
+              info: 'Defenições',
+              content: 'Conteudo de Defenições'
             }
+            
           ],
         },
         {
@@ -179,25 +189,26 @@ export default {
   },
   methods: {
     toogle(c) {
+
+      //if the id have the same value of the index of menu
       if (this.id == c) {
-        this.active = !this.active;
-        this.id = c;
+        this.active = !this.active; //toogle the value of the menu options
+        this.id = c;// give the index value of the arrow correspondent to the menu option for validation later 
       }
+      //if the id have diferent value from the index of menu
       if (this.id != c) {
-        this.active = true;
+        this.active = true; //opens the respective options from the menu clicked
         this.id = c;
       }
-      // console.log(this.id);
-      // console.log(this.active);
     },
     principal(e) {
       this.activePage = e;
       this.selectPage = '';// make the diference from menu options and principals
     },
     opcao(x, y) {
-      this.activeLink = x;
-      this.activePage = x + 1; //para que ao iniciar a pagina passe a validação de ser igual a 0, assim nunca vai ser 0 ao clicar nas opções
-      this.selectPage = y;
+      this.activeLink = x; //gives the name of the option selected
+      this.activePage = this.id; //gives the same value of the arrow clicked to check if the option selected matches 
+      this.selectPage = y;// gives the index value of the option selected 
     }
 
   },
