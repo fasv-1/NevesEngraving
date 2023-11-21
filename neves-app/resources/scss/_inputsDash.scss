@@ -10,6 +10,11 @@
   padding: 1em 0 0 1em ;
 }
 
+.titulo_1{
+  width: 100%;
+  margin: 0.5em
+}
+
 .form-text{
   padding: 0.4em 0.2em 0.4em 0.2em;
   width: 100%;
@@ -17,6 +22,19 @@
 
 .content{
   margin: 1em;
+}
+
+.table{
+  height: 250px;
+  overflow: auto;
+  
+}
+.content_1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  flex-direction: column;
 }
 .productInputContent{
   margin-top: 2em;

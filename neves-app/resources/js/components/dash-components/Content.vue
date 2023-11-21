@@ -1,6 +1,6 @@
 <template>
   <!--Contains all the components for the diferent menus -->
-  <div class="Content">
+  <div class="content">
     <h1 class="titulo">{{ title }}</h1>
     <h2 class="titulo_alt">( {{ metaTitle }} )</h2>
 
