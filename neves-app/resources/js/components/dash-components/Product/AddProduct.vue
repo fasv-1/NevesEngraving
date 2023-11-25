@@ -36,7 +36,6 @@
         <div class="select-options">
           <input-container id="category" titulo='Categoria' help="categoryHelp"
             helpText="Escolha uma categoria para o produto">
-            <a href="" @click.prevent="openCategory()">Adicionar nova categoria</a>
             <select  name="category" id="category" v-model="categoryValue">
               <option v-for="c in categorias" :key="c.id" :value="c.id">{{ c.nome }}</option>
             </select>
@@ -105,23 +104,6 @@
       </div>
     </div>
     <!-- Add Category Modal  -->
-    <modal-component id="addCategory" title="Adicionar Categoria" :openModal="active">
-      <template v-slot:header>
-        <button type="button" class="btn-modal-close" aria-label="Close" @click="openCategory()">X</button>
-      </template>
-      <template v-slot:alerts>
-        <alert-component tipe="success" :details="detailsTransition"
-          v-if="statusTransition == 'adicionado'"></alert-component>
-        <alert-component tipe="danger" :details="detailsTransition" v-if="statusTransition == 'erro'"></alert-component>
-      </template>
-      <template v-slot:content>
-        <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
-          placeholder="Nome da categoria" v-model="category">
-      </template>
-      <template v-slot:footer>
-        <button type="button" class="button-save" @click="saveCategory()">Salvar</button>
-      </template>
-    </modal-component>
   <br>
 </template>
 
@@ -135,7 +117,6 @@ export default {
       urlBase: 'http://127.0.0.1:8000/api/',
       newName: '',
       newMetaName: '',
-      category: '',
       categoryValue: '',
       materialsValue: '',
       customizationValue: '',
@@ -166,7 +147,6 @@ export default {
       //  console.log(this.urlImages);
     },
     deleteImage(del) {
-
       this.images.splice(del, 1);
       this.urlImages.splice(del, 1);
     },
@@ -183,54 +163,6 @@ export default {
           console.log(errors);
         })
     },
-    openCategory() {
-      this.active = !this.active;
-      this.statusTransition = ''
-      this.detailsTransition = ''
-      this.category = ''
-    },
-    saveCategory() {
-      let urlCategory = this.urlBase + 'categoria';
-
-      let formData = new FormData();
-      formData.append('nome', this.category);
-
-      let config = {
-        headers: {
-          'Content-Type': 'x-www-form-urlencoded',
-          'Accept': 'application/json'
-        }
-      }
-      axios.post(urlCategory, formData, config)
-        .then((response) => {
-          this.statusTransition = 'adicionado'
-          this.detailsTransition = {
-            message: 'A categoria ' + response.data.nome + ' foi adicionada com sucesso'
-          }
-        })
-        .catch(errors => {
-          this.statusTransition = 'erro'
-          this.detailsTransition = {
-            message: errors.response.data.message
-          }
-          // console.log(errors.response.data.message)
-        })
-    },
-    // salvar(){
-    //   let urlProduct = this.urlBasePost + 'produto';
-
-    //   let formData = new FormData();
-    //   formData.append('nome', this.newName)
-    //   formData.append('meta-nome', this.newMetaName)
-    //   formData.append('quantidade', this.quantityValue)
-    //   formData.append('descricao', this.description)
-    //   formData.append('valor', this.priceValue)
-    //   formData.append('costumizavel', this.customizationValue)
-    //   formData.append('categoria_id', this.newMetaName)
-    //   formData.append('materia_prima_id', this.newMetaName)
-    //   formData.append('desconto_id', this.newMetaName)
-    //   axios.post(urlProduct, )
-    // }
   },
   mounted(){
     this.loadCategoria()

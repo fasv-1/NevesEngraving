@@ -1,10 +1,12 @@
 <template>
   <div class="inputContainer">
 
-    <label :for="id" class="form-label">{{ titulo }}</label>
+    <div class="form-label">
+    <label :for="id" >{{ titulo }}</label>
+    </div>
     <slot></slot>
 
-    <div :id="help" class="form-help">{{ helpText }}</div>
+    <div :id="help" class="form-help"></div>
   </div>
 </template>
 

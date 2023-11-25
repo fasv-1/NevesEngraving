@@ -1,60 +1,65 @@
 <template>
   <!--Contains all the components for the diferent menus -->
   <div class="productInputContent">
+    <div class="conteiner2">
+      <h3 class="titulo_1">Categorias</h3>
+      <br>
+      <div class="table-container">
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th class="feel"></th>
+                <th>Data de criação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="c in categorias" :key="c.id">
+                <td>{{ c.nome }}</td>
+                <td class="feel"></td>
+                <td>{{ formatData(c.created_at) }}</td>
+                <td class="feel"></td>
+                <td><a href="" @click.prevent="openModal(c.id)">Atualizar</a></td>
+                <modal-component id="newCategory" title="Atualizar Categoria" :openModal="active">
+                  <template v-slot:header>
+                    <button type="button" class="btn-modal-close" aria-label="Close" @click="openModal()">X</button>
+                  </template>
+                  <template v-slot:alerts>
+                    <alert-component tipe="success" :details="detailsTransition"
+                      v-if="statusTransition == 'adicionado'"></alert-component>
+                    <alert-component tipe="danger" :details="detailsTransition"
+                      v-if="statusTransition == 'erro'"></alert-component>
+                  </template>
+                  <template v-slot:content>
+                    <input type="text" id="newCategory" name="newCategory" class="form-text"
+                      aria-describedby="newCategory" placeholder="Nome da categoria" v-model="updateCategory">
+                  </template>
+                  <template v-slot:footer>
+                    <button type="button" class="button-save" @click="update(updateId)">Salvar</button>
+                  </template>
+                </modal-component>
+                <td><a href="" @click.prevent="remove(c.id)">Eliminar</a></td>
 
-    <h3 class="titulo_1">Categorias</h3>
-    <br>
-    <div class="table">
-      <table>
-        <thead>
-          <tr>
-            <th>Categoria</th>
-            <th class="feel"></th>
-            <th>Data de criação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="c in categorias" :key="c.id">
-            <td>{{ c.nome }}</td>
-            <td class="feel"></td>
-            <td>{{ formatData(c.created_at) }}</td>
-            <td class="feel"></td>
-            <td><a href="" @click.prevent="openModal(c.id)">Atualizar</a></td>
-            <modal-component id="newCategory" title="Atualizar Categoria" :openModal="active">
-              <template v-slot:header>
-                <button type="button" class="btn-modal-close" aria-label="Close" @click="openModal()">X</button>
-              </template>
-              <template v-slot:alerts>
-                <alert-component tipe="success" :details="detailsTransition"
-                  v-if="statusTransition == 'adicionado'"></alert-component>
-                <alert-component tipe="danger" :details="detailsTransition"
-                  v-if="statusTransition == 'erro'"></alert-component>
-              </template>
-              <template v-slot:content>
-                <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
-                  placeholder="Nome da categoria" v-model="updateCategory">
-              </template>
-              <template v-slot:footer>
-                <button type="button" class="button-save" @click="update(updateId)">Salvar</button>
-              </template>
-            </modal-component>
-            <td><a href="" @click.prevent="remove(c.id)">Eliminar</a></td>
-
-          </tr>
-        </tbody>
-      </table>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content_1">
+        <input-container id="newCategory" titulo='Nova Categoria' help="categoryHelp"
+          helpText="Insira o nome da categoria">
+          <alert-component tipe="success" :details="detailsTransition"
+            v-if="statusTransition == 'adicionado'"></alert-component>
+          <alert-component tipe="danger" :details="detailsTransition" v-if="statusTransition == 'erro'"></alert-component>
+          <div class="inputSlot">
+            <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
+              placeholder="Nome da Categoria" v-model="newCategory">
+          </div>
+        </input-container>
+        <button class="button-save" @click="saveCategory()">Adicionar</button>
+      </div>
     </div>
-    <div class="content_1">
-      <input-container id="newCategory" titulo='Nova Categoria' help="categoryHelp" helpText="Insira o nome da categoria">
-        <alert-component tipe="success" :details="detailsTransition"
-          v-if="statusTransition == 'adicionado'"></alert-component>
-        <alert-component tipe="danger" :details="detailsTransition" v-if="statusTransition == 'erro'"></alert-component>
-        <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
-          placeholder="Nome da Categoria" v-model="newCategory">
-      </input-container>
-      <button class="button-save" @click="saveCategory()">Adicionar</button>
-    </div>
-
   </div>
 </template>
 

@@ -5,21 +5,26 @@
       <div class="sticky">
         <!-----------------------Generate the menu home link ---------------------------->
         <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
-          <div class="dash-link-cont" v-if="index == 0">
+          <div class="dash-cont-logo" v-if="index == 0">
+
             <a class="dash-logo" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
               @click.prevent="principal(index)">
               <img :src="page.logoPath" :alt="page.logoPath">
+              <h6>Neves Engraving</h6>
             </a>
           </div>
           <!-----------------------Generate the rest of the menu ---------------------------->
           <div class="dash-link-cont" v-else>
-            <a aria-current="page" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
-              @click.prevent="principal(index)">{{ page.link.text }}</a>
-            <h3 @click.prevent='toogle(index)'>></h3>
+            <div class="link-cont" :class="activePage == index ? 'active' : ''">
+              <a aria-current="page" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
+                @click.prevent="principal(index)">{{ page.link.text }}</a>
+              <h3 class="menuIcon" @click.prevent='toogle(index)' >
+                <img :src="active == true && id == index ? 'storage/images/Icons/LessIcon.png' : 'storage/images/Icons/PlusIcon.png'"></h3>
+            </div>
             <div class="dash-nav-option" :class="{ show: id == index && active }">
               <ul>
                 <!-----------------------Generate the menu option options ---------------------------->
-                <li v-for="(option, chave) in page.options" :key="chave">
+                <li v-for="(option, chave) in page.options" :key="chave" :class="activeLink == option.info ? 'linkActive':''">
                   <a href="" @click.prevent="opcao(option.info, index)">{{ option.info }}</a>
                 </li>
               </ul>
@@ -31,10 +36,10 @@
     </section>
     <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
     <section id="dash-screen">
-      {{ activeLink }}
-      {{ selectPage }}
+      <!-- {{ activeLink }}
+      {{ selectPage }} 
       {{ activePage }}
-      {{ id }}
+      {{ active }}         -->
 
       <!---------------- If the active page is home ------------------>
       <div v-if="activePage == 0">
@@ -76,7 +81,7 @@ export default {
           link: { text: 'Home', url: 'dashboard.html' },
           pageTitle: 'Dashboard',
           content: 'Conteúdo de Dashboard',
-          logoPath: "storage/images/logos/LogoVetorizado(alt).png",
+          logoPath: "storage/images/logos/LogoVetorizadoFundBranco.png",
           alt: "Logo da marca"
         },
         {
@@ -104,7 +109,7 @@ export default {
               info: 'Defenições',
               content: 'Conteudo de Defenições'
             }
-            
+
           ],
         },
         {
@@ -204,6 +209,7 @@ export default {
     principal(e) {
       this.activePage = e;
       this.selectPage = '';// make the diference from menu options and principals
+      this.activeLink= '';
     },
     opcao(x, y) {
       this.activeLink = x; //gives the name of the option selected

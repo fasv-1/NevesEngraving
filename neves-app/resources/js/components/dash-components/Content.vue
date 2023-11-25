@@ -1,8 +1,10 @@
 <template>
   <!--Contains all the components for the diferent menus -->
   <div class="content">
-    <h1 class="titulo">{{ title }}</h1>
-    <h2 class="titulo_alt">( {{ metaTitle }} )</h2>
+    <div class="title-cont">
+      <h1 class="titulo">{{ title }}</h1>
+      <h2 class="titulo_alt">( {{ metaTitle }} )</h2>
+    </div>
 
     <add-product v-if="id == 1 && metaTitle == 'Adicionar'"></add-product>
     <defenitions-product v-if="id == 1 && metaTitle == 'Defenições'"></defenitions-product>
