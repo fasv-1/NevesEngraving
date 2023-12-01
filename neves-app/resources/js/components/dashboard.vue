@@ -3,7 +3,7 @@
     <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
     <section id="dash-menu">
       <div class="sticky">
-        <!-----------------------Generate the menu home link ---------------------------->
+        <!-----------------------Generate the menu home (logo) link ---------------------------->
         <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
           <div class="dash-cont-logo" v-if="index == 0">
 
@@ -24,7 +24,7 @@
             <div class="dash-nav-option" :class="{ show: id == index && active }">
               <ul>
                 <!-----------------------Generate the menu option options ---------------------------->
-                <li v-for="(option, chave) in page.options" :key="chave" :class="activeLink == option.info ? 'linkActive':''">
+                <li v-for="(option, chave) in page.options" :key="chave" :class="activeLink == option.info && activePage == index ? 'linkActive':''">
                   <a href="" @click.prevent="opcao(option.info, index)">{{ option.info }}</a>
                 </li>
               </ul>
@@ -37,31 +37,31 @@
     <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
     <section id="dash-screen">
       <!-- {{ activeLink }}
-      {{ selectPage }} 
-      {{ activePage }}
-      {{ active }}         -->
+      {{ selectedLink }}  -->
+      <!-- {{ activePage }} -->
+      <!-- {{ active }} -->
 
       <!---------------- If the active page is home ------------------>
       <div v-if="activePage == 0">
-        <h1 class="titulo">{{ pages[activePage].pageTitle }}</h1>
-        <p>{{ pages[activePage].content }}</p>
+        <div class="page">
+          <content-component :id="activePage" :title="pages[activePage].pageTitle"
+            :metaTitle="pages[activePage].content"></content-component>
+        </div>
       </div>
 
       <!---------------- If the selected pages are the principal ones  ------------------>
-      <div v-else-if="activePage != 0 && selectPage == ''">
-        <h1 class="titulo">{{ pages[activePage].pageTitle }}</h1>
-        <p>{{ pages[activePage].content }}</p>
+      <div v-else-if="activePage != 0 && selectedLink == ''">
+        <div class="page">
+          <content-component :id="activePage" :title="pages[activePage].pageTitle"
+            :metaTitle="pages[activePage].content"></content-component>
+        </div>
       </div>
-      <!---------------- If the selected pages are the opcional ones  ------------------>
+      <!---------------- If the selected pages are in the opcion menu  ------------------>
       <div v-else>
         <div class="page">
-          <content-component :id="selectPage" :title="pages[selectPage].pageTitle"
+          <content-component :id="selectedLink" :title="pages[selectedLink].pageTitle"
             :metaTitle="activeLink"></content-component>
         </div>
-        <!-- <div class="page" v-if="activeLink == 'Defenições' && selectPage == 1">
-          <add-product :id="activeLink" :title="pages[selectPage].pageTitle"
-            :metaTitle="pages[selectPage].options[1].info"></add-product>
-        </div> -->
       </div>
     </section>
   </div>
@@ -71,11 +71,11 @@
 export default {
   data() {
     return {
-      activePage: 0,
-      selectPage: '',
-      activeLink: '',
-      active: false,
-      id: "",
+      activePage: 0, //set the value of the principal pages
+      selectedLink: '', //set the index value of the principal pages to link the option selected 
+      activeLink: '', //the name of the option selected
+      active: false, //set the style to highlight the principal menu selected
+      id: "", // for validations
       pages: [
         {
           link: { text: 'Home', url: 'dashboard.html' },
@@ -96,10 +96,6 @@ export default {
             {
               info: 'Adicionar',
               content: 'Conteudo de Adicionar'
-            },
-            {
-              info: 'Eliminados',
-              content: 'Conteudo de Eliminados'
             },
             {
               info: 'Descontos',
@@ -145,7 +141,7 @@ export default {
               content: 'Conteudo de Lucros'
             },
             {
-              info: 'Pedidos',
+              info: 'Encomendas',
               content: 'Conteudo de Pedidos'
             },
             {
@@ -197,7 +193,7 @@ export default {
 
       //if the id have the same value of the index of menu
       if (this.id == c) {
-        this.active = !this.active; //toogle the value of the menu options
+        this.active = !this.active; //toogle the menu options
         this.id = c;// give the index value of the arrow correspondent to the menu option for validation later 
       }
       //if the id have diferent value from the index of menu
@@ -207,14 +203,14 @@ export default {
       }
     },
     principal(e) {
-      this.activePage = e;
-      this.selectPage = '';// make the diference from menu options and principals
-      this.activeLink= '';
+      this.activePage = e;//Sets the active page value from the index of the link clicked
+      this.selectedLink = '';// make the diference from menu options and principals
+      this.activeLink= '';// sets the activeLink value to null to remove the style from the option
     },
     opcao(x, y) {
       this.activeLink = x; //gives the name of the option selected
       this.activePage = this.id; //gives the same value of the arrow clicked to check if the option selected matches 
-      this.selectPage = y;// gives the index value of the option selected 
+      this.selectedLink = y;// gives the index value of the option selected to compare with the menu open
     }
 
   },

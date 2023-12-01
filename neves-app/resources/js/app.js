@@ -31,5 +31,8 @@ app.component('modal-component', Modal);
 
 import Alert from './components/Alert.vue';
 app.component('alert-component', Alert);
+
+import Table from './components/dash-components/Table.vue';
+app.component('table-component', Table);
   
 app.mount("#app");
