@@ -1,16 +1,30 @@
 import './bootstrap';
 
+//----------------------Vue-----------------------------
+
 import { createApp } from 'vue';
 
 
 
+//-----------------Vuex----------------------------------------------------------------
 
+import { createStore } from 'vuex'
+
+const store = createStore({
+  state() {
+    return {
+      item: {},
+      // transacao:{ status:'', menssagem:'' }
+    }
+  }
+})
+
+//-------------------------Components-----------------------------------------
 const app = createApp({});
 
 import example from './components/example.vue';
 app.component('example', example);
 
-//--------------------------DASHBOARD-----------------------------------------
 import Dashboard from './components/Dashboard.vue';
 app.component('dashboard', Dashboard);
 
@@ -19,6 +33,9 @@ app.component('content-component', Content);
 
 import AddProduct from './components/dash-components/Product/AddProduct.vue';
 app.component('add-product', AddProduct);
+
+import DescProduct from './components/dash-components/Product/DescProduct.vue';
+app.component('desconto-product', DescProduct);
 
 import DefProduct from './components/dash-components/Product/DefProduct.vue';
 app.component('defenitions-product', DefProduct);
@@ -35,4 +52,6 @@ app.component('alert-component', Alert);
 import Table from './components/dash-components/Table.vue';
 app.component('table-component', Table);
   
-app.mount("#app");
+app.use(store)
+app.mount('#app');
+

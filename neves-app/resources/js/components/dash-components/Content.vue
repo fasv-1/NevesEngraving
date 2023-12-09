@@ -8,6 +8,7 @@
 
     <add-product v-if="id == 1 && metaTitle == 'Adicionar'"></add-product>
     <defenitions-product v-if="id == 1 && metaTitle == 'Defenições'"></defenitions-product>
+    <desconto-product v-if="id == 1 && metaTitle == 'Descontos'"></desconto-product>
   </div>
 </template>
 

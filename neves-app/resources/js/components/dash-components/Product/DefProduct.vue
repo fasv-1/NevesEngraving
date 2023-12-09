@@ -5,52 +5,37 @@
     <!------------------------ ADD CATEGORY AREA --------------------------------->
     <div class="conteiner2">
       <h3 class="titulo_1">Categorias</h3>
-
       <!--Form to add new category-->
-      <div class="content_1">
-        <input-container id="newCategory" titulo='Nova Categoria' help="categoryHelp"
-          helpText="Insira o nome da categoria">
-          <alert-component tipe="success" :details="detailsTransition"
-            v-if="statusTransition == 'adicionado'"></alert-component>
-          <alert-component tipe="danger" :details="detailsTransition" v-if="statusTransition == 'erro'"></alert-component>
+      <div class="inputBox1">
+        <input-container titulo='Nova Categoria' help="categoryHelp" helpText="Insira o nome da categoria">
+          <alert-component tipe="danger" :details="detailsTransition"
+            v-if="statusTransition == 'categoria-erro'"></alert-component>
           <div class="inputSlot">
-            <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
+            <input type="text" name="newCategory" class="form-text" aria-describedby="newCategory"
               placeholder="Nome da Categoria" v-model="newCategory">
           </div>
         </input-container>
         <button class="button-save" @click="save('categoria')">Adicionar</button>
       </div>
 
-      <!--Table to show the categorys-->
-      <table-component heading1='nome' heading2='data_criação'>
-        <tr v-for="c in categorias" :key="c.id">
-          <td>{{ c.nome }}</td>
-          <td class="feel"></td>
-          <td>{{ formatData(c.created_at) }}</td>
-          <td class="feel"></td>
-          <td><a href="" @click.prevent="openModal(c.id, 'categoria')">Atualizar</a></td>
-          <modal-component v-if="modalActive == 'categoria'" id="newCategory" title="Atualizar Categoria" :openModal="active">
-            <template v-slot:header>
-              <button type="button" class="btn-modal-close" aria-label="Close" @click="openModal()">X</button>
-            </template>
-            <template v-slot:alerts>
-              <alert-component tipe="success" :details="detailsTransition"
-                v-if="statusTransition == 'atualizado'"></alert-component>
-              <alert-component tipe="danger" :details="detailsTransition"
-                v-if="statusTransition == 'erro'"></alert-component>
-            </template>
-            <template v-slot:content>
-              <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
-                placeholder="Nome da categoria" v-model="updateCategory">
-            </template>
-            <template v-slot:footer>
-              <button type="button" class="button-save" @click="update(updateId, 'categoria')">Salvar</button>
-            </template>
-          </modal-component>
-          <td><a href="" @click.prevent="remove(c.id, 'categoria')">Eliminar</a></td>
-        </tr>
+      <!-- Start table to show the categorys-->
+      <table-component 
+      :data="categorias.data" 
+      :view = "{visible: true , dataTarget:'#modalCategoriaView'}" 
+      :update="false"           
+      :remove="true"
+      :titles="{
+        id: { title: 'ID', type: 'text' },
+        nome: { title: 'Nome', type: 'text' },
+        created_at: { title: 'Data de criação', type: 'data' },
+      }">
       </table-component>
-
+      <!-- End table to show the categorys-->
+      <!-- Start modal to update categorys-->
+      <modal-component id="modalCategoriaView" title="Atualizar categorias">
+        <template v-slot:content>{{ $store.state.item }}</template>
+      </modal-component>
+      <!-- End modal to update categorys-->
     </div>
 
     <!------------------------ ADD MATERIAL AREA --------------------------------->
@@ -58,14 +43,12 @@
       <h3 class="titulo_1">Materiais</h3>
 
       <!--Form to add new materials-->
-      <div class="content_1">
-        <input-container id="newMaterial" titulo='Nova Matéria-prima' help="materialHelp"
-          helpText="Insira o nome da matéria-prima">
-          <alert-component tipe="success" :details="detailsTransition"
-            v-if="statusTransition == 'adicionado'"></alert-component>
-          <alert-component tipe="danger" :details="detailsTransition" v-if="statusTransition == 'erro'"></alert-component>
+      <div class="inputBox1">
+        <input-container titulo='Nova Matéria-prima' help="materialHelp" helpText="Insira o nome da matéria-prima">
+          <alert-component tipe="danger" :details="detailsTransition"
+            v-if="statusTransition == 'materia-erro'"></alert-component>
           <div class="inputSlot">
-            <input type="text" id="newMaterial" name="newMaterial" class="form-text" aria-describedby="newMaterial"
+            <input type="text" name="newMaterial" class="form-text" aria-describedby="newMaterial"
               placeholder="Nome da Matéria-prima" v-model="newMaterial">
           </div>
         </input-container>
@@ -73,34 +56,17 @@
       </div>
 
       <!--Table to show the materials-->
-      <table-component heading1='nome' heading2='data_criação'>
-        <tr v-for="c in materiais" :key="c.id">
-          <td>{{ c.nome }}</td>
-          <td class="feel"></td>
-          <td>{{ formatData(c.created_at) }}</td>
-          <td class="feel"></td>
-          <td><a href="" @click.prevent="openModal(c.id, 'materia')">Atualizar</a></td>
-          <modal-component v-if="modalActive == 'materia'" id="newMaterial" title="Atualizar Matéria-prima" :openModal="active">
-            <template v-slot:header>
-              <button type="button" class="btn-modal-close" aria-label="Close" @click="openModal()">X</button>
-            </template>
-            <template v-slot:alerts> <!--REFAZER ALERTAS PARA NÃO APARECEREM EM TODAS AS SLOTS-->
-              <alert-component tipe="success" :details="detailsTransition"
-                v-if="statusTransition == 'atualizado'"></alert-component>
-              <alert-component tipe="danger" :details="detailsTransition"
-                v-if="statusTransition == 'erro'"></alert-component>
-            </template>
-            <template v-slot:content>
-              <input type="text" id="newMaterial" name="newMaterial" class="form-text" aria-describedby="newMaterial"
-                placeholder="Nome da Matéria-prima" v-model="updateMaterial">
-            </template>
-            <template v-slot:footer>
-              <button type="button" class="button-save" @click="update(updateId, 'materia')">Salvar</button>
-            </template>
-          </modal-component>
-          <td><a href="" @click.prevent="remove(c.id, 'materia')">Eliminar</a></td>
-        </tr>
-      </table-component>
+      <!-- <table-component 
+      :data="materiais.data" 
+      :view = 'false'
+      :update="true" 
+      :remove="true"
+      :titles="{
+        id: { title: 'ID', type: 'text' },
+        nome: { title: 'Nome', type: 'text' },
+        created_at: { title: 'Data de criação', type: 'data' },
+      }">
+      </table-component> -->
 
     </div>
   </div>
@@ -111,21 +77,22 @@ export default {
   data() {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
-      categorias: [],
+      categorias: { data:[] },
       newCategory: '',
       updateCategory: '',
       active: false,
       statusTransition: '',
       detailsTransition: '',
       updateId: '',
-      materiais: [],
+      materiais: { data:[] },
       newMaterial: '',
       updateMaterial: '',
       modalActive: '',
+      updMaterialId: '',
     }
   },
   methods: {
-    openModal(id, i) { //open the modal to update 
+    /*openModal(id, i) { //open the modal to update 
       this.active = !this.active;
       
       if (i) {
@@ -135,7 +102,7 @@ export default {
       if (id) { //sets the id to update
         this.updateId = id;
       }
-    },
+    },*/
     loadTableData() { //loads the category data to the table
       let urlCategory = this.urlBase + 'categoria';
       let urlMaterial = this.urlBase + 'materia';
@@ -143,7 +110,7 @@ export default {
       if (urlCategory) {
         axios.get(urlCategory)
           .then(response => {
-            this.categorias = response.data
+            this.categorias.data = response.data
           })
           .catch(errors => {
             console.log(errors);
@@ -153,7 +120,7 @@ export default {
       if (urlMaterial) {
         axios.get(urlMaterial)
           .then(response => {
-            this.materiais = response.data
+            this.materiais.data = response.data
           })
           .catch(errors => {
             console.log(errors);
@@ -185,20 +152,22 @@ export default {
       }
       axios.post(url, formData, config)
         .then((response) => {
-          this.statusTransition = 'adicionado'
+          this.statusTransition = response.data.nome + 'adicionado'
           this.detailsTransition = {
             message: 'A ' + c + ' ' + response.data.nome + ' foi adicionada com sucesso'
           }
+          alert('A ' + c + ' ' + response.data.nome + ' foi adicionada com sucesso')
           this.loadTableData()
           this.newMaterial = ""
           this.newCategory = ""
         })
         .catch(errors => {
-          this.statusTransition = 'erro'
+          this.statusTransition = errors.response.config.url.split('/')[4] + '-erro'
           this.detailsTransition = {
             message: errors.response.data.message
           }
-          // console.log(errors.response.data.message)
+
+          // console.log(errors.response.config.url.split('/'))
         })
 
 
@@ -226,6 +195,10 @@ export default {
         })
 
     },
+    idToUpdate(x) {
+      this.updateId = x;
+    },
+
     update(u, n) { //update either the category or material
       let formData = new FormData();
       formData.append('_method', 'patch')
@@ -252,18 +225,18 @@ export default {
       axios.post(url, formData, config)
         .then(response => {
           console.log('atualizado', response)
-          this.statusTransition = 'atualizado'
+          this.statusTransition = response.data.nome + 'atualizado'
           this.detailsTransition = {
-            message: 'A '+ n + ' ' + response.data.nome + ' foi atualizada com sucesso'
+            message: 'A ' + n + ' ' + response.data.nome + ' foi atualizada com sucesso'
           }
           this.loadTableData()
-          this.openModal()
-          alert('A '+ n + ' ' + response.data.nome + ' foi atualizada com sucesso')
-          this.updateCategory = "";
+          alert('A ' + n + ' ' + response.data.nome + ' foi atualizada com sucesso')
+          this.updateCategory = ""
+          history.back()
         })
         .catch(errors => {
           console.log('erro de atualização', errors.response)
-          this.statusTransition = 'erro'
+          this.statusTransition = errors.response.config.url.split('/')[4] + '-erroAtualizacao'
           this.detailsTransition = {
             message: errors.response.data.message
           }
