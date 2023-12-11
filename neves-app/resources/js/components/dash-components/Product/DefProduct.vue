@@ -2,72 +2,170 @@
   <!-- Product Defenitons Page  -->
   <div class="productInputContent">
 
-    <!------------------------ ADD CATEGORY AREA --------------------------------->
+    <!------------------------ CATEGORY AREA --------------------------------->
     <div class="conteiner2">
       <h3 class="titulo_1">Categorias</h3>
-      <!--Form to add new category-->
-      <div class="inputBox1">
-        <input-container titulo='Nova Categoria' help="categoryHelp" helpText="Insira o nome da categoria">
-          <alert-component tipe="danger" :details="detailsTransition"
-            v-if="statusTransition == 'categoria-erro'"></alert-component>
-          <div class="inputSlot">
-            <input type="text" name="newCategory" class="form-text" aria-describedby="newCategory"
-              placeholder="Nome da Categoria" v-model="newCategory">
-          </div>
-        </input-container>
-        <button class="button-save" @click="save('categoria')">Adicionar</button>
-      </div>
+
+      <a href="#modalCategoriaAdd">Adicionar categoria +</a>
+      <!--Modal to add new category-->
+      <modal-component id="modalCategoriaAdd" title="Adicionar uma categoria">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+          <alert-component tipe="success" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'added'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="addCategory" title="Categoria" help="addCategory"
+            helpText="Nome da Categoria">
+            <input type="text" name="addCategory" aria-describedby="addCategory"
+               v-model="newCategory">
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button class="button-save" @click="save('categoria')">Adicionar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component> 
 
       <!-- Start table to show the categorys-->
-      <table-component 
-      :data="categorias.data" 
-      :view = "{visible: true , dataTarget:'#modalCategoriaView'}" 
-      :update="false"           
-      :remove="true"
-      :titles="{
-        id: { title: 'ID', type: 'text' },
-        nome: { title: 'Nome', type: 'text' },
-        created_at: { title: 'Data de criação', type: 'data' },
-      }">
+      <table-component :data="categorias.data" :view="{ visible: false, dataTarget: '#modalCategoriaView' }"
+        :update="{ visible: true, dataTarget: '#modalCategoriaUpdate' }"
+        :remove="{ visible: true, dataTarget: '#modalCategoriaRemove' }" :titles="{
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
       </table-component>
       <!-- End table to show the categorys-->
+
+      <!-- Start modal to remove categorys-->
+      <modal-component id="modalCategoriaRemove" title="Remover categoria">
+
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="removeCatergory" title="Tem a certeza que quer remover esta categoria?">
+            <input type="text" name="removeCatergory" aria-describedby="removeCategory"
+              :value="$store.state.item.nome" disabled>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button @click="remove($store.state.item.id, 'categoria')">Remover</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+      </modal-component>
+      <!-- End modal to remove categorys-->
+
       <!-- Start modal to update categorys-->
-      <modal-component id="modalCategoriaView" title="Atualizar categorias">
-        <template v-slot:content>{{ $store.state.item }}</template>
+      <modal-component id="modalCategoriaUpdate" title="Atualizar categoria">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="updateCategory" title="Atualizar Categoria" help="UpdateCategory"
+            helpText="Novo nome da Categoria">
+            <input type="text" name="updateCategory" aria-describedby="updateCategory"
+              :placeholder="$store.state.item.nome" v-model="updateCategory">
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button @click="update($store.state.item.id, 'categoria')">Atualizar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
       </modal-component>
       <!-- End modal to update categorys-->
     </div>
 
-    <!------------------------ ADD MATERIAL AREA --------------------------------->
+    <!------------------------ MATERIAL AREA --------------------------------->
+    
     <div class="conteiner2">
-      <h3 class="titulo_1">Materiais</h3>
+      <h3 class="titulo_1">Matéria-prima</h3>
+      <a href="#modalMaterialAdd">Adicionar categoria +</a>
+      <!--Modal to add new category-->
+      <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+          <alert-component tipe="success" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'added'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="addMaterial" title="Matéria-prima" help="addMaterial"
+            helpText="Nome da matéria-prima">
+            <input type="text" name="addMaterial" aria-describedby="addMaterial"
+               v-model="newMaterial">
+          </input-container>
+        </template>
 
-      <!--Form to add new materials-->
-      <div class="inputBox1">
-        <input-container titulo='Nova Matéria-prima' help="materialHelp" helpText="Insira o nome da matéria-prima">
-          <alert-component tipe="danger" :details="detailsTransition"
-            v-if="statusTransition == 'materia-erro'"></alert-component>
-          <div class="inputSlot">
-            <input type="text" name="newMaterial" class="form-text" aria-describedby="newMaterial"
-              placeholder="Nome da Matéria-prima" v-model="newMaterial">
-          </div>
-        </input-container>
-        <button class="button-save" @click="save('materia')">Adicionar</button>
-      </div>
+        <template v-slot:footer>
+          <button class="button-save" @click="save('materia')">Adicionar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
 
-      <!--Table to show the materials-->
-      <!-- <table-component 
-      :data="materiais.data" 
-      :view = 'false'
-      :update="true" 
-      :remove="true"
-      :titles="{
-        id: { title: 'ID', type: 'text' },
-        nome: { title: 'Nome', type: 'text' },
-        created_at: { title: 'Data de criação', type: 'data' },
-      }">
-      </table-component> -->
+      </modal-component> 
 
+      <!-- Start table to show the categorys-->
+      <table-component :data="materiais.data" :view="{ visible: false, dataTarget: '#modalMaterialView' }"
+        :update="{ visible: true, dataTarget: '#modalMaterialUpdate' }"
+        :remove="{ visible: true, dataTarget: '#modalMaterialRemove' }" :titles="{
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
+      </table-component>
+      <!-- End table to show the categorys-->
+
+      <!-- Start modal to remove categorys-->
+      <modal-component id="modalMaterialRemove" title="Remover matéria-prima">
+
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="removeMaterial" title="Tem a certeza que quer remover esta matéria-prima?">
+            <input type="text" name="removeMaterial" aria-describedby="removeMaterial"
+              :value="$store.state.item.nome" disabled>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button @click="remove($store.state.item.id, 'materia')">Remover</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+      </modal-component>
+      <!-- End modal to remove categorys-->
+
+      <!-- Start modal to update categorys-->
+      <modal-component id="modalMaterialUpdate" title="Atualizar matéria-prima">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="updateMaterial" title="Atualizar matéria-prima" help="updateMaterial"
+            helpText="Novo nome da matéria-prima">
+            <input type="text" name="updateMaterial" aria-describedby="updateMaterial"
+              :placeholder="$store.state.item.nome" v-model="updateMaterial">
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button @click="update($store.state.item.id, 'materia')">Atualizar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component>
+      <!-- End modal to update categorys-->
     </div>
   </div>
 </template>
@@ -77,32 +175,18 @@ export default {
   data() {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
-      categorias: { data:[] },
+      categorias: { data: [] },
       newCategory: '',
       updateCategory: '',
       active: false,
       statusTransition: '',
       detailsTransition: '',
-      updateId: '',
-      materiais: { data:[] },
+      materiais: { data: [] },
       newMaterial: '',
       updateMaterial: '',
-      modalActive: '',
-      updMaterialId: '',
     }
   },
   methods: {
-    /*openModal(id, i) { //open the modal to update 
-      this.active = !this.active;
-      
-      if (i) {
-        this.modalActive = i;
-      }
-
-      if (id) { //sets the id to update
-        this.updateId = id;
-      }
-    },*/
     loadTableData() { //loads the category data to the table
       let urlCategory = this.urlBase + 'categoria';
       let urlMaterial = this.urlBase + 'materia';
@@ -127,11 +211,6 @@ export default {
           })
       }
     },
-    formatData(d) { //splits the data from the hours
-      d = d.split('T')
-      d = d[0]
-      return d;
-    },
     save(c) { //saves the new values (category and material)
       let url = this.urlBase + c;
 
@@ -152,53 +231,43 @@ export default {
       }
       axios.post(url, formData, config)
         .then((response) => {
-          this.statusTransition = response.data.nome + 'adicionado'
-          this.detailsTransition = {
-            message: 'A ' + c + ' ' + response.data.nome + ' foi adicionada com sucesso'
-          }
-          alert('A ' + c + ' ' + response.data.nome + ' foi adicionada com sucesso')
+          this.$store.state.transaction.status = 'added'
+          this.$store.state.transaction.message = response.data.msg
+          alert(response.data.msg)
           this.loadTableData()
+          history.back()
           this.newMaterial = ""
           this.newCategory = ""
         })
         .catch(errors => {
-          this.statusTransition = errors.response.config.url.split('/')[4] + '-erro'
-          this.detailsTransition = {
-            message: errors.response.data.message
-          }
-
-          // console.log(errors.response.config.url.split('/'))
+          this.$store.state.transaction.status = 'error-add'
+          this.$store.state.transaction.message = errors.response.data.message
         })
 
 
     },
     remove(r, n) { //removes the data (category and material)
-      let confirmacao = confirm('Tem a certeza que deseja remover este registo?')
-      if (!confirmacao) {
-        return false
-      }
+      
       let url = this.urlBase + n + '/' + r
-      console.log(url)
 
       let formData = new FormData();
       formData.append('_method', 'delete')
 
-
-
       axios.post(url, formData)
         .then(response => {
-          alert(response.data);
+          this.$store.state.transaction.status = 'removed'
+          this.$store.state.transaction.message = response.data.msg
+          alert(response.data.msg)
           this.loadTableData()
+          history.back()
         })
         .catch(errors => {
-          alert(errors.response.data.message);
+          console.log(errors.response.data)
+          this.$store.state.transaction.status = 'error-remove'
+          this.$store.state.transaction.message = errors.response.data.message
         })
 
     },
-    idToUpdate(x) {
-      this.updateId = x;
-    },
-
     update(u, n) { //update either the category or material
       let formData = new FormData();
       formData.append('_method', 'patch')
@@ -213,7 +282,7 @@ export default {
 
       let url = this.urlBase + n + '/' + u
 
-      console.log(url)
+      // console.log(url)
 
       let config = {
         headers: {
@@ -224,22 +293,21 @@ export default {
 
       axios.post(url, formData, config)
         .then(response => {
-          console.log('atualizado', response)
-          this.statusTransition = response.data.nome + 'atualizado'
-          this.detailsTransition = {
-            message: 'A ' + n + ' ' + response.data.nome + ' foi atualizada com sucesso'
-          }
+
+          this.$store.state.transaction.status = 'updated'
+          this.$store.state.transaction.message = response.data.msg
           this.loadTableData()
-          alert('A ' + n + ' ' + response.data.nome + ' foi atualizada com sucesso')
-          this.updateCategory = ""
           history.back()
+          alert(response.data.msg)
+          this.updateCategory = ""
+          this.updateMaterial = ""
+
         })
         .catch(errors => {
-          console.log('erro de atualização', errors.response)
-          this.statusTransition = errors.response.config.url.split('/')[4] + '-erroAtualizacao'
-          this.detailsTransition = {
-            message: errors.response.data.message
-          }
+          console.log('erro de atualização', errors.response.data)
+          this.$store.state.transaction.status = 'error-update'
+          this.$store.state.transaction.message = errors.response.data
+          this.updateCategory = ""
         })
     },
   },

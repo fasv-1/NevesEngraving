@@ -6,7 +6,7 @@
         <thead>
           <tr>
             <th scope="col" v-for='t, index in titles' :key="index">{{ t.title }}</th>
-            <th v-if=" view.visible || update || remove ">...</th>
+            <th v-if=" view.visible || update.visible || remove.visible "></th>
           </tr>
         </thead>
         <tbody>
@@ -15,15 +15,15 @@
             <!--Return the value of the table correspondent to the title and separates the data type to treatmant -->
             <td v-for="value, indexValue in obj" :key="indexValue"> 
               <span v-if="titles[indexValue].type == 'text'">{{ value }}</span>
-              <span v-if="titles[indexValue].type == 'data'">... {{ value }}</span>
+              <span v-if="titles[indexValue].type == 'date'"> {{ $filters.formatDateTime(value) }}</span>
               <span v-if="titles[indexValue].type == 'image'">
               <img :src="'/storage/'+value" alt="imagem">
               </span>
             </td>
             <td v-if=" view.visible || update || remove ">
-              <button class="" v-if="view.visible" @click="setState(obj)"><a :href="view.dataTarget">Visualizar</a></button>
-              <button class="" v-if="update"><a href="#modalAtualizar">Atualizar</a></button>
-              <button class="" v-if="remove"><a href="#modalVisualizar">Remover</a></button>
+              <a :href="view.dataTarget"><button class="" v-if="view.visible" @click="setState(obj)">Visualizar</button></a>
+              <a :href="update.dataTarget"><button class="" v-if="update.visible" @click="setState(obj)">Atualizar</button></a>
+              <a :href="remove.dataTarget"><button class="" v-if="remove.visible" @click="setState(obj)">Remover</button></a>
             </td>
           </tr>
         </tbody>
@@ -38,6 +38,7 @@ export default {
   methods:{
     setState(obj){ //store the object cliked in a vuex global variable
       this.$store.state.item = obj;
+      this.$store.state.transaction = {};
     }
   },
   computed: {

@@ -18,8 +18,8 @@ class categoria extends Model
     
     public function feedback(){
         return [
-            'required' => 'o campo :attribute é obrigatório',
-            'nome.unique' => 'esta categoria já existe'
+            'required' => 'O campo :attribute é obrigatório',
+            'nome.unique' => 'Esta categoria já existe'
         ];
     }
 }

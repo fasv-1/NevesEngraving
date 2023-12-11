@@ -39,7 +39,7 @@ class DescontoController extends Controller
 
         $discount = $this->desconto->create($request->all());
 
-        return $discount;
+        return ['msg'=>'Desconto adicionado com sucesso'];
     }
 
     /**
@@ -90,7 +90,7 @@ class DescontoController extends Controller
 
         $discount->update($request->all());
 
-        return $discount;
+        return ['msg'=>'Desconto atualizado com sucesso'];
     }
 
     /**
@@ -106,6 +106,6 @@ class DescontoController extends Controller
 
         $discount->delete();
 
-        return 'Desconto eliminado com sucesso';
+        return ['msg'=>'Desconto eliminado com sucesso'];
     }
 }

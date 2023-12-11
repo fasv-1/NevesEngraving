@@ -27,11 +27,11 @@ class Produto extends Model
     
     public function feedback(){
         return [
-            'required' => 'o campo :attribute é obrigatório',
-            'numeric' => 'o a quantidade do produto deve ser um valor numerico',
-            'nome.unique' => 'este produto já existe',
-            'min' => 'o valor minimo é 0',
-            'decimal' => 'o valor deve ser um numero com 2 casas decimais (4.00 , 5.56, 200.57) e deve conter um ponto em vez de virgula '
+            'required' => 'O campo :attribute é obrigatório',
+            'numeric' => 'O a quantidade do produto deve ser um valor numerico',
+            'nome.unique' => 'Este produto já existe',
+            'min' => 'O valor minimo é 0',
+            'decimal' => 'O valor deve ser um numero com 2 casas decimais (4.00 , 5.56, 200.57) e deve conter um ponto em vez de virgula '
         ];
     }
 

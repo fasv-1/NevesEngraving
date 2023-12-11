@@ -32,7 +32,7 @@ class MateriaPrimaController extends Controller
 
         $materiais = $this->material->create($request->all());
 
-        return $materiais;
+        return ['msg'=>'Matéria-prima adicionada com sucesso'];
     }
 
     /**
@@ -51,7 +51,7 @@ class MateriaPrimaController extends Controller
 
         $material->update($request->all());
         
-        return $material;
+        return ['msg'=>'Matéria-prima atualizada com sucesso'];
     }
 
     /**
@@ -67,6 +67,6 @@ class MateriaPrimaController extends Controller
 
         $material->delete();
 
-        return 'Materia-prima eliminada com sucesso';
+        return ['msg'=>'Matéria-prima eliminada com sucesso'];
     }
 }

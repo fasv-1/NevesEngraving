@@ -22,8 +22,8 @@ class imagens extends Model
 
     public function feedback(){
         return [
-            'required' => 'o campo :attribute é obrigatório',
-            'image' => 'o ficheiro que carregou não é uma imagem'
+            'required' => 'O campo :attribute é obrigatório',
+            'image' => 'O ficheiro que carregou não é uma imagem'
         ];
     }
 }

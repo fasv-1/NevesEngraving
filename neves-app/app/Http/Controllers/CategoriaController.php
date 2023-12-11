@@ -34,7 +34,7 @@ class CategoriaController extends Controller
 
         $category = $this->categoria->create($request->all());
 
-        return $category;
+        return ['msg' => 'Categoria foi adicionada com sucesso'];
     }
 
     /**
@@ -50,7 +50,8 @@ class CategoriaController extends Controller
 
         $request->validate($this->categoria->rules(), $this->categoria->feedback());
         $category->update($request->all());
-        return $category;
+
+        return ['msg' => 'Categoria foi atualizada com sucesso'];
     }
 
     /**
@@ -65,6 +66,6 @@ class CategoriaController extends Controller
         }
 
         $category->delete();
-        return 'Categoria eliminada com sucesso';
+        return ['msg' => 'Categoria foi eliminada com sucesso'];
     }
 }

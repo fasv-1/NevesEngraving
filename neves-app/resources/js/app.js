@@ -14,7 +14,7 @@ const store = createStore({
   state() {
     return {
       item: {},
-      // transacao:{ status:'', menssagem:'' }
+      transaction:{ status:'', message:'' }
     }
   }
 })
@@ -52,6 +52,30 @@ app.component('alert-component', Alert);
 import Table from './components/dash-components/Table.vue';
 app.component('table-component', Table);
   
+
+//---------------------------------------Filters------------------------------------------------------------
+app.config.globalProperties.$filters = {
+  formatDateTime(d){
+    if(!d) return ''
+
+  d = d.split('T')
+
+  let data = d[0]
+  let tempo = d[1]
+
+  //formatando a data
+  data = data.split('-')
+  data = data [2] + '/' + data[1] + '/' + data[0]
+
+  //formatar o tempo 
+  tempo = tempo.split('.')
+  tempo = tempo[0]
+
+  return data + ' ' + tempo
+  }
+};
+
+
 app.use(store)
 app.mount('#app');
 

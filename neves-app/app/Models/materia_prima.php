@@ -19,8 +19,8 @@ class materia_prima extends Model
     
     public function feedback(){
         return [
-            'required' => 'o campo :attribute é obrigatório',
-            'nome.unique' => 'esta materia-prima já existe'
+            'required' => 'O campo :attribute é obrigatório',
+            'nome.unique' => 'Esta materia-prima já existe'
         ];
     }
 }
