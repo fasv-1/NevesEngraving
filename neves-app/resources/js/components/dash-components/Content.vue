@@ -7,6 +7,7 @@
     </div>
 
     <add-product v-if="id == 1 && metaTitle == 'Adicionar'"></add-product>
+    <products v-if="id == 1 && metaTitle == 'Conteudo de Produtos'"></products>
     <defenitions-product v-if="id == 1 && metaTitle == 'Defenições'"></defenitions-product>
     <desconto-product v-if="id == 1 && metaTitle == 'Descontos'"></desconto-product>
   </div>

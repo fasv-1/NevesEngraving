@@ -35,12 +35,13 @@ class ImagensProdutoController extends Controller
 
         $request->validate($imagensProdutos->rules(), $imagensProdutos->feedback());
 
+
         //capture the file and stores it with an acronym given by laravel
         $image = $request->file('nome');
         $image_urn = $image->store('images/produtos', 'public');
 
+        
         $imagensProdutos->create([
-
             'nome' => $image_urn,
             'posicao' => $request->posicao,
             'produto_id' => $request->produto_id

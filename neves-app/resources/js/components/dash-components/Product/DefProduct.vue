@@ -89,7 +89,7 @@
     
     <div class="conteiner2">
       <h3 class="titulo_1">Matéria-prima</h3>
-      <a href="#modalMaterialAdd">Adicionar categoria +</a>
+      <a href="#modalMaterialAdd">Adicionar matéria-prima +</a>
       <!--Modal to add new category-->
       <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
         <template v-slot:alerts>

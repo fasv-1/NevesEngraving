@@ -9,7 +9,7 @@ class ProdutoController extends Controller
 {
     public function __construct(Produto $produto)
     {
-        $this-> produto= $produto;
+        $this->produto = $produto;
     }
 
     /**
@@ -36,10 +36,10 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->produto->rules(), $this->produto->feedback());
-        
-        $product = $this->produto->create($request->all());
-        
-        return $product;
+
+        $this->produto->create($request->all());
+
+        return ['msg' => 'O produto foi adicionado com sucesso'];
     }
 
     /**
@@ -48,7 +48,7 @@ class ProdutoController extends Controller
     public function show($id)
     {
         $product = $this->produto->find($id);
-        
+
         return $product;
     }
 

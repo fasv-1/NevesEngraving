@@ -127,51 +127,7 @@
       width: 50%;
     }
 
-    .input-form-image{
-      width: 50%;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      
-      .form-label{
-        height: 20%;
-      }
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-    .imageButton {
-      height: 20%;
-      display: inline-block;
-      margin: 1em 0 1em 0;
-      i{
-          border: 2px solid #b60b0b;
-          background-color: $DM-red;
-          border-radius: 10px;
-          color: #fff;
-          padding: 5px 20px 5px 20px;
-      }
-      i:hover{
-        cursor: pointer;
-        background-color: #b60b0b;
-        border: 2px solid $DM-red;
-        }
-    }
-
-    .image-preview{
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      margin: 1em;
-      img{
-        border-radius: 20px;
-        width: 200px;
-        height: 100%;
-      }
-    }
+    
 
     .select-options{
       display: flex;
@@ -233,6 +189,7 @@
         color: #0000007c;
       }
     }
+  
     .product-values{
       display: flex;
       flex-wrap: wrap;
@@ -256,6 +213,52 @@
     margin-top: 2em;
     width: 100%;
     text-align: center;
+  }
+}
+
+.input-form-image{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  
+  .form-label{
+    height: 20%;
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+.imageButton {
+  height: 20%;
+  display: inline-block;
+  margin: 1em 0 1em 0;
+  i{
+      border: 2px solid #b60b0b;
+      background-color: $DM-red;
+      border-radius: 10px;
+      color: #fff;
+      padding: 5px 20px 5px 20px;
+  }
+  i:hover{
+    cursor: pointer;
+    background-color: #b60b0b;
+    border: 2px solid $DM-red;
+    }
+}
+
+.image-preview{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 1em;
+  img{
+    border-radius: 20px;
+    width: 200px;
+    height: 100%;
   }
 }
 
@@ -375,4 +378,9 @@ cursor: pointer;
   display: inline-block;
   margin: 1em;
   background-color: rgba(253, 0, 0, 0.712);
+}
+
+.img-prd-dash {
+  width:200px;
+  height: 200px;
 }

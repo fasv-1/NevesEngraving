@@ -2,187 +2,171 @@
   <!-- Product Defenitons Page  -->
   <div class="productInputContent">
 
-    <!------------------------ ADD CATEGORY AREA --------------------------------->
+    <!------------------------ DISCOUNT AREA --------------------------------->
     <div class="conteiner2">
       <h3 class="titulo_1">Descontos</h3>
 
-      <!--Form to add new category-->
-      <div class="container-inputs">
-        <!--Product names inputs-->
-        <div class="input-form-names">
-          <input-container id="newDiscount" titulo='Desconto' help="nameHelp" helpText="Insira o nome do desconto">
-            <input type="text" id="newDiscount" name="newDiscount" class="form-text" aria-describedby="newDiscount"
-              placeholder="Nome do desconto" v-model="newDiscount">
+      <a href="#modalDiscountAdd">Adicionar desconto +</a>
+      <!--Modal to add new category-->
+      <modal-component id="modalDiscountAdd" title="Adicionar novo desconto">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+          <alert-component tipe="success" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'added'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="nameDiscount" title="Nome" help="nameDiscount"
+            helpText="Nome do desconto">
+            <input type="text" name="nameDiscount" aria-describedby="nameDiscount"
+               v-model="newDiscount.name">
           </input-container>
-        </div>
 
-        <!--Product image input-->
-        <div class="input-form-image">
-          <input-container id="newImage" titulo='Imgem Do desconto' help="newImageHelp"
-            helpText="Insira uma imagem de destaque para o desconto">
-            <label class="imageButton">
-              <input type="file" id="newImage" name="newImage" class="form-image" aria-describedby="newProductImage"
-                placeholder="Nome do produto" @change="uploadMainImage($event)">
-              <i>Carregar imagem</i>
-            </label>
+          <input-container id="descriptionDiscount" title="Descrição" help="descriptionDiscount"
+            helpText="Descrição do desconto">
+            <textarea name="descriptionDiscount" aria-describedby="descriptionDiscount"
+               v-model="newDiscount.description">
+            </textarea>
           </input-container>
-          <div class="image-preview">
-            <img v-if="url" :src="url">
-          </div>
-        </div>
 
-        <div class="input-form-description">
-          <input-container id="description" titulo='Descrição' help="descriptionHelp"
-            helpText="Adicione uma descrição para o produto">
-            <textarea id="description" class="form-longtext" aria-describedby="description"
-              v-model="description"></textarea>
+          <input-container id="valueDiscount" title="Valor do desconto" help="valueDiscount"
+            helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
+            <input type="number" name="valueDiscount" aria-describedby="valueDiscount"
+               v-model="newDiscount.value">
           </input-container>
-        </div>
-      </div>
+          
+          <input-container id="statusDiscount" title="Estado do desconto" help="statusDiscount"
+            helpText="Selecionar estado do desconto">
+            <select name="statusDiscount" aria-describedby="statusDiscount" v-model="newDiscount.status">
+              <option value="0">Inativo</option>
+              <option value="1">Ativo</option>
+            </select>
+          </input-container>
+        </template>
 
-      <!-- Table to show the Products
-      <table-component heading1='nome' heading2='data_criação'>
-        <tr v-for="c in categorias" :key="c.id">
-          <td>{{ c.nome }}</td>
-          <td class="feel"></td>
-          <td>{{ formatData(c.created_at) }}</td>
-          <td class="feel"></td>
-          <td><a href="" @click.prevent="openModal(c.id, 'categoria')">Atualizar</a></td>
-          <modal-component v-if="modalActive == 'categoria'" id="newCategory" title="Atualizar Categoria" :openModal="active">
-            <template v-slot:header>
-              <button type="button" class="btn-modal-close" aria-label="Close" @click="openModal()">X</button>
-            </template>
-            <template v-slot:alerts>
-              <alert-component tipe="success" :details="detailsTransition"
-                v-if="statusTransition == 'atualizado'"></alert-component>
-              <alert-component tipe="danger" :details="detailsTransition"
-                v-if="statusTransition == 'erro'"></alert-component>
-            </template>
-            <template v-slot:content>
-              <input type="text" id="newCategory" name="newCategory" class="form-text" aria-describedby="newCategory"
-                placeholder="Nome da categoria" v-model="updateCategory">
-            </template>
-            <template v-slot:footer>
-              <button type="button" class="button-save" @click="update(updateId, 'categoria')">Salvar</button>
-            </template>
-          </modal-component>
-          <td><a href="" @click.prevent="remove(c.id, 'categoria')">Eliminar</a></td>
-        </tr>
-      </table-component> -->
+        <template v-slot:footer>
+          <button class="button-save" @click="save('desconto')">Adicionar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
 
-    </div>
+      </modal-component>
 
-    <!------------------------ ADD MATERIAL AREA --------------------------------->
-    <!-- <div class="conteiner2">
-      <h3 class="titulo_1">Materiais</h3> -->
-
-      <!--Form to add new materials-->
-      <!-- <div class="content_1">
-        <input-container id="newMaterial" titulo='Nova Matéria-prima' help="materialHelp"
-          helpText="Insira o nome da matéria-prima">
-          <alert-component tipe="success" :details="detailsTransition"
-            v-if="statusTransition == 'adicionado'"></alert-component>
-          <alert-component tipe="danger" :details="detailsTransition" v-if="statusTransition == 'erro'"></alert-component>
-          <div class="inputSlot">
-            <input type="text" id="newMaterial" name="newMaterial" class="form-text" aria-describedby="newMaterial"
-              placeholder="Nome da Matéria-prima" v-model="newMaterial">
-          </div>
-        </input-container>
-        <button class="button-save" @click="save('materia')">Adicionar</button>
-      </div>
-
-      Table to show the materials-->
-      <!-- <table-component heading1='nome' heading2='data_criação'>
-        <tr v-for="c in materiais" :key="c.id">
-          <td>{{ c.nome }}</td>
-          <td class="feel"></td>
-          <td>{{ formatData(c.created_at) }}</td>
-          <td class="feel"></td>
-          <td><a href="" @click.prevent="openModal(c.id, 'materia')">Atualizar</a></td>
-          <modal-component v-if="modalActive == 'materia'" id="newMaterial" title="Atualizar Matéria-prima" :openModal="active">
-            <template v-slot:header>
-              <button type="button" class="btn-modal-close" aria-label="Close" @click="openModal()">X</button>
-            </template>
-            <template v-slot:alerts> REFAZER ALERTAS PARA NÃO APARECEREM EM TODAS AS SLOTS-->
-              <!-- <alert-component tipe="success" :details="detailsTransition"
-                v-if="statusTransition == 'atualizado'"></alert-component>
-              <alert-component tipe="danger" :details="detailsTransition"
-                v-if="statusTransition == 'erro'"></alert-component>
-            </template>
-            <template v-slot:content>
-              <input type="text" id="newMaterial" name="newMaterial" class="form-text" aria-describedby="newMaterial"
-                placeholder="Nome da Matéria-prima" v-model="updateMaterial">
-            </template>
-            <template v-slot:footer>
-              <button type="button" class="button-save" @click="update(updateId, 'materia')">Salvar</button>
-            </template>
-          </modal-component>
-          <td><a href="" @click.prevent="remove(c.id, 'materia')">Eliminar</a></td>
-        </tr>
+      <!-- Start table to show the categorys-->
+      <table-component :data="discountData.data" :view="{ visible: false, dataTarget: '#modalDiscountView' }"
+        :update="{ visible: true, dataTarget: '#modalDiscountUpdate' }"
+        :remove="{ visible: true, dataTarget: '#modalDiscountRemove' }" :titles="{
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          descricao: { title: 'Descrição', type: 'text'},
+          desconto: { title: 'Desconto', type: 'text' },
+          ativo: { title: 'Estado', type: 'status' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
       </table-component>
+      <!-- End table to show the categorys-->
 
-    </div> -->
-  </div> 
-</template> 
+      <!-- Start modal to remove categorys-->
+      <modal-component id="modalDiscountRemove" title="Remover Desconto">
+
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="removeDiscount" title="Tem a certeza que pretende remover este desconto?">
+            <input type="text" name="removeDiscount" aria-describedby="removeDiscount" :value="$store.state.item.nome"
+              disabled>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button @click="remove($store.state.item.id, 'desconto')">Remover</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+      </modal-component>
+      <!-- End modal to remove categorys-->
+
+      <!-- Start modal to update categorys-->
+      <modal-component id="modalDiscountUpdate" title="Atualizar desconto">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="updateNameDiscount" title="Nome" help="updateNameDiscount"
+            helpText="Novo nome do desconto">
+            <input type="text" name="updateNameDiscount" aria-describedby="updateNameDiscount"
+              :placeholder="$store.state.item.nome" v-model="updateDiscount.name">
+          </input-container>
+
+          <input-container id="updateDescriptionDiscount" title="Descrição" help="updateDescriptionDiscount"
+            helpText="Nova descrição do desconto">
+            <textarea  name="updateDescriptionDiscount" aria-describedby="updateDescriptionDiscount"
+              :placeholder="$store.state.item.descricao" v-model="updateDiscount.description"></textarea>
+          </input-container>
+
+          <input-container id="updateValueDiscount" title="Valor do Desconto" help="updateValueDiscount"
+            helpText="Novo valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
+            <input type="number" name="updateValueDiscount" aria-describedby="updateValueDiscount"
+              :placeholder="$store.state.item.desconto" v-model="updateDiscount.value">
+          </input-container>
+          
+          <input-container id="updateStatusDiscount" title="Estado do desconto" help="updateStatusDiscount"
+            helpText="Selecionar estado do desconto">
+            <select name="updateStatusDiscount" aria-describedby="updateStatusDiscount" v-model="updateDiscount.status">
+              <option value="0">Inativo</option>
+              <option value="1">Ativo</option>
+            </select>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button @click="update($store.state.item.id, 'desconto')">Atualizar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component>
+      <!-- End modal to update categorys-->
+    </div>
+  </div>
+</template>
 
 <script>
 export default {
   data() {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
-      categorias: [],
-      newCategory: '',
-      updateCategory: '',
+      discountData: { data: [] },
+      newDiscount:{
+        name: '',
+        description: '',
+        value: '',
+        status:''
+      },
+      updateDiscount:{
+        name: '',
+        description: '',
+        value: '',
+        status:''
+      },
       active: false,
       statusTransition: '',
       detailsTransition: '',
-      updateId: '',
-      materiais: [],
-      newMaterial: '',
-      updateMaterial: '',
-      modalActive: '',
     }
   },
   methods: {
-    openModal(id, i) { //open the modal to update 
-      this.active = !this.active;
-      
-      if (i) {
-        this.modalActive = i;
-      }
-
-      if (id) { //sets the id to update
-        this.updateId = id;
-      }
-    },
     loadTableData() { //loads the category data to the table
-      let urlCategory = this.urlBase + 'categoria';
-      let urlMaterial = this.urlBase + 'materia';
+      // let urlCategory = this.urlBase + 'categoria';
+      // let urlMaterial = this.urlBase + 'materia';
+      let urlDiscount = this.urlBase + 'desconto';
 
-      if (urlCategory) {
-        axios.get(urlCategory)
+      axios.get(urlDiscount)
           .then(response => {
-            this.categorias = response.data
+            this.discountData.data = response.data
           })
           .catch(errors => {
             console.log(errors);
           })
-      }
-
-      if (urlMaterial) {
-        axios.get(urlMaterial)
-          .then(response => {
-            this.materiais = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
-      }
-    },
-    formatData(d) { //splits the data from the hours
-      d = d.split('T')
-      d = d[0]
-      return d;
     },
     save(c) { //saves the new values (category and material)
       let url = this.urlBase + c;
@@ -195,6 +179,14 @@ export default {
       if (c == 'materia') {
         formData.append('nome', this.newMaterial);
       }
+      if (c == 'desconto') {
+        let value = this.newDiscount.value.toFixed(2);
+
+        formData.append('nome', this.newDiscount.name);
+        formData.append('descricao', this.newDiscount.description);
+        formData.append('desconto', value);
+        formData.append('ativo', this.newDiscount.status);
+      }
 
       let config = {
         headers: {
@@ -204,44 +196,47 @@ export default {
       }
       axios.post(url, formData, config)
         .then((response) => {
-          this.statusTransition = 'adicionado'
-          this.detailsTransition = {
-            message: 'A ' + c + ' ' + response.data.nome + ' foi adicionada com sucesso'
-          }
+          this.$store.state.transaction.status = 'added'
+          this.$store.state.transaction.message = response.data.msg
+          alert(response.data.msg)
           this.loadTableData()
-          this.newMaterial = ""
-          this.newCategory = ""
+          history.back()
+          this.newDiscount.name = ""
+          this.newDiscount.description = ""
+          this.newDiscount.value = ""
+          this.newDiscount.status = ""
+
         })
         .catch(errors => {
-          this.statusTransition = 'erro'
-          this.detailsTransition = {
-            message: errors.response.data.message
-          }
-          // console.log(errors.response.data.message)
+          this.$store.state.transaction.status = 'error-add'
+          this.$store.state.transaction.message = errors.response.data.message
+          this.newDiscount.name = ""
+          this.newDiscount.description = ""
+          this.newDiscount.value = ""
+          this.newDiscount.status = ""
         })
 
 
     },
     remove(r, n) { //removes the data (category and material)
-      let confirmacao = confirm('Tem a certeza que deseja remover este registo?')
-      if (!confirmacao) {
-        return false
-      }
+
       let url = this.urlBase + n + '/' + r
-      console.log(url)
 
       let formData = new FormData();
       formData.append('_method', 'delete')
 
-
-
       axios.post(url, formData)
         .then(response => {
-          alert(response.data);
+          this.$store.state.transaction.status = 'removed'
+          this.$store.state.transaction.message = response.data.msg
+          alert(response.data.msg)
           this.loadTableData()
+          history.back()
         })
         .catch(errors => {
-          alert(errors.response.data.message);
+          console.log(errors.response.data)
+          this.$store.state.transaction.status = 'error-remove'
+          this.$store.state.transaction.message = errors.response.data.message
         })
 
     },
@@ -257,9 +252,25 @@ export default {
         formData.append('nome', this.updateMaterial)
       }
 
+      if (n == 'desconto') {
+        if(this.updateDiscount.name != ''){
+        formData.append('nome', this.updateDiscount.name);
+        }
+        if(this.updateDiscount.description != ''){
+        formData.append('descricao', this.updateDiscount.description);
+        }
+        if(this.updateDiscount.value != ''){
+          let value = this.updateDiscount.value.toFixed(2);
+        formData.append('desconto', value);
+        }
+        if(this.updateDiscount.status != ''){
+        formData.append('ativo', this.updateDiscount.status);
+        }
+      }
+
       let url = this.urlBase + n + '/' + u
 
-      console.log(url)
+      // console.log(url)
 
       let config = {
         headers: {
@@ -270,22 +281,27 @@ export default {
 
       axios.post(url, formData, config)
         .then(response => {
-          console.log('atualizado', response)
-          this.statusTransition = 'atualizado'
-          this.detailsTransition = {
-            message: 'A '+ n + ' ' + response.data.nome + ' foi atualizada com sucesso'
-          }
+
+          this.$store.state.transaction.status = 'updated'
+          this.$store.state.transaction.message = response.data.msg
           this.loadTableData()
-          this.openModal()
-          alert('A '+ n + ' ' + response.data.nome + ' foi atualizada com sucesso')
-          this.updateCategory = "";
+          history.back()
+          alert(response.data.msg)
+          this.updateDiscount.name = ""
+          this.updateDiscount.description = ""
+          this.updateDiscount.value = ""
+          this.updateDiscount.status = ""
+
+
         })
         .catch(errors => {
-          console.log('erro de atualização', errors.response)
-          this.statusTransition = 'erro'
-          this.detailsTransition = {
-            message: errors.response.data.message
-          }
+          console.log('erro de atualização', errors.response.data)
+          this.$store.state.transaction.status = 'error-update'
+          this.$store.state.transaction.message = errors.response.data
+          this.updateDiscount.name = ""
+          this.updateDiscount.description = ""
+          this.updateDiscount.value = ""
+          this.updateDiscount.status = ""
         })
     },
   },

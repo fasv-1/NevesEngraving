@@ -31,6 +31,9 @@ app.component('dashboard', Dashboard);
 import Content from './components/dash-components/Content.vue';
 app.component('content-component', Content);
 
+import Products from './components/dash-components/Product/Products.vue';
+app.component('products', Products);
+
 import AddProduct from './components/dash-components/Product/AddProduct.vue';
 app.component('add-product', AddProduct);
 
