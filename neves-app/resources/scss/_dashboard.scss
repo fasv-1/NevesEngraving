@@ -1,36 +1,30 @@
-
-
-#dashboard{
+#dashboard {
   display: flex;
   flex-direction: row;
   width: 100%;
-
-  
 }
 
 #dash-screen {
   width: 80%;
-
 }
 
 #dash-menu {
   width: 20%;
-  background-color:$DM-lightblue;
+  background-color: $BgDshMenu;
   height: 100vh;
   position: sticky;
-  top:0;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
-  box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.25);
+  top: 0;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
-
 }
 .sticky {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .dash-nav-link{
+  .dash-nav-link {
     width: 100%;
     text-align: center;
     display: flex;
@@ -40,19 +34,18 @@
     // -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
     // box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.25);
     // border-radius: 2px;
-
   }
 
   .dash-cont-logo {
     width: 100%;
-    background-color: $DM-red;
+    background-color: $Global-red;
     padding: 0.5em;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
-    box-shadow:  0px 0px 5px 0px rgba(0,0,0,0.25);
+    -webkit-box-shadow: $boxShadow;
+    -moz-box-shadow: $boxShadow;
+    box-shadow: $boxShadow;
     border-radius: 2px;
-    
-    .dash-logo{
+
+    .dash-logo {
       width: 100%;
       text-decoration: none;
       color: #000;
@@ -61,56 +54,49 @@
       align-items: center;
       font-weight: bold;
     }
-    img{
+    img {
       width: 100px;
       height: 100%;
-      }
+    }
   }
-
 
   .dash-link-cont {
     width: 100%;
   }
 
-  .link-cont{
+  .link-cont {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    padding: 2em 0 2em 0; 
+    padding: 2em 0 2em 0;
     // border-radius:10px 10px 0 0;
 
-    a{
+    a {
       font-size: 1.2em;
       color: #000;
       font-weight: bold;
       margin-left: 2em;
       cursor: pointer;
-
     }
-    .menuIcon{
+    .menuIcon {
       margin-right: 1em;
       cursor: pointer;
 
-      img{
+      img {
         width: 15px;
         height: 100%;
       }
     }
-
-    
   }
 
-  .active{
-    background-color: $DM-blue;
+  .active {
+    background-color: $DshMenuActive;
   }
-
-  
 }
 
-.title-cont{
-
+.title-cont {
   padding: 1em;
 }
 
@@ -118,48 +104,42 @@
   display: none;
   // border-radius: 2px;
   padding: 0.5em 0 0.5em 0;
-  background-color: #94c9ff;
+  background-color: $DshMenuActive;
   border-radius: 0 0 2px 2px;
 
-  -webkit-box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.25);
-  box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.25);
+  -webkit-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
 
-  li{
-    
+  li {
     margin-top: 0.5rem;
     font-size: 1.1em;
-    
-    a{
+
+    a {
       color: #000;
     }
     // font-weight: 700;
-
   }
 
-  li:hover{
-    background-color: #00000009 ;
+  li:hover {
+    background-color: $Hover-grey;
     border-radius: 2px;
     // color:#fff;
   }
 
-  .linkActive{
-    background-color: #807ee03d;
+  .linkActive {
+    background-color: $SlctdBar;
     border-radius: 2px;
-    a{
+    a {
       color: #b80012;
     }
   }
 }
 
-.blank-space{
+.blank-space {
   height: 2rem;
-
 }
-
-
 
 .show {
   display: block;
 }
-

@@ -4,12 +4,12 @@
       <!--Product names inputs-->
       <div class="input-form-names">
         <input-container id="newName" titulo='Nome' help="nameHelp" helpText="Insira o nome do produto">
-          <input type="text" id="newName" name="newName" class="form-text" aria-describedby="newNameProduct"
+          <input type="text"  name="newName" class="form-text" aria-describedby="newNameProduct"
             placeholder="Nome do produto" v-model="newName">
         </input-container>
         <input-container id="newMetaName" titulo='Meta-Nome' help="MetaNameHelp"
           helpText="Insira um meta-nome para o produto">
-          <input type="text" id="newMetaName" name="newMetaName" class="form-text" aria-describedby="MetaName"
+          <input type="text" name="newMetaName" class="form-text" aria-describedby="MetaName"
             placeholder="Nome abreviado para aparecer em destaque" v-model="newMetaName">
         </input-container>
       </div>
@@ -20,8 +20,9 @@
 
     <div class="container-inputs">
       <!--Product selects inputs -->
-      <!-- Category -->
+      
       <div class="select-options">
+        <!-- Category -->
         <input-container id="category" titulo='Categoria' help="categoryHelp"
           helpText="Escolha uma categoria para o produto">
           <select name="category" id="category" v-model="categoryValue">
@@ -67,7 +68,7 @@
         <label for="newImagem" class="form-label-img"> Imagens do produto </label>
         <div class="input-images">
           <label class="imageButton">
-            <input type="file" id="newImagem" name="newImagem" class="form-imagem" aria-describedby="newProductImage"
+            <input type="file" name="newImagem" class="form-imagem" aria-describedby="newProductImage"
               placeholder="Nome do produto" @change="uploadImages($event)">
             <i>Carregar imagem</i>
           </label>
@@ -85,11 +86,11 @@
       <div class="product-values">
         <input-container id="quantity" titulo='Quantidade' help="quantityHelp"
           helpText="Quantos produtos irá adicionar em stock?">
-          <input type="number" id="quantity" name="quantity" class="input-value" min="0" step="1" v-model="quantityValue">
+          <input type="number"  name="quantity" class="input-value" min="0" step="1" v-model="quantityValue">
         </input-container>
         <input-container id="price" titulo='Preço' help="priceHelp"
           helpText="Qual o valor deste produto (sem taxas, nem custos, apenas o produto)">
-          <input type="number" id="price" name="price" class="input-value" aria-describedby="valordoproduto"
+          <input type="number"  name="price" class="input-value" aria-describedby="valordoproduto"
             v-model="priceValue">
         </input-container>
       </div>
@@ -98,7 +99,7 @@
       <button type="button" class="button-save" @click="save()">Salvar</button>
     </div>
   </div>
-  <!-- Add Images Modal  -->
+  
   <!-- Start table to show the products-->
   <table-component :data="products.data" :view="{ visible: true, dataTarget: '#modalProductView' }"
     :update="{ visible: false, dataTarget: '#modalDiscountUpdate' }"
@@ -108,7 +109,7 @@
     }">
   </table-component>
   <!-- End table to show the products-->
-  <!-- Start modal to update categorys-->
+  <!-- Add Images Modal  -->
   <modal-component id="modalProductView" title="Adicionar imagens">
         <template v-slot:alerts>
           <alert-component tipe="danger" :details="$store.state.transaction.message"
@@ -122,7 +123,7 @@
         <input-container id="newImage" titulo='Imgem principal' help="newImageHelp"
           helpText="Insira uma imagem de destaque para o produto">
           <label class="imageButton">
-            <input type="file" id="newImage" name="newImage" class="form-image" aria-describedby="newProductImage"
+            <input type="file" name="newImage" class="form-image" aria-describedby="newProductImage"
               placeholder="Nome do produto" @change="uploadMainImage($event)">
             <i>Carregar imagem</i>
           </label>
@@ -135,7 +136,6 @@
 
         <template v-slot:footer>
           <button @click="saveImage('mainImage')">Adicionar imagem</button>
-          <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
       </modal-component>

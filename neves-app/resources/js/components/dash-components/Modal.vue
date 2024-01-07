@@ -5,14 +5,17 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title " id="ModalLabel">{{ title }}</h1>
-          <slot name="header">
-            <a href="#">X</a>
-          </slot>
+          <a class="x-close" href="#" @click="erraserror()"><h2>X</h2></a>
+          
+        </div>
+        <hr>
+        <div class="alerts">
+          <slot name="alerts"></slot>
         </div>
         <div class="modal-body">
-          <slot name="alerts"></slot>
           <slot name="content"></slot>
         </div>
+        <hr>
         <div class="modal-footer">
           <slot name="footer"></slot>
         </div>
@@ -23,6 +26,12 @@
 
 <script>
 export default {
-  props: ['id', 'title']
+  props: ['id', 'title'],
+  methods:{
+    erraserror(){
+      this.$store.state.transaction.status = '';
+      this.$store.state.transaction.message = '';
+    }
+  }
 }
 </script>

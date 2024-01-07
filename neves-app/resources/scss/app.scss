@@ -1,36 +1,36 @@
-@import 'colors';
-@import 'dashboard';
-@import 'reset';
-@import 'inputsDash';
+@import "colors";
+@import "dashboard";
+@import "reset";
+@import "inputsDash";
 
-body{
+body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   scroll-behavior: smooth;
-  background-color: $B-lightblue;
+  background-color: $BgBody;
 }
 
-h1{
+h1 {
   font-size: 2.5em;
 }
 
-h2{
+h2 {
   font-size: 2.2em;
 }
 
-h3{
+h3 {
   font-size: 1.8em;
 }
 
-h4{
+h4 {
   font-size: 1.5em;
 }
 
-h5{
+h5 {
   font-size: 1.25em;
 }
 
-h6{
+h6 {
   font-size: 1.15em;
 }
 
@@ -41,102 +41,125 @@ h6{
 /* Track */
 // ::-webkit-scrollbar-track {
 //   // box-shadow: inset 0 0 5px grey;
-//   // background-color: white; 
+//   // background-color: white;
 //   // border-radius: 10px;
 // }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #959596; 
+  background: #959596;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #585858; 
+  background: #585858;
 }
 
-a{
+a {
   text-decoration: none;
+  align-self: center;
+  color: #000;
 }
 
+//remove the arrows from input type number
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-table{
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: separate;
-    border-radius: 15px;
-    
+table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
 
-    .feel{
-      width: 20px;
+  .feel {
+    width: 20px;
+  }
+  caption {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $Global-red;
+    text-align: center;
+    padding-bottom: 0.5em;
+  }
+  thead {
+    // background-color: #006ac6;
+    th {
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      padding: 0.5em;
+      color: black;
+      font-size: 1em;
+
+      // border: 1px solid #F1F1F1;
     }
-    caption {
-        text-transform: uppercase;
-        font-weight: bold;
-        color: $DM-red;
+  }
+  tbody {
+    // background-color: rgb(243, 243, 0);
+    tr {
+      color: #000;
+
+      td {
+        border-top: 1px solid $Global-red;
+        padding: 0.5em;
         text-align: center;
-        padding-bottom: 0.5em;
+        // border: 1px solid #000;
+      }
+      th {
+        border-top: 1px solid $Global-red;
+        text-align: center;
+        // border: 1px solid #000;
+      }
     }
-    thead {
-        // background-color: #006ac6;
-        th {
-            text-transform: uppercase;
-            text-align: center;
-            font-weight: bold;
-            padding: 10px;
-            color: black;
-            font-size: 16px;
-            
-            
-            // border: 1px solid #F1F1F1;
-        }
+  }
+  tfoot {
+    color: $Global-red;
+    font-style: italic;
+    border-bottom: 2px solid $Global-red;
+    tr {
+      td {
+        padding: 0.5em;
+        border: 1px solid #f1f1f1;
+      }
     }
-    tbody {
-        // background-color: rgb(243, 243, 0);
-        tr {
-
-            color: #000;
-            
-            td {
-              border-top: 1px solid $DM-red;
-              padding: 10px;
-              text-align: center;
-                // border: 1px solid #000;
-            }
-            th {
-              border-top: 1px solid $DM-red;
-                text-align: center;
-                // border: 1px solid #000;
-            }
-        }
-    }
-    tfoot {
-        color: $DM-red;
-        font-style: italic;
-        border-bottom: 2px solid $DM-red;
-        tr {
-            td {
-                padding: 10px;
-                border: 1px solid #F1F1F1;
-            }
-        }
-    }
+  }
 }
 
+.color-footer {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4009978991596639) 0%, rgba(124, 222, 255, 1) 100%);
+}
 
 input[type="text"],
 input[type="number"],
-input[type="checkbox"], select, textarea{
-  border: 1px solid rgb(185, 185, 185);
-  border-radius: 20px;
-  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
-  box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
+input[type="checkbox"],
+select,
+textarea {
+  border: 1px solid $Brdr-blue;
+  border-radius: 10px;
   padding: 0.5em 0.4em 0.5em 0.4em;
-
 }
 
-input, select, textarea:focus{
+input[type="text"],
+input[type="number"],
+input[type="checkbox"],
+select,
+textarea:focus {
+  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+input,
+select,
+textarea:focus {
   outline: none;
 }

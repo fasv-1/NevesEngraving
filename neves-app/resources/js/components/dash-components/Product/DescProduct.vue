@@ -6,8 +6,8 @@
     <div class="conteiner2">
       <h3 class="titulo_1">Descontos</h3>
 
-      <a href="#modalDiscountAdd">Adicionar desconto +</a>
-      <!--Modal to add new category-->
+      <a class="high-link" href="#modalDiscountAdd">Adicionar desconto +</a>
+      <!--Modal to add new discount-->
       <modal-component id="modalDiscountAdd" title="Adicionar novo desconto">
         <template v-slot:alerts>
           <alert-component tipe="danger" :details="$store.state.transaction"
@@ -16,25 +16,21 @@
             v-if="$store.state.transaction.status == 'added'"></alert-component>
         </template>
         <template v-slot:content>
-          <input-container id="nameDiscount" title="Nome" help="nameDiscount"
-            helpText="Nome do desconto">
-            <input type="text" name="nameDiscount" aria-describedby="nameDiscount"
-               v-model="newDiscount.name">
+          <input-container id="nameDiscount" title="Nome" help="nameDiscount" helpText="Nome do desconto">
+            <input type="text" name="nameDiscount" aria-describedby="nameDiscount" v-model="newDiscount.name">
           </input-container>
 
           <input-container id="descriptionDiscount" title="Descrição" help="descriptionDiscount"
             helpText="Descrição do desconto">
-            <textarea name="descriptionDiscount" aria-describedby="descriptionDiscount"
-               v-model="newDiscount.description">
+            <textarea name="descriptionDiscount" aria-describedby="descriptionDiscount" v-model="newDiscount.description">
             </textarea>
           </input-container>
 
           <input-container id="valueDiscount" title="Valor do desconto" help="valueDiscount"
             helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="valueDiscount" aria-describedby="valueDiscount"
-               v-model="newDiscount.value">
+            <input type="number" name="valueDiscount" aria-describedby="valueDiscount" v-model="newDiscount.value">
           </input-container>
-          
+
           <input-container id="statusDiscount" title="Estado do desconto" help="statusDiscount"
             helpText="Selecionar estado do desconto">
             <select name="statusDiscount" aria-describedby="statusDiscount" v-model="newDiscount.status">
@@ -51,21 +47,21 @@
 
       </modal-component>
 
-      <!-- Start table to show the categorys-->
+      <!-- Start table to show the discount-->
       <table-component :data="discountData.data" :view="{ visible: false, dataTarget: '#modalDiscountView' }"
         :update="{ visible: true, dataTarget: '#modalDiscountUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalDiscountRemove' }" :titles="{
           id: { title: 'ID', type: 'text' },
           nome: { title: 'Nome', type: 'text' },
-          descricao: { title: 'Descrição', type: 'text'},
+          descricao: { title: 'Descrição', type: 'text' },
           desconto: { title: 'Desconto', type: 'text' },
           ativo: { title: 'Estado', type: 'status' },
           created_at: { title: 'Data de criação', type: 'date' },
         }">
       </table-component>
-      <!-- End table to show the categorys-->
+      <!-- End table to show the discount-->
 
-      <!-- Start modal to remove categorys-->
+      <!-- Start modal to remove discount-->
       <modal-component id="modalDiscountRemove" title="Remover Desconto">
 
         <template v-slot:alerts>
@@ -80,13 +76,13 @@
         </template>
 
         <template v-slot:footer>
-          <button @click="remove($store.state.item.id, 'desconto')">Remover</button>
+          <button class="button-save" @click="remove($store.state.item.id, 'desconto')">Remover</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
       </modal-component>
-      <!-- End modal to remove categorys-->
+      <!-- End modal to remove discount-->
 
-      <!-- Start modal to update categorys-->
+      <!-- Start modal to update discount-->
       <modal-component id="modalDiscountUpdate" title="Atualizar desconto">
         <template v-slot:alerts>
           <alert-component tipe="danger" :details="$store.state.transaction.message"
@@ -101,7 +97,7 @@
 
           <input-container id="updateDescriptionDiscount" title="Descrição" help="updateDescriptionDiscount"
             helpText="Nova descrição do desconto">
-            <textarea  name="updateDescriptionDiscount" aria-describedby="updateDescriptionDiscount"
+            <textarea name="updateDescriptionDiscount" aria-describedby="updateDescriptionDiscount"
               :placeholder="$store.state.item.descricao" v-model="updateDiscount.description"></textarea>
           </input-container>
 
@@ -110,7 +106,7 @@
             <input type="number" name="updateValueDiscount" aria-describedby="updateValueDiscount"
               :placeholder="$store.state.item.desconto" v-model="updateDiscount.value">
           </input-container>
-          
+
           <input-container id="updateStatusDiscount" title="Estado do desconto" help="updateStatusDiscount"
             helpText="Selecionar estado do desconto">
             <select name="updateStatusDiscount" aria-describedby="updateStatusDiscount" v-model="updateDiscount.status">
@@ -121,12 +117,12 @@
         </template>
 
         <template v-slot:footer>
-          <button @click="update($store.state.item.id, 'desconto')">Atualizar</button>
+          <button class="button-save" @click="update($store.state.item.id, 'desconto')">Atualizar</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
       </modal-component>
-      <!-- End modal to update categorys-->
+      <!-- End modal to update discount-->
     </div>
   </div>
 </template>
@@ -137,17 +133,17 @@ export default {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
       discountData: { data: [] },
-      newDiscount:{
+      newDiscount: {
         name: '',
         description: '',
         value: '',
-        status:''
+        status: ''
       },
-      updateDiscount:{
+      updateDiscount: {
         name: '',
         description: '',
         value: '',
-        status:''
+        status: ''
       },
       active: false,
       statusTransition: '',
@@ -161,30 +157,27 @@ export default {
       let urlDiscount = this.urlBase + 'desconto';
 
       axios.get(urlDiscount)
-          .then(response => {
-            this.discountData.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
+        .then(response => {
+          this.discountData.data = response.data
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
     },
     save(c) { //saves the new values (category and material)
       let url = this.urlBase + c;
 
       let formData = new FormData();
 
-      if (c == 'categoria') {
-        formData.append('nome', this.newCategory);
-      }
-      if (c == 'materia') {
-        formData.append('nome', this.newMaterial);
-      }
       if (c == 'desconto') {
-        let value = this.newDiscount.value.toFixed(2);
 
         formData.append('nome', this.newDiscount.name);
         formData.append('descricao', this.newDiscount.description);
-        formData.append('desconto', value);
+        if (this.newDiscount.value) {
+        formData.append('desconto', this.newDiscount.value.toFixed(2));
+        }else{
+          formData.append('desconto', this.newDiscount.value);
+        }
         formData.append('ativo', this.newDiscount.status);
       }
 
@@ -253,18 +246,18 @@ export default {
       }
 
       if (n == 'desconto') {
-        if(this.updateDiscount.name != ''){
-        formData.append('nome', this.updateDiscount.name);
+        if (this.updateDiscount.name != '') {
+          formData.append('nome', this.updateDiscount.name);
         }
-        if(this.updateDiscount.description != ''){
-        formData.append('descricao', this.updateDiscount.description);
+        if (this.updateDiscount.description != '') {
+          formData.append('descricao', this.updateDiscount.description);
         }
-        if(this.updateDiscount.value != ''){
+        if (this.updateDiscount.value != '') {
           let value = this.updateDiscount.value.toFixed(2);
-        formData.append('desconto', value);
+          formData.append('desconto', value);
         }
-        if(this.updateDiscount.status != ''){
-        formData.append('ativo', this.updateDiscount.status);
+        if (this.updateDiscount.status != '') {
+          formData.append('ativo', this.updateDiscount.status);
         }
       }
 

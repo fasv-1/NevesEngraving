@@ -6,7 +6,7 @@
     <div class="conteiner2">
       <h3 class="titulo_1">Categorias</h3>
 
-      <a href="#modalCategoriaAdd">Adicionar categoria +</a>
+      <a class="high-link" href="#modalCategoriaAdd">Adicionar categoria +</a>
       <!--Modal to add new category-->
       <modal-component id="modalCategoriaAdd" title="Adicionar uma categoria">
         <template v-slot:alerts>
@@ -56,7 +56,7 @@
         </template>
 
         <template v-slot:footer>
-          <button @click="remove($store.state.item.id, 'categoria')">Remover</button>
+          <button class="button-save" @click="remove($store.state.item.id, 'categoria')">Remover</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
       </modal-component>
@@ -77,7 +77,7 @@
         </template>
 
         <template v-slot:footer>
-          <button @click="update($store.state.item.id, 'categoria')">Atualizar</button>
+          <button class="button-save" @click="update($store.state.item.id, 'categoria')">Atualizar</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
@@ -89,7 +89,7 @@
     
     <div class="conteiner2">
       <h3 class="titulo_1">Matéria-prima</h3>
-      <a href="#modalMaterialAdd">Adicionar matéria-prima +</a>
+      <a class="high-link" href="#modalMaterialAdd">Adicionar matéria-prima +</a>
       <!--Modal to add new category-->
       <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
         <template v-slot:alerts>
@@ -139,7 +139,7 @@
         </template>
 
         <template v-slot:footer>
-          <button @click="remove($store.state.item.id, 'materia')">Remover</button>
+          <button class="button-save" @click="remove($store.state.item.id, 'materia')">Remover</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
       </modal-component>
@@ -160,7 +160,7 @@
         </template>
 
         <template v-slot:footer>
-          <button @click="update($store.state.item.id, 'materia')">Atualizar</button>
+          <button class="button-save" @click="update($store.state.item.id, 'materia')">Atualizar</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
@@ -240,8 +240,10 @@ export default {
           this.newCategory = ""
         })
         .catch(errors => {
+          console.log(errors.response.data.message)
           this.$store.state.transaction.status = 'error-add'
           this.$store.state.transaction.message = errors.response.data.message
+          console.log(errors)
         })
 
 

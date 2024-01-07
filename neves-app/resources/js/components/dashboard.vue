@@ -33,6 +33,7 @@
         </div>
         <div class="blanck-sapce"></div>
       </div>
+      <div class="color-footer"></div><!--Gradient on the bottom-->
     </section>
     <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
     <section id="dash-screen">
@@ -65,6 +66,7 @@
       </div>
     </section>
   </div>
+  <div class="color-footer"></div><!--Gradient on the bottom-->
 </template>
 
 <script>

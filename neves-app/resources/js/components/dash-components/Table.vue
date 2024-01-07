@@ -22,9 +22,9 @@
               </span>
             </td>
             <td v-if=" view.visible || update || remove ">
-              <a :href="view.dataTarget"><button class="" v-if="view.visible" @click="setState(obj)">Visualizar</button></a>
-              <a :href="update.dataTarget"><button class="" v-if="update.visible" @click="setState(obj)">Atualizar</button></a>
-              <a :href="remove.dataTarget"><button class="" v-if="remove.visible" @click="setState(obj)">Remover</button></a>
+              <a :href="view.dataTarget"><button class="btn-view" v-if="view.visible" @click="setState(obj)">Visualizar</button></a>
+              <a :href="update.dataTarget"><button class="btn-update" v-if="update.visible" @click="setState(obj)">Atualizar</button></a>
+              <a :href="remove.dataTarget"><button class="btn-remove" v-if="remove.visible" @click="setState(obj)">Remover</button></a>
             </td>
           </tr>
         </tbody>
@@ -39,7 +39,8 @@ export default {
   methods:{
     setState(obj){ //store the object cliked in a vuex global variable
       this.$store.state.item = obj;
-      this.$store.state.transaction = {};
+      this.$store.state.transaction.status = '';
+      this.$store.state.transaction.message = '';
     }
   },
   computed: {
