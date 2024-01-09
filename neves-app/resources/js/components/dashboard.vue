@@ -7,8 +7,9 @@
         <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
           <div class="dash-cont-logo" v-if="index == 0">
 
-            <a class="dash-logo" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
-              @click.prevent="principal(index)">
+            <a href="/dashboard" class="dash-logo" :title="'This link goes to the ' + page.link.text + ' page'"
+              @click="principal(index)">
+
               <img :src="page.logoPath" :alt="page.logoPath">
               <h6>Neves Engraving</h6>
             </a>
@@ -16,16 +17,20 @@
           <!-----------------------Generate the rest of the menu ---------------------------->
           <div class="dash-link-cont" v-else>
             <div class="link-cont" :class="activePage == index ? 'active' : ''">
-              <a aria-current="page" :href="page.link.url" :title="'This link goes to the ' + page.link.text + ' page'"
-                @click.prevent="principal(index)">{{ page.link.text }}</a>
-              <h3 class="menuIcon" @click.prevent='toogle(index)' >
-                <img :src="active == true && id == index ? 'storage/images/Icons/LessIcon.png' : 'storage/images/Icons/PlusIcon.png'"></h3>
+              <a aria-current="page" href="" :title="'This link goes to the ' + page.link.text + ' page'"
+                @click.prevent="principal(index)"><router-link :to="page.link.url">{{ page.link.text }}</router-link></a>
+              <h3 class="menuIcon" @click.prevent='toogle(index)'>
+                <img
+                  :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png' : '/storage/images/Icons/PlusIcon.png'">
+              </h3>
             </div>
             <div class="dash-nav-option" :class="{ show: id == index && active }">
               <ul>
                 <!-----------------------Generate the menu option options ---------------------------->
-                <li v-for="(option, chave) in page.options" :key="chave" :class="activeLink == option.info && activePage == index ? 'linkActive':''">
-                  <a href="" @click.prevent="opcao(option.info, index)">{{ option.info }}</a>
+                <li v-for="(option, chave) in page.options" :key="chave"
+                  :class="activeLink == option.info && activePage == index ? 'linkActive' : ''">
+                  <a href="" @click.prevent="opcao(option.info, index)"><router-link :to="option.url">{{ option.info
+                  }}</router-link></a>
                 </li>
               </ul>
             </div>
@@ -37,31 +42,22 @@
     </section>
     <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
     <section id="dash-screen">
-      <!-- {{ activeLink }}
-      {{ selectedLink }}  -->
-      <!-- {{ activePage }} -->
-      <!-- {{ active }} -->
-
       <!---------------- If the active page is home ------------------>
-      <div v-if="activePage == 0">
+      <div v-if="this.$route.path == '/dashboard'">
         <div class="page">
-          <content-component :id="activePage" :title="pages[activePage].pageTitle"
-            :metaTitle="pages[activePage].content"></content-component>
-        </div>
-      </div>
-
-      <!---------------- If the selected pages are the principal ones  ------------------>
-      <div v-else-if="activePage != 0 && selectedLink == ''">
-        <div class="page">
-          <content-component :id="activePage" :title="pages[activePage].pageTitle"
-            :metaTitle="pages[activePage].content"></content-component>
+          <div class="content">
+            <div class="title-cont">
+              <h1 class="titulo">Dashboard</h1>
+            </div>
+          </div>
         </div>
       </div>
       <!---------------- If the selected pages are in the opcion menu  ------------------>
       <div v-else>
         <div class="page">
-          <content-component :id="selectedLink" :title="pages[selectedLink].pageTitle"
-            :metaTitle="activeLink"></content-component>
+          <div class="content">
+            <router-view></router-view>
+          </div>
         </div>
       </div>
     </section>
@@ -80,109 +76,101 @@ export default {
       id: "", // for validations
       pages: [
         {
-          link: { text: 'Home', url: 'dashboard.html' },
+          link: { text: 'Home', url: '/dashboard' },
           pageTitle: 'Dashboard',
-          content: 'Conteúdo de Dashboard',
-          logoPath: "storage/images/logos/LogoVetorizadoFundBranco.png",
+          content: '',
+          logoPath: "/storage/images/logos/LogoVetorizadoFundBranco.png",
           alt: "Logo da marca"
         },
         {
-          link: { text: 'Produtos', url: 'produtos.html' },
+          link: { text: 'Produtos', url: '/dashboard/produtos' },
           pageTitle: "Produtos",
-          content: 'Conteudo de Produtos',
+          content: '',
           options: [
             {
-              info: 'Todos',
-              content: 'Conteudo de Produtos'
-            },
-            {
-              info: 'Adicionar',
-              content: 'Conteudo de Adicionar'
-            },
-            {
               info: 'Descontos',
-              content: 'Conteudo de Descontos'
+              url: '/dashboard/produtos/descontos'
             },
             {
               info: 'Defenições',
-              content: 'Conteudo de Defenições'
+              url: '/dashboard/produtos/defenicoes'
             }
 
           ],
         },
         {
-          link: { text: 'Conteudo', url: 'conteudo.html' },
+          link: { text: 'Conteudo', url: '/dashboard/conteudo' },
           pageTitle: "Conteudo",
           content: 'Conteudo de Conteudo',
           options: [
             {
               info: 'Conteúdo geral',
-              content: 'Conteúdo do conteudo geral'
+              url: '/dashboard/conteudo/geral'
             },
             {
               info: 'Politicas',
-              content: 'Conteudo de Politicas'
+              url: '/dashboard/conteudo/politicas'
             },
             {
               info: 'Informação',
-              content: 'Conteudo de Informação'
+              url: '/dashboard/conteudo/informacao'
             }
           ],
         },
         {
-          link: { text: 'Estatísticas', url: 'estatisticas.html' },
+          link: { text: 'Estatísticas', url: '/dashboard/estatisticas' },
           pageTitle: "Estatísticas",
           content: 'Conteudo de Estatsticas',
           options: [
             {
               info: 'Avaliações',
-              content: 'Conteudo de Avaliações'
+              url: '/dashboard/estatisticas/avaliacoes'
             },
             {
               info: 'Lucros',
-              content: 'Conteudo de Lucros'
+              url: '/dashboard/estatisticas/lucros'
             },
             {
               info: 'Encomendas',
-              content: 'Conteudo de Pedidos'
+              url: '/dashboard/estatisticas/encomendas'
             },
             {
               info: 'Logs',
-              content: 'Conteudo de Logs'
+              url: '/dashboard/estatisticas/logs'
             }
           ],
         },
         {
-          link: { text: 'Clientes', url: 'clientes.html' },
+          link: { text: 'Clientes', url: '/dashboard/clientes' },
           pageTitle: "Clientes",
           content: 'Conteudo de Clientes',
           options: [
             {
               info: 'Mensagens',
-              content: 'Conteudo de Mensagens'
+              url: '/dashboard/clientes/mensagens'
             },
             {
               info: 'Pedidos',
-              content: 'Conteudo de Pedidos'
+              url: '/dashboard/clientes/pedidos'
             },
             {
               info: 'Avaliações',
-              content: 'Conteudo de Avaliações'
+              url: '/dashboard/clientes/avaliações'
             }
           ],
         },
         {
-          link: { text: 'Defenições', url: 'defenições.html' },
+          link: { text: 'Defenições', url: '/dashboard/defenições' },
           pageTitle: "Defenições",
           content: 'Conteudo de Defenições',
           options: [
             {
               info: 'Cores',
-              content: 'Conteudo de Cores'
+              url: '/dashboard/defenicoes/cores'
             },
             {
               info: 'Tipos de Letra',
-              content: 'Conteudo de Tipos de Letra'
+              url: '/dashboard/defenicoes/letra'
             }
           ],
         },
@@ -206,8 +194,9 @@ export default {
     },
     principal(e) {
       this.activePage = e;//Sets the active page value from the index of the link clicked
+      this.$store.state.activePage = e;
       this.selectedLink = '';// make the diference from menu options and principals
-      this.activeLink= '';// sets the activeLink value to null to remove the style from the option
+      this.activeLink = '';// sets the activeLink value to null to remove the style from the option
     },
     opcao(x, y) {
       this.activeLink = x; //gives the name of the option selected

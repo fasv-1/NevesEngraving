@@ -4,6 +4,8 @@ import './bootstrap';
 
 import { createApp } from 'vue';
 
+import { createRouter, createWebHistory } from 'vue-router';
+
 
 
 //-----------------Vuex----------------------------------------------------------------
@@ -17,6 +19,18 @@ const store = createStore({
       transaction:{ status:'', message:'' }
     }
   }
+})
+
+//--------------------------------------Routes----------------------------------------------------
+const routes =[
+  {path: '/dashboard/produtos', component: Products},
+  {path: '/dashboard/produtos/descontos', component: DescProduct},  
+  {path: '/dashboard/produtos/defenicoes', component: DefProduct},
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 })
 
 //-------------------------Components-----------------------------------------
@@ -54,8 +68,8 @@ app.component('alert-component', Alert);
 
 import Table from './components/dash-components/Table.vue';
 app.component('table-component', Table);
-  
 
+  
 //---------------------------------------Filters------------------------------------------------------------
 app.config.globalProperties.$filters = {
   formatDateTime(d){
@@ -78,7 +92,7 @@ app.config.globalProperties.$filters = {
   }
 };
 
-
+app.use(router)
 app.use(store)
 app.mount('#app');
 

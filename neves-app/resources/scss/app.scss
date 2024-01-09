@@ -138,25 +138,32 @@ table {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.4009978991596639) 0%, rgba(124, 222, 255, 1) 100%);
 }
 
-input[type="text"],
+
 input[type="number"],
 input[type="checkbox"],
-select,
-textarea {
+select{
   border: 1px solid $Brdr-blue;
   border-radius: 10px;
   padding: 0.5em 0.4em 0.5em 0.4em;
 }
 
 input[type="text"],
-input[type="number"],
-input[type="checkbox"],
-select,
-textarea:focus {
-  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+textarea{
+  border: 1px solid $Brdr-blue;
+  border-radius: 10px;
+  padding: 0.5em 0.4em 0.5em 0.4em;
+  width: 100%;
 }
+
+// input[type="text"],
+// input[type="number"],
+// input[type="checkbox"],
+// select,
+// textarea:focus {
+//   -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+//   -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+//   box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+// }
 
 input,
 select,

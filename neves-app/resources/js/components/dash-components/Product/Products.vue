@@ -1,10 +1,13 @@
 <template>
   <!--Product filter area-->
+  <div class="title-cont">
+    <h1 class="titulo">Produtos</h1>
+  </div>
   <div class="space-between">
-    <div>
-      <h3>Pesquisar produtos</h3>
+    <h4>Pesquisar produtos</h4>
+    <div class="marg-r">
+      <a class="high-link" href="#addProductModal">Adicionar novo produto +</a>
     </div>
-    <a class="high-link" href="#addProductModal">Adicionar novo produto +</a>
   </div>
   <!--Modal to add new products-->
   <modal-component id="addProductModal" title="Adicionar novo produto">
@@ -104,10 +107,12 @@
     </input-container>
     <!--End Materials filter-->
     <!-- By name filter-->
-    <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome">
-      <input type="text" id="Search" placeholder="Nome do produto" class="long-name">
-    </input-container>
-    <button>Procurar</button>
+    <div class="search">
+      <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome">
+        <input type="text" id="Search" placeholder="Nome do produto" class="long-name">
+      </input-container>
+      <button class="button-save">Procurar</button>
+    </div>
     <!--End Materials filter-->
   </div>
   <!--End of Product filter area-->
@@ -115,11 +120,11 @@
   <div class="card-box">
     <div class="card-prd-dash" v-for="value, indexValue in products.data" :key="indexValue">
       <div class="label-area">
-        <h3>{{ value.nome }}</h3>
-        <h5>{{ value.id }}</h5>
+        <h4>{{ value.nome }}</h4>
+        <h6>ID{{ value.id }}</h6>
       </div>
       <div class="img-area">
-        <div  v-for="i, indexValue in mainImage.data" :key="indexValue">
+        <div v-for="i, indexValue in mainImage.data" :key="indexValue">
           <div class="img-cont" v-if="i.produto_id == value.id">
             <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
           </div>
@@ -129,8 +134,8 @@
         <h5>{{ c.id == value.categoria_id ? c.nome : '' }}</h5>
       </div>
       <div class="info-area">
-        <h5> {{ value.quantidade }} </h5>
-        <h5> {{ value.valor }} </h5>
+        <h5>Quant.: {{ value.quantidade }} </h5>
+        <h6> Preço: {{ value.valor }} €</h6>
       </div>
     </div>
   </div>

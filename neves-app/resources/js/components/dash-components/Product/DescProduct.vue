@@ -1,5 +1,9 @@
 <template>
   <!-- Product Defenitons Page  -->
+  <div class="title-cont">
+    <h1 class="titulo">Produto</h1>
+    <h4 class="titulo_alt">Descontos</h4>
+  </div>
   <div class="productInputContent">
 
     <!------------------------ DISCOUNT AREA --------------------------------->
@@ -16,19 +20,19 @@
             v-if="$store.state.transaction.status == 'added'"></alert-component>
         </template>
         <template v-slot:content>
-          <input-container id="nameDiscount" title="Nome" help="nameDiscount" helpText="Nome do desconto">
+          <input-container id="nameDiscount" title="Nome" help="nameDiscount" helpText="Nome do desconto" size="m-input">
             <input type="text" name="nameDiscount" aria-describedby="nameDiscount" v-model="newDiscount.name">
           </input-container>
 
           <input-container id="descriptionDiscount" title="Descrição" help="descriptionDiscount"
-            helpText="Descrição do desconto">
+            helpText="Descrição do desconto" size="b-input">
             <textarea name="descriptionDiscount" aria-describedby="descriptionDiscount" v-model="newDiscount.description">
             </textarea>
           </input-container>
 
           <input-container id="valueDiscount" title="Valor do desconto" help="valueDiscount"
             helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="valueDiscount" aria-describedby="valueDiscount" v-model="newDiscount.value">
+            <input type="number" name="valueDiscount" aria-describedby="valueDiscount" v-model="newDiscount.value" class="s-input">
           </input-container>
 
           <input-container id="statusDiscount" title="Estado do desconto" help="statusDiscount"
@@ -174,8 +178,8 @@ export default {
         formData.append('nome', this.newDiscount.name);
         formData.append('descricao', this.newDiscount.description);
         if (this.newDiscount.value) {
-        formData.append('desconto', this.newDiscount.value.toFixed(2));
-        }else{
+          formData.append('desconto', this.newDiscount.value.toFixed(2));
+        } else {
           formData.append('desconto', this.newDiscount.value);
         }
         formData.append('ativo', this.newDiscount.status);

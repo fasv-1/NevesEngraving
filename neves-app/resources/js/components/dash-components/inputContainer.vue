@@ -1,5 +1,5 @@
 <template>
-  <div class="inputContainer">
+  <div class="inputContainer" :class="size">
 
     <div class="form-label">
     <label :for="id" >{{ title }}</label>
@@ -12,6 +12,6 @@
 
 <script>
 export default {
-  props: ['id', 'title', 'help', 'helpText']
+  props: ['id', 'title', 'help', 'helpText', 'size']
 }
 </script>

@@ -3,19 +3,16 @@
   <div class="content">
     <div class="title-cont">
       <h1 class="titulo">{{ title }}</h1>
-      <h2 class="titulo_alt">( {{ metaTitle }} )</h2>
+      <!-- <h4 class="titulo_alt"> {{ metaTitle }} </h4> -->
     </div>
 
-    <add-product v-if="id == 1 && metaTitle == 'Adicionar'"></add-product>
-    <products v-if="id == 1 && metaTitle == 'Conteudo de Produtos'"></products>
-    <defenitions-product v-if="id == 1 && metaTitle == 'Defenições'"></defenitions-product>
-    <desconto-product v-if="id == 1 && metaTitle == 'Descontos'"></desconto-product>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['id', 'title', 'metaTitle'],
+  props: ['title'],
   // data (){
   //   return{
 
