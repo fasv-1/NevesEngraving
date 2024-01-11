@@ -11,12 +11,12 @@
               @click="principal(index)">
 
               <img :src="page.logoPath" :alt="page.logoPath">
-              <h6>Neves Engraving</h6>
+              <h6 class="sm-marg-l">Neves Engraving</h6>
             </a>
           </div>
           <!-----------------------Generate the rest of the menu ---------------------------->
           <div class="dash-link-cont" v-else>
-            <div class="link-cont" :class="activePage == index ? 'active' : ''">
+            <div class="link-cont" :class="this.$route.path == page.link.url ? 'active' : ''">
               <a aria-current="page" href="" :title="'This link goes to the ' + page.link.text + ' page'"
                 @click.prevent="principal(index)"><router-link :to="page.link.url">{{ page.link.text }}</router-link></a>
               <h3 class="menuIcon" @click.prevent='toogle(index)'>
@@ -28,7 +28,7 @@
               <ul>
                 <!-----------------------Generate the menu option options ---------------------------->
                 <li v-for="(option, chave) in page.options" :key="chave"
-                  :class="activeLink == option.info && activePage == index ? 'linkActive' : ''">
+                  :class="this.$route.path == option.url ? 'linkActive' : ''">
                   <a href="" @click.prevent="opcao(option.info, index)"><router-link :to="option.url">{{ option.info
                   }}</router-link></a>
                 </li>
@@ -62,7 +62,7 @@
       </div>
     </section>
   </div>
-  <div class="color-footer"></div><!--Gradient on the bottom-->
+  <!--Gradient on the bottom-->
 </template>
 
 <script>
@@ -155,12 +155,12 @@ export default {
             },
             {
               info: 'Avaliações',
-              url: '/dashboard/clientes/avaliações'
+              url: '/dashboard/clientes/avaliacoes'
             }
           ],
         },
         {
-          link: { text: 'Defenições', url: '/dashboard/defenições' },
+          link: { text: 'Defenições', url: '/dashboard/defenicoes' },
           pageTitle: "Defenições",
           content: 'Conteudo de Defenições',
           options: [
@@ -194,7 +194,6 @@ export default {
     },
     principal(e) {
       this.activePage = e;//Sets the active page value from the index of the link clicked
-      this.$store.state.activePage = e;
       this.selectedLink = '';// make the diference from menu options and principals
       this.activeLink = '';// sets the activeLink value to null to remove the style from the option
     },

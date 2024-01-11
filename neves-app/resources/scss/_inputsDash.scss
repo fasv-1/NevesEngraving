@@ -31,15 +31,21 @@
   margin: 1em 2em 0.5em 2em;
 }
 
-.product-filters{
+.product-filters {
   padding: 1em;
-  border: 1px solid #7cdeff36;
+  border: 1px solid $Brdr-blue;
   border-radius: 10px;
   display: flex;
+  justify-content: center;
+  // -webkit-box-shadow: $boxShadow;
+  // -moz-box-shadow: $boxShadow;
+  // box-shadow: $boxShadow;
 }
 
-.search{
+.search {
   display: flex;
+  align-items: center;
+  width: 40%;
 }
 
 //style for the table container
@@ -48,7 +54,7 @@
   background-color: #fff;
   border: 1px solid $Global-red;
   padding: 0.5em;
-  margin: 0.3em;
+  margin: 0.5em;
 
   .table {
     height: 100%;
@@ -62,7 +68,7 @@
 .btn-view {
   margin: 0.1em;
   padding: 0.2em;
-  background-color: $Darker-blue;
+  background-color: $Bg-White;
   color: white;
   border: none;
   border-radius: 10px;
@@ -73,22 +79,11 @@
   color: #fff;
 }
 
-.b-input{
-  width: 100%;
-}
-
-.m-input{
-  width: 50%;
-}
-.s-input{
-  width: 10%;
-}
-
 .btn-update {
   margin: 0.1em;
   padding: 0.2em;
-  // background-color: $Brdr-blue;
-  border: 1px solid $Darker-blue;
+  background-color: $Bg-White;
+  border: 2px solid $Darker-blue;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.1s ease-in;
@@ -101,8 +96,8 @@
 .btn-remove {
   margin: 0.1em;
   padding: 0.2em;
-  // background-color: $Global-red;
-  border: 1px solid #9c0101;
+  background-color: $Bg-White;
+  border: 2px solid #9c0101;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.1s ease-in;
@@ -110,6 +105,21 @@
 .btn-remove:hover {
   background-color: #9c0101;
   color: #fff;
+}
+
+.b-input {
+  width: 100%;
+}
+
+.fix-input {
+  width: 90%;
+}
+
+.m-input {
+  width: 50%;
+}
+.s-input {
+  width: 10%;
 }
 //end of buttons view, update and remove
 
@@ -128,6 +138,7 @@
     padding: 1em;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     .label-area {
       display: flex;
@@ -142,25 +153,25 @@
       height: 150px;
       border: 1px solid $Detail-blue;
 
-        .img-prd-dash {
-          image-rendering: optimizeQuality;
-        }
+      .img-prd-dash {
+        image-rendering: optimizeQuality;
+      }
     }
 
-    .category-area{
-      margin: 1em 0 0 0 ;
+    .category-area {
+      margin: 1em 0 0 0;
       text-align: center;
       width: 100%;
     }
 
-    .info-area{
+    .info-area {
       width: 100%;
       display: flex;
       justify-content: space-between;
       margin: 1em 0 0 0;
     }
 
-    &:hover{
+    &:hover {
       box-shadow: $boxShadow;
       cursor: pointer;
     }
@@ -168,7 +179,7 @@
 }
 //end card container and card
 
-//container 2
+//conteiner 2
 .conteiner2 {
   display: flex;
   flex-wrap: wrap;
@@ -177,9 +188,9 @@
   padding: 1em;
   margin: 1em;
   width: 100%;
-  -webkit-box-shadow: $boxShadow;
-  -moz-box-shadow: $boxShadow;
-  box-shadow: $boxShadow;
+  // -webkit-box-shadow: $boxShadow;
+  // -moz-box-shadow: $boxShadow;
+  // box-shadow: $boxShadow;
   border: 1px solid $Brdr-blue;
   border-radius: 10px;
 }
@@ -191,11 +202,17 @@
   font-weight: bold;
 }
 
+.cont-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
 // input container component
 .inputContainer {
   display: inline-block;
   padding: 0.5em;
-  // width: 100%;
+  margin: 0 0.5em 0 0.5em;
 
   .form-label {
     margin: 0.6em 0 0.6em 0;
@@ -219,19 +236,16 @@
   width: 300px;
 }
 
-//text area longer
-.long-description {
-  width: 500px;
-  height: 50px;
-}
-
-
 .productInputContent {
   display: flex;
 }
 
-.marg-r{
+.marg-r {
   margin-right: 5em;
+}
+
+.sm-marg-l {
+  margin-left: 0.4em;
 }
 
 input[type="file"] {
@@ -258,11 +272,11 @@ input[type="file"] {
 .image-preview {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  // flex-direction: column;
   margin: 1em;
   img {
     border-radius: 20px;
-    width: 200px;
+    width: 100px;
     height: 100%;
   }
 }
@@ -311,6 +325,16 @@ input[type="file"] {
   .modal-header {
     display: flex;
     margin: 1em;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-wrap: wrap;
+
+    .select-options {
+      display: flex;
+      flex-wrap: nowrap;
+    }
   }
 }
 

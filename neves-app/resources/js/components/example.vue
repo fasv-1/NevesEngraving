@@ -7,6 +7,8 @@
 
                   <div class="card-body">
                       I'm an example component.
+
+                      ID: {{ $route.params.id }}
                   </div>
               </div>
           </div>

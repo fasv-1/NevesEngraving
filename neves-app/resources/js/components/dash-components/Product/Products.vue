@@ -9,6 +9,61 @@
       <a class="high-link" href="#addProductModal">Adicionar novo produto +</a>
     </div>
   </div>
+
+  <div class="product-filters">
+    <!-- Category filter -->
+    <input-container id="category" title='Categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
+      <select id="category">
+        <option v-for="c in categorys" :key="c.id" :value="c.id">{{ c.nome }}</option>
+      </select>
+    </input-container>
+    <!-- End category filter-->
+    <!-- Materials filter-->
+    <input-container id="materials" title='Materia-prima' help="materialsHelp"
+      helpText="Filtrar produtos por matéria-prima">
+      <select id="materials">
+        <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
+      </select>
+    </input-container>
+    <!--End Materials filter-->
+    <!-- By name filter-->
+    <div class="search">
+      <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
+        size="b-input">
+        <input type="text" id="Search" placeholder="Nome do produto" class="long-name">
+      </input-container>
+      <button class="button-save">Procurar</button>
+    </div>
+    <!--End Materials filter-->
+  </div>
+  <!--End of Product filter area-->
+  <!--Products display-->
+  <div class="card-box">
+
+    <div class="card-prd-dash" v-for="value, indexValue in products.data" :key="indexValue">
+      <router-link :to="'/dashboard/produtos/' + value.id" class="b-input">
+          <div class="label-area">
+            <h4>{{ value.meta_nome }}</h4>
+            <h6>ID{{ value.id }}</h6>
+          </div>
+          <div class="img-area">
+            <div v-for="i, indexValue in mainImage.data" :key="indexValue">
+              <div class="img-cont" v-if="i.produto_id == value.id">
+                <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="category-area" v-for="c, indexValue in categorys" :key="indexValue">
+            <h5>{{ c.id == value.categoria_id ? c.nome : '' }}</h5>
+          </div>
+          <div class="info-area">
+            <h5>Quant.: {{ value.quantidade }} </h5>
+            <h6> Preço: {{ value.valor }} €</h6>
+          </div>
+      </router-link>
+    </div>
+  </div>
+  <!--End of Products display-->
   <!--Modal to add new products-->
   <modal-component id="addProductModal" title="Adicionar novo produto">
     <template v-slot:alerts>
@@ -20,7 +75,7 @@
     <template v-slot:content>
       <div class="container-inputs">
         <div class="input-form-names">
-          <input-container id="productName" title="Nome" help="productNameHelp" helpText="Nome do produto">
+          <input-container id="productName" title="Nome" help="productNameHelp" helpText="Nome do produto" size="m-input">
             <input type="text" class="long-name" name="productName" aria-describedby="productName"
               v-model="newProduct.name">
           </input-container>
@@ -53,18 +108,19 @@
           </input-container>
 
           <input-container id="customization" title="Costumização" help="costumizationHelp"
-            helpText="Selecione esta caixa caso seja possível costumizar este produto">
+            helpText="Caso seja possível costumizar">
             <input type="checkbox" name="customization" class="form-checkbox" aria-describedby="customization"
               v-model="newProduct.customization">
           </input-container>
         </div>
 
-        <input-container id="description" title="Descrição do produto" help="descriptionHelp"
-          helpText="Descrição do produto">
-          <textarea name="description" aria-describedby="description" v-model="newProduct.description"
-            class="long-description">
+        <div class="input-form-names">
+          <input-container id="description" title="Descrição do produto" help="descriptionHelp"
+            helpText="Descrição do produto" size="fix-input">
+            <textarea name="description" aria-describedby="description" v-model="newProduct.description">
             </textarea>
-        </input-container>
+          </input-container>
+        </div>
 
         <div class="select-options">
           <input-container id="quantity" title="Quantidade do produto" help="quantityHelp"
@@ -85,61 +141,8 @@
       <button class="button-save" @click="save()">Adicionar</button>
     </template>
 
-
-    <!--End of modal to add new products-->
-
   </modal-component>
-  <div class="product-filters">
-
-    <!-- Category filter -->
-    <input-container id="category" title='Categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
-      <select id="category">
-        <option v-for="c in categorys" :key="c.id" :value="c.id">{{ c.nome }}</option>
-      </select>
-    </input-container>
-    <!-- End category filter-->
-    <!-- Materials filter-->
-    <input-container id="materials" title='Materia-prima' help="materialsHelp"
-      helpText="Filtrar produtos por matéria-prima">
-      <select id="materials">
-        <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
-      </select>
-    </input-container>
-    <!--End Materials filter-->
-    <!-- By name filter-->
-    <div class="search">
-      <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome">
-        <input type="text" id="Search" placeholder="Nome do produto" class="long-name">
-      </input-container>
-      <button class="button-save">Procurar</button>
-    </div>
-    <!--End Materials filter-->
-  </div>
-  <!--End of Product filter area-->
-  <!--Products display-->
-  <div class="card-box">
-    <div class="card-prd-dash" v-for="value, indexValue in products.data" :key="indexValue">
-      <div class="label-area">
-        <h4>{{ value.nome }}</h4>
-        <h6>ID{{ value.id }}</h6>
-      </div>
-      <div class="img-area">
-        <div v-for="i, indexValue in mainImage.data" :key="indexValue">
-          <div class="img-cont" v-if="i.produto_id == value.id">
-            <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
-          </div>
-        </div>
-      </div>
-      <div class="category-area" v-for="c, indexValue in categorys" :key="indexValue">
-        <h5>{{ c.id == value.categoria_id ? c.nome : '' }}</h5>
-      </div>
-      <div class="info-area">
-        <h5>Quant.: {{ value.quantidade }} </h5>
-        <h6> Preço: {{ value.valor }} €</h6>
-      </div>
-    </div>
-  </div>
-  <!--End of Products display-->
+  <!--End of modal to add new products-->
 </template>
 
 <script>
@@ -173,7 +176,7 @@ export default {
         .then(response => {
           this.categorys = response.data
 
-          console.log(this.categorys)
+          // console.log(this.categorys)
         })
         .catch(errors => {
           console.log(errors);
@@ -236,7 +239,7 @@ export default {
       let formData = new FormData();
 
       formData.append('nome', this.newProduct.name);
-      formData.append('meta-nome', this.newProduct.metaName);
+      formData.append('meta_nome', this.newProduct.metaName);
       formData.append('quantidade', this.newProduct.quantity);
       formData.append('descricao', this.newProduct.description);
 
@@ -271,6 +274,9 @@ export default {
           this.newProduct.category = '';
           this.newProduct.material = '';
           this.newProduct.discount = '';
+          alert(response.data.msg);
+          this.loadProducts();
+          history.back();
         })
         .catch(errors => {
           this.$store.state.transaction.status = 'error-add'

@@ -8,9 +8,12 @@
 
     <!------------------------ CATEGORY AREA --------------------------------->
     <div class="conteiner2">
-      <h3 class="titulo_1">Categorias</h3>
 
-      <a class="high-link" href="#modalCategoriaAdd">Adicionar categoria +</a>
+      <div class="cont-header">
+        <h3 class="titulo_1">Categorias</h3>
+        <a class="high-link" href="#modalCategoriaAdd">Adicionar categoria +</a>
+      </div>
+
       <!--Modal to add new category-->
       <modal-component id="modalCategoriaAdd" title="Adicionar uma categoria">
         <template v-slot:alerts>
@@ -20,10 +23,8 @@
             v-if="$store.state.transaction.status == 'added'"></alert-component>
         </template>
         <template v-slot:content>
-          <input-container id="addCategory" title="Categoria" help="addCategory"
-            helpText="Nome da Categoria">
-            <input type="text" name="addCategory" aria-describedby="addCategory"
-               v-model="newCategory">
+          <input-container id="addCategory" title="Categoria" help="addCategory" helpText="Nome da Categoria">
+            <input type="text" name="addCategory" aria-describedby="addCategory" v-model="newCategory">
           </input-container>
         </template>
 
@@ -32,7 +33,7 @@
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
-      </modal-component> 
+      </modal-component>
 
       <!-- Start table to show the categorys-->
       <table-component :data="categorias.data" :view="{ visible: false, dataTarget: '#modalCategoriaView' }"
@@ -54,8 +55,8 @@
         </template>
         <template v-slot:content>
           <input-container id="removeCatergory" title="Tem a certeza que quer remover esta categoria?">
-            <input type="text" name="removeCatergory" aria-describedby="removeCategory"
-              :value="$store.state.item.nome" disabled>
+            <input type="text" name="removeCatergory" aria-describedby="removeCategory" :value="$store.state.item.nome"
+              disabled>
           </input-container>
         </template>
 
@@ -90,10 +91,12 @@
     </div>
 
     <!------------------------ MATERIAL AREA --------------------------------->
-    
+
     <div class="conteiner2">
-      <h3 class="titulo_1">Matéria-prima</h3>
-      <a class="high-link" href="#modalMaterialAdd">Adicionar matéria-prima +</a>
+      <div class="cont-header">
+        <h3 class="titulo_1">Matéria-prima</h3>
+        <a class="high-link" href="#modalMaterialAdd">Adicionar matéria-prima +</a>
+      </div>
       <!--Modal to add new category-->
       <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
         <template v-slot:alerts>
@@ -103,10 +106,8 @@
             v-if="$store.state.transaction.status == 'added'"></alert-component>
         </template>
         <template v-slot:content>
-          <input-container id="addMaterial" title="Matéria-prima" help="addMaterial"
-            helpText="Nome da matéria-prima">
-            <input type="text" name="addMaterial" aria-describedby="addMaterial"
-               v-model="newMaterial">
+          <input-container id="addMaterial" title="Matéria-prima" help="addMaterial" helpText="Nome da matéria-prima">
+            <input type="text" name="addMaterial" aria-describedby="addMaterial" v-model="newMaterial">
           </input-container>
         </template>
 
@@ -115,7 +116,7 @@
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
-      </modal-component> 
+      </modal-component>
 
       <!-- Start table to show the categorys-->
       <table-component :data="materiais.data" :view="{ visible: false, dataTarget: '#modalMaterialView' }"
@@ -137,8 +138,8 @@
         </template>
         <template v-slot:content>
           <input-container id="removeMaterial" title="Tem a certeza que quer remover esta matéria-prima?">
-            <input type="text" name="removeMaterial" aria-describedby="removeMaterial"
-              :value="$store.state.item.nome" disabled>
+            <input type="text" name="removeMaterial" aria-describedby="removeMaterial" :value="$store.state.item.nome"
+              disabled>
           </input-container>
         </template>
 
@@ -253,7 +254,7 @@ export default {
 
     },
     remove(r, n) { //removes the data (category and material)
-      
+
       let url = this.urlBase + n + '/' + r
 
       let formData = new FormData();

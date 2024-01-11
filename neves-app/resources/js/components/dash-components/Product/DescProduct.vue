@@ -8,9 +8,10 @@
 
     <!------------------------ DISCOUNT AREA --------------------------------->
     <div class="conteiner2">
-      <h3 class="titulo_1">Descontos</h3>
-
-      <a class="high-link" href="#modalDiscountAdd">Adicionar desconto +</a>
+      <div class="cont-header">
+        <h3 class="titulo_1">Descontos</h3>
+        <a class="high-link" href="#modalDiscountAdd">Adicionar desconto +</a>
+      </div>
       <!--Modal to add new discount-->
       <modal-component id="modalDiscountAdd" title="Adicionar novo desconto">
         <template v-slot:alerts>
@@ -32,7 +33,8 @@
 
           <input-container id="valueDiscount" title="Valor do desconto" help="valueDiscount"
             helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="valueDiscount" aria-describedby="valueDiscount" v-model="newDiscount.value" class="s-input">
+            <input type="number" name="valueDiscount" aria-describedby="valueDiscount" v-model="newDiscount.value"
+              class="s-input">
           </input-container>
 
           <input-container id="statusDiscount" title="Estado do desconto" help="statusDiscount"
@@ -100,7 +102,7 @@
           </input-container>
 
           <input-container id="updateDescriptionDiscount" title="Descrição" help="updateDescriptionDiscount"
-            helpText="Nova descrição do desconto">
+            helpText="Nova descrição do desconto" size="b-input">
             <textarea name="updateDescriptionDiscount" aria-describedby="updateDescriptionDiscount"
               :placeholder="$store.state.item.descricao" v-model="updateDiscount.description"></textarea>
           </input-container>

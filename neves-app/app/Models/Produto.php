@@ -9,12 +9,12 @@ class Produto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'meta-nome', 'quantidade', 'descricao', 'valor', 'costumizavel','categoria_id', 'materia_prima_id', 'desconto_id'];
+    protected $fillable = ['nome', 'meta_nome', 'quantidade', 'descricao', 'valor', 'costumizavel','categoria_id', 'materia_prima_id', 'desconto_id'];
 
     public function rules(){
         return [
             'nome' => 'required|unique:produtos,nome,'.$this->id.'|min:1',
-            'meta-nome' => 'required',
+            'meta_nome' => 'required',
             'quantidade' => 'required|numeric',
             'descricao' => 'required',
             'valor' => 'required|decimal:2|min:0',
@@ -27,6 +27,9 @@ class Produto extends Model
     
     public function feedback(){
         return [
+            'categoria_id.required' => 'A categoria é obrigatória',
+            'materia_prima_id.required' => 'A matéria-prima é obrigatório',
+            'desconto_id.required' => 'O campo desconto é obrigatório',
             'required' => 'O campo :attribute é obrigatório',
             'numeric' => 'O a quantidade do produto deve ser um valor numerico',
             'nome.unique' => 'Este produto já existe',
