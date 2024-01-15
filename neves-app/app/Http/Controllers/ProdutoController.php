@@ -15,11 +15,25 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = $this->produto->all();
+        $product = array();
 
-        return $product;
+        
+        if ($request->has('atributos')) {
+            $attributes = $request->atributos;
+            $product = $this->produto->selectRaw($attributes)->with('desconto')->with('categoria')->with('materiaPrima');
+        }else{
+            $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima');
+            
+        }
+        if($request->has('filtro')){
+            $conditions = explode(':',$request->filtro);
+            $product = $product->where($conditions[0],$conditions[1],$conditions[2])->get();
+        }else{
+            $product = $product->get();
+        }
+        return response()->json($product, 200);
     }
 
     /**
@@ -47,7 +61,7 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        $product = $this->produto->find($id);
+        $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima')->find($id);
 
         return $product;
     }

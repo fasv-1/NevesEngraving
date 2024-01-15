@@ -8,14 +8,32 @@ use Illuminate\Support\Facades\Storage;
 
 class ImagensProdutoController extends Controller
 {
+    public function __construct(imagens_produto $imagens_produto)
+    {
+        $this->imagens_produto = $imagens_produto;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $imagensProduto = imagens_produto::all();
+        $product_images = array();
 
-        return $imagensProduto;
+        
+        if ($request->has('atributos')) {
+            $attributes = $request->atributos;
+            $product_images = $this->imagens_produto->selectRaw($attributes)->with('produto');
+        }else{
+            $product_images = $this->imagens_produto->with('produto');
+            
+        }
+        if($request->has('filtro')){
+            $conditions = explode(':',$request->filtro);
+            $product_images = $product_images->where($conditions[0],$conditions[1],$conditions[2])->get();
+        }else{
+            $product_images = $product_images->get();
+        }
+        return response()->json($product_images, 200);
     }
 
     /**
@@ -47,7 +65,7 @@ class ImagensProdutoController extends Controller
             'produto_id' => $request->produto_id
         ]);
 
-        return response()->json($imagensProdutos, 201);
+        return response()->json(['msg'=>'Imagem adicionada com sucesso'], 201);
     }
 
     /**
@@ -113,6 +131,8 @@ class ImagensProdutoController extends Controller
 
         //as a parameter is sent, save() recognize that is an update
         $imagensProduto->save();
+
+        return response()->json(['msg' => 'Imagem atualizada com sucesso'], 200);
     }
 
     /**
@@ -127,6 +147,6 @@ class ImagensProdutoController extends Controller
 
         $imagensProduto->delete();
 
-        return 'registo e imagem eliminada';
+        return response()->json(['msg'=>'Imagem eliminada com sucesso'], 200);
     }
 }

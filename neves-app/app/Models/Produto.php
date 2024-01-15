@@ -39,12 +39,15 @@ class Produto extends Model
     }
 
     public function desconto() {
-        return $this->hasOne('App\Models\Desconto');
+        return $this->belongsTo('App\Models\Desconto');
     }
     public function categoria() {
-        return $this->hasOne('App\Models\categoria');
+        return $this->belongsTo('App\Models\categoria');
     }
     public function materiaPrima() {
-        return $this->hasOne('App\Models\materia_prima');
+        return $this->belongsTo('App\Models\materia_prima');
+    }
+    public function imagens() {
+        return $this->asMany('App\Models\imagens_produto');
     }
 }

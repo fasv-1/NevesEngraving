@@ -337,10 +337,6 @@ export default {
             })
         });
       }
-
-
-
-
     }
   },
   mounted() {

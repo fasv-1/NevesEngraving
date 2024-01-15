@@ -30,6 +30,6 @@ class desconto extends Model
     }
 
     public function produto() {
-        return $this->belongsTo('App\Models\Produto');
+        return $this->hasMany('App\Models\Produto');
     }
 }

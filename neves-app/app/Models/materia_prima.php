@@ -23,4 +23,8 @@ class materia_prima extends Model
             'nome.unique' => 'Esta materia-prima já existe'
         ];
     }
+
+    public function produto() {
+        return $this->hasMany('App\Models\Produto');
+    }
 }

@@ -12,16 +12,17 @@
 
   <div class="product-filters">
     <!-- Category filter -->
-    <input-container id="category" title='Categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
-      <select id="category">
-        <option v-for="c in categorys" :key="c.id" :value="c.id">{{ c.nome }}</option>
+    <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
+      <select id="category" v-model="categoryFilter" @change= "filtro(categoryFilter,1)">
+        <option v-for="c in categorys" :key="c.id" :value="c.id" >{{ c.nome }}</option>
       </select>
     </input-container>
+    <div></div>
     <!-- End category filter-->
     <!-- Materials filter-->
-    <input-container id="materials" title='Materia-prima' help="materialsHelp"
+    <input-container id="materials" title='Por materia-prima' help="materialsHelp"
       helpText="Filtrar produtos por matéria-prima">
-      <select id="materials">
+      <select id="materials" v-model="materialFilter" @change= "filtro(materialFilter,2)">
         <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
       </select>
     </input-container>
@@ -30,9 +31,9 @@
     <div class="search">
       <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
         size="b-input">
-        <input type="text" id="Search" placeholder="Nome do produto" class="long-name">
+        <input type="text" id="Search" placeholder="Nome do produto" class="long-name" v-model="nameFilter" >
       </input-container>
-      <button class="button-save">Procurar</button>
+      <button class="button-save" @click="filtro(nameFilter,3)">Procurar</button>
     </div>
     <!--End Materials filter-->
   </div>
@@ -53,8 +54,8 @@
               </div>
             </div>
           </div>
-          <div class="category-area" v-for="c, indexValue in categorys" :key="indexValue">
-            <h5>{{ c.id == value.categoria_id ? c.nome : '' }}</h5>
+          <div class="category-area" >
+            <h5>{{value.categoria.nome }}</h5>
           </div>
           <div class="info-area">
             <h5>Quant.: {{ value.quantidade }} </h5>
@@ -116,7 +117,7 @@
 
         <div class="input-form-names">
           <input-container id="description" title="Descrição do produto" help="descriptionHelp"
-            helpText="Descrição do produto" size="fix-input">
+            helpText="Descrição do produto" size="mb-input">
             <textarea name="description" aria-describedby="description" v-model="newProduct.description">
             </textarea>
           </input-container>
@@ -166,9 +167,53 @@ export default {
       discounts: { data: [] },
       products: { data: [] },
       mainImage: { data: [] },
+      categoryFilter:'',
+      materialFilter:'',
+      nameFilter:'',
     }
   },
   methods: {
+    filtro(f,n){
+      if(n == 1){
+
+      let urlProducts = this.urlBase + 'produto?filtro=categoria_id:=:'+ f;
+
+      axios.get(urlProducts)
+        .then(response => {
+          this.products.data = response.data
+          // console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+      }
+
+      if(n == 2){
+        let urlProducts = this.urlBase + 'produto?filtro=materia_prima_id:=:'+ f;
+        axios.get(urlProducts)
+        .then(response => {
+          this.products.data = response.data
+          // console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+      }
+
+      if(n == 3){
+        let urlProducts = this.urlBase + 'produto?filtro=nome:like:%'+ f +'%';
+        axios.get(urlProducts)
+        .then(response => {
+          this.products.data = response.data
+          // console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+      }
+
+      
+    },
     loadCategory() {
       let urlCategory = this.urlBase + 'categoria';
 
@@ -209,9 +254,11 @@ export default {
     },
     loadProducts() {
       let urlProducts = this.urlBase + 'produto';
+      
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data
+          console.log(response.data)
         })
         .catch(errors => {
           console.log(errors);

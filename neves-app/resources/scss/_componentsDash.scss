@@ -1,0 +1,218 @@
+//style for the titles
+.titulo {
+  padding: 0.5em 0 0 1em;
+  font-weight: bolder;
+  display: inline-block;
+}
+
+.titulo_alt {
+  display: inline-block;
+  padding: 1em 0 0 1em;
+}
+
+.titulo_1 {
+  width: 40%;
+}
+//end of style for the titles
+
+// buttons view, update and remove
+.btn-view {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: $Bg-White;
+  color: #000;
+  border: 2px solid #1f6f8a;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-view:hover {
+  background-color: #1f6f8a;
+  color: #fff;
+}
+
+.btn-update {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: $Bg-White;
+  border: 2px solid $Darker-blue;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+}
+.btn-update:hover {
+  background-color: $Darker-blue;
+  color: #fff;
+}
+
+.btn-remove {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: $Bg-White;
+  border: 2px solid #9c0101;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+}
+.btn-remove:hover {
+  background-color: #9c0101;
+  color: #fff;
+}
+
+//end of buttons
+
+//style for the table container
+.table-container {
+  border-radius: 20px;
+  background-color: #fff;
+  border: 1px solid $Global-red;
+  padding: 0.5em;
+  margin: 0.5em;
+
+  .table {
+    height: 100%;
+    overflow: auto;
+    padding-right: 0.2em;
+  }
+}
+//end of style table
+
+//card container and card
+.card-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .card-prd-dash {
+    width: 250px;
+    margin: 1em;
+    border: 1px solid $Detail-blue;
+    background-color: $Bg-White;
+    border-radius: 10px;
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .label-area {
+      display: flex;
+      justify-content: space-between;
+      height: 15%;
+      width: 100%;
+    }
+
+    .img-area {
+      margin: 0.5em auto 0.2em auto;
+      width: 100%;
+      height: 150px;
+      border: 1px solid $Detail-blue;
+
+      .img-prd-dash {
+        object-fit: cover;
+        width: 100%;
+        height: 150px;
+      }
+    }
+
+    .category-area {
+      margin: 1em 0 0 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .info-area {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin: 1em 0 0 0;
+    }
+
+    &:hover {
+      box-shadow: $boxShadow;
+      cursor: pointer;
+    }
+  }
+}
+//end card container and card
+
+//conteiner 2
+.conteiner2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: $Bg-White;
+  padding: 1em;
+  margin: 1em;
+  width: 100%;
+  // -webkit-box-shadow: $boxShadow;
+  // -moz-box-shadow: $boxShadow;
+  // box-shadow: $boxShadow;
+  border: 1px solid $Brdr-blue;
+  border-radius: 10px;
+}
+//end of container 2
+
+// style for product component
+
+.product-content {
+  display: grid;
+  // width: 100%;
+  // height: 100%;
+  grid-template-rows: auto-fit;
+  grid-template-columns: 2fr 2fr;
+  grid-template-areas:
+    "header header"
+    "image info"
+    "footer footer";
+  grid-gap: 1em;
+  // overflow: auto;
+
+  .title-cont {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1f6f8a56;
+    border-radius: 10px;
+    padding: 1em;
+    grid-area: header;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      transition: 0.2s ease-in;
+      &:hover {
+        background-color: $Global-red;
+      }
+    }
+  }
+  .input-form-image {
+    background-color: #1f6f8a36;
+    border-radius: 10px;
+    padding: 1em;
+    grid-area: image;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-info {
+    background-color: #1f6f8a1a;
+    border-radius: 10px;
+    padding: 1em;
+    grid-area: info;
+
+    .info-area {
+      display: grid;
+      grid-template-rows: repeat(2, 100px);
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+      margin: 1em 0 1em 0;
+      align-items: center;
+
+      border-bottom: 1px solid #ccc;
+      border-top: 1px solid #ccc;
+    }
+  }
+  .input-product-images {
+    background-color: #1f6f8a10;
+    border-radius: 10px;
+    padding: 1em;
+    grid-area: footer;
+  }
+}

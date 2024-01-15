@@ -22,4 +22,8 @@ class categoria extends Model
             'nome.unique' => 'Esta categoria já existe'
         ];
     }
+
+    public function produto() {
+        return $this->hasMany('App\Models\Produto');
+    }
 }

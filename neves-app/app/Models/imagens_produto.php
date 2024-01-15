@@ -26,7 +26,7 @@ class imagens_produto extends Model
         ];
     }
 
-    public function produtos(){
-        return $this->hasMany('App\Models\Produto', 'produto_id','id');
+    public function produto(){
+        return $this->belongsTo('App\Models\Produto');
     }
 }

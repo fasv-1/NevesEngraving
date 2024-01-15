@@ -26,7 +26,7 @@ const routes = [
   { path: '/dashboard/produtos', component: Products },
   {
     path: '/dashboard/produtos/:id',
-    name: 'produtos',
+    name: 'produto',
     component: ProductPage,
     props: (route) => {
       const id = Number.parseInt(route.params.id);
