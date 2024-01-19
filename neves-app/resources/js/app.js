@@ -77,9 +77,6 @@ app.component('products', Products);
 import ProductPage from './components/dash-components/Product/ProductPage.vue';
 app.component('product-page', ProductPage);
 
-import AddProduct from './components/dash-components/Product/AddProduct.vue';
-app.component('add-product', AddProduct);
-
 import DescProduct from './components/dash-components/Product/DescProduct.vue';
 app.component('desconto-product', DescProduct);
 

@@ -36,7 +36,7 @@
       </modal-component>
 
       <!-- Start table to show the categorys-->
-      <table-component :data="categorias.data" :view="{ visible: false, dataTarget: '#modalCategoriaView' }"
+      <table-component :data="categorys.data" :view="{ visible: false, dataTarget: '#modalCategoriaView' }"
         :update="{ visible: true, dataTarget: '#modalCategoriaUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalCategoriaRemove' }" :titles="{
           id: { title: 'ID', type: 'text' },
@@ -171,7 +171,9 @@
 
       </modal-component>
       <!-- End modal to update categorys-->
+
     </div>
+
   </div>
 </template>
 
@@ -180,7 +182,7 @@ export default {
   data() {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
-      categorias: { data: [] },
+      categorys: { data: [] },
       newCategory: '',
       updateCategory: '',
       active: false,
@@ -189,9 +191,22 @@ export default {
       materiais: { data: [] },
       newMaterial: '',
       updateMaterial: '',
+      products: { data: [] },
     }
   },
   methods: {
+    loadProducts() {
+      let urlProducts = this.urlBase + 'produto';
+
+      axios.get(urlProducts)
+        .then(response => {
+          this.products.data = response.data
+          // console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
     loadTableData() { //loads the category data to the table
       let urlCategory = this.urlBase + 'categoria';
       let urlMaterial = this.urlBase + 'materia';
@@ -199,7 +214,7 @@ export default {
       if (urlCategory) {
         axios.get(urlCategory)
           .then(response => {
-            this.categorias.data = response.data
+            this.categorys.data = response.data
           })
           .catch(errors => {
             console.log(errors);
@@ -253,7 +268,67 @@ export default {
 
 
     },
-    remove(r, n) { //removes the data (category and material)
+    remove(r, n) { //removes the data (r = id and n = line to remove)
+
+      if (this.products.data) {
+        this.products.data.forEach(element => {
+          if (element.categoria_id == r && n == 'categoria') {
+            let url = this.urlBase + 'produto/' + element.id
+
+            let formData = new FormData();
+            formData.append('_method', 'patch')
+
+            formData.append('categoria_id', 1);
+
+            let config = {
+            headers: {
+              'Content-Type': 'x-www-form-urlencoded',
+              'Accept': 'application/json'
+            }
+          }
+
+          axios.post(url, formData, config)
+            .then(response => {
+              this.$store.state.transaction.status = 'updated'
+              this.$store.state.transaction.message = response.data.msg
+            })
+            .catch(errors => {
+              this.$store.state.transaction.status = 'error-update'
+              this.$store.state.transaction.message = errors.response.data
+              alert(errors.response.data)
+            })
+          }
+
+          if (element.materia_prima_id == r && n == 'materia') {
+            let url = this.urlBase + 'produto/' + element.id
+
+            let formData = new FormData();
+            formData.append('_method', 'patch')
+
+            formData.append('materia_prima_id', 1);
+
+            let config = {
+            headers: {
+              'Content-Type': 'x-www-form-urlencoded',
+              'Accept': 'application/json'
+            }
+          }
+
+          axios.post(url, formData, config)
+            .then(response => {
+              this.$store.state.transaction.status = 'updated'
+              this.$store.state.transaction.message = response.data.msg
+            })
+            .catch(errors => {
+              this.$store.state.transaction.status = 'error-update'
+              this.$store.state.transaction.message = errors.response.data
+              alert(errors.response.data)
+            })
+          }
+
+          
+        });
+      }
 
       let url = this.urlBase + n + '/' + r
 
@@ -320,6 +395,7 @@ export default {
   },
   mounted() {
     this.loadTableData()
+    this.loadProducts()
   }
 }
 </script>

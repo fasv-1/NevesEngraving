@@ -4,21 +4,26 @@
     <!---------------------- Product name as title and botton edit --------------------------->
     <div class="title-cont">
       <h2 class="titulo1">{{ product.data.nome }}</h2>
-      <a href=""><img src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
+      <div>
+        <a href="#updateProductModal" ><img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
+        <a href="#deleteProductModal" ><img class="delete-btn" src="/storage/images/Icons/delete.svg" alt=""></a>
+      </div>
     </div>
     <!---------------------------- End of Product name and meta-name ------------------------>
 
     <!------------------------------ Product input main image -------------------------------->
     <!--If exists an main product image-->
-    <div class="input-form-image" v-if="productMainImage.data != ''">
+    <div class="input-form-image" v-if="productMainImage != ''">
       <label for="newImagem" class="form-label-img">
         <h3>Imagem principal</h3>
       </label>
       <div class="principal-image-preview">
-        <img :src="'/storage/' + productMainImage.data[0].nome">
-      </div>
-      <div class="image-btns">
-        <button class="btn-remove ms-input" @click="removeImage()">Remover imagem</button>
+        <div>
+          <img :src="'/storage/' + productMainImage[0].nome">
+        </div>
+        <div class="image-btns">
+          <button class="btn-remove" @click="removeImage(productMainImage[0].id)">Remover imagem</button>
+        </div>
       </div>
     </div>
 
@@ -28,7 +33,7 @@
         <h3>Imagem principal</h3>
       </label>
       <input-container id="newImage" titulo='Imgem principal' help="newImageHelp"
-        helpText="Insira uma imagem de destaque para o produto">
+        helpText="Insira uma imagem de capa para o produto (não deve exceder 2mb)">
         <label class="imageButton">
           <input type="file" name="newImage" class="form-image" aria-describedby="newProductImage"
             placeholder="Nome do produto" @change="uploadMainImage($event)">
@@ -37,9 +42,11 @@
       </input-container>
       <div class="principal-image-preview">
         <img v-if="url" :src="url">
+        <p v-if="mainImage != ''">Tamanho: {{ mbConversion }} MB</p>
       </div>
-      {{ mainImage.size }}
-      <button v-if="mainImage != '' " class="btn-view ms-input" @click="saveImage('mainImage')">Adicionar imagem</button>
+      <div class="image-cont-button">
+        <button v-if="mainImage != ''" class="button-save" @click="saveImage('mainImage')">Adicionar imagem</button>
+      </div>
     </div>
     <!----------------------------------- End of product input main image ------------------------------->
 
@@ -105,26 +112,159 @@
     <!----------------------------------- End of product info ------------------------------->
 
     <!----------------------------------- Product images inputs ----------------------------->
-    <div class="input-product-images">
-      <label for="newImagem" class="form-label-img">
+
+    <!--If exists images of the product already charged -->
+    <div class="product-images" v-if="productImages != ''">
+      <label for="Images" class="form-label-img">
         <h3>Imagens do produto</h3>
       </label>
-      <input-container id="newImage" titulo='Imgem principal' help="newImageHelp"
-        helpText="Insira uma ou várias imagens para o produto">
+      <div class="images-preview" v-if="productImages != ''">
+        <div class="preview-cont" v-for="i, indexValue in productImages" :key="indexValue">
+          <img :src="'/storage/' + i.nome">
+          <button class="btn-remove" @click="removeImage(i.id)">Remover imagem</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input to add new images -->
+    <div class="input-product-images">
+      <label for="newImages" class="form-label-img">
+        <h3>Adicionar imagens novas</h3>
+      </label>
+      <input-container id="newImage" title='' help="newImageHelp"
+        helpText="Insira uma ou várias imagens para o produto (o tamanho das imagens não deve exceder os 2MB)">
         <label class="imageButton">
           <input type="file" name="newImage" class="form-image" aria-describedby="newProductImage"
             placeholder="Nome do produto" @change="uploadImages($event)">
           <i>Carregar imagem</i>
         </label>
       </input-container>
-      <div class="images-preview">
+      <div class="images-preview brd-grey" v-if="urlImages != ''">
         <div class="preview-cont" v-for="(urlImage, index) in urlImages" :key="index">
           <img v-if="urlImage" :src="urlImage">
+          <p v-if="urlImages">Tamanho:{{ ((this.images[index][0].size / 1024) / 1024).toFixed(2) }} MB</p>
           <button class="btn-remove ms-input" @click="deleteImage(index)">Eliminar</button>
         </div>
       </div>
+      <div class="image-cont-button">
+        <button v-if="urlImages != ''" class="button-save" @click="saveImage('images')">Adicionar imagens</button>
+      </div>
     </div>
     <!----------------------------------- End of product images inputs ----------------------------->
+
+    <!----------------------------Modal to update the product-------------------------------------->
+    <modal-component id="updateProductModal" title="Atualizar produto">
+      <template v-slot:alerts>
+        <alert-component tipe="danger" :details="$store.state.transaction"
+          v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+        <alert-component tipe="success" :details="$store.state.transaction.message"
+          v-if="$store.state.transaction.status == 'added'"></alert-component>
+      </template>
+      <template v-slot:content>
+        <div class="container-inputs">
+          <div class="input-form-names">
+            <input-container id="productName" title="Nome" help="productNameHelp" helpText="Nome do produto"
+              size="m-input">
+              <input type="text" class="long-name" :placeholder="product.data.nome" name="productName"
+                aria-describedby="productName" v-model="updateProduct.name">
+            </input-container>
+
+            <input-container id="productMetaName" title="Meta-Nome" help="productMetaNameHelp"
+              helpText="Nome abreviado do produto">
+              <input type="text" name="productMetaName" :placeholder="product.data.meta_nome"
+                aria-describedby="productMetaName" v-model="updateProduct.metaName">
+            </input-container>
+          </div>
+          <div class="select-options">
+            <input-container id="category" title="Categoria" help="categoryHelp" helpText="Escolha uma categoria">
+              <select name="category" v-model="updateProduct.category">
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="c in categorys" :key="c.id" :value="c.id"
+                  :selected="c.id == product.data.categoria_id ? true : false">{{ c.nome }}</option>
+              </select>
+            </input-container>
+
+            <input-container id="material" title="Materia-prima" help="materialHelp" helpText="Escolha uma matéria-prima">
+              <select name="material" v-model="updateProduct.material">
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="m in materials" :key="m.id" :value="m.id"
+                  :selected="m.id == product.data.materia_prima_id ? true : false">{{ m.nome }}</option>
+              </select>
+            </input-container>
+
+            <input-container id="discount" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
+              <select name="materials" v-model="updateProduct.discount">
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="d in discounts " :key="d.id" :value="d.id"
+                  :selected="d.id == product.data.discount_id ? true : false">{{ d.nome }}</option>
+              </select>
+            </input-container>
+
+            <input-container id="customization" title="Costumização" help="costumizationHelp"
+              helpText="Caso seja possível costumizar">
+              <input type="checkbox" name="customization" :checked="product.data.costumizavel == 1 ? true : false"
+                class="form-checkbox" aria-describedby="customization" v-model="updateProduct.customization">
+            </input-container>
+          </div>
+
+          <div class="input-form-names">
+            <input-container id="description" title="Descrição do produto" help="descriptionHelp"
+              helpText="Descrição do produto" size="mb-input">
+              <textarea name="description" aria-describedby="description" :placeholder="product.data.descricao"
+                v-model="updateProduct.description">
+            </textarea>
+            </input-container>
+          </div>
+
+          <div class="select-options">
+            <input-container id="quantity" title="Quantidade do produto" help="quantityHelp"
+              helpText="Quantidade deste produto que pretende adicionar">
+              <input type="number" name="quantity" aria-describedby="quantity" :placeholder="product.data.quantidade"
+                v-model="updateProduct.quantity" class="small-field">
+            </input-container>
+
+            <input-container id="price" title="Preço do produto " help="priceHelp"
+              helpText="Preço do produto (sem taxas, nem descontos)">
+              <input type="number" name="price" aria-describedby="price" class="small-field"
+                :placeholder="product.data.valor" v-model="updateProduct.price">
+            </input-container>
+          </div>
+        </div>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="update()">Adicionar</button>
+      </template>
+
+    </modal-component>
+    <!-----------------------------------------------End of modal to update new products---------------------------------------------->
+
+    <!----------------------------Modal to delete the product-------------------------------------->
+    <modal-component id="deleteProductModal" title="Eliminar produto">
+      <template v-slot:alerts>
+        <alert-component tipe="danger" :details="$store.state.transaction"
+          v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+        <alert-component tipe="success" :details="$store.state.transaction.message"
+          v-if="$store.state.transaction.status == 'added'"></alert-component>
+      </template>
+      <template v-slot:content>
+        <div>
+        <h4>Tem a certeza que pretende eliminar este produto?</h4>
+        <br />
+        <p>Ao eliminar este produto, irá eliminar também todas a imagens associadas a ele.</p>
+      </div>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="remove()">Eliminar</button>
+      </template>
+
+    </modal-component>
+    <!-----------------------------------------------End of modal to delete new products---------------------------------------------->
+
+    <!-- Calls the computed method to separate the images by posicion-->
+    {{ separateImages }}
+    <!-- End of call computed -->
   </div>
 </template>
 
@@ -140,7 +280,9 @@ export default {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
       product: { data: [] },
-      productMainImage: { data: [] },
+      productAllImages: [],
+      productMainImage: [],
+      productImages: [],
       categorys: { data: [] },
       materials: { data: [] },
       discounts: { data: [] },
@@ -149,6 +291,17 @@ export default {
       url: '',
       urlImages: [],
       productImages: '',
+      updateProduct: {
+        name: '',
+        metaName: '',
+        category: '',
+        material: '',
+        discount: '',
+        customization: '',
+        description: '',
+        quantity: '',
+        price: '',
+      },
 
     }
   },
@@ -156,14 +309,15 @@ export default {
     uploadMainImage(e) { //variable with main image object
       this.mainImage = e.target.files[0];
       this.url = URL.createObjectURL(this.mainImage); //creats an url to preview a loaded image
-      console.log(this.mainImage);
+      // console.log(this.mainImage);
     },
 
     uploadImages(x) { //variable with product images object
       let productImages = x.target.files;
       this.images.push(productImages);
       this.urlImages.push(URL.createObjectURL(productImages[0]));
-      //  console.log(this.urlImages);
+      // console.log(this.images);
+      // console.log(this.urlImages);
     },
 
     deleteImage(del) { // delete the pre-set images from the array of product images
@@ -185,12 +339,13 @@ export default {
         })
     },
 
-    getProductMainImage() { //gets the respective main image if exists
-      let urlProductMainImage = this.urlBase + 'imagens_produto?filtro=produto_id:=:' + this.id;
-      axios.get(urlProductMainImage)
+    getProductImages() { //gets the respective main image if exists
+
+      let urlProductImages = this.urlBase + 'imagens_produto?filtro=produto_id:=:' + this.id;
+
+      axios.get(urlProductImages)
         .then(response => {
-          this.productMainImage.data = response.data
-          // console.log(response.data)
+          this.productAllImages = response.data
         })
         .catch(errors => {
           console.log(errors);
@@ -226,6 +381,7 @@ export default {
 
     loadDiscounts() { //load all the disconts
       let urlDiscounts = this.urlBase + 'desconto';
+
       axios.get(urlDiscounts)
         .then(response => {
           this.discounts = response.data
@@ -250,54 +406,70 @@ export default {
       }
 
       if (this.mainImage && i == 'mainImage') {
-        formData.append('nome', this.mainImage);
-        formData.append('posicao', 1);
-        formData.append('produto_id', this.id);
 
-        axios.post(urlImages, formData, config)
-          .then(response => {
-            this.$store.state.transaction.status = 'added'
-            this.$store.state.transaction.message = response.data.msg
-            this.url = ''
-            alert(response.data.msg)
-            this.getProductMainImage()
-          })
-          .catch(errors => {
-            this.$store.state.transaction.status = 'error-add'
-            this.$store.state.transaction.message = errors.response.data.message
-            this.mainImage = []
-            alert(errors.response.data.message)
+        if (this.mainImage.size < 2097152) {
 
-          })
-      }
-
-      if (this.images && i == 'images') {
-        this.images.forEach(e => {
-          formData.append('nome', e[0]);
-          formData.append('posicao', 2);
-          formData.append('produto_id', 1);
-
+          formData.append('nome', this.mainImage);
+          formData.append('posicao', 1);
+          formData.append('produto_id', this.id);
 
           axios.post(urlImages, formData, config)
             .then(response => {
               this.$store.state.transaction.status = 'added'
               this.$store.state.transaction.message = response.data.msg
+              this.url = ''
+              alert(response.data.msg)
+              this.getProductImages()
             })
             .catch(errors => {
               this.$store.state.transaction.status = 'error-add'
               this.$store.state.transaction.message = errors.response.data.message
-              alert(errors.response.data)
+              this.mainImage = []
+              this.url = ''
+              console.log(errors.response.data)
+
             })
+        } else {
+          alert('A imagem carregada é demasiado grande, o maximo permitido é 2MB')
+        }
+      }
+
+      if (this.images && i == 'images') {
+        this.images.forEach(element => {
+
+          if (element[0].size < 2097152) {
+            formData.append('nome', element[0]);
+            formData.append('posicao', 2);
+            formData.append('produto_id', this.id);
+
+            axios.post(urlImages, formData, config)
+              .then(response => {
+                this.$store.state.transaction.status = 'added'
+                this.$store.state.transaction.message = response.data.msg
+                this.urlImages = []
+                this.images = []
+                alert(response.data.msg)
+                this.getProductImages()
+              })
+              .catch(errors => {
+                this.$store.state.transaction.status = 'error-add'
+                this.$store.state.transaction.message = errors.response.data.message
+                this.urlImages = []
+                this.images = []
+                alert(errors.response.data.message)
+              })
+          } else {
+            alert('a imagem ' + element[0].name + ' é demasiado grande')
+          }
         });
+
       }
     },
-    removeImage() {
-      let url = this.urlBase + 'imagens_produto/' + this.productMainImage.data[0].id;
+    removeImage(id) {
+      let url = this.urlBase + 'imagens_produto/' + id;
       // console.log(url)
       let confirmation = confirm('Tem a certeza que pertende eliminar esta imagem?')
       if (confirmation) {
-        console.log('chegamos aqui')
-
         let formData = new FormData();
         formData.append('_method', 'delete')
 
@@ -307,7 +479,7 @@ export default {
             this.$store.state.transaction.message = response.data.msg
             alert(response.data.msg)
             this.mainImage = []
-            this.getProductMainImage()
+            this.getProductImages()
           })
           .catch(errors => {
             console.log(errors.response.data)
@@ -315,15 +487,151 @@ export default {
             this.$store.state.transaction.message = errors.response.data.message
           })
       }
-    }
+    },
+    update() { 
+      let url = this.urlBase + 'produto/' + this.id
 
+      let formData = new FormData();
+      formData.append('_method', 'patch')
+
+      if (this.updateProduct.name != '') {
+        formData.append('nome', this.updateProduct.name);
+      }
+      if (this.updateProduct.metaName != '') {
+        formData.append('meta_nome', this.updateProduct.metaName);
+      }
+      if (this.updateProduct.quantity != '') {
+        formData.append('quantidade', this.updateProduct.quantity);
+      }
+      if (this.updateProduct.description != '') {
+        formData.append('descricao', this.updateProduct.description);
+      }
+      if (this.updateProduct.price != '') {
+        let value = this.updateProduct.price.toFixed(2);
+        formData.append('valor', value);
+      }
+      if (this.updateProduct.customization != '') {
+
+        if (this.updateProduct.customization == true) {
+          this.updateProduct.customization = 1
+        } else {
+          this.updateProduct.customization = 0
+        }
+
+        formData.append('costumizavel', this.updateProduct.customization);
+      }
+      if (this.updateProduct.category != '') {
+        formData.append('categoria_id', this.updateProduct.category);
+      }
+      if (this.updateProduct.material != '') {
+        formData.append('materia_prima_id', this.updateProduct.material);
+      }
+      if (this.updateProduct.discount != '') {
+        formData.append('desconto_id', this.updateProduct.discount);
+      }
+
+      // console.log(url)
+
+      let config = {
+        headers: {
+          'Content-Type': 'x-www-form-urlencoded',
+          'Accept': 'application/json'
+        }
+      }
+
+      axios.post(url, formData, config)
+        .then(response => {
+
+          this.$store.state.transaction.status = 'updated'
+          this.$store.state.transaction.message = response.data.msg
+          alert(response.data.msg)
+          this.updateProduct.name = ''
+          this.updateProduct.metaName = ''
+          this.updateProduct.quantity = ''
+          this.updateProduct.description = ''
+          this.updateProduct.price = ''
+          this.updateProduct.customization = ''
+          this.updateProduct.category = ''
+          this.updateProduct.material = ''
+          this.updateProduct.discount = ''
+          this.getProduct();
+          history.back()
+
+        })
+        .catch(errors => {
+          console.log('erro de atualização', errors.response.data)
+          this.$store.state.transaction.status = 'error-update'
+          this.$store.state.transaction.message = errors.response.data
+          this.updateProduct.name = ''
+          this.updateProduct.metaName = ''
+          this.updateProduct.quantity = ''
+          this.updateProduct.description = ''
+          this.updateProduct.price = ''
+          this.updateProduct.customization = ''
+          this.updateProduct.category = ''
+          this.updateProduct.material = ''
+          this.updateProduct.discount = ''
+        })
+    },
+    remove(){
+      let url = this.urlBase + 'produto/' + this.id
+
+      if(this.productAllImages){
+        this.productAllImages.forEach(element => {
+          this.removeImage(element.id)
+        });
+      }
+
+      let formData = new FormData();
+        formData.append('_method', 'delete')
+
+        axios.post(url, formData)
+          .then(response => {
+            this.$store.state.transaction.status = 'removed'
+            this.$store.state.transaction.message = response.data.msg
+            alert(response.data.msg)
+            window.location.href = 'http://127.0.0.1:8000/dashboard/produtos';
+          })
+          .catch(errors => {
+            console.log(errors.response.data)
+            this.$store.state.transaction.status = 'error-remove'
+            this.$store.state.transaction.message = errors.response.data.message
+          })
+
+    },
+
+
+  },
+  computed: {
+    mbConversion() {
+      if (this.mainImage != '') {
+        let $convers = (this.mainImage.size / 1024) / 1024
+        $convers = $convers.toFixed(2)
+        return $convers
+      }
+    },
+    separateImages() {
+      let mainImage = []
+      let images = []
+      this.productAllImages.forEach(e => {
+
+        if (e.posicao == 1) {
+          mainImage.push(e)
+        } else {
+          images.push(e)
+        }
+      })
+
+      this.productMainImage = mainImage
+      this.productImages = images
+    },
   },
   mounted() {
     this.getProduct();
     this.loadCategory();
     this.loadDiscounts();
     this.loadMaterials();
-    this.getProductMainImage()
+    this.getProductImages();
   }
 }
 </script>

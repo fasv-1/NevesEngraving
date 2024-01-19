@@ -53,7 +53,7 @@ class ProdutoController extends Controller
 
         $this->produto->create($request->all());
 
-        return ['msg' => 'O produto foi adicionado com sucesso'];
+        return response()->json(['msg' => 'Produto registado com sucesso'], 200);;
     }
 
     /**
@@ -104,7 +104,7 @@ class ProdutoController extends Controller
 
         $product->update($request->all());
 
-        return $product;
+        return response()->json(['msg' => 'Produto atualizado com sucesso'], 200);;
     }
 
     /**
@@ -120,6 +120,6 @@ class ProdutoController extends Controller
 
         $product->delete();
 
-        return 'Produto eliminado com sucesso';
+        return response()->json(['msg' => 'Produto eliminado com sucesso'], 200);;
     }
 }

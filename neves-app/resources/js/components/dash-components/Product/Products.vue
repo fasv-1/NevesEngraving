@@ -12,6 +12,12 @@
 
   <div class="product-filters">
     <!-- Category filter -->
+    <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
+      <button class="button1" @click="loadProducts()">Todos os produtos</button>
+    </input-container>
+    <div></div>
+    <!-- End category filter-->
+    <!-- Category filter -->
     <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
       <select id="category" v-model="categoryFilter" @change= "filtro(categoryFilter,1)">
         <option v-for="c in categorys" :key="c.id" :value="c.id" >{{ c.nome }}</option>
@@ -28,13 +34,11 @@
     </input-container>
     <!--End Materials filter-->
     <!-- By name filter-->
-    <div class="search">
       <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
-        size="b-input">
+        size="">
         <input type="text" id="Search" placeholder="Nome do produto" class="long-name" v-model="nameFilter" >
       </input-container>
-      <button class="button-save" @click="filtro(nameFilter,3)">Procurar</button>
-    </div>
+      <button class="button1" @click="filtro(nameFilter,3)">Procurar</button>
     <!--End Materials filter-->
   </div>
   <!--End of Product filter area-->
@@ -49,7 +53,7 @@
           </div>
           <div class="img-area">
             <div v-for="i, indexValue in mainImage.data" :key="indexValue">
-              <div class="img-cont" v-if="i.produto_id == value.id">
+              <div class="img-cont" v-if="i.produto_id == value.id && i.posicao == 1">
                 <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
               </div>
             </div>
@@ -258,7 +262,7 @@ export default {
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data
-          console.log(response.data)
+          // console.log(response.data)
         })
         .catch(errors => {
           console.log(errors);

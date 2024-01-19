@@ -154,9 +154,22 @@ export default {
       active: false,
       statusTransition: '',
       detailsTransition: '',
+      products: { data: [] }
     }
   },
   methods: {
+    loadProducts() {
+      let urlProducts = this.urlBase + 'produto';
+
+      axios.get(urlProducts)
+        .then(response => {
+          this.products.data = response.data
+          console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
     loadTableData() { //loads the category data to the table
       // let urlCategory = this.urlBase + 'categoria';
       // let urlMaterial = this.urlBase + 'materia';
@@ -217,7 +230,38 @@ export default {
 
 
     },
-    remove(r, n) { //removes the data (category and material)
+    remove(r, n) { //removes the data (r=id n = line to remove)
+
+      if (this.products.data) {
+        this.products.data.forEach(element => {
+          if (element.desconto_id == r && n == 'desconto') {
+            let url = this.urlBase + 'produto/' + element.id
+
+            let formData = new FormData();
+            formData.append('_method', 'patch')
+
+            formData.append('desconto_id', 1);
+
+            let config = {
+            headers: {
+              'Content-Type': 'x-www-form-urlencoded',
+              'Accept': 'application/json'
+            }
+          }
+
+          axios.post(url, formData, config)
+            .then(response => {
+              this.$store.state.transaction.status = 'updated'
+              this.$store.state.transaction.message = response.data.msg
+            })
+            .catch(errors => {
+              this.$store.state.transaction.status = 'error-update'
+              this.$store.state.transaction.message = errors.response.data
+              alert(errors.response.data)
+            })
+          }
+        });
+      }
 
       let url = this.urlBase + n + '/' + r
 
@@ -306,6 +350,7 @@ export default {
   },
   mounted() {
     this.loadTableData()
+    this.loadProducts()
   }
 }
 </script>

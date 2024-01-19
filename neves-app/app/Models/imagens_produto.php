@@ -13,7 +13,7 @@ class imagens_produto extends Model
 
     public function rules(){
         return[
-            'nome' => 'required|image',
+            'nome' => 'required|image|max:2048',
             'posicao' => 'required',
             'produto_id' => 'required'
         ];
@@ -22,7 +22,10 @@ class imagens_produto extends Model
     public function feedback(){
         return[
             'required' => 'O campo :attribute é obrigatório',
-            'image' => 'O ficheiro que carregou não é uma imagem'
+            'nome.required' => 'É obrigatório introduzir uma imagem',
+            'nome.max' => 'A imagem que carregou é demasiado grande',
+            'image' => 'O ficheiro que carregou não é uma imagem',
+            
         ];
     }
 

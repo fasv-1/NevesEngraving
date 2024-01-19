@@ -49,9 +49,8 @@ class ImagensProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $imagensProdutos = new imagens_produto();
 
-        $request->validate($imagensProdutos->rules(), $imagensProdutos->feedback());
+        $request->validate($this->imagens_produto->rules(), $this->imagens_produto->feedback());
 
 
         //capture the file and stores it with an acronym given by laravel
@@ -59,7 +58,7 @@ class ImagensProdutoController extends Controller
         $image_urn = $image->store('images/produtos', 'public');
 
         
-        $imagensProdutos->create([
+        $this->imagens_produto->create([
             'nome' => $image_urn,
             'posicao' => $request->posicao,
             'produto_id' => $request->produto_id
