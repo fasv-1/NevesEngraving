@@ -118,7 +118,7 @@
 
       </modal-component>
 
-      <!-- Start table to show the categorys-->
+      <!-- Start table to show the materials-->
       <table-component :data="materiais.data" :view="{ visible: false, dataTarget: '#modalMaterialView' }"
         :update="{ visible: true, dataTarget: '#modalMaterialUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalMaterialRemove' }" :titles="{
@@ -127,7 +127,8 @@
           created_at: { title: 'Data de criação', type: 'date' },
         }">
       </table-component>
-      <!-- End table to show the categorys-->
+      <!-- End table to show materials-->
+
 
       <!-- Start modal to remove categorys-->
       <modal-component id="modalMaterialRemove" title="Remover matéria-prima">
@@ -173,7 +174,65 @@
       <!-- End modal to update categorys-->
 
     </div>
+  </div>
+  <div>
+    <!------------------------ DELETED PRODUCTS AREA --------------------------------->
 
+    <div class="conteiner">
+      <div class="cont-header">
+        <h3 class="titulo_1">Produtos Eliminados</h3>
+      </div>
+
+      <!-- Table to show deleted products-->
+    <table-component :data="deletedProducts.data" :view="{ visible: false, dataTarget: '' }"
+      :update="{ visible: true, dataTarget: '#modalDeletedUpdate' }"
+      :remove="{ visible: true, dataTarget: '#modalDeletedlRemove' }" :titles="{
+        id: { title: 'ID', type: 'text' },
+        nome: { title: 'Nome', type: 'text' },
+        deleted_at: { title: 'Eleminado em', type: 'date' },
+      }">
+    </table-component>
+    <!-- End table to show deleted products-->
+
+      <!-- Start modal to update deleted products-->
+      <modal-component id="modalDeletedUpdate" title="Restaurar Produto Eliminado">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <h4>Tem a certeza que pertende restaurar este produto?</h4>
+        </template>
+
+        <template v-slot:footer>
+          <button class="button-save" @click="update($store.state.item.id, 'produto')">Restaurar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component>
+      <!-- End modal to update deleted products-->
+
+      <!-- Start modal to deleted permanently deleted products-->
+      <modal-component id="modalDeletedlRemove" title="Eliminar permanentemente o Produto">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <h4>Tem a certeza que pertende eliminar este produto permanentemente?</h4>
+        </template>
+
+        <template v-slot:footer>
+          {{ $store.state.item.id }}
+          <button class="button-save" @click="remove($store.state.item.id, 'produto')">Remover</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component>
+      <!-- End modal to deleted permanently deleted products-->
+
+    </div>
+    
   </div>
 </template>
 
@@ -192,8 +251,10 @@ export default {
       newMaterial: '',
       updateMaterial: '',
       products: { data: [] },
+      deletedProducts: { data: [] }
     }
   },
+
   methods: {
     loadProducts() {
       let urlProducts = this.urlBase + 'produto';
@@ -207,6 +268,7 @@ export default {
           console.log(errors);
         })
     },
+
     loadTableData() { //loads the category data to the table
       let urlCategory = this.urlBase + 'categoria';
       let urlMaterial = this.urlBase + 'materia';
@@ -231,6 +293,20 @@ export default {
           })
       }
     },
+
+    deleted() {
+      let urlProducts = this.urlBase + 'produto?deleted';
+
+      axios.get(urlProducts)
+        .then(response => {
+          this.deletedProducts.data = response.data
+          // console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
+
     save(c) { //saves the new values (category and material)
       let url = this.urlBase + c;
 
@@ -256,6 +332,7 @@ export default {
           alert(response.data.msg)
           this.loadTableData()
           history.back()
+          
           this.newMaterial = ""
           this.newCategory = ""
         })
@@ -281,22 +358,22 @@ export default {
             formData.append('categoria_id', 1);
 
             let config = {
-            headers: {
-              'Content-Type': 'x-www-form-urlencoded',
-              'Accept': 'application/json'
+              headers: {
+                'Content-Type': 'x-www-form-urlencoded',
+                'Accept': 'application/json'
+              }
             }
-          }
 
-          axios.post(url, formData, config)
-            .then(response => {
-              this.$store.state.transaction.status = 'updated'
-              this.$store.state.transaction.message = response.data.msg
-            })
-            .catch(errors => {
-              this.$store.state.transaction.status = 'error-update'
-              this.$store.state.transaction.message = errors.response.data
-              alert(errors.response.data)
-            })
+            axios.post(url, formData, config)
+              .then(response => {
+                this.$store.state.transaction.status = 'updated'
+                this.$store.state.transaction.message = response.data.msg
+              })
+              .catch(errors => {
+                this.$store.state.transaction.status = 'error-update'
+                this.$store.state.transaction.message = errors.response.data
+                alert(errors.response.data)
+              })
           }
 
           if (element.materia_prima_id == r && n == 'materia') {
@@ -308,25 +385,25 @@ export default {
             formData.append('materia_prima_id', 1);
 
             let config = {
-            headers: {
-              'Content-Type': 'x-www-form-urlencoded',
-              'Accept': 'application/json'
+              headers: {
+                'Content-Type': 'x-www-form-urlencoded',
+                'Accept': 'application/json'
+              }
             }
+
+            axios.post(url, formData, config)
+              .then(response => {
+                this.$store.state.transaction.status = 'updated'
+                this.$store.state.transaction.message = response.data.msg
+              })
+              .catch(errors => {
+                this.$store.state.transaction.status = 'error-update'
+                this.$store.state.transaction.message = errors.response.data
+                alert(errors.response.data)
+              })
           }
 
-          axios.post(url, formData, config)
-            .then(response => {
-              this.$store.state.transaction.status = 'updated'
-              this.$store.state.transaction.message = response.data.msg
-            })
-            .catch(errors => {
-              this.$store.state.transaction.status = 'error-update'
-              this.$store.state.transaction.message = errors.response.data
-              alert(errors.response.data)
-            })
-          }
 
-          
         });
       }
 
@@ -342,6 +419,7 @@ export default {
           alert(response.data.msg)
           this.loadTableData()
           history.back()
+          this.deleted()
         })
         .catch(errors => {
           console.log(errors.response.data)
@@ -379,6 +457,7 @@ export default {
           this.$store.state.transaction.status = 'updated'
           this.$store.state.transaction.message = response.data.msg
           this.loadTableData()
+          this.deleted()
           history.back()
           alert(response.data.msg)
           this.updateCategory = ""
@@ -396,6 +475,7 @@ export default {
   mounted() {
     this.loadTableData()
     this.loadProducts()
+    this.deleted()
   }
 }
 </script>

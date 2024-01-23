@@ -20,6 +20,7 @@
     <!-- Category filter -->
     <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
       <select id="category" v-model="categoryFilter" @change= "filtro(categoryFilter,1)">
+        <option value="" disabled>Escolhe uma</option>
         <option v-for="c in categorys" :key="c.id" :value="c.id" >{{ c.nome }}</option>
       </select>
     </input-container>
@@ -29,6 +30,7 @@
     <input-container id="materials" title='Por materia-prima' help="materialsHelp"
       helpText="Filtrar produtos por matéria-prima">
       <select id="materials" v-model="materialFilter" @change= "filtro(materialFilter,2)">
+        <option value="" disabled>Escolhe uma</option>
         <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
       </select>
     </input-container>

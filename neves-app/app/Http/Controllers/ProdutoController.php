@@ -19,20 +19,27 @@ class ProdutoController extends Controller
     {
         $product = array();
 
-        
+
         if ($request->has('atributos')) {
             $attributes = $request->atributos;
             $product = $this->produto->selectRaw($attributes)->with('desconto')->with('categoria')->with('materiaPrima');
-        }else{
+        } else {
             $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima');
-            
         }
-        if($request->has('filtro')){
-            $conditions = explode(':',$request->filtro);
-            $product = $product->where($conditions[0],$conditions[1],$conditions[2])->get();
-        }else{
+
+        if ($request->has('filtro')) {
+            $conditions = explode(':', $request->filtro);
+            $product = $product->where($conditions[0], $conditions[1], $conditions[2]);
+        } else {
+            $product = $product;
+        }
+
+        if ($request->has('deleted')) { // finds every regists even the ones who are deleted(softDeletes)
+            $product = $product->onlyTrashed()->get();
+        } else {
             $product = $product->get();
         }
+
         return response()->json($product, 200);
     }
 
@@ -82,29 +89,42 @@ class ProdutoController extends Controller
         $product = $this->produto->find($id);
 
         if ($product === null) {
-            return response()->json(['error' => 'A categoria que pretende atualizar não existe'], 404);
-        }
+            //gets all the eliminated (softDeletes) products
+            $product = $this->produto->onlyTrashed()->get();
+            if ($product) {
+                foreach ($product as $element) {
+                    if ($element->id == $id) { //compares with the recived id
+                        $element->restore(); // restore it permanently
 
-        //makes separation of the methods
-        if ($request->method() === 'PATCH') {
-            $dinamycRules = [];
-
-            //browse all rules for indentify the especific key and rule that's been recive, save them in the dinamycRules variable
-            foreach ($product->rules() as $input => $rules) {
-                if (array_key_exists($input, $request->all())) {
-                    $dinamycRules[$input] = $rules;
+                        return response()->json(['msg' => 'Produto restaurado com sucesso'], 200);
+                    }
                 }
+            } else {
+                return response()->json(['error' => 'O produto que pretende atualizar não existe'], 404);
+            }
+        } else {
+
+            //makes separation of the methods
+            if ($request->method() === 'PATCH') {
+                $dinamycRules = [];
+
+                //browse all rules for indentify the especific key and rule that's been recive, save them in the dinamycRules variable
+                foreach ($product->rules() as $input => $rules) {
+                    if (array_key_exists($input, $request->all())) {
+                        $dinamycRules[$input] = $rules;
+                    }
+                }
+
+                //validation with the dinamic rules
+                $request->validate($dinamycRules, $product->feedback());
+            } else {
+                $request->validate($product->rules(), $product->feedback());
             }
 
-            //validation with the dinamic rules
-            $request->validate($dinamycRules, $product->feedback());
-        } else {
-            $request->validate($product->rules(), $product->feedback());
+            $product->update($request->all());
+
+            return response()->json(['msg' => 'Produto atualizado com sucesso'], 200);
         }
-
-        $product->update($request->all());
-
-        return response()->json(['msg' => 'Produto atualizado com sucesso'], 200);;
     }
 
     /**
@@ -115,11 +135,23 @@ class ProdutoController extends Controller
         $product = $this->produto->find($id);
 
         if ($product === null) {
-            return response()->json(['error' => 'A categoria que pretende eliminar não existe'], 404);
+            //gets all the eliminated (softDeletes) products
+            $product = $this->produto->onlyTrashed()->get();
+            if ($product) {
+                foreach ($product as $element) { //compares with the recived id
+                    if ($element->id == $id) {
+                        $element->forceDelete(); // eliminates permanently
+
+                        return response()->json(['msg' => 'Produto eliminado permanentemente'], 200);
+                    }
+                }
+            } else {
+                return response()->json(['error' => 'O produto que pretende eliminar não existe'], 404);
+            }
         }
 
         $product->delete();
 
-        return response()->json(['msg' => 'Produto eliminado com sucesso'], 200);;
+        return response()->json(['msg' => 'Produto eliminado com sucesso'], 200);
     }
 }
