@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('index');
+})->name('site');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'index'] )->name('site.dashboard');
+Route::get('/home', [HomeController::class, 'index'] )->name('site.home');
+
+Route::get('/home/{any}',[HomeController::class, 'index'])->where('any', '.*');
 
 Route::get('/dashboard/{any}', function () {
     return view('dashboard');
 })->where('any', '.*');
 
 Route::fallback(function(){
-    echo 'Página não encontrada.<a href="'.route('index').'">Clique aqui</a>';
+    echo 'Página não encontrada.<a href="'.route('site').'">Clique aqui</a>';
 });

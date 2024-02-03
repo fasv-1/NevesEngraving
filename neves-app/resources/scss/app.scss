@@ -3,6 +3,8 @@
 @import "dashboard";
 @import "inputsDash";
 @import "componentsDash";
+@import "animations";
+@import "componentsSite";
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -42,6 +44,10 @@ h6 {
 
 hr{
   border: 1px solid #ccc;
+}
+
+b{
+  font-weight: bold;
 }
 
 ::-webkit-scrollbar {
@@ -115,7 +121,7 @@ table {
 
       td {
         border-top: 1px solid $Global-red;
-        padding: 0.5em;
+        padding: 0.5em 1em 0.5em 1em;
         text-align: center;
         // border: 1px solid #000;
       }
@@ -152,30 +158,42 @@ table {
 input[type="number"],
 input[type="checkbox"],
 select{
-  border: 1px solid $Brdr-blue;
+  border: 1px solid $Darker-blue;
   border-radius: 10px;
   padding: 0.5em 0.4em 0.5em 0.4em;
 }
 
 input[type="text"]{
-  border: 1px solid $Brdr-blue;
+  border: 1px solid $Darker-blue;
   border-radius: 10px;
   padding: 0.5em 0.4em 0.5em 0.4em;
   width: 100%;
+
+  &:focus{
+    -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  }
 }
 
 textarea{
-  border: 1px solid $Brdr-blue;
+  border: 1px solid $Darker-blue;
   border-radius: 10px;
   padding: 0.5em 0.4em 2em 0.4em;
   width: 100%;
+
+  &:focus{
+    -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  }
 }
 
 // input[type="text"],
 // input[type="number"],
 // input[type="checkbox"],
 // select,
-// textarea:focus {
+// textarea :focus {
 //   -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 //   -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 //   box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);

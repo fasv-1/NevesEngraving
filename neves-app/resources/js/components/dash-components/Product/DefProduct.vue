@@ -7,7 +7,7 @@
   <div class="productInputContent">
 
     <!------------------------ CATEGORY AREA --------------------------------->
-    <div class="conteiner2">
+    <div class="container2">
 
       <div class="cont-header">
         <h3 class="titulo_1">Categorias</h3>
@@ -92,7 +92,7 @@
 
     <!------------------------ MATERIAL AREA --------------------------------->
 
-    <div class="conteiner2">
+    <div class="container2">
       <div class="cont-header">
         <h3 class="titulo_1">Matéria-prima</h3>
         <a class="high-link" href="#modalMaterialAdd">Adicionar matéria-prima +</a>
@@ -178,7 +178,7 @@
   <div>
     <!------------------------ DELETED PRODUCTS AREA --------------------------------->
 
-    <div class="conteiner">
+    <div class="container">
       <div class="cont-header">
         <h3 class="titulo_1">Produtos Eliminados</h3>
       </div>
@@ -345,7 +345,7 @@ export default {
 
 
     },
-    remove(r, n) { //removes the data (r = id and n = line to remove)
+    remove(r, n) { //removes the data (r = id and n = table to affect)
 
       if (this.products.data) {
         this.products.data.forEach(element => {

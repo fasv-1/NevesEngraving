@@ -6,25 +6,28 @@
         <thead>
           <tr>
             <th scope="col" v-for='t, index in titles' :key="index">{{ t.title }}</th>
-            <th v-if=" view.visible || update.visible || remove.visible "></th>
+            <th v-if="view.visible || update.visible || remove.visible"></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="obj, index in FiltredData" :key="index">
 
             <!--Return the value of the table correspondent to the title and separates the data type to treatmant -->
-            <td v-for="value, indexValue in obj" :key="indexValue"> 
+            <td v-for="value, indexValue in obj" :key="indexValue">
               <span v-if="titles[indexValue].type == 'text'">{{ value }}</span>
               <span v-if="titles[indexValue].type == 'status'">{{ value == 1 ? 'ativo' : 'inativo' }}</span>
               <span v-if="titles[indexValue].type == 'date'"> {{ $filters.formatDateTime(value) }}</span>
               <span v-if="titles[indexValue].type == 'image'">
-              <img :src="'/storage/'+value" alt="imagem">
+                <img :src="'/storage/' + value" alt="imagem">
               </span>
             </td>
-            <td v-if=" view.visible || update || remove ">
-              <a :href="view.dataTarget"><button class="btn-view" v-if="view.visible" @click="setState(obj)">Visualizar</button></a>
-              <a :href="update.dataTarget"><button class="btn-update" v-if="update.visible" @click="setState(obj)">Atualizar</button></a>
-              <a :href="remove.dataTarget"><button class="btn-remove" v-if="remove.visible" @click="setState(obj)">Remover</button></a>
+            <td v-if="view.visible || update || remove">
+              <a :href="view.dataTarget"><button class="btn-view" v-if="view.visible"
+                  @click="setState(obj)">Visualizar</button></a>
+              <a :href="update.dataTarget"><button class="btn-update" v-if="update.visible"
+                  @click="setState(obj)">Atualizar</button></a>
+              <a :href="remove.dataTarget"><button class="btn-remove" v-if="remove.visible"
+                  @click="setState(obj)">Remover</button></a>
             </td>
           </tr>
         </tbody>
@@ -36,8 +39,8 @@
 <script>
 export default {
   props: ['data', 'titles', 'view', 'update', 'remove'],
-  methods:{
-    setState(obj){ //store the object cliked in a vuex global variable
+  methods: {
+    setState(obj) { //store the object cliked in a vuex global variable
       this.$store.state.item = obj;
       this.$store.state.transaction.status = '';
       this.$store.state.transaction.message = '';

@@ -8,18 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class categoria extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome'];
+    protected $fillable = ['ocasiao', 'categoria', 'estado'];
 
     public function rules(){
         return [
-            'nome' => 'required|unique:categorias'
+            'ocasiao' => 'required',
+            'categoria' => 'required',
+            'estado' => 'required|int'
         ];
     }
     
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
-            'nome.unique' => 'Esta categoria já existe'
         ];
     }
 

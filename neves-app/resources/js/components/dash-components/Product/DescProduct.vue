@@ -7,7 +7,7 @@
   <div class="productInputContent">
 
     <!------------------------ DISCOUNT AREA --------------------------------->
-    <div class="conteiner2">
+    <div class="container2">
       <div class="cont-header">
         <h3 class="titulo_1">Descontos</h3>
         <a class="high-link" href="#modalDiscountAdd">Adicionar desconto +</a>
@@ -131,12 +131,61 @@
       <!-- End modal to update discount-->
     </div>
   </div>
+  <div class="container3">
+
+    <div class="cont-header">
+      <h3 class="titulo_2">Atribuir desconto a um produto</h3>
+    </div>
+
+    <div class="content3-line">
+      <div class="el1">
+        <h5>Escolha um produto</h5>
+        <div class="table-container">
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>NOME</th>
+                  <th></th>
+                  <th>DESCONTO</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product, index in products.data" :key="index">
+                  <td>{{ product.nome }}</td>
+                  <td></td>
+                  <td>{{ product.desconto.nome }}</td>
+                  <td></td>
+                  <td><input type="checkbox" id="checkedProducts" :value="product.id" v-model="checkedProducts"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="el2">
+        <h5>Escolha um desconto</h5>
+        <select id="discounts" v-model="productDiscount">
+          <option value="" disabled>Escolha um desconto</option>
+          <option v-for="discount, index in discountData.data" :key="index" :value="discount.id">{{ discount.nome }}
+          </option>
+        </select>
+      </div>
+
+      <div class="el3">
+        <button class="button1" @click="updateProduct()">Atribuir desconto</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      checkedProducts: [],
+      productDiscount: '',
       urlBase: 'http://127.0.0.1:8000/api/',
       discountData: { data: [] },
       newDiscount: {
@@ -164,7 +213,7 @@ export default {
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data
-          console.log(response.data)
+          // console.log(response.data)
         })
         .catch(errors => {
           console.log(errors);
@@ -230,7 +279,7 @@ export default {
 
 
     },
-    remove(r, n) { //removes the data (r=id n = line to remove)
+    remove(r, n) { //removes the data (r=id n = table to affect)
 
       if (this.products.data) {
         this.products.data.forEach(element => {
@@ -243,22 +292,23 @@ export default {
             formData.append('desconto_id', 1);
 
             let config = {
-            headers: {
-              'Content-Type': 'x-www-form-urlencoded',
-              'Accept': 'application/json'
+              headers: {
+                'Content-Type': 'x-www-form-urlencoded',
+                'Accept': 'application/json'
+              }
             }
-          }
 
-          axios.post(url, formData, config)
-            .then(response => {
-              this.$store.state.transaction.status = 'updated'
-              this.$store.state.transaction.message = response.data.msg
-            })
-            .catch(errors => {
-              this.$store.state.transaction.status = 'error-update'
-              this.$store.state.transaction.message = errors.response.data
-              alert(errors.response.data)
-            })
+            axios.post(url, formData, config)
+              .then(response => {
+                this.$store.state.transaction.status = 'updated'
+                this.$store.state.transaction.message = response.data.msg
+              })
+              .catch(errors => {
+                this.$store.state.transaction.status = 'error-update'
+                this.$store.state.transaction.message = errors.response.data
+                alert(errors.response.data)
+              })
+
           }
         });
       }
@@ -283,17 +333,52 @@ export default {
         })
 
     },
+    updateProduct() {
+      if (this.checkedProducts != '' && this.productDiscount != '') {
+        let config = {
+          headers: {
+            'Content-Type': 'x-www-form-urlencoded',
+            'Accept': 'application/json'
+          }
+        }
+
+        let formData = new FormData();
+
+        formData.append('_method', 'patch')
+
+        this.checkedProducts.forEach(product => {
+
+          let url = this.urlBase + 'produto/' + product
+
+          formData.append('desconto_id', this.productDiscount)
+
+          axios.post(url, formData, config)
+            .then(response => {
+
+              this.$store.state.transaction.status = 'updated'
+              this.$store.state.transaction.message = response.data.msg
+              this.loadProducts()
+              alert(response.data.msg)
+              this.checkedProducts = [],
+                this.productDiscount = ''
+
+            })
+            .catch(errors => {
+              console.log('erro de atualização', errors.response.data)
+              this.$store.state.transaction.status = 'error-update'
+              this.$store.state.transaction.message = errors.response.data
+              this.checkedProducts = [],
+                this.productDiscount = ''
+            })
+        })
+      }else{
+        alert('É obrigatório selecionar pelo menos um produto e um desconto')
+      }
+
+    },
     update(u, n) { //update either the category or material
       let formData = new FormData();
       formData.append('_method', 'patch')
-
-      if (n == 'categoria') {
-        formData.append('nome', this.updateCategory)
-      }
-
-      if (n == 'materia') {
-        formData.append('nome', this.updateMaterial)
-      }
 
       if (n == 'desconto') {
         if (this.updateDiscount.name != '') {
@@ -334,7 +419,6 @@ export default {
           this.updateDiscount.description = ""
           this.updateDiscount.value = ""
           this.updateDiscount.status = ""
-
 
         })
         .catch(errors => {

@@ -18,7 +18,13 @@ class CategoriaController extends Controller
      */
     public function show(Request $request)
     {
-        $categorias = $this->categoria->all();
+        if ($request->has('filtro')) {
+            $conditions = explode(':', $request->filtro);
+            $categorias = $this->categoria->where($conditions[0], $conditions[1], $conditions[2])->get();
+        } else {
+            $categorias = $this->categoria->all();
+        }
+        
 
         return $categorias;
     }
@@ -32,7 +38,7 @@ class CategoriaController extends Controller
 
         $request->validate($this->categoria->rules(), $this->categoria->feedback());
 
-        $category = $this->categoria->create($request->all());
+        $this->categoria->create($request->all());
 
         return ['msg' => 'Categoria foi adicionada com sucesso'];
     }
@@ -48,7 +54,22 @@ class CategoriaController extends Controller
             return response()->json(['error' => 'A categoria que pretende atualizar não existe'], 404);
         }
 
-        $request->validate($this->categoria->rules(), $this->categoria->feedback());
+        if ($request->method() === 'PATCH') {
+            $dinamycRules = [];
+
+            //browse all rules for indentify the especific key and rule that as been recive, save them in the dinamycRules variable
+            foreach ($category->rules() as $input => $rules) {
+                if (array_key_exists($input, $request->all())) {
+                    $dinamycRules[$input] = $rules;
+                }
+            }
+
+            //validation with the dinamic rules
+            $request->validate($dinamycRules, $category->feedback());
+        } else {
+            $request->validate($category->rules(), $category->feedback());
+        }
+
         $category->update($request->all());
 
         return ['msg' => 'Categoria foi atualizada com sucesso'];

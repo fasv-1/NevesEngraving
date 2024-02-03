@@ -19,9 +19,9 @@
     <!-- End category filter-->
     <!-- Category filter -->
     <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
-      <select id="category" v-model="categoryFilter" @change= "filtro(categoryFilter,1)">
+      <select id="category" v-model="categoryFilter" @change="filtro(categoryFilter, 1)">
         <option value="" disabled>Escolhe uma</option>
-        <option v-for="c in categorys" :key="c.id" :value="c.id" >{{ c.nome }}</option>
+        <option v-for="c in categorys" :key="c.id" :value="c.id">{{ c.nome }}</option>
       </select>
     </input-container>
     <div></div>
@@ -29,28 +29,31 @@
     <!-- Materials filter-->
     <input-container id="materials" title='Por materia-prima' help="materialsHelp"
       helpText="Filtrar produtos por matéria-prima">
-      <select id="materials" v-model="materialFilter" @change= "filtro(materialFilter,2)">
+      <select id="materials" v-model="materialFilter" @change="filtro(materialFilter, 2)">
         <option value="" disabled>Escolhe uma</option>
         <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
       </select>
     </input-container>
     <!--End Materials filter-->
     <!-- By name filter-->
-      <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
-        size="">
-        <input type="text" id="Search" placeholder="Nome do produto" class="long-name" v-model="nameFilter" >
-      </input-container>
-      <button class="button1" @click="filtro(nameFilter,3)">Procurar</button>
+    <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome" size="">
+      <input type="text" id="Search" placeholder="Nome do produto" class="long-name" v-model="nameFilter">
+    </input-container>
+    <button class="button1" @click="filtro(nameFilter, 3)">Procurar</button>
     <!--End Materials filter-->
   </div>
   <!--End of Product filter area-->
   <!--Products display-->
-  <div class="card-box">
+
+  <card-component :products=products.data usedArea="dashboard" :headTitle='true' :image=mainImage.data :info="{
+    nome: false, meta_nome: false, categoria: true, materia: false, quantidade: true, valor: true
+  }" :cart="false"></card-component>
+  <!-- <div class="card-box">
 
     <div class="card-prd-dash" v-for="value, indexValue in products.data" :key="indexValue">
       <router-link :to="'/dashboard/produtos/' + value.id" class="b-input">
           <div class="label-area">
-            <h4>{{ value.meta_nome }}</h4>
+            <h4>{{ value.meta_nome }}</h4> 
             <h6>ID{{ value.id }}</h6>
           </div>
           <div class="img-area">
@@ -69,7 +72,7 @@
           </div>
       </router-link>
     </div>
-  </div>
+  </div> -->
   <!--End of Products display-->
   <!--Modal to add new products-->
   <modal-component id="addProductModal" title="Adicionar novo produto">
@@ -173,52 +176,52 @@ export default {
       discounts: { data: [] },
       products: { data: [] },
       mainImage: { data: [] },
-      categoryFilter:'',
-      materialFilter:'',
-      nameFilter:'',
+      categoryFilter: '',
+      materialFilter: '',
+      nameFilter: '',
     }
   },
   methods: {
-    filtro(f,n){
-      if(n == 1){
+    filtro(f, n) {
+      if (n == 1) {
 
-      let urlProducts = this.urlBase + 'produto?filtro=categoria_id:=:'+ f;
+        let urlProducts = this.urlBase + 'produto?filtro=categoria_id:=:' + f;
 
-      axios.get(urlProducts)
-        .then(response => {
-          this.products.data = response.data
-          // console.log(response.data)
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
-      }
-
-      if(n == 2){
-        let urlProducts = this.urlBase + 'produto?filtro=materia_prima_id:=:'+ f;
         axios.get(urlProducts)
-        .then(response => {
-          this.products.data = response.data
-          // console.log(response.data)
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
+          .then(response => {
+            this.products.data = response.data
+            // console.log(response.data)
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
       }
 
-      if(n == 3){
-        let urlProducts = this.urlBase + 'produto?filtro=nome:like:%'+ f +'%';
+      if (n == 2) {
+        let urlProducts = this.urlBase + 'produto?filtro=materia_prima_id:=:' + f;
         axios.get(urlProducts)
-        .then(response => {
-          this.products.data = response.data
-          // console.log(response.data)
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
+          .then(response => {
+            this.products.data = response.data
+            // console.log(response.data)
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
       }
 
-      
+      if (n == 3) {
+        let urlProducts = this.urlBase + 'produto?filtro=nome:like:%' + f + '%';
+        axios.get(urlProducts)
+          .then(response => {
+            this.products.data = response.data
+            // console.log(response.data)
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      }
+
+
     },
     loadCategory() {
       let urlCategory = this.urlBase + 'categoria';
@@ -260,7 +263,7 @@ export default {
     },
     loadProducts() {
       let urlProducts = this.urlBase + 'produto';
-      
+
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data

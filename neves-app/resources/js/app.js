@@ -4,6 +4,7 @@ import './bootstrap';
 
 import { createApp } from 'vue';
 
+
 import { createRouter, createWebHistory } from 'vue-router';
 
 
@@ -23,6 +24,19 @@ const store = createStore({
 
 //--------------------------------------Routes----------------------------------------------------
 const routes = [
+  //------------------------------------Site-routes----------------------------------------------
+  {path: '/home', component: Home},
+  {path: '/', component: Home},
+  {path: '/home/amazing_gifts', component: AmazingGifts},
+  {path: '/home/engraving', component: Engraving},
+  {path: '/home/lazer_cut', component: LazerCut},
+  {path: '/home/business_cards', component: BusinessCards},
+  {path: '/home/help', component: Help},
+  {path: '/home/contacts', component: Contacts},
+  {path: '/home/shopping_cart', component: ShoppingCart},
+  
+
+  //----------------------------------Dashboard-routes--------------------------------------------
   { path: '/dashboard/produtos', component: Products },
   {
     path: '/dashboard/produtos/:id',
@@ -62,6 +76,8 @@ const router = createRouter({
 //-------------------------Components-----------------------------------------
 const app = createApp({});
 
+//-----------------------------Dashboard-Components---------------------------------
+
 import example from './components/example.vue';
 app.component('example', example);
 
@@ -89,11 +105,46 @@ app.component('input-container', InputContainer);
 import Modal from './components/dash-components/Modal.vue';
 app.component('modal-component', Modal);
 
+import Table from './components/dash-components/Table.vue';
+app.component('table-component', Table);
+
+//--------------------------------Site-Components------------------------------------
+
+import Home from './components/Home.vue';
+app.component('home-component', Home);
+
+import Navbar from './components/site-components/Navbar.vue';
+app.component('navbar-component', Navbar);
+
+import AmazingGifts from './components/site-components/AmazingGifts.vue';
+app.component('gifts-component', AmazingGifts);
+
+import BusinessCards from './components/site-components/BusinessCards.vue';
+app.component('cards-component', BusinessCards);
+
+import Engraving from './components/site-components/Engraving.vue';
+app.component('engraving-component', Engraving);
+
+import LazerCut from './components/site-components/LazerCut.vue';
+app.component('lazer-component', LazerCut);
+
+import Help from './components/site-components/Help.vue';
+app.component('help-component', Help);
+
+import ShoppingCart from './components/site-components/ShoppingCart.vue';
+app.component('cart-component', ShoppingCart);
+
+import Contacts from './components/site-components/Contacts.vue';
+app.component('contacts-component', Contacts);
+
+//-------------------------------------General-Components-------------------------------
 import Alert from './components/Alert.vue';
 app.component('alert-component', Alert);
 
-import Table from './components/dash-components/Table.vue';
-app.component('table-component', Table);
+import ProductCard from './components/ProductCard.vue';
+app.component('card-component', ProductCard);
+
+
 
 
 //---------------------------------------Filters------------------------------------------------------------
