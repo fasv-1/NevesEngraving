@@ -5,8 +5,8 @@
     <div class="title-cont">
       <h2 class="titulo1">{{ product.data.nome }}</h2>
       <div>
-        <a href="#updateProductModal" ><img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
-        <a href="#deleteProductModal" ><img class="delete-btn" src="/storage/images/Icons/delete.svg" alt=""></a>
+        <a href="#updateProductModal"><img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
+        <a href="#deleteProductModal"><img class="delete-btn" src="/storage/images/Icons/delete.svg" alt=""></a>
       </div>
     </div>
     <!---------------------------- End of Product name and meta-name ------------------------>
@@ -57,17 +57,26 @@
       </div>
       <div class="info-area">
         <div>
+          <label for="ocasions">
+            <h6>Ocasiões</h6>
+          </label>
+          <h4 name="ocasions" v-for="o in ocasions.data" :key="o.id">{{ o.id == product.data.ocasioes_id ? o.nome : '' }}
+          </h4>
+        </div>
+        <div>
           <label for="categoria">
             <h6>Categoria</h6>
           </label>
-          <h4 name="categoria" v-for="c in categorys" :key="c.id">{{ c.id == product.data.categoria_id ? c.nome : '' }}
+          <h4 name="categoria" v-for="c in categorys.data" :key="c.id">{{ c.id == product.data.categoria_id ? c.nome : ''
+          }}
           </h4>
         </div>
         <div>
           <label for="materia-prima">
             <h6>Matéria-prima</h6>
           </label>
-          <h4 name="materia-prima" v-for="m in materials" :key="m.id">{{ m.id == product.data.materia_prima_id ? m.nome
+          <h4 name="materia-prima" v-for="m in materials.data" :key="m.id">{{ m.id == product.data.materia_prima_id ?
+            m.nome
             :
             ''
           }}</h4>
@@ -76,7 +85,7 @@
           <label for="desconto">
             <h6>Desconto</h6>
           </label>
-          <h4 name="desconto" v-for="d in discounts" :key="d.id">{{ d.id == product.data.desconto_id ? d.nome : '' }}
+          <h4 name="desconto" v-for="d in discounts.data" :key="d.id">{{ d.id == product.data.desconto_id ? d.nome : '' }}
           </h4>
         </div>
         <div>
@@ -176,18 +185,27 @@
             </input-container>
           </div>
           <div class="select-options">
+            <input-container id="ocasion" title="Ocasião" help="ocasionHelp" helpText="Escolha uma ocasião">
+              <select name="ocasion" v-model="updateProduct.ocasion">
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="o in ocasions.data" :key="o.id" :value="o.id"
+                  :selected="o.id == product.data.categoria_id ? true : false">{{ o.nome }}</option>
+              </select>
+            </input-container>
+
             <input-container id="category" title="Categoria" help="categoryHelp" helpText="Escolha uma categoria">
               <select name="category" v-model="updateProduct.category">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="c in categorys" :key="c.id" :value="c.id"
+                <option v-for="c in categorys.data" :key="c.id" :value="c.id"
                   :selected="c.id == product.data.categoria_id ? true : false">{{ c.nome }}</option>
               </select>
             </input-container>
 
+
             <input-container id="material" title="Materia-prima" help="materialHelp" helpText="Escolha uma matéria-prima">
               <select name="material" v-model="updateProduct.material">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="m in materials" :key="m.id" :value="m.id"
+                <option v-for="m in materials.data" :key="m.id" :value="m.id"
                   :selected="m.id == product.data.materia_prima_id ? true : false">{{ m.nome }}</option>
               </select>
             </input-container>
@@ -195,17 +213,20 @@
             <input-container id="discount" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
               <select name="materials" v-model="updateProduct.discount">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="d in discounts " :key="d.id" :value="d.id"
+                <option v-for="d in discounts.data " :key="d.id" :value="d.id"
                   :selected="d.id == product.data.discount_id ? true : false">{{ d.nome }}</option>
               </select>
             </input-container>
 
             <input-container id="customization" title="Costumização" help="costumizationHelp"
               helpText="Caso seja possível costumizar">
-              <input type="checkbox" name="customization" :checked="product.data.costumizavel == 1 ? true : false"
-                class="form-checkbox" aria-describedby="customization" v-model="updateProduct.customization">
+              <input type="checkbox" name="customization" class="form-checkbox" aria-describedby="customization"
+                :checked="product.data.costumizavel == 1 ? 'checked' : '' " v-model="updateProduct.customization">
             </input-container>
           </div>
+          {{ updateProduct.customization }}
+
+          {{ product.data.costumizavel }}
 
           <div class="input-form-names">
             <input-container id="description" title="Descrição do produto" help="descriptionHelp"
@@ -249,10 +270,10 @@
       </template>
       <template v-slot:content>
         <div>
-        <h4>Tem a certeza que pretende eliminar este produto?</h4>
-        <br />
-        <p>Ao eliminar este produto, irá eliminar também todas a imagens associadas a ele.</p>
-      </div>
+          <h4>Tem a certeza que pretende eliminar este produto?</h4>
+          <br />
+          <p>Ao eliminar este produto, irá eliminar também todas a imagens associadas a ele.</p>
+        </div>
       </template>
 
       <template v-slot:footer>
@@ -284,6 +305,7 @@ export default {
       productMainImage: [],
       productImages: [],
       categorys: { data: [] },
+      ocasions: { data: [] },
       materials: { data: [] },
       discounts: { data: [] },
       mainImage: [],
@@ -294,6 +316,7 @@ export default {
       updateProduct: {
         name: '',
         metaName: '',
+        ocasion: '',
         category: '',
         material: '',
         discount: '',
@@ -332,7 +355,7 @@ export default {
       axios.get(urlProducts)
         .then(response => {
           this.product.data = response.data
-          // console.log(response.data)
+          console.log(response.data)
         })
         .catch(errors => {
           console.log(errors);
@@ -357,7 +380,20 @@ export default {
 
       axios.get(urlCategory)
         .then(response => {
-          this.categorys = response.data
+          this.categorys.data = response.data
+          // console.log(this.categorys)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
+
+    loadOcasions() { //load all the categories
+      let urlOcasion = this.urlBase + 'ocasiao';
+
+      axios.get(urlOcasion)
+        .then(response => {
+          this.ocasions.data = response.data
           // console.log(this.categorys)
         })
         .catch(errors => {
@@ -370,7 +406,7 @@ export default {
 
       axios.get(urlMaterials)
         .then(response => {
-          this.materials = response.data
+          this.materials.data = response.data
 
           // console.log(this.materials)
         })
@@ -384,7 +420,7 @@ export default {
 
       axios.get(urlDiscounts)
         .then(response => {
-          this.discounts = response.data
+          this.discounts.data = response.data
 
           // console.log(this.discount)
         })
@@ -488,7 +524,7 @@ export default {
           })
       }
     },
-    update() { 
+    update() {
       let url = this.urlBase + 'produto/' + this.id
 
       let formData = new FormData();
@@ -510,15 +546,18 @@ export default {
         let value = this.updateProduct.price.toFixed(2);
         formData.append('valor', value);
       }
-      if (this.updateProduct.customization != '') {
+      if (this.updateProduct.customization == true) {
+        let customization = 1;
+        formData.append('costumizavel', customization);
+      }
+      if (this.updateProduct.customization == false) {
+        let customization = 0;
+        formData.append('costumizavel', customization);
+      }
 
-        if (this.updateProduct.customization == true) {
-          this.updateProduct.customization = 1
-        } else {
-          this.updateProduct.customization = 0
-        }
 
-        formData.append('costumizavel', this.updateProduct.customization);
+      if (this.updateProduct.ocasion != '') {
+        formData.append('ocasioes_id', this.updateProduct.ocasion);
       }
       if (this.updateProduct.category != '') {
         formData.append('categoria_id', this.updateProduct.category);
@@ -551,6 +590,7 @@ export default {
           this.updateProduct.description = ''
           this.updateProduct.price = ''
           this.updateProduct.customization = ''
+          this.updateProduct.ocasion = ''
           this.updateProduct.category = ''
           this.updateProduct.material = ''
           this.updateProduct.discount = ''
@@ -568,35 +608,36 @@ export default {
           this.updateProduct.description = ''
           this.updateProduct.price = ''
           this.updateProduct.customization = ''
+          this.updateProduct.ocasion = ''
           this.updateProduct.category = ''
           this.updateProduct.material = ''
           this.updateProduct.discount = ''
         })
     },
-    remove(){
+    remove() {
       let url = this.urlBase + 'produto/' + this.id
 
-      if(this.productAllImages){
+      if (this.productAllImages) {
         this.productAllImages.forEach(element => {
           this.removeImage(element.id)
         });
       }
 
       let formData = new FormData();
-        formData.append('_method', 'delete')
+      formData.append('_method', 'delete')
 
-        axios.post(url, formData)
-          .then(response => {
-            this.$store.state.transaction.status = 'removed'
-            this.$store.state.transaction.message = response.data.msg
-            alert(response.data.msg)
-            window.location.href = 'http://127.0.0.1:8000/dashboard/produtos';
-          })
-          .catch(errors => {
-            console.log(errors.response.data)
-            this.$store.state.transaction.status = 'error-remove'
-            this.$store.state.transaction.message = errors.response.data.message
-          })
+      axios.post(url, formData)
+        .then(response => {
+          this.$store.state.transaction.status = 'removed'
+          this.$store.state.transaction.message = response.data.msg
+          alert(response.data.msg)
+          window.location.href = 'http://127.0.0.1:8000/dashboard/produtos';
+        })
+        .catch(errors => {
+          console.log(errors.response.data)
+          this.$store.state.transaction.status = 'error-remove'
+          this.$store.state.transaction.message = errors.response.data.message
+        })
 
     },
 
@@ -632,6 +673,7 @@ export default {
     this.loadDiscounts();
     this.loadMaterials();
     this.getProductImages();
+    this.loadOcasions();
   }
 }
 </script>

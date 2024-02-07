@@ -11,7 +11,7 @@
 
       <div class="cont-header">
         <h3 class="titulo_1">Categorias</h3>
-        <a class="high-link" href="#modalCategoriaAdd">Adicionar categoria +</a>
+        <a class="high-link" href="#modalCategoriaAdd">Adicionar Categoria +</a>
       </div>
 
       <!--Modal to add new category-->
@@ -90,6 +90,104 @@
       <!-- End modal to update categorys-->
     </div>
 
+    <!------------------------ OCASION AREA --------------------------------->
+    <div class="container2">
+
+      <div class="cont-header">
+        <h3 class="titulo_1">Ocasião</h3>
+        <a class="high-link" href="#modalOcasionAdd">Adicionar Ocasião +</a>
+      </div>
+
+      <!--Modal to add new ocasion-->
+      <modal-component id="modalOcasionAdd" title="Adicionar uma ocasião">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+          <alert-component tipe="success" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'added'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="addOcasion" title="Ocasião" help="addOcasion" helpText="Nome da Ocasião">
+            <input type="text" name="addOcasion" aria-describedby="addOcasion" v-model="newOcasion">
+          </input-container>
+          <input-container id="addOcasionStatus" title="Estado" help="addOcasionStatus" helpText="Estado da Ocasião">
+            <select name="addOcasionStatus" v-model="newOcasionStatus">
+              <option value="0">Inativo</option>
+              <option value="1">Ativo</option>
+            </select>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button class="button-save" @click="save('ocasiao')">Adicionar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component>
+
+      <!-- Start table to show the ocasions-->
+      <table-component :data="ocasions.data" :view="{ visible: false, dataTarget: '#modalOcasionView' }"
+        :update="{ visible: true, dataTarget: '#modalOcasionUpdate' }"
+        :remove="{ visible: true, dataTarget: '#modalOcasionRemove' }" :titles="{
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          estado: { title: 'Estado', type: 'status' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
+      </table-component>
+      <!-- End table to show the ocasions-->
+
+      <!-- Start modal to remove ocasions-->
+      <modal-component id="modalOcasionRemove" title="Remover ocasião">
+
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction"
+            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="removeOcasion" title="Tem a certeza que quer remover esta categoria?">
+            <input type="text" name="removeOcasion" aria-describedby="removeOcasion" :value="$store.state.item.nome"
+              disabled>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button class="button-save" @click="remove($store.state.item.id, 'ocasiao')">Remover</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+      </modal-component>
+      <!-- End modal to remove ocasion-->
+
+      <!-- Start modal to update ocasion-->
+      <modal-component id="modalOcasionUpdate" title="Atualizar ocasião">
+        <template v-slot:alerts>
+          <alert-component tipe="danger" :details="$store.state.transaction.message"
+            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
+        </template>
+        <template v-slot:content>
+          <input-container id="updateOcasion" title="Atualizar ocasião" help="UpdateOcasion"
+            helpText="Novo nome da ocasião">
+            <input type="text" name="updateOcasion" aria-describedby="updateOcasion" :placeholder="$store.state.item.nome"
+              v-model="updateOcasion">
+          </input-container>
+          <input-container id="updateOcasionStatus" title="Atualizar estado da ocasião" help="UpdateOcasionStatus"
+            helpText="Novo estado da ocasião">
+            <select name="updateOcasionStatus" v-model="updateOcasionStatus">
+              <option value="0">Inativo</option>
+              <option value="1">Ativo</option>
+            </select>
+          </input-container>
+        </template>
+
+        <template v-slot:footer>
+          <button class="button-save" @click="update($store.state.item.id, 'ocasiao')">Atualizar</button>
+          <!--The seconde parameter defines the endpoint for the url-->
+        </template>
+
+      </modal-component>
+      <!-- End modal to update categorys-->
+    </div>
+
     <!------------------------ MATERIAL AREA --------------------------------->
 
     <div class="container2">
@@ -97,7 +195,8 @@
         <h3 class="titulo_1">Matéria-prima</h3>
         <a class="high-link" href="#modalMaterialAdd">Adicionar matéria-prima +</a>
       </div>
-      <!--Modal to add new category-->
+
+      <!--Modal to add new material-->
       <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
         <template v-slot:alerts>
           <alert-component tipe="danger" :details="$store.state.transaction"
@@ -117,6 +216,7 @@
         </template>
 
       </modal-component>
+      <!--End modal to add new material-->
 
       <!-- Start table to show the materials-->
       <table-component :data="materiais.data" :view="{ visible: false, dataTarget: '#modalMaterialView' }"
@@ -130,7 +230,7 @@
       <!-- End table to show materials-->
 
 
-      <!-- Start modal to remove categorys-->
+      <!-- Start modal to remove material-->
       <modal-component id="modalMaterialRemove" title="Remover matéria-prima">
 
         <template v-slot:alerts>
@@ -149,9 +249,9 @@
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
       </modal-component>
-      <!-- End modal to remove categorys-->
+      <!-- End modal to remove material-->
 
-      <!-- Start modal to update categorys-->
+      <!-- Start modal to update material-->
       <modal-component id="modalMaterialUpdate" title="Atualizar matéria-prima">
         <template v-slot:alerts>
           <alert-component tipe="danger" :details="$store.state.transaction.message"
@@ -171,7 +271,7 @@
         </template>
 
       </modal-component>
-      <!-- End modal to update categorys-->
+      <!-- End modal to update material-->
 
     </div>
   </div>
@@ -184,15 +284,15 @@
       </div>
 
       <!-- Table to show deleted products-->
-    <table-component :data="deletedProducts.data" :view="{ visible: false, dataTarget: '' }"
-      :update="{ visible: true, dataTarget: '#modalDeletedUpdate' }"
-      :remove="{ visible: true, dataTarget: '#modalDeletedlRemove' }" :titles="{
-        id: { title: 'ID', type: 'text' },
-        nome: { title: 'Nome', type: 'text' },
-        deleted_at: { title: 'Eleminado em', type: 'date' },
-      }">
-    </table-component>
-    <!-- End table to show deleted products-->
+      <table-component :data="deletedProducts.data" :view="{ visible: false, dataTarget: '' }"
+        :update="{ visible: true, dataTarget: '#modalDeletedUpdate' }"
+        :remove="{ visible: true, dataTarget: '#modalDeletedlRemove' }" :titles="{
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          deleted_at: { title: 'Eleminado em', type: 'date' },
+        }">
+      </table-component>
+      <!-- End table to show deleted products-->
 
       <!-- Start modal to update deleted products-->
       <modal-component id="modalDeletedUpdate" title="Restaurar Produto Eliminado">
@@ -223,7 +323,6 @@
         </template>
 
         <template v-slot:footer>
-          {{ $store.state.item.id }}
           <button class="button-save" @click="remove($store.state.item.id, 'produto')">Remover</button>
           <!--The seconde parameter defines the endpoint for the url-->
         </template>
@@ -232,7 +331,6 @@
       <!-- End modal to deleted permanently deleted products-->
 
     </div>
-    
   </div>
 </template>
 
@@ -242,8 +340,13 @@ export default {
     return {
       urlBase: 'http://127.0.0.1:8000/api/',
       categorys: { data: [] },
+      ocasions: { data: [] },
       newCategory: '',
       updateCategory: '',
+      newOcasion: '',
+      newOcasionStatus: '',
+      updateOcasion: '',
+      updateOcasionStatus: '',
       active: false,
       statusTransition: '',
       detailsTransition: '',
@@ -272,7 +375,17 @@ export default {
     loadTableData() { //loads the category data to the table
       let urlCategory = this.urlBase + 'categoria';
       let urlMaterial = this.urlBase + 'materia';
+      let ulrOcasion = this.urlBase + 'ocasiao';
 
+      if (ulrOcasion) {
+        axios.get(ulrOcasion)
+          .then(response => {
+            this.ocasions.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      }
       if (urlCategory) {
         axios.get(urlCategory)
           .then(response => {
@@ -315,6 +428,12 @@ export default {
       if (c == 'categoria') {
         formData.append('nome', this.newCategory);
       }
+
+      if (c == 'ocasiao') {
+        formData.append('nome', this.newOcasion);
+        formData.append('estado', this.newOcasionStatus);
+      }
+
       if (c == 'materia') {
         formData.append('nome', this.newMaterial);
       }
@@ -332,15 +451,21 @@ export default {
           alert(response.data.msg)
           this.loadTableData()
           history.back()
-          
+
           this.newMaterial = ""
           this.newCategory = ""
+          this.newOcasionStatus = ""
+          this.newOcasion = ""
         })
         .catch(errors => {
           console.log(errors.response.data.message)
           this.$store.state.transaction.status = 'error-add'
           this.$store.state.transaction.message = errors.response.data.message
           console.log(errors)
+          this.newMaterial = ""
+          this.newCategory = ""
+          this.newOcasionStatus = ""
+          this.newOcasion = ""
         })
 
 
@@ -403,6 +528,33 @@ export default {
               })
           }
 
+          if (element.ocasioes_id == r && n == 'ocasiao') {
+            let url = this.urlBase + 'produto/' + element.id
+
+            let formData = new FormData();
+            formData.append('_method', 'patch')
+
+            formData.append('ocasioes_id', 1);
+
+            let config = {
+              headers: {
+                'Content-Type': 'x-www-form-urlencoded',
+                'Accept': 'application/json'
+              }
+            }
+
+            axios.post(url, formData, config)
+              .then(response => {
+                this.$store.state.transaction.status = 'updated'
+                this.$store.state.transaction.message = response.data.msg
+              })
+              .catch(errors => {
+                this.$store.state.transaction.status = 'error-update'
+                this.$store.state.transaction.message = errors.response.data
+                alert(errors.response.data)
+              })
+          }
+
 
         });
       }
@@ -431,6 +583,17 @@ export default {
     update(u, n) { //update either the category or material
       let formData = new FormData();
       formData.append('_method', 'patch')
+
+
+      if (n == 'ocasiao') {
+        if (this.updateOcasion != '') {
+          formData.append('nome', this.updateOcasion)
+        }
+
+        if (this.updateOcasionStatus != '') {
+          formData.append('estado', this.updateOcasionStatus)
+        }
+      }
 
       if (n == 'categoria') {
         formData.append('nome', this.updateCategory)

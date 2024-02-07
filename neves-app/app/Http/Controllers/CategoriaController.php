@@ -54,22 +54,6 @@ class CategoriaController extends Controller
             return response()->json(['error' => 'A categoria que pretende atualizar não existe'], 404);
         }
 
-        if ($request->method() === 'PATCH') {
-            $dinamycRules = [];
-
-            //browse all rules for indentify the especific key and rule that as been recive, save them in the dinamycRules variable
-            foreach ($category->rules() as $input => $rules) {
-                if (array_key_exists($input, $request->all())) {
-                    $dinamycRules[$input] = $rules;
-                }
-            }
-
-            //validation with the dinamic rules
-            $request->validate($dinamycRules, $category->feedback());
-        } else {
-            $request->validate($category->rules(), $category->feedback());
-        }
-
         $category->update($request->all());
 
         return ['msg' => 'Categoria foi atualizada com sucesso'];

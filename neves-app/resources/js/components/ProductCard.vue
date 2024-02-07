@@ -19,7 +19,7 @@
           <div class="info">
           <h4 v-if="info.nome">{{ value.nome }}</h4>
           <h4 v-if="info.meta_nome">{{ value.meta_nome }}</h4>
-          <h5 v-if="info.categoria">{{ value.categoria.nome }}</h5>
+          <h5 v-if="info.categoria">{{ value.ocasioes_categoria_id }}</h5>
           <h5 v-if="info.materia">{{ value.materia_prima.nome }}</h5>
           <h5 v-if="info.quantidade">Quant.: {{ value.quantidade }} </h5>
           <h6 v-if="info.valor"> Preço: {{ value.valor }} €</h6>

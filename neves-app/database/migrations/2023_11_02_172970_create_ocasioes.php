@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        //create ocasioes table
+        Schema::create('ocasioes', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->integer('estado');
             $table->timestamps();
         });
     }
@@ -23,6 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        // Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('ocasioes');
+        // Schema::enableForeignKeyConstraints();
+        
     }
 };

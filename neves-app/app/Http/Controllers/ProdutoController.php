@@ -22,9 +22,9 @@ class ProdutoController extends Controller
 
         if ($request->has('atributos')) {
             $attributes = $request->atributos;
-            $product = $this->produto->selectRaw($attributes)->with('desconto')->with('categoria')->with('materiaPrima');
+            $product = $this->produto->selectRaw($attributes)->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
         } else {
-            $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima');
+            $product = $this->produto->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
         }
 
         if ($request->has('filtro')) {
@@ -68,7 +68,7 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima')->find($id);
+        $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima')->with('ocasioes')->with('categoria')->find($id);
 
         return $product;
     }

@@ -101,7 +101,7 @@ class DescontoController extends Controller
         $discount = $this->desconto->find($id);
 
         if ($discount === null) {
-            return response()->json(['error' => 'A categoria que pretende eliminar não existe'], 404);
+            return response()->json(['error' => 'O desconto que pretende eliminar não existe'], 404);
         }
 
         $discount->delete();

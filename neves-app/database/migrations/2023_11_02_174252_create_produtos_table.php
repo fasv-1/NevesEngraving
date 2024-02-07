@@ -20,10 +20,12 @@ return new class extends Migration
             $table->decimal('valor', 8, 2);
             $table->boolean('costumizavel');
             $table->timestamps();
+            $table->unsignedBigInteger('ocasioes_id');
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('materia_prima_id');
             $table->unsignedBigInteger('desconto_id');
 
+            $table->foreign('ocasioes_id')->references('id')->on('ocasioes');
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->foreign('materia_prima_id')->references('id')->on('materia_prima');
             $table->foreign('desconto_id')->references('id')->on('descontos');

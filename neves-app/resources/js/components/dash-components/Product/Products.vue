@@ -21,7 +21,7 @@
     <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
       <select id="category" v-model="categoryFilter" @change="filtro(categoryFilter, 1)">
         <option value="" disabled>Escolhe uma</option>
-        <option v-for="c in categorys" :key="c.id" :value="c.id">{{ c.nome }}</option>
+        <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
       </select>
     </input-container>
     <div></div>
@@ -31,7 +31,7 @@
       helpText="Filtrar produtos por matéria-prima">
       <select id="materials" v-model="materialFilter" @change="filtro(materialFilter, 2)">
         <option value="" disabled>Escolhe uma</option>
-        <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
+        <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
       </select>
     </input-container>
     <!--End Materials filter-->
@@ -96,24 +96,31 @@
           </input-container>
         </div>
         <div class="select-options">
+          <input-container id="ocasions" title="Ocasiões" help="ocasionsHelp" helpText="Escolha uma ocasião">
+            <select name="ocasions" v-model="newProduct.ocasion" required>
+              <option value="" disabled>Escolhe uma</option>
+              <option v-for="c in ocasions.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
+            </select>
+          </input-container>
+
           <input-container id="category" title="Categoria" help="categoryHelp" helpText="Escolha uma categoria">
             <select name="category" v-model="newProduct.category" required>
               <option value="" disabled>Escolhe uma</option>
-              <option v-for="c in categorys" :key="c.id" :value="c.id">{{ c.nome }}</option>
+              <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
             </select>
           </input-container>
 
           <input-container id="material" title="Materia-prima" help="materialHelp" helpText="Escolha uma matéria-prima">
             <select name="material" v-model="newProduct.material" required>
               <option value="" disabled>Escolhe uma</option>
-              <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.nome }}</option>
+              <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
             </select>
           </input-container>
 
           <input-container id="discount" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
             <select name="materials" v-model="newProduct.discount" required>
               <option value="" disabled>Escolhe uma</option>
-              <option v-for="d in discounts " :key="d.id" :value="d.id">{{ d.nome }}</option>
+              <option v-for="d in discounts.data " :key="d.id" :value="d.id">{{ d.nome }}</option>
             </select>
           </input-container>
 
@@ -164,6 +171,7 @@ export default {
         name: '',
         metaName: '',
         category: '',
+        ocasion: '',
         material: '',
         discount: '',
         customization: false,
@@ -172,6 +180,7 @@ export default {
         price: '',
       },
       categorys: { data: [] },
+      ocasions: { data: [] },
       materials: { data: [] },
       discounts: { data: [] },
       products: { data: [] },
@@ -228,7 +237,21 @@ export default {
 
       axios.get(urlCategory)
         .then(response => {
-          this.categorys = response.data
+          this.categorys.data = response.data
+
+          // console.log(this.categorys)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
+
+    loadOcasions() {
+      let urlCategory = this.urlBase + 'ocasiao';
+
+      axios.get(urlCategory)
+        .then(response => {
+          this.ocasions.data = response.data
 
           // console.log(this.categorys)
         })
@@ -241,7 +264,7 @@ export default {
 
       axios.get(urlMaterials)
         .then(response => {
-          this.materials = response.data
+          this.materials.data = response.data
 
           // console.log(this.materials)
         })
@@ -253,7 +276,7 @@ export default {
       let urlDiscounts = this.urlBase + 'desconto';
       axios.get(urlDiscounts)
         .then(response => {
-          this.discounts = response.data
+          this.discounts.data = response.data
 
           // console.log(this.discount)
         })
@@ -305,6 +328,7 @@ export default {
         formData.append('valor', this.newProduct.price);
       }
       formData.append('costumizavel', this.newProduct.customization);
+      formData.append('ocasioes_id', this.newProduct.ocasion);
       formData.append('categoria_id', this.newProduct.category);
       formData.append('materia_prima_id', this.newProduct.material);
       formData.append('desconto_id', this.newProduct.discount);
@@ -327,6 +351,7 @@ export default {
           this.newProduct.description = '';
           this.newProduct.price = '';
           this.newProduct.customization = '';
+          this.newProduct.ocasion = '';
           this.newProduct.category = '';
           this.newProduct.material = '';
           this.newProduct.discount = '';
@@ -349,6 +374,7 @@ export default {
     this.loadDiscounts();
     this.loadProducts();
     this.loadImages();
+    this.loadOcasions();
   }
 }
 </script>

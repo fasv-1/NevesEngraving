@@ -11,7 +11,7 @@ class Produto extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['nome', 'meta_nome', 'quantidade', 'descricao', 'valor', 'costumizavel','categoria_id', 'materia_prima_id', 'desconto_id'];
+    protected $fillable = ['nome', 'meta_nome', 'quantidade', 'descricao', 'valor', 'costumizavel','ocasioes_id', 'categoria_id', 'materia_prima_id', 'desconto_id'];
 
     public function rules(){
         return [
@@ -21,6 +21,7 @@ class Produto extends Model
             'descricao' => 'required',
             'valor' => 'required|decimal:2|min:0',
             'costumizavel' => 'required',
+            'ocasioes_id' => 'required',
             'categoria_id' => 'required',
             'materia_prima_id' => 'required',
             'desconto_id' => 'required',
@@ -43,13 +44,16 @@ class Produto extends Model
     public function desconto() {
         return $this->belongsTo('App\Models\Desconto');
     }
-    public function categoria() {
-        return $this->belongsTo('App\Models\categoria');
-    }
     public function materiaPrima() {
         return $this->belongsTo('App\Models\materia_prima');
     }
+    public function ocasioes() {
+        return $this->belongsTo('App\Models\Ocasiao');
+    }
+    public function categoria() {
+        return $this->belongsTo('App\Models\categoria');
+    }
     public function imagens() {
-        return $this->asMany('App\Models\imagens_produto');
+        return $this->hasMany('App\Models\imagens_produto');
     }
 }

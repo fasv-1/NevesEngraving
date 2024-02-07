@@ -6,21 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class categoria extends Model
+class Ocasiao extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome'];
+
+    protected $fillable = ['nome', 'estado'];
+    protected $table = 'ocasioes';
 
     public function rules(){
         return [
-            'nome' => 'required|unique:categorias'
+            'nome' => 'required|unique:ocasioes',
+            'estado' => 'required|numeric'
         ];
     }
     
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
-            'nome.unique' => 'Esta categoria já existe'
+            'nome.unique' => 'Esta ocasião já existe',
+            'numeric' => 'Este campo deve ser preenchido por um valor numérico'
         ];
     }
 
