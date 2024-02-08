@@ -22,7 +22,7 @@
           <h5 v-if="info.categoria">{{ value.ocasioes_categoria_id }}</h5>
           <h5 v-if="info.materia">{{ value.materia_prima.nome }}</h5>
           <h5 v-if="info.quantidade">Quant.: {{ value.quantidade }} </h5>
-          <h6 v-if="info.valor"> Preço: {{ value.valor }} €</h6>
+          <h6 v-if="info.valor"> {{ value.valor }} €</h6>
         </div>
         
         </div>

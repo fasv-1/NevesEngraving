@@ -15,7 +15,7 @@
     <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
       <button class="button1" @click="loadProducts()">Todos os produtos</button>
     </input-container>
-    <div></div>
+  
     <!-- End category filter-->
     <!-- Category filter -->
     <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
@@ -24,7 +24,7 @@
         <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
       </select>
     </input-container>
-    <div></div>
+
     <!-- End category filter-->
     <!-- Materials filter-->
     <input-container id="materials" title='Por materia-prima' help="materialsHelp"

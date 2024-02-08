@@ -254,7 +254,7 @@
       </template>
 
       <template v-slot:footer>
-        <button class="button-save" @click="update()">Adicionar</button>
+        <button class="button-save" @click="update()">Atualizar</button>
       </template>
 
     </modal-component>

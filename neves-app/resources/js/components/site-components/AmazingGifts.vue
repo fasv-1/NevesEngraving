@@ -2,18 +2,16 @@
   <div class="container">
     <div class="side-menu">
      <div class="categorys-area">
-      <div class="category" v-for="category, index in categorys.data" :key="index">
-      <a href="#" @click.prevent="categoryFilter()">{{ category.nome }}</a>
+      <div class="category" v-for="category, index in dinamycCategories" :key="index">
+      <a href="#" @click.prevent="categoryFilter(category)">{{ category }}</a>
       </div>
      </div>
     </div>
     <div class="show-products">
-      <h3>Produtos</h3>
-      <card-component :products=products.data usedArea="home" :headTitle='true' :image=productsImages.data :info="{
-        nome: false, meta_nome: false, categoria: true, materia: false, quantidade: true, valor: true
-      }" :cart="false"></card-component>
-      <h3>Imagens</h3>
-      {{ productsImages }}
+      <h3 @click="getData()">Produtos</h3>
+      <card-component :products=productsShownd.data usedArea="home" :headTitle='false' :image=productsImages.data :info="{
+        nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
+      }" :cart="true"></card-component>
     </div>
   </div>
 </template>
@@ -24,14 +22,39 @@ export default {
     return {
       baseUrl: 'http://localhost:8000/api/',
       categorys: { data: [] },
+      ocasions: { data: [] },
       materials: { data: [] },
       products: { data: [] },
+      productsShownd: {data: []},
       productsImages: { data: [] },
+      ocasionsCategorys:[]
     }
   },
   methods: {
+    categoryFilter(i){
+      let categoryId = ''
+      this.categorys.data.forEach(element=>{
+        if(i == element.nome){
+          categoryId = element.id
+        }
+        return categoryId
+
+        
+      })
+      let urlProductFilter = 'http://127.0.0.1:8000/api/produto?filtro=categoria_id:=:'+ categoryId +':ocasioes_id:=:1'
+
+      axios.get(urlProductFilter)
+        .then(response => {
+          this.productsShownd.data = response.data
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+
+    },
     getData() {
       let urlCategory = this.baseUrl + 'categoria'
+      let urlOcasion = this.baseUrl + 'ocasiao'
       let urlMaterial = this.baseUrl + 'materia'
       let urlProducts = this.baseUrl + 'produto'
       let urlImages = this.baseUrl + 'imagens_produto'
@@ -40,6 +63,15 @@ export default {
       axios.get(urlCategory)
         .then(response => {
           this.categorys.data = response.data
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+
+      // get all the ocasions
+      axios.get(urlOcasion)
+        .then(response => {
+          this.ocasions.data = response.data
         })
         .catch(errors => {
           console.log(errors);
@@ -58,6 +90,7 @@ export default {
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data
+          this.productsShownd.data = response.data
         })
         .catch(errors => {
           console.log(errors);
@@ -73,6 +106,37 @@ export default {
         })
 
     },
+  },
+  computed:{
+    dinamycCategories(){ // dinamic categories withou ocasion
+      let categorys = []
+      this.products.data.forEach(element => {
+        if(!categorys.includes(element.categoria.nome)){
+          if(element.ocasioes.id == 1){
+          categorys.push(element.categoria.nome)
+          }
+        }
+      });
+      return categorys;
+      
+    },
+    dinamycOcasions(){ // dinamic ocasions 
+      let ocasions = []
+      this.products.data.forEach(element => {
+
+        if(!ocasions.includes(element.ocasioes.nome)){
+            ocasions.push(element.ocasioes.nome)
+        }
+      });
+      return ocasions;
+      
+    },
+    dinamycOcasionsCategorys(){
+      this.products.data.map(element => {
+        this.ocasionsCategorys.push({[element.ocasioes.nome] : element.categoria.nome})
+      });
+    }
+    
   },
   mounted() {
     this.getData()

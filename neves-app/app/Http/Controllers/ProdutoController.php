@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Exists;
 
 class ProdutoController extends Controller
 {
@@ -30,6 +31,10 @@ class ProdutoController extends Controller
         if ($request->has('filtro')) {
             $conditions = explode(':', $request->filtro);
             $product = $product->where($conditions[0], $conditions[1], $conditions[2]);
+
+            if (isset($conditions[3])) {
+                $product = $product->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
+            }
         } else {
             $product = $product;
         }
