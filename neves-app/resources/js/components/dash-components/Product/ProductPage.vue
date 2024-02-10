@@ -224,9 +224,6 @@
                 :checked="product.data.costumizavel == 1 ? 'checked' : '' " v-model="updateProduct.customization">
             </input-container>
           </div>
-          {{ updateProduct.customization }}
-
-          {{ product.data.costumizavel }}
 
           <div class="input-form-names">
             <input-container id="description" title="Descrição do produto" help="descriptionHelp"

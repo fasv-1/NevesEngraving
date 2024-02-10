@@ -36,8 +36,8 @@
         height: 40px;
         overflow: visible;
 
-        .st1{
-          fill:$Global-red;
+        .st1 {
+          fill: $Global-red;
           stroke: $Global-red;
           stroke-width: 10;
         }
@@ -63,7 +63,7 @@
       align-items: center;
       width: 30%;
 
-      a{
+      a {
         color: $Darker-blue;
       }
 
@@ -173,7 +173,6 @@
       width: 40%;
 
       a {
-
         // &:hover{
         //   background-color: $Global-red;
         //   border-radius: 10px;
@@ -182,11 +181,39 @@
         h5 {
           margin: 1em 2em 1em 2em;
 
-          &:hover{
+          &:hover {
             color: $Global-red;
           }
         }
       }
     }
   }
+}
+
+.ocasionCategory {
+    display: none;
+    // border-radius: 2px;
+    padding: 0.5em 0 0.5em 0;
+    // background-color: $DshMenuActive;
+    border-radius: 0 0 2px 2px;
+
+    // -webkit-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+    // -moz-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+    // box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+    a {
+      color: #000;
+
+      &:hover {
+        background-color: $Hover-grey;
+        border-radius: 2px;
+      }
+    }
+
+    .linkActive {
+      background-color: $SlctdBar;
+      border-radius: 2px;
+      a {
+        color: #b80012;
+      }
+    }
 }

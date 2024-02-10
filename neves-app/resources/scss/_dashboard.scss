@@ -81,19 +81,19 @@
       margin-left: 1em;
       cursor: pointer;
     }
-    .menuIcon {
-      margin-right: 1em;
-      cursor: pointer;
-
-      img {
-        width: 15px;
-        height: 100%;
-      }
-    }
   }
-
   .active {
     background-color: $DshMenuActive;
+  }
+}
+
+.menuIcon {
+  margin-right: 1em;
+  cursor: pointer;
+
+  img {
+    width: 15px;
+    height: 100%;
   }
 }
 
@@ -141,6 +141,4 @@
   height: 2rem;
 }
 
-.show {
-  display: block;
-}
+

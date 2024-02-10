@@ -28,6 +28,13 @@ class ProdutoController extends Controller
             $product = $this->produto->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
         }
 
+        if($request->has('intervalo')){
+            $values = explode(':', $request->intervalo);
+            $product = $this->produto->whereBetween($values[0], [$values[1], $values[2]]);
+        } else{
+            $product = $product;
+        }
+
         if ($request->has('filtro')) {
             $conditions = explode(':', $request->filtro);
             $product = $product->where($conditions[0], $conditions[1], $conditions[2]);
