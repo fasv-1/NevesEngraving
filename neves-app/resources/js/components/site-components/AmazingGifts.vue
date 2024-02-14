@@ -1,37 +1,64 @@
 <template>
-  <div class="container">
-    <div class="side-menu">
-      <div class="categorys-area">
-        <div class="category" v-for="category, index in dinamycCategories" :key="index">
-          <a href="#" @click.prevent="categoryFilter(category)">{{ category }}</a>
-        </div>
-      </div>
-      <div class="ocasions-area">
-        <div class="ocasion" v-for="ocasion, index in dinamycOcasions" :key="index">
-          <a href="#" @click.prevent="ocasionFilter(ocasion)">{{ ocasion }}</a>
-          <h3 class="menuIcon" @click.prevent='toogle(index)'>
-            <img :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png'
-              : '/storage/images/Icons/PlusIcon.png'">
-          </h3>
-          <div class=" ocasionCategory" :class="{ show: id == index && active }"
-            v-for="oc, ix in dinamycOcasionsCategorys" :key="ix">
-            <a href="#" v-if="oc.ocasiao == ocasion" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{ oc.categoria }}</a>
+  <div class="site-container">
+    <div class="algo">
+      <div class="side-menu">
+        <div class="categorys-area">
+          <h5 class="group-title">Categorys</h5>
+          <a class="category" href="#" @click.prevent="getProducts()">All</a>
+          <div class="category" v-for="category, index in dinamycCategories" :key="index">
+            <a href="#" @click.prevent="categoryFilter(category)">{{ category }}</a>
           </div>
-          <br>
+        </div>
+        <div class="ocasions-area">
+          <h5 class="group-title">Ocasions</h5>
+          <div class="ocasion" v-for="ocasion, index in dinamycOcasions" :key="index">
+            <div class="ocs">
+              <a href="#" @click.prevent="ocasionFilter(ocasion)">{{ ocasion }}</a>
+              <h3 class="menu-icon" @click.prevent='toogle(index)'>
+                <img :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png'
+                  : '/storage/images/Icons/PlusIcon.png'">
+              </h3>
+            </div>
+            <div class=" ocasionCategory" :class="{ show: id == index && active }"
+              v-for="oc, ix in dinamycOcasionsCategorys" :key="ix">
+              <a href="#" v-if="oc.ocasiao == ocasion" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
+                oc.categoria }}</a>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="price-bar">
+          <h5 class="group-title">Price filter</h5>
+          <div class="bar-caption">
+            <p>{{ getPrice.minimo }}€</p>
+            <svg width="50%" height="100%" viewBox="0 0 906 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line y1="133.5" x2="906" y2="133.5" stroke="black" stroke-width="3" />
+              <line x1="454.5" y1="34" x2="454.5" y2="230" stroke="black" stroke-width="3" />
+              <line x1="228" y1="70" x2="228" y2="200" stroke="black" stroke-width="3" />
+              <line x1="681" y1="70" x2="681" y2="200" stroke="black" stroke-width="3" />
+            </svg>
+            <p>{{ (getPrice.minimo + getPrice.maximo) / 2 }}€</p>
+            <svg width="50%" height="100%" viewBox="0 0 906 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line y1="133.5" x2="906" y2="133.5" stroke="black" stroke-width="3" />
+              <line x1="454.5" y1="34" x2="454.5" y2="230" stroke="black" stroke-width="3" />
+              <line x1="228" y1="70" x2="228" y2="200" stroke="black" stroke-width="3" />
+              <line x1="681" y1="70" x2="681" y2="200" stroke="black" stroke-width="3" />
+            </svg>
+            <p>{{ getPrice.maximo }}€</p>
+
+          </div>
+          <input type="range" :min="getPrice.minimo" :max="getPrice.maximo" v-model="priceRange" @change="barFilter()"
+            class="slider" id="priceRange">
         </div>
       </div>
-      <div class="price-bar">
-        <input type="range" :min="getMinPrice.minimo" :max="getMinPrice.maximo" v-model="priceRange" @change="barFilter()" class="slider" id="myRange">
-      </div>
-
-      {{ priceRange }}
     </div>
     <div class="show-products">
-      <h3 @click="getData()">Produtos</h3>
+      <h3>Gifts</h3>
       <card-component :products=productsShownd.data usedArea="home" :headTitle='false' :image=productsImages.data :info="{
         nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
       }" :cart="true"></card-component>
     </div>
+
   </div>
 </template>
 
@@ -47,8 +74,10 @@ export default {
       productsShownd: { data: [] },
       productsImages: { data: [] },
       priceRange: '0',
-      minPrice:'',
-      maxPrice:'',
+      categoria: '',
+      ocasiao: '',
+      ocasiaoCategoria: '',
+      maxPrice: '',
       id: '',
       active: '',
     }
@@ -67,12 +96,13 @@ export default {
       }
     },
     barFilter() {
-
-      let minValue = this.getMinPrice.minimo
+      let minValue = this.getPrice.minimo
 
       let maxValue = this.priceRange
 
-      let url = this.baseUrl + 'produto?intervalo=valor:'+ minValue + ':'+ maxValue
+      let url = this.baseUrl + 'produto?intervalo=valor:' + minValue + ':' + maxValue
+
+      localStorage.setItem('priceRange', maxValue)
 
       axios.get(url)
         .then(response => {
@@ -85,26 +115,22 @@ export default {
     },
 
     categoryFilter(i) {
+      localStorage.clear()
       let categoryId = ''
+
       this.categorys.data.forEach(element => {
         if (i == element.nome) {
           categoryId = element.id
         }
         return categoryId
       })
-      
-      let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + categoryId + ':ocasioes_id:=:1'
 
-      axios.get(urlProductFilter)
-        .then(response => {
-          this.productsShownd.data = response.data
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
+      localStorage.setItem('category', categoryId)
 
+      this.localStorage()
     },
     ocasionFilter(i) {
+      localStorage.clear()
       let ocasionId = ''
       this.ocasions.data.forEach(element => {
         if (i == element.nome) {
@@ -113,18 +139,14 @@ export default {
         return ocasionId
       })
 
-      let urlProductFilter = this.baseUrl + 'produto?filtro=ocasioes_id:=:' + ocasionId 
+      localStorage.setItem('ocasion', ocasionId)
 
-      axios.get(urlProductFilter)
-        .then(response => {
-          this.productsShownd.data = response.data
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
-
+      this.localStorage()
     },
+
     ocasionCategoryFilter(i, e) {
+      localStorage.clear()
+
       let categoryId = ''
       this.categorys.data.forEach(element => {
         if (e == element.nome) {
@@ -141,23 +163,34 @@ export default {
         return ocasionId
       })
 
-      let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + categoryId + ':ocasioes_id:=:' + ocasionId
+      localStorage.setItem('ocasiondaCategory', ocasionId)
+      localStorage.setItem('ocasionCategory', categoryId)
 
-      axios.get(urlProductFilter)
+      this.localStorage()
+    },
+
+    getProducts() {
+      localStorage.clear()
+
+      let urlProducts = this.baseUrl + 'produto'
+
+      axios.get(urlProducts)
         .then(response => {
+          this.products.data = response.data
           this.productsShownd.data = response.data
-        })
-        .catch(errors => {
-          console.log(errors);
         })
 
     },
+
     getData() {
       let urlCategory = this.baseUrl + 'categoria'
       let urlOcasion = this.baseUrl + 'ocasiao'
       let urlMaterial = this.baseUrl + 'materia'
       let urlProducts = this.baseUrl + 'produto'
       let urlImages = this.baseUrl + 'imagens_produto'
+
+      // localStorage.clear()
+
 
       // get all the categories
       axios.get(urlCategory)
@@ -190,7 +223,7 @@ export default {
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data
-          this.productsShownd.data = response.data
+          // this.productsShownd.data = response.data
         })
         .catch(errors => {
           console.log(errors);
@@ -206,16 +239,75 @@ export default {
         })
 
     },
+    localStorage() {
+      let categoria = localStorage.getItem("category");
+      let ocasiao = localStorage.getItem("ocasion");
+      let ocasiaoCategoria = localStorage.getItem("ocasionCategory");
+      let ocasiaodaCategoria = localStorage.getItem("ocasiondaCategory");
+
+      console.log(categoria)
+      console.log(ocasiao)
+      console.log(ocasiaoCategoria)
+      console.log(ocasiaodaCategoria)
+
+      if (categoria != null) {
+
+        let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
+
+        axios.get(urlProductFilter)
+          .then(response => {
+            this.productsShownd.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      } else if (ocasiao != null) {
+
+        let urlProductFilter = this.baseUrl + 'produto?filtro=ocasioes_id:=:' + ocasiao
+
+        axios.get(urlProductFilter)
+          .then(response => {
+            this.productsShownd.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+
+      } else if (ocasiaoCategoria != null) {
+
+        let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + ocasiaoCategoria + ':ocasioes_id:=:' + ocasiaodaCategoria
+
+        axios.get(urlProductFilter)
+          .then(response => {
+            this.productsShownd.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+
+      } else {
+        let urlProducts = this.baseUrl + 'produto'
+
+        axios.get(urlProducts)
+          .then(response => {
+            this.productsShownd.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      }
+    },
   },
+
   computed: {
-    getMinPrice() {
+    getPrice() {
       let prices = []
-      
+
       this.products.data.forEach(element => {
         prices.push(element.valor)
       });
 
-      let values = {'minimo' : Math.min(...prices), 'maximo': Math.max(...prices)}
+      let values = { 'minimo': Math.min(...prices), 'maximo': Math.max(...prices) }
 
       return values
     },
@@ -263,6 +355,7 @@ export default {
   },
   mounted() {
     this.getData()
+    this.localStorage()
   }
 }
 </script>
