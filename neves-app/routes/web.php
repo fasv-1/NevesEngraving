@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 })->name('site');
 
 Route::get('/dashboard', [DashboardController::class, 'index'] )->name('site.dashboard');

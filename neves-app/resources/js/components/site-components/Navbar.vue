@@ -82,26 +82,33 @@
     </div>
     <div class="navbar-links">
       <div class="start-links">
-        <router-link to="/home/amazing_gifts">
-          <h5>AMAZING GIFTS</h5>
+        <router-link to="/home/amazing_gifts" @click="clearStorage()">
+          <h5 >AMAZING GIFTS</h5>
         </router-link>
-        <router-link to="/home/engraving">
+        <router-link to="/home/engraving" @click="clearStorage()">
           <h5>ENGRAVING</h5>
         </router-link>
       </div>
       <div class="end-links">
-        <router-link to="/home/lazer_cut">
+        <router-link to="/home/lazer_cut" @click="clearStorage()">
           <h5>LAZER CUT</h5>
         </router-link>
-        <router-link to="/home/business_cards">
+        <router-link to="/home/business_cards" @click="clearStorage()">
           <h5>BUSINESS CARDS</h5>
         </router-link>
       </div>
     </div>
   </div>
+  <breadcrumb-component></breadcrumb-component>
 </template>
 
 <script>
 export default {
+  methods:{
+    clearStorage(){
+      localStorage.clear();
+      // location.reload();
+    }
+  },
 }
 </script>

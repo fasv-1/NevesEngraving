@@ -27,6 +27,13 @@
             <br>
           </div>
         </div>
+
+        <div class="materials-area">
+          <h5 class="group-title">Materials</h5>
+          <div class="materials" v-for="material, index in materials.data" :key="index">
+            <a href="#" @click.prevent="materialFilter(material.id)">{{ material.nome }}</a>
+          </div>
+        </div>
         <div class="price-bar">
           <h5 class="group-title">Price filter</h5>
           <div class="bar-caption">
@@ -49,11 +56,16 @@
           </div>
           <input type="range" :min="getPrice.minimo" :max="getPrice.maximo" v-model="priceRange" @change="barFilter()"
             class="slider" id="priceRange">
+          {{ priceRange }}
         </div>
+        
       </div>
     </div>
     <div class="show-products">
       <h3>Gifts</h3>
+      <div v-if="productsShownd.data == ''">
+        <h3>Não existem produtos</h3>
+      </div>
       <card-component :products=productsShownd.data usedArea="home" :headTitle='false' :image=productsImages.data :info="{
         nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
       }" :cart="true"></card-component>
@@ -100,18 +112,10 @@ export default {
 
       let maxValue = this.priceRange
 
-      let url = this.baseUrl + 'produto?intervalo=valor:' + minValue + ':' + maxValue
+      localStorage.setItem('minValue', minValue)
+      localStorage.setItem('maxValue', maxValue)
 
-      localStorage.setItem('priceRange', maxValue)
-
-      axios.get(url)
-        .then(response => {
-          this.productsShownd.data = response.data
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
-
+      this.localStorage()
     },
 
     categoryFilter(i) {
@@ -129,6 +133,16 @@ export default {
 
       this.localStorage()
     },
+
+    materialFilter(i) {
+      localStorage.clear()
+      let materialId = i
+
+      localStorage.setItem('material', materialId)
+
+      this.localStorage()
+    },
+
     ocasionFilter(i) {
       localStorage.clear()
       let ocasionId = ''
@@ -172,12 +186,30 @@ export default {
     getProducts() {
       localStorage.clear()
 
+      let maxValue = localStorage.getItem('maxValue')
+      let minValue = localStorage.getItem('minValue')
       let urlProducts = this.baseUrl + 'produto'
+
+      if (this.priceRange != '0') {
+        urlProducts += '?intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+        
+        localStorage.setItem('minValue', this.getPrice.minimo)
+        localStorage.setItem('maxValue', this.priceRange)
+
+      }
+
+      if (maxValue != null && this.priceRange == '0') {
+        console.log('cheguei aqui')
+        this.priceRange = maxValue
+        urlProductFilter += '?intervalo=valor:' + minValue + ':' + maxValue
+      }
 
       axios.get(urlProducts)
         .then(response => {
-          this.products.data = response.data
           this.productsShownd.data = response.data
+        })
+        .catch(error => {
+          console.log(error)
         })
 
     },
@@ -189,7 +221,7 @@ export default {
       let urlProducts = this.baseUrl + 'produto'
       let urlImages = this.baseUrl + 'imagens_produto'
 
-      // localStorage.clear()
+      console.log(localStorage)
 
 
       // get all the categories
@@ -244,15 +276,17 @@ export default {
       let ocasiao = localStorage.getItem("ocasion");
       let ocasiaoCategoria = localStorage.getItem("ocasionCategory");
       let ocasiaodaCategoria = localStorage.getItem("ocasiondaCategory");
+      let material = localStorage.getItem("material");
+      let minValue = localStorage.getItem("minValue");
+      let maxValue = localStorage.getItem("maxValue");
 
-      console.log(categoria)
-      console.log(ocasiao)
-      console.log(ocasiaoCategoria)
-      console.log(ocasiaodaCategoria)
+      // console.log(categoria)
+      // console.log(ocasiao)
+      // console.log(ocasiaoCategoria)
+      // console.log(ocasiaodaCategoria)
 
-      if (categoria != null) {
-
-        let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
+      if (localStorage.length == 0) {
+        let urlProductFilter = this.baseUrl + 'produto'
 
         axios.get(urlProductFilter)
           .then(response => {
@@ -261,10 +295,81 @@ export default {
           .catch(errors => {
             console.log(errors);
           })
-      } else if (ocasiao != null) {
+      }
+      if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue != null) {
+        this.priceRange = maxValue
+
+        let urlProductFilter = this.baseUrl + 'produto?intervalo=valor:' + minValue + ':' + maxValue
+
+        axios.get(urlProductFilter)
+          .then(response => {
+            this.productsShownd.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      }
+
+      if (material != null) {
+        let urlProductFilter = this.baseUrl + 'produto?filtro=materia_prima_id:=:' + material 
+
+        if (this.priceRange != '0') {
+          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+        }
+        if (maxValue != null && this.priceRange == '0') {
+
+          this.priceRange = maxValue
+
+          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
+        console.log(urlProductFilter)
+
+        axios.get(urlProductFilter)
+          .then(response => {
+            this.productsShownd.data = response.data
+            console.log(response.data)
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      }
+
+      if (categoria != null) {
+        let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
+
+        if (this.priceRange != '0') {
+          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+        }
+        if (maxValue != null && this.priceRange == '0') {
+
+          this.priceRange = maxValue
+
+          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
+        axios.get(urlProductFilter)
+          .then(response => {
+            this.productsShownd.data = response.data
+          })
+          .catch(errors => {
+            console.log(errors);
+          })
+      }
+
+      if (ocasiao != null) {
 
         let urlProductFilter = this.baseUrl + 'produto?filtro=ocasioes_id:=:' + ocasiao
 
+        if (this.priceRange != '0') {
+          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+        }
+
+        if (maxValue != null && this.priceRange == '0') {
+          this.priceRange = maxValue
+          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
         axios.get(urlProductFilter)
           .then(response => {
             this.productsShownd.data = response.data
@@ -273,10 +378,20 @@ export default {
             console.log(errors);
           })
 
-      } else if (ocasiaoCategoria != null) {
+      }
+      if (ocasiaoCategoria != null) {
 
         let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + ocasiaoCategoria + ':ocasioes_id:=:' + ocasiaodaCategoria
 
+        if (this.priceRange != '0') {
+          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+        }
+
+        if (maxValue != null && this.priceRange == '0') {
+          this.priceRange = maxValue
+          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
         axios.get(urlProductFilter)
           .then(response => {
             this.productsShownd.data = response.data
@@ -285,16 +400,6 @@ export default {
             console.log(errors);
           })
 
-      } else {
-        let urlProducts = this.baseUrl + 'produto'
-
-        axios.get(urlProducts)
-          .then(response => {
-            this.productsShownd.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
       }
     },
   },

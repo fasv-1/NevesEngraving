@@ -17,18 +17,18 @@
         </div>
         <div class="info-area">
           <div class="info">
-          <h4 v-if="info.nome">{{ value.nome }}</h4>
-          <h4 v-if="info.meta_nome">{{ value.meta_nome }}</h4>
+          <h6 v-if="info.nome">{{ value.nome }}</h6>
+          <h6 v-if="info.meta_nome">{{ value.meta_nome }}</h6>
           <h5 v-if="info.categoria">{{ value.ocasioes_categoria_id }}</h5>
           <h5 v-if="info.materia">{{ value.materia_prima.nome }}</h5>
           <h5 v-if="info.quantidade">Quant.: {{ value.quantidade }} </h5>
-          <h6 v-if="info.valor"> {{ value.valor }} €</h6>
+          <h4 v-if="info.valor"> {{ value.valor }} €</h4>
         </div>
         
         </div>
       </router-link>
       <div class="cart-btn" v-if="cart">
-          <button class="button1" @click="teste()">Add to cart</button>
+          <span class="button_alt" @click="teste()">Add to cart</span>
         </div>
     </div>
     

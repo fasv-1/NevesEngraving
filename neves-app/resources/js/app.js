@@ -25,16 +25,71 @@ const store = createStore({
 //--------------------------------------Routes----------------------------------------------------
 const routes = [
   //------------------------------------Site-routes----------------------------------------------
-  {path: '/home', component: Home},
-  {path: '/', component: Home},
-  {path: '/home/amazing_gifts', component: AmazingGifts},
-  {path: '/home/engraving', component: Engraving},
-  {path: '/home/lazer_cut', component: LazerCut},
-  {path: '/home/business_cards', component: BusinessCards},
-  {path: '/home/help', component: Help},
-  {path: '/home/contacts', component: Contacts},
-  {path: '/home/shopping_cart', component: ShoppingCart},
-  
+  {
+    path: '/home',
+    component: Home,
+    name: 'Home',
+    meta: {
+      breadcrumb: 'Home'
+    }
+  },
+  {
+    path: '/home/amazing_gifts',
+    component: AmazingGifts,
+    name: 'AmazingGifts',
+    meta: {
+      breadcrumb: 'Amazing-Gifts'
+    }
+  },
+  {
+    path: '/home/engraving',
+    component: Engraving,
+    name: 'Engraving',
+    meta: {
+      breadcrumb: 'Engraving'
+    }
+  },
+  {
+    path: '/home/lazer_cut',
+    component: LazerCut,
+    name: 'LazerCut',
+    meta: {
+      breadcrumb: 'Lazer-Cut'
+    }
+  },
+  {
+    path: '/home/business_cards',
+    component: BusinessCards,
+    name: 'BusinessCards',
+    meta: {
+      breadcrumb: 'Business-Cards'
+    }
+  },
+  {
+    path: '/home/help',
+    component: Help,
+    name: 'Help',
+    meta: {
+      breadcrumb: 'Help'
+    }
+  },
+  {
+    path: '/home/contacts',
+    component: Contacts,
+    name: 'Contacts',
+    meta: {
+      breadcrumb: 'Contacts'
+    }
+  },
+  {
+    path: '/home/shopping_cart',
+    component: ShoppingCart,
+    name: 'ShoppingCart',
+    meta: {
+      breadcrumb: 'ShoppingCart'
+    }
+  },
+
 
   //----------------------------------Dashboard-routes--------------------------------------------
   { path: '/dashboard/produtos', component: Products },
@@ -44,7 +99,7 @@ const routes = [
     component: ProductPage,
     props: (route) => {
       const id = Number.parseInt(route.params.id);
-      return {id}
+      return { id }
     }
   },
   { path: '/dashboard/produtos/descontos', component: DescProduct },
@@ -112,6 +167,9 @@ app.component('table-component', Table);
 
 import Home from './components/Home.vue';
 app.component('home-component', Home);
+
+import Breadcrumb from './components/site-components/Breadcrumb.vue';
+app.component('breadcrumb-component', Breadcrumb);
 
 import Navbar from './components/site-components/Navbar.vue';
 app.component('navbar-component', Navbar);

@@ -190,6 +190,23 @@
   }
 }
 
+.breadcrumb {
+  margin-left: 5%;
+  font-size: 14px;
+  ul{
+    display: flex;
+    li{
+      display: flex;
+      color: #00000044;
+
+      a{
+        margin: 0 0.5em;
+        color: #00000044;
+        
+      }
+    }
+  }
+}
 //pages components style
 .site-container {
   margin: 1em;
@@ -210,8 +227,9 @@
 .side-menu {
   width: 200px;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   border: 1px solid #ccc;
   padding: 1em;
   border-radius: 10px;
@@ -220,17 +238,19 @@
   .title-menu,
   .categorys-area,
   .price-bar,
+  .materials-area,
   .ocasions-area {
     width: 100%;
     margin: 0.5em 0;
-    line-height: 1.2;
     
 
     .group-title {
       font-weight: bold;
       border-bottom: 1px solid #ccc;
+      margin: 0 0 0.5em 0;
     }
   }
+  .materials,
   .category {
     margin: 0 0.5em ;
     line-height: 1.6;
@@ -238,6 +258,7 @@
   }
   .ocasion {
     margin: 0 0.5em ;
+    line-height: 0.7;
     
     .ocs{
       display: flex;
