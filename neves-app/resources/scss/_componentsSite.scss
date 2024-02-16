@@ -193,16 +193,15 @@
 .breadcrumb {
   margin-left: 5%;
   font-size: 14px;
-  ul{
+  ul {
     display: flex;
-    li{
+    li {
       display: flex;
       color: #00000044;
 
-      a{
+      a {
         margin: 0 0.5em;
         color: #00000044;
-        
       }
     }
   }
@@ -213,15 +212,32 @@
   display: flex;
 }
 
-.algo{
+.algo {
   display: flex;
   justify-content: center;
   min-width: 20%;
 }
 
-.show-products{
+.show-products {
   justify-content: flex-end;
   width: 80%;
+
+  .pagination {
+    margin: 1em;
+    ul {
+      display: flex;
+
+      .high-link{
+        background-color: #4591aa;
+        color: #fff;
+        border-radius: 50%;
+      }
+      a {
+        padding: 0.5em;
+        margin: 1em;
+      }
+    }
+  }
 }
 
 .side-menu {
@@ -242,7 +258,6 @@
   .ocasions-area {
     width: 100%;
     margin: 0.5em 0;
-    
 
     .group-title {
       font-weight: bold;
@@ -252,23 +267,22 @@
   }
   .materials,
   .category {
-    margin: 0 0.5em ;
+    margin: 0 0.5em;
     line-height: 1.6;
-    
   }
   .ocasion {
-    margin: 0 0.5em ;
+    margin: 0 0.5em;
     line-height: 0.7;
-    
-    .ocs{
+
+    .ocs {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
-      .menu-icon{
-        img{
-        width: 100%;
-        height: 15px;
+      .menu-icon {
+        img {
+          width: 100%;
+          height: 15px;
         }
       }
     }
@@ -366,7 +380,7 @@
     input[type="range"]:focus::-ms-fill-upper {
       background: #4591aa;
     }
-  
+
     .bar-caption {
       display: flex;
       align-items: center;
@@ -384,22 +398,4 @@
 .ocasionCategory {
   display: none;
   line-height: 1.6;
-  a {
-    color: #000;
-
-    &:hover {
-      background-color: $Hover-grey;
-      border-radius: 2px;
-    }
-  }
-
-  .linkActive {
-    background-color: $SlctdBar;
-    border-radius: 2px;
-    a {
-      color: #b80012;
-    }
-  }
 }
-
-

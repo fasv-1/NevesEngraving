@@ -4,25 +4,26 @@
       <div class="side-menu">
         <div class="categorys-area">
           <h5 class="group-title">Categorys</h5>
-          <a class="category" href="#" @click.prevent="getProducts()">All</a>
+          <a class="category" :class="'all' == linkcliked ? 'high-link' : ''" href="#" @click.prevent="getProducts()">All</a>
           <div class="category" v-for="category, index in dinamycCategories" :key="index">
-            <a href="#" @click.prevent="categoryFilter(category)">{{ category }}</a>
+            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category)">{{ category }}</a>
           </div>
         </div>
         <div class="ocasions-area">
           <h5 class="group-title">Ocasions</h5>
-          <div class="ocasion" v-for="ocasion, index in dinamycOcasions" :key="index">
+          <div class="ocasion" v-for="ocasion, index in  dinamycOcasions" :key="index">
             <div class="ocs">
-              <a href="#" @click.prevent="ocasionFilter(ocasion)">{{ ocasion }}</a>
+              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion)">{{ ocasion }}</a>
               <h3 class="menu-icon" @click.prevent='toogle(index)'>
                 <img :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png'
                   : '/storage/images/Icons/PlusIcon.png'">
               </h3>
             </div>
-            <div class=" ocasionCategory" :class="{ show: id == index && active }"
+            <div class="ocasionCategory" :class="{ show: id == index && active }"
               v-for="oc, ix in dinamycOcasionsCategorys" :key="ix">
-              <a href="#" v-if="oc.ocasiao == ocasion" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
-                oc.categoria }}</a>
+              <a href="#" :class="oc.ocasiao + '/' + oc.categoria == linkcliked ? 'high-link' : ''"
+                v-if="oc.ocasiao == ocasion" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
+                  oc.categoria }}</a>
             </div>
             <br>
           </div>
@@ -31,7 +32,7 @@
         <div class="materials-area">
           <h5 class="group-title">Materials</h5>
           <div class="materials" v-for="material, index in materials.data" :key="index">
-            <a href="#" @click.prevent="materialFilter(material.id)">{{ material.nome }}</a>
+            <a href="#" :class="material.nome == linkcliked ? 'high-link' : ''" @click.prevent="materialFilter(material.id, material.nome)">{{ material.nome }}</a>
           </div>
         </div>
         <div class="price-bar">
@@ -58,7 +59,7 @@
             class="slider" id="priceRange">
           {{ priceRange }}
         </div>
-        
+
       </div>
     </div>
     <div class="show-products">
@@ -69,8 +70,17 @@
       <card-component :products=productsShownd.data usedArea="home" :headTitle='false' :image=productsImages.data :info="{
         nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
       }" :cart="true"></card-component>
-    </div>
 
+      <div class="pagination">
+        <ul v-if="productsShownd.data != ''">
+          <li v-for="pages, index in pagination.links" :key="index">
+            <a href=""  v-if="pages.label != index && pages.url == null " @click.prevent="localStorage(pages.url) ">{{ '<' }}</a>
+            <a href=""  v-if="pages.label == index && pages.url != null " :class="pages.active == true ? 'high-link' : ''" @click.prevent="localStorage(pages.url) ">{{ pages.label }}</a>
+            <a href=""  v-if="pages.label != index && pages.url != null " @click.prevent="localStorage(pages.url) ">{{ '>' }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -92,6 +102,8 @@ export default {
       maxPrice: '',
       id: '',
       active: '',
+      pagination: [],
+      linkcliked: '',
     }
   },
   methods: {
@@ -129,13 +141,16 @@ export default {
         return categoryId
       })
 
+      this.linkcliked = i
+
       localStorage.setItem('category', categoryId)
 
       this.localStorage()
     },
 
-    materialFilter(i) {
+    materialFilter(i, e) {
       localStorage.clear()
+      this.linkcliked = e
       let materialId = i
 
       localStorage.setItem('material', materialId)
@@ -145,6 +160,7 @@ export default {
 
     ocasionFilter(i) {
       localStorage.clear()
+      this.linkcliked = i
       let ocasionId = ''
       this.ocasions.data.forEach(element => {
         if (i == element.nome) {
@@ -160,6 +176,8 @@ export default {
 
     ocasionCategoryFilter(i, e) {
       localStorage.clear()
+
+      this.linkcliked = i + '/' + e
 
       let categoryId = ''
       this.categorys.data.forEach(element => {
@@ -186,31 +204,16 @@ export default {
     getProducts() {
       localStorage.clear()
 
-      let maxValue = localStorage.getItem('maxValue')
-      let minValue = localStorage.getItem('minValue')
-      let urlProducts = this.baseUrl + 'produto'
+      this.linkcliked = 'all'
 
       if (this.priceRange != '0') {
-        urlProducts += '?intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
-        
+
         localStorage.setItem('minValue', this.getPrice.minimo)
         localStorage.setItem('maxValue', this.priceRange)
 
       }
 
-      if (maxValue != null && this.priceRange == '0') {
-        console.log('cheguei aqui')
-        this.priceRange = maxValue
-        urlProductFilter += '?intervalo=valor:' + minValue + ':' + maxValue
-      }
-
-      axios.get(urlProducts)
-        .then(response => {
-          this.productsShownd.data = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.localStorage()
 
     },
 
@@ -220,8 +223,6 @@ export default {
       let urlMaterial = this.baseUrl + 'materia'
       let urlProducts = this.baseUrl + 'produto'
       let urlImages = this.baseUrl + 'imagens_produto'
-
-      console.log(localStorage)
 
 
       // get all the categories
@@ -254,8 +255,7 @@ export default {
       //get all the products
       axios.get(urlProducts)
         .then(response => {
-          this.products.data = response.data
-          // this.productsShownd.data = response.data
+          this.products.data = response.data.all
         })
         .catch(errors => {
           console.log(errors);
@@ -271,7 +271,7 @@ export default {
         })
 
     },
-    localStorage() {
+    localStorage(url) {
       let categoria = localStorage.getItem("category");
       let ocasiao = localStorage.getItem("ocasion");
       let ocasiaoCategoria = localStorage.getItem("ocasionCategory");
@@ -280,132 +280,97 @@ export default {
       let minValue = localStorage.getItem("minValue");
       let maxValue = localStorage.getItem("maxValue");
 
-      // console.log(categoria)
-      // console.log(ocasiao)
-      // console.log(ocasiaoCategoria)
-      // console.log(ocasiaodaCategoria)
+      let urlProducts = this.baseUrl + 'produto?page=1'
 
-      if (localStorage.length == 0) {
-        let urlProductFilter = this.baseUrl + 'produto'
-
-        axios.get(urlProductFilter)
-          .then(response => {
-            this.productsShownd.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
+      //changes the url to change the pages
+      if (url != null) {
+        urlProducts = url
       }
-      if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue != null) {
+
+      //gets the products only filtred by the price-bar 
+      if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue != null && material == null) {
+
+        urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         this.priceRange = maxValue
 
-        let urlProductFilter = this.baseUrl + 'produto?intervalo=valor:' + minValue + ':' + maxValue
-
-        axios.get(urlProductFilter)
-          .then(response => {
-            this.productsShownd.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
       }
 
+      //gets the products filtred by material, and if is set, price-bar
       if (material != null) {
-        let urlProductFilter = this.baseUrl + 'produto?filtro=materia_prima_id:=:' + material 
+        urlProducts = urlProducts + '&filtro=materia_prima_id:=:' + material
 
         if (this.priceRange != '0') {
-          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
         }
         if (maxValue != null && this.priceRange == '0') {
-
           this.priceRange = maxValue
-
-          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+          urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         }
-
-        console.log(urlProductFilter)
-
-        axios.get(urlProductFilter)
-          .then(response => {
-            this.productsShownd.data = response.data
-            console.log(response.data)
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
       }
 
+      //gets the products filtred by category, and if is set, price-bar
       if (categoria != null) {
-        let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
+        urlProducts = urlProducts + '&filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
 
         if (this.priceRange != '0') {
-          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
         }
         if (maxValue != null && this.priceRange == '0') {
-
           this.priceRange = maxValue
-
-          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+          urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         }
-
-        axios.get(urlProductFilter)
-          .then(response => {
-            this.productsShownd.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
       }
 
+      //gets the products filtred by ocasion, and if is set, price-bar
       if (ocasiao != null) {
 
-        let urlProductFilter = this.baseUrl + 'produto?filtro=ocasioes_id:=:' + ocasiao
+        urlProducts = urlProducts + '&filtro=ocasioes_id:=:' + ocasiao
 
         if (this.priceRange != '0') {
-          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
         }
 
         if (maxValue != null && this.priceRange == '0') {
           this.priceRange = maxValue
-          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+          urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         }
-
-        axios.get(urlProductFilter)
-          .then(response => {
-            this.productsShownd.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
-
       }
+
+      //gets the products filtred by category ocasion, and if is set, price-bar
       if (ocasiaoCategoria != null) {
 
-        let urlProductFilter = this.baseUrl + 'produto?filtro=categoria_id:=:' + ocasiaoCategoria + ':ocasioes_id:=:' + ocasiaodaCategoria
+        urlProducts = urlProducts + '&filtro=categoria_id:=:' + ocasiaoCategoria + ':ocasioes_id:=:' + ocasiaodaCategoria
 
         if (this.priceRange != '0') {
-          urlProductFilter += '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
         }
 
         if (maxValue != null && this.priceRange == '0') {
           this.priceRange = maxValue
-          urlProductFilter += '&intervalo=valor:' + minValue + ':' + maxValue
+          urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         }
 
-        axios.get(urlProductFilter)
-          .then(response => {
-            this.productsShownd.data = response.data
-          })
-          .catch(errors => {
-            console.log(errors);
-          })
-
       }
+
+      //if didn't exist any filter, it will return all products
+      console.log(urlProducts)
+
+      //gets the products and sets the pagination
+      axios.get(urlProducts)
+        .then(response => {
+          this.productsShownd.data = response.data.paginated.data
+          this.pagination = response.data.paginated
+
+          console.log(response.data.paginated)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
     },
   },
 
   computed: {
-    getPrice() {
+    getPrice() { // get the min and max price based on the products add
       let prices = []
 
       this.products.data.forEach(element => {

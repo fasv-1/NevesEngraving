@@ -47,12 +47,13 @@ class ProdutoController extends Controller
         }
 
         if ($request->has('deleted')) { // finds every regists even the ones who are deleted(softDeletes)
-            $product = $product->onlyTrashed()->get();
+            $product = $product->onlyTrashed();
         } else {
-            $product = $product->get();
+            $product = $product;
+            // $allproduct = $product->get();
         }
 
-        return response()->json($product, 200);
+        return response()->json(['all' => $product->get(), 'paginated' => $product->paginate(3) ], 200);
     }
 
     /**
