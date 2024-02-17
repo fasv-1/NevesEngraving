@@ -42,6 +42,18 @@ const routes = [
     }
   },
   {
+    path: '/home/amazing_gifts/:id',
+    component: ProductsShownd,
+    name: 'Product',
+    meta: {
+      breadcrumb: 'Amazing-Gifts-Product'
+    },
+    props: (route) => {
+      const id = atob(route.params.id);
+      return { id }
+    }
+  },
+  {
     path: '/home/engraving',
     component: Engraving,
     name: 'Engraving',
@@ -98,7 +110,7 @@ const routes = [
     name: 'produto',
     component: ProductPage,
     props: (route) => {
-      const id = Number.parseInt(route.params.id);
+      const id = atob(route.params.id);
       return { id }
     }
   },
@@ -176,6 +188,9 @@ app.component('navbar-component', Navbar);
 
 import AmazingGifts from './components/site-components/AmazingGifts.vue';
 app.component('gifts-component', AmazingGifts);
+
+import ProductsShownd from './components/site-components/ProductsShownd.vue';
+app.component('gifts-products-component', ProductsShownd);
 
 import BusinessCards from './components/site-components/BusinessCards.vue';
 app.component('cards-component', BusinessCards);

@@ -348,11 +348,11 @@ export default {
     getProduct() { //gets the product clicked
       let urlProducts = this.urlBase + 'produto/' + this.id;
 
-      // console.log(urlProducts)
+      console.log(urlProducts)
+
       axios.get(urlProducts)
         .then(response => {
           this.product.data = response.data
-          console.log(response.data)
         })
         .catch(errors => {
           console.log(errors);

@@ -212,7 +212,7 @@ export default {
 
       axios.get(urlProducts)
         .then(response => {
-          this.products.data = response.data
+          this.products.data = response.data.all
           // console.log(response.data)
         })
         .catch(errors => {

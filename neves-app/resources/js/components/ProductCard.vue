@@ -3,7 +3,7 @@
 
   <div class="card-box">
     <div class="card-prd-dash" v-for="value, indexValue in products" :key="indexValue">
-      <router-link :to="'/' + usedArea + '/produtos/' + value.id" class="b-input">
+      <router-link :to="this.$route.path + '/' + teste(value.id)" class="b-input">
         <div class="label-area" v-if="headTitle">
           <h4>{{ value.meta_nome }}</h4>
           <h6>ID{{ value.id }}</h6>
@@ -22,7 +22,15 @@
           <h5 v-if="info.categoria">{{ value.ocasioes_categoria_id }}</h5>
           <h5 v-if="info.materia">{{ value.materia_prima.nome }}</h5>
           <h5 v-if="info.quantidade">Quant.: {{ value.quantidade }} </h5>
-          <h4 v-if="info.valor"> {{ value.valor }} €</h4>
+          <div class="discount" v-if="info.valor">
+            <div v-if = "value.desconto.ativo == 1">
+            <s>{{ value.valor }} €</s>
+            <h4>{{ value.valor - (value.valor * value.desconto.desconto ) }} €</h4>
+            </div>
+            <div v-if = "value.desconto.ativo == 0">
+            <h4>{{ value.valor }} €</h4>
+            </div>
+          </div>
         </div>
         
         </div>
@@ -37,15 +45,25 @@
 
 <script>
 export default {
-  props: ['products', 'usedArea', 'headTitle', 'image', 'info', 'cart'],
+  props: ['products', 'headTitle', 'image', 'info', 'cart'],
   methods: {
-    teste(){
-      console.log('cheguei aqui')
+    teste(id){
+      let idEncode =  btoa(id)
+      // console.log(this.products)
+      // this.products.forEach(element => {
+      //   idEncode 
+      // });
+
+      return  idEncode
     },
     erraserror() {
       this.$store.state.transaction.status = '';
       this.$store.state.transaction.message = '';
     }
+  },
+  mounted() {
+    this.teste()
   }
+
 }
 </script>

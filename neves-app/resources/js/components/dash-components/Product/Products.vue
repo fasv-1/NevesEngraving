@@ -198,7 +198,7 @@ export default {
 
         axios.get(urlProducts)
           .then(response => {
-            this.products.data = response.data
+            this.products.data = response.data.all
             // console.log(response.data)
           })
           .catch(errors => {
@@ -210,7 +210,7 @@ export default {
         let urlProducts = this.urlBase + 'produto?filtro=materia_prima_id:=:' + f;
         axios.get(urlProducts)
           .then(response => {
-            this.products.data = response.data
+            this.products.data = response.data.all
             // console.log(response.data)
           })
           .catch(errors => {
@@ -222,7 +222,7 @@ export default {
         let urlProducts = this.urlBase + 'produto?filtro=nome:like:%' + f + '%';
         axios.get(urlProducts)
           .then(response => {
-            this.products.data = response.data
+            this.products.data = response.data.all
             // console.log(response.data)
           })
           .catch(errors => {
@@ -289,7 +289,7 @@ export default {
 
       axios.get(urlProducts)
         .then(response => {
-          this.products.data = response.data
+          this.products.data = response.data.all
           // console.log(response.data)
         })
         .catch(errors => {

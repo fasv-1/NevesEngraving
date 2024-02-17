@@ -53,7 +53,7 @@ class ProdutoController extends Controller
             // $allproduct = $product->get();
         }
 
-        return response()->json(['all' => $product->get(), 'paginated' => $product->paginate(3) ], 200);
+        return response()->json(['all' => $product->get(), 'paginated' => $product->paginate(15) ], 200);
     }
 
     /**

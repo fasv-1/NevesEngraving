@@ -4,16 +4,19 @@
       <div class="side-menu">
         <div class="categorys-area">
           <h5 class="group-title">Categorys</h5>
-          <a class="category" :class="'all' == linkcliked ? 'high-link' : ''" href="#" @click.prevent="getProducts()">All</a>
+          <a class="category" :class="'all' == linkcliked ? 'high-link' : ''" href="#"
+            @click.prevent="getProducts()">All</a>
           <div class="category" v-for="category, index in dinamycCategories" :key="index">
-            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category)">{{ category }}</a>
+            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category)">{{
+              category }}</a>
           </div>
         </div>
         <div class="ocasions-area">
           <h5 class="group-title">Ocasions</h5>
           <div class="ocasion" v-for="ocasion, index in  dinamycOcasions" :key="index">
             <div class="ocs">
-              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion)">{{ ocasion }}</a>
+              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion)">{{
+                ocasion }}</a>
               <h3 class="menu-icon" @click.prevent='toogle(index)'>
                 <img :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png'
                   : '/storage/images/Icons/PlusIcon.png'">
@@ -32,7 +35,8 @@
         <div class="materials-area">
           <h5 class="group-title">Materials</h5>
           <div class="materials" v-for="material, index in materials.data" :key="index">
-            <a href="#" :class="material.nome == linkcliked ? 'high-link' : ''" @click.prevent="materialFilter(material.id, material.nome)">{{ material.nome }}</a>
+            <a href="#" :class="material.nome == linkcliked ? 'high-link' : ''"
+              @click.prevent="materialFilter(material.id, material.nome)">{{ material.nome }}</a>
           </div>
         </div>
         <div class="price-bar">
@@ -57,7 +61,10 @@
           </div>
           <input type="range" :min="getPrice.minimo" :max="getPrice.maximo" v-model="priceRange" @change="barFilter()"
             class="slider" id="priceRange">
-          {{ priceRange }}
+        </div>
+
+        <div class="discounts" v-for="discount, index in discounts.data" :key="index">
+          <a href="" :class="discount.nome == linkcliked ? 'high-link' : ''" class="discount" @click.prevent="discountFilter(discount.id, discount.nome)" >{{ discount.ativo == 1 ? discount.nome : '' }}</a>
         </div>
 
       </div>
@@ -67,16 +74,19 @@
       <div v-if="productsShownd.data == ''">
         <h3>Não existem produtos</h3>
       </div>
-      <card-component :products=productsShownd.data usedArea="home" :headTitle='false' :image=productsImages.data :info="{
+      <card-component :products=productsShownd.data :headTitle='false' :image=productsImages.data :info="{
         nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
       }" :cart="true"></card-component>
 
       <div class="pagination">
         <ul v-if="productsShownd.data != ''">
           <li v-for="pages, index in pagination.links" :key="index">
-            <a href=""  v-if="pages.label != index && pages.url == null " @click.prevent="localStorage(pages.url) ">{{ '<' }}</a>
-            <a href=""  v-if="pages.label == index && pages.url != null " :class="pages.active == true ? 'high-link' : ''" @click.prevent="localStorage(pages.url) ">{{ pages.label }}</a>
-            <a href=""  v-if="pages.label != index && pages.url != null " @click.prevent="localStorage(pages.url) ">{{ '>' }}</a>
+            <a href="" v-if="pages.label != index && index == 0" @click.prevent="localStorage(pages.url)">{{ '<' }}</a>
+                <a href="" v-if="pages.label == index && pages.url != null"
+                  :class="pages.active == true ? 'high-link' : ''" @click.prevent="localStorage(pages.url)">{{
+                    pages.label }}</a>
+                <a href="" v-if="pages.label != index && index != 0" @click.prevent="localStorage(pages.url)">{{ '>'
+                }}</a>
           </li>
         </ul>
       </div>
@@ -92,6 +102,7 @@ export default {
       categorys: { data: [] },
       ocasions: { data: [] },
       materials: { data: [] },
+      discounts: { data: [] },
       products: { data: [] },
       productsShownd: { data: [] },
       productsImages: { data: [] },
@@ -154,6 +165,16 @@ export default {
       let materialId = i
 
       localStorage.setItem('material', materialId)
+
+      this.localStorage()
+    },
+
+    discountFilter(i,e) {
+      localStorage.clear()
+      this.linkcliked = e
+      let discountId = i
+
+      localStorage.setItem('discount', discountId)
 
       this.localStorage()
     },
@@ -221,10 +242,19 @@ export default {
       let urlCategory = this.baseUrl + 'categoria'
       let urlOcasion = this.baseUrl + 'ocasiao'
       let urlMaterial = this.baseUrl + 'materia'
+      let urlDiscount = this.baseUrl + 'desconto'
       let urlProducts = this.baseUrl + 'produto'
       let urlImages = this.baseUrl + 'imagens_produto'
 
 
+      // get all the discounts
+      axios.get(urlDiscount)
+        .then(response => {
+          this.discounts.data = response.data
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
       // get all the categories
       axios.get(urlCategory)
         .then(response => {
@@ -279,6 +309,7 @@ export default {
       let material = localStorage.getItem("material");
       let minValue = localStorage.getItem("minValue");
       let maxValue = localStorage.getItem("maxValue");
+      let desconto = localStorage.getItem("discount");
 
       let urlProducts = this.baseUrl + 'produto?page=1'
 
@@ -298,6 +329,18 @@ export default {
       //gets the products filtred by material, and if is set, price-bar
       if (material != null) {
         urlProducts = urlProducts + '&filtro=materia_prima_id:=:' + material
+
+        if (this.priceRange != '0') {
+          urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+        }
+        if (maxValue != null && this.priceRange == '0') {
+          this.priceRange = maxValue
+          urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+      }
+      //gets the products filtred by material, and if is set, price-bar
+      if (desconto != null) {
+        urlProducts = urlProducts + '&filtro=desconto_id:=:' + desconto
 
         if (this.priceRange != '0') {
           urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange

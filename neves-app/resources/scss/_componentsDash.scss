@@ -171,13 +171,18 @@
 
       .info {
         h5,
-        h6{
+        h6 {
           margin: 0.5em 0 1em 0.5em;
         }
-        h4{
-          width: 100%;
-          text-align: center;
-          margin: 0.5em 0 0.5em 0;
+        .discount {
+          s{
+            margin:0 0.2em ;
+          }
+          h4 {
+            // width: 100%;
+            text-align: center;
+            margin: 0 0 0.5em 0;
+          }
         }
       }
     }
