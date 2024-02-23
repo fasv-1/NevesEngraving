@@ -19,7 +19,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        
+      return view('register');
     }
 
     /**
@@ -27,17 +27,23 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'phone_number' => 'required|numeric',
+            'administrador' => 'required|numeric|max:1',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'administrador' => $request->administrador,
             'password' => Hash::make($request->password),
         ]);
 
@@ -46,5 +52,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+        // echo 'registo feito com sucesso';
     }
 }

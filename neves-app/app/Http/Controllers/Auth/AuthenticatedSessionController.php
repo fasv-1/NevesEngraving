@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-
+        return 'Pagina de login';
     }
 
     /**

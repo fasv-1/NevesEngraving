@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,7 @@ Route::get('/', function () {
 })->name('site');
 
 Route::get('/dashboard', [DashboardController::class, 'index'] )->name('site.dashboard');
+
 Route::get('/home', [HomeController::class, 'index'] )->name('site.home');
 
 Route::get('/home/{any}',[HomeController::class, 'index'])->where('any', '.*');
@@ -31,3 +33,5 @@ Route::get('/dashboard/{any}', function () {
 Route::fallback(function(){
     echo 'Página não encontrada.<a href="'.route('site').'">Clique aqui</a>';
 });
+
+require __DIR__.'/auth.php';
