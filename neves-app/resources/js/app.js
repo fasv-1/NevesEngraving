@@ -1,5 +1,6 @@
 import './bootstrap';
 
+
 //----------------------Vue-----------------------------
 
 import { createApp } from 'vue';
@@ -17,10 +18,13 @@ const store = createStore({
   state() {
     return {
       item: {},
-      transaction: { status: '', message: '' }
+      transaction: { status: '', message: '' },
+      getters: {token:''}
     }
   }
 })
+
+// axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters.token}`;
 
 //--------------------------------------Routes----------------------------------------------------
 const routes = [
@@ -142,6 +146,12 @@ const router = createRouter({
 
 //-------------------------Components-----------------------------------------
 const app = createApp({});
+
+
+//-----------------------------Auth-Components----------------------------------------------------
+
+import login from './components/auth/login.vue';
+app.component('login-component', login)
 
 //-----------------------------Dashboard-Components---------------------------------
 

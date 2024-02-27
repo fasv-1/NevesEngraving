@@ -12,10 +12,10 @@ class EmailVerificationPromptController extends Controller
     /**
      * Display the email verification prompt.
      */
-    public function __invoke(Request $request): RedirectResponse
+    public function __invoke(Request $request)
     {
         return $request->user()->hasVerifiedEmail()
                     ? redirect()->intended(RouteServiceProvider::HOME)
-                    : 'Página de redirecionamento para enviar novo email';
+                    : view('auth.emailVerify');
     }
 }

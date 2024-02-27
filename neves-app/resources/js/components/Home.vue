@@ -28,7 +28,6 @@ export default {
   props: ['login', 'create'],
 
   mounted (){
-    console.log(this.login)
   }
 
 }

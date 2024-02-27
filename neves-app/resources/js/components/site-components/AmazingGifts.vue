@@ -1,5 +1,6 @@
 <template>
   <div class="site-container">
+
     <div class="algo">
       <div class="side-menu">
         <div class="categorys-area">
@@ -64,7 +65,8 @@
         </div>
 
         <div class="discounts" v-for="discount, index in discounts.data" :key="index">
-          <a href="" :class="discount.nome == linkcliked ? 'high-link' : ''" class="discount" @click.prevent="discountFilter(discount.id, discount.nome)" >{{ discount.ativo == 1 ? discount.nome : '' }}</a>
+          <a href="" :class="discount.nome == linkcliked ? 'high-link' : ''" class="discount"
+            @click.prevent="discountFilter(discount.id, discount.nome)">{{ discount.ativo == 1 ? discount.nome : '' }}</a>
         </div>
 
       </div>
@@ -169,7 +171,7 @@ export default {
       this.localStorage()
     },
 
-    discountFilter(i,e) {
+    discountFilter(i, e) {
       localStorage.clear()
       this.linkcliked = e
       let discountId = i
@@ -247,6 +249,7 @@ export default {
       let urlImages = this.baseUrl + 'imagens_produto'
 
 
+      console.log(this.$store.state.getters.token)
       // get all the discounts
       axios.get(urlDiscount)
         .then(response => {
@@ -395,16 +398,29 @@ export default {
 
       }
 
-      //if didn't exist any filter, it will return all products
-      console.log(urlProducts)
+      const cookieValue = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+
+
+
+      let headers = {
+        'Authorization': 'Bearer ' + cookieValue
+      }
+
+      console.log(headers)
+
+
 
       //gets the products and sets the pagination
-      axios.get(urlProducts)
+      axios.get(urlProducts, {
+        headers: {
+          'Authorization': 'Bearer ' + cookieValue
+        }
+      })
         .then(response => {
           this.productsShownd.data = response.data.paginated.data
           this.pagination = response.data.paginated
 
-          console.log(response.data.paginated)
+          // console.log(response.data.paginated)
         })
         .catch(errors => {
           console.log(errors);

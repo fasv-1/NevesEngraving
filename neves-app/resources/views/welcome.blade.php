@@ -7,7 +7,7 @@
 <button type="submit" class="button-1">Logout</button> 
 </form>
 @auth
-<router-view login="{{Route::has('login')}}" create="{{Route::has('create')}}"></router-view>
+<router-view ></router-view>
 @endauth
 @endsection
 

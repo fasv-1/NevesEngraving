@@ -7,6 +7,7 @@ use App\Http\Controllers\DescontoController;
 use App\Http\Controllers\ImagensController;
 use App\Http\Controllers\ImagensProdutoController;
 use App\Http\Controllers\OcasiaoController;
+use App\Http\Controllers\profileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('produto', ProdutoController::class);
+Route::middleware('auth:sanctum')->get('profile', [profileController::class, 'profile']);
+
+Route::middleware('auth:sanctum')->apiResource('produto', ProdutoController::class);
 Route::apiResource('desconto', DescontoController::class);
 Route::apiResource('imagens', ImagensController::class);
 Route::apiResource('imagens_produto', ImagensProdutoController::class);

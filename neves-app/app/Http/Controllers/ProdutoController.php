@@ -18,6 +18,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
+
         $product = array();
 
 
