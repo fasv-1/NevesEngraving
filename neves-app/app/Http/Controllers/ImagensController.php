@@ -15,7 +15,7 @@ class ImagensController extends Controller
     {
         $imagens = imagens::all();
 
-        return $imagens;
+        return response()->json($imagens, 200);
     }
 
     /**
@@ -51,7 +51,7 @@ class ImagensController extends Controller
             'desconto_id' => $request->desconto_id
         ]);
 
-        return response()->json($imagens, 201);
+        return response()->json(['msg'=>'imagem adicionada com sucesso'], 201);
     }
 
     /**
@@ -61,7 +61,7 @@ class ImagensController extends Controller
     {
         $imagens = imagens::find($id);
 
-        return $imagens;
+        return response()->json([$imagens], 200);
     }
 
     /**
@@ -125,6 +125,8 @@ class ImagensController extends Controller
 
         //as a parameter is sent, save() recognize that is an update
         $imagens->save();
+
+        return response()->json(['msg' => 'Imagem atualizada com sucesso'], 200);
     }
 
     /**
@@ -139,6 +141,6 @@ class ImagensController extends Controller
 
         $imagens->delete();
 
-        return 'registo e imagem eliminada';
+        return response()->json(['msg' => 'Imagem eliminada com sucesso'], 204);
     }
 }

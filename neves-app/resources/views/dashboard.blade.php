@@ -2,5 +2,5 @@
 @extends('layouts.app')
 
 @section('content')
-<dashboard></dashboard>
+<dashboard-component></dashboard-component>
 @endsection

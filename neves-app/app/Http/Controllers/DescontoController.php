@@ -19,7 +19,7 @@ class DescontoController extends Controller
     {
         $descontos = $this->desconto->all();
 
-        return $descontos;
+        return response()->json($descontos, 200);
     }
 
     /**
@@ -37,9 +37,9 @@ class DescontoController extends Controller
     {
         $request->validate($this->desconto->rules(), $this->desconto->feedback());
 
-        $discount = $this->desconto->create($request->all());
+        $this->desconto->create($request->all());
 
-        return ['msg'=>'Desconto adicionado com sucesso'];
+        return response()->json(['msg'=>'Desconto adicionado com sucesso'], 201);
     }
 
     /**
@@ -49,7 +49,7 @@ class DescontoController extends Controller
     {
         $descontos = $this->desconto->find($id);
 
-        return $descontos;
+        return response()->json($descontos, 200);
     }
 
     /**
@@ -90,7 +90,7 @@ class DescontoController extends Controller
 
         $discount->update($request->all());
 
-        return ['msg'=>'Desconto atualizado com sucesso'];
+        return response()->json(['msg'=>'Desconto atualizado com sucesso'], 200);
     }
 
     /**
@@ -106,6 +106,6 @@ class DescontoController extends Controller
 
         $discount->delete();
 
-        return ['msg'=>'Desconto eliminado com sucesso'];
+        return response()->json(['msg'=>'Desconto eliminado com sucesso'], 204);
     }
 }

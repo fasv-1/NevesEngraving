@@ -7,17 +7,17 @@
           <h5 class="group-title">Categorys</h5>
           <a class="category" :class="'all' == linkcliked ? 'high-link' : ''" href="#"
             @click.prevent="getProducts()">All</a>
-          <div class="category" v-for="category, index in dinamycCategories" :key="index">
-            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category)">{{
-              category }}</a>
+          <div class="category" v-for="category, index in categorys.data" :key="index">
+            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category.nome)">{{
+              category.nome }}</a>
           </div>
         </div>
         <div class="ocasions-area">
           <h5 class="group-title">Ocasions</h5>
-          <div class="ocasion" v-for="ocasion, index in  dinamycOcasions" :key="index">
+          <div class="ocasion" v-for="ocasion, index in  ocasions.data" :key="index">
             <div class="ocs">
-              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion)">{{
-                ocasion }}</a>
+              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion.nome)">{{
+                ocasion.nome }}</a>
               <h3 class="menu-icon" @click.prevent='toogle(index)'>
                 <img :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png'
                   : '/storage/images/Icons/PlusIcon.png'">
@@ -26,7 +26,7 @@
             <div class="ocasionCategory" :class="{ show: id == index && active }"
               v-for="oc, ix in dinamycOcasionsCategorys" :key="ix">
               <a href="#" :class="oc.ocasiao + '/' + oc.categoria == linkcliked ? 'high-link' : ''"
-                v-if="oc.ocasiao == ocasion" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
+                v-if="oc.ocasiao == ocasion.nome" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
                   oc.categoria }}</a>
             </div>
             <br>
@@ -248,8 +248,6 @@ export default {
       let urlProducts = this.baseUrl + 'produto'
       let urlImages = this.baseUrl + 'imagens_produto'
 
-
-      console.log(this.$store.state.getters.token)
       // get all the discounts
       axios.get(urlDiscount)
         .then(response => {
@@ -398,29 +396,12 @@ export default {
 
       }
 
-      const cookieValue = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
-
-
-
-      let headers = {
-        'Authorization': 'Bearer ' + cookieValue
-      }
-
-      console.log(headers)
-
-
 
       //gets the products and sets the pagination
-      axios.get(urlProducts, {
-        headers: {
-          'Authorization': 'Bearer ' + cookieValue
-        }
-      })
+      axios.get(urlProducts)
         .then(response => {
           this.productsShownd.data = response.data.paginated.data
           this.pagination = response.data.paginated
-
-          // console.log(response.data.paginated)
         })
         .catch(errors => {
           console.log(errors);

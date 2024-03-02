@@ -34,15 +34,23 @@ const routes = [
     component: Home,
     name: 'Home',
     meta: {
-      breadcrumb: 'Home'
+      breadcrumb: 'home'
     }
   },
+  // {
+  //   path: '/home/profile',
+  //   component: Profile,
+  //   name: 'Profile',
+  //   meta: {
+  //     breadcrumb: 'Profile'
+  //   },
+  // },
   {
     path: '/home/amazing_gifts',
     component: AmazingGifts,
     name: 'AmazingGifts',
     meta: {
-      breadcrumb: 'Amazing-Gifts'
+      breadcrumb: 'amazing_gifts'
     }
   },
   {
@@ -50,7 +58,7 @@ const routes = [
     component: ProductsShownd,
     name: 'Product',
     meta: {
-      breadcrumb: 'Amazing-Gifts-Product'
+      breadcrumb: ':id'
     },
     props: (route) => {
       const id = atob(route.params.id);
@@ -62,7 +70,7 @@ const routes = [
     component: Engraving,
     name: 'Engraving',
     meta: {
-      breadcrumb: 'Engraving'
+      breadcrumb: 'engraving'
     }
   },
   {
@@ -70,7 +78,7 @@ const routes = [
     component: LazerCut,
     name: 'LazerCut',
     meta: {
-      breadcrumb: 'Lazer-Cut'
+      breadcrumb: 'lazer_cut'
     }
   },
   {
@@ -78,7 +86,7 @@ const routes = [
     component: BusinessCards,
     name: 'BusinessCards',
     meta: {
-      breadcrumb: 'Business-Cards'
+      breadcrumb: 'business_cards'
     }
   },
   {
@@ -86,7 +94,7 @@ const routes = [
     component: Help,
     name: 'Help',
     meta: {
-      breadcrumb: 'Help'
+      breadcrumb: 'help'
     }
   },
   {
@@ -94,7 +102,7 @@ const routes = [
     component: Contacts,
     name: 'Contacts',
     meta: {
-      breadcrumb: 'Contacts'
+      breadcrumb: 'contacts'
     }
   },
   {
@@ -102,7 +110,7 @@ const routes = [
     component: ShoppingCart,
     name: 'ShoppingCart',
     meta: {
-      breadcrumb: 'ShoppingCart'
+      breadcrumb: 'shopping_cart'
     }
   },
 
@@ -153,13 +161,16 @@ const app = createApp({});
 import login from './components/auth/login.vue';
 app.component('login-component', login)
 
+import register from './components/auth/register.vue';
+app.component('register-component', register)
+
 //-----------------------------Dashboard-Components---------------------------------
 
 import example from './components/example.vue';
 app.component('example', example);
 
 import Dashboard from './components/Dashboard.vue';
-app.component('dashboard', Dashboard);
+app.component('dashboard-component', Dashboard);
 
 import Content from './components/dash-components/Content.vue';
 app.component('content-component', Content);
@@ -189,6 +200,9 @@ app.component('table-component', Table);
 
 import Home from './components/Home.vue';
 app.component('home-component', Home);
+
+import Profile from './components/Profile.vue';
+app.component('profile-component', Profile);
 
 import Breadcrumb from './components/site-components/Breadcrumb.vue';
 app.component('breadcrumb-component', Breadcrumb);

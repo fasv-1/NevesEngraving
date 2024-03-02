@@ -386,6 +386,7 @@ export default {
             console.log(errors);
           })
       }
+      
       if (urlCategory) {
         axios.get(urlCategory)
           .then(response => {

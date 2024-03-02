@@ -25,7 +25,7 @@ class OcasiaoController extends Controller
             $ocasioes = $this->ocasiao->all();
         }
 
-        return $ocasioes;
+        return response()->json($ocasioes, 200);
     }
 
     /**
@@ -45,7 +45,7 @@ class OcasiaoController extends Controller
 
         $this->ocasiao->create($request->all());
 
-        return ['msg'=>'Ocasião adicionada com sucesso'];
+        return response()->json(['msg'=>'Ocasião adicionada com sucesso'],201);
     }
 
     /**
@@ -55,7 +55,7 @@ class OcasiaoController extends Controller
     {
         $ocasioes = $this->ocasiao->find($id);
 
-        return $ocasioes;
+        return response()->json($ocasioes, 200);
     }
 
     /**
@@ -96,7 +96,7 @@ class OcasiaoController extends Controller
 
         $ocasioes->update($request->all());
 
-        return ['msg'=>'Ocasião atualizada com sucesso'];
+        return response()->json(['msg'=>'Ocasião atualizada com sucesso'], 200);
     }
 
     /**
@@ -112,6 +112,6 @@ class OcasiaoController extends Controller
 
         $ocasioes->delete();
 
-        return ['msg'=>'Ocasião eliminado com sucesso'];
+        return response()->json(['msg'=>'Ocasião eliminado com sucesso'], 204);
     }
 }

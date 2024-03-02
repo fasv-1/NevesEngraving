@@ -45,7 +45,7 @@
             <path id="corpo" class="st0" d="M213.3,801.3c-2.1-43.7-4.4-92.1-6.8-145.3c-2.2-49-3-76,15.6-99c39.8-49.3,115.4-14.3,282.8-14.1
 	c171,0.2,247-36.2,288.6,14.1c18.5,22.4,19,48.4,18,100.5c-0.8,39.9-2.3,86.4-5.1,138.8" />
           </svg>
-          <a href="">login/signup</a>
+          <slot></slot>
         </div>
 
         <div class="shopping-cart">
@@ -99,16 +99,28 @@
       </div>
     </div>
   </div>
+  
   <breadcrumb-component></breadcrumb-component>
 </template>
 
 <script>
 export default {
   methods:{
+    profile(){
+      this.$router.push({
+        name: 'Profile',
+        params: {
+          obj : this.user
+        }
+      })
+    },
     clearStorage(){
       localStorage.clear();
       // location.reload();
     }
   },
+  mounted() {
+        // console.log(this.user)
+    }
 }
 </script>

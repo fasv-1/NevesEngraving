@@ -10,6 +10,10 @@ class CategoriaController extends Controller
     //injects the model instance in the controller
     public function __construct(categoria $categoria)
     {
+        // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);
+        // $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);
+        // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
+        // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
         $this->categoria = $categoria;
     }
 
@@ -26,7 +30,7 @@ class CategoriaController extends Controller
         }
         
 
-        return $categorias;
+        return response()->json($categorias, 200);
     }
 
     /**
@@ -40,7 +44,7 @@ class CategoriaController extends Controller
 
         $this->categoria->create($request->all());
 
-        return ['msg' => 'Categoria foi adicionada com sucesso'];
+        return response()->json(['msg' => 'Categoria foi adicionada com sucesso'], 201);
     }
 
     /**
@@ -56,7 +60,7 @@ class CategoriaController extends Controller
 
         $category->update($request->all());
 
-        return ['msg' => 'Categoria foi atualizada com sucesso'];
+        return response()->json(['msg' => 'Categoria foi atualizada com sucesso'], 200);
     }
 
     /**
@@ -71,6 +75,6 @@ class CategoriaController extends Controller
         }
 
         $category->delete();
-        return ['msg' => 'Categoria foi eliminada com sucesso'];
+        return response()->json(['msg' => 'Categoria foi eliminada com sucesso'], 204);
     }
 }

@@ -74,7 +74,7 @@ class ImagensProdutoController extends Controller
     {
         $imagens = imagens_produto::find($id);
 
-        return $imagens;
+        return response()->json($imagens, 200);
     }
 
     /**
@@ -146,6 +146,6 @@ class ImagensProdutoController extends Controller
 
         $imagensProduto->delete();
 
-        return response()->json(['msg'=>'Imagem eliminada com sucesso'], 200);
+        return response()->json(['msg'=>'Imagem eliminada com sucesso'], 204);
     }
 }

@@ -24,9 +24,9 @@ class ProdutoController extends Controller
 
         if ($request->has('atributos')) {
             $attributes = $request->atributos;
-            $product = $this->produto->selectRaw($attributes)->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
+            $product = $this->produto->selectRaw($attributes);
         } else {
-            $product = $this->produto->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
+            $product = $this->produto;
         }
 
         if($request->has('intervalo')){
@@ -48,9 +48,9 @@ class ProdutoController extends Controller
         }
 
         if ($request->has('deleted')) { // finds every regists even the ones who are deleted(softDeletes)
-            $product = $product->onlyTrashed();
+            $product = $product->onlyTrashed()->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
         } else {
-            $product = $product;
+            $product = $product->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
             // $allproduct = $product->get();
         }
 
@@ -84,7 +84,7 @@ class ProdutoController extends Controller
     {
         $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima')->with('ocasioes')->with('categoria')->find($id);
 
-        return $product;
+        return response()->json($product, 200);
     }
 
     /**

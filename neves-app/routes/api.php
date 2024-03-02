@@ -7,7 +7,7 @@ use App\Http\Controllers\DescontoController;
 use App\Http\Controllers\ImagensController;
 use App\Http\Controllers\ImagensProdutoController;
 use App\Http\Controllers\OcasiaoController;
-use App\Http\Controllers\profileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,19 +22,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum', 'ability:Profile-acess,App-manage')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->get('profile', [profileController::class, 'profile']);
-
-Route::middleware('auth:sanctum')->apiResource('produto', ProdutoController::class);
+Route::apiResource('produto', ProdutoController::class);
 Route::apiResource('desconto', DescontoController::class);
 Route::apiResource('imagens', ImagensController::class);
 Route::apiResource('imagens_produto', ImagensProdutoController::class);
 Route::apiResource('ocasiao', OcasiaoController::class);
 
-Route::post('categoria', [CategoriaController::class, 'store']);
+Route::post('categoria', [CategoriaController::class, 'store'])->middleware('can:categoria-create');
 Route::patch('categoria/{categoria}', [CategoriaController::class, 'update']);
 Route::get('categoria', [CategoriaController::class, 'show']);
 Route::delete('categoria/{categoria}', [CategoriaController::class, 'delete']);
@@ -43,3 +41,5 @@ Route::post('materia', [MateriaPrimaController::class, 'store']);
 Route::patch('materia/{materia}', [MateriaPrimaController::class, 'update']);
 Route::get('materia', [MateriaPrimaController::class, 'show']);
 Route::delete('materia/{materia}', [MateriaPrimaController::class, 'delete']);
+
+Route::resource('roles', RoleController::class);
