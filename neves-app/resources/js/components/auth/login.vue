@@ -33,7 +33,7 @@
                     Login
                   </button>
 
-                  <a class="btn btn-link" href="">
+                  <a class="btn btn-link" href="/forgot-password">
                     Esqueci-me da password
                   </a>
                 </div>

@@ -67,6 +67,6 @@ class MateriaPrimaController extends Controller
 
         $material->delete();
 
-        return response()->json(['msg'=>'Matéria-prima eliminada com sucesso'], 204);
+        return response()->json(['msg'=>'Matéria-prima eliminada com sucesso'], 200);
     }
 }

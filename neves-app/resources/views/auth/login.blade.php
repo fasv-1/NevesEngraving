@@ -13,8 +13,7 @@
 
      <button type="submit" class="button-1">Submit</button> 
       </form>
-    </div>
-    <a href="{{ route('password.request')}}">Forgot your password?</a>
-    {{$errors}}
-  </div> --}}
+    </div>--}}
+    {{-- <a href="{{ route('password.request')}}">Forgot your password?</a>
+    {{$errors}} --}}
 @endsection

@@ -112,6 +112,6 @@ class OcasiaoController extends Controller
 
         $ocasioes->delete();
 
-        return response()->json(['msg'=>'Ocasião eliminado com sucesso'], 204);
+        return response()->json(['msg'=>'Ocasião eliminado com sucesso'], 200);
     }
 }

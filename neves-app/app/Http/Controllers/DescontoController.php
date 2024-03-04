@@ -106,6 +106,6 @@ class DescontoController extends Controller
 
         $discount->delete();
 
-        return response()->json(['msg'=>'Desconto eliminado com sucesso'], 204);
+        return response()->json(['msg'=>'Desconto eliminado com sucesso'], 200);
     }
 }

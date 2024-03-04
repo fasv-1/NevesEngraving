@@ -7,6 +7,10 @@ use App\Http\Controllers\DescontoController;
 use App\Http\Controllers\ImagensController;
 use App\Http\Controllers\ImagensProdutoController;
 use App\Http\Controllers\OcasiaoController;
+use App\Http\Controllers\UserDetailsController;
+use App\Http\Controllers\UserReviewsController;
+use App\Http\Controllers\UserFavoritesController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,24 +26,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum', 'ability:Profile-acess,App-manage')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum', 'ability:Profile-acess,App-manage')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::apiResource('produto', ProdutoController::class);
 Route::apiResource('desconto', DescontoController::class);
-Route::apiResource('imagens', ImagensController::class);
 Route::apiResource('imagens_produto', ImagensProdutoController::class);
 Route::apiResource('ocasiao', OcasiaoController::class);
-
-Route::post('categoria', [CategoriaController::class, 'store'])->middleware('can:categoria-create');
+// Route::post('categoria', [CategoriaController::class, 'store'])->middleware('can:categoria-create');
+Route::post('categoria', [CategoriaController::class, 'store']);
 Route::patch('categoria/{categoria}', [CategoriaController::class, 'update']);
 Route::get('categoria', [CategoriaController::class, 'show']);
 Route::delete('categoria/{categoria}', [CategoriaController::class, 'delete']);
-
 Route::post('materia', [MateriaPrimaController::class, 'store']);
 Route::patch('materia/{materia}', [MateriaPrimaController::class, 'update']);
 Route::get('materia', [MateriaPrimaController::class, 'show']);
 Route::delete('materia/{materia}', [MateriaPrimaController::class, 'delete']);
 
+Route::apiResource('imagens', ImagensController::class);
+
+Route::apiResource('user_details', UserDetailsController::class);
+Route::apiResource('user_reviews', UserReviewsController::class);
+Route::get('user_favorites', [UserFavoritesController::class, 'index'])->name('favorites');
+Route::post('user_favorites', [UserFavoritesController::class, 'store'])->name('favorites.store');
+Route::delete('user_favorites/{id}', [UserFavoritesController::class, 'destroy'])->name('favorites.destroy');
+
+Route::get('user', [UserController::class, 'index'])->name('users');
 Route::resource('roles', RoleController::class);

@@ -34,7 +34,7 @@ class Produto extends Model
             'materia_prima_id.required' => 'A matéria-prima é obrigatório',
             'desconto_id.required' => 'O campo desconto é obrigatório',
             'required' => 'O campo :attribute é obrigatório',
-            'numeric' => 'O a quantidade do produto deve ser um valor numerico',
+            'numeric' => 'A quantidade do produto deve ser um valor numerico',
             'nome.unique' => 'Este produto já existe',
             'min' => 'O valor minimo é 0',
             'decimal' => 'O valor deve ser um numero com 2 casas decimais (4.00 , 5.56, 200.57) e deve conter um ponto em vez de virgula '
@@ -55,5 +55,11 @@ class Produto extends Model
     }
     public function imagens() {
         return $this->hasMany('App\Models\imagens_produto');
+    }
+    public function userReviews() {
+        return $this->hasMany('App\Models\User_reviews');
+    }
+    public function userFavorites() {
+        return $this->hasMany('App\Models\User_favorites');
     }
 }

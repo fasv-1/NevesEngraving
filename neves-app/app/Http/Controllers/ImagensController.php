@@ -141,6 +141,6 @@ class ImagensController extends Controller
 
         $imagens->delete();
 
-        return response()->json(['msg' => 'Imagem eliminada com sucesso'], 204);
+        return response()->json(['msg' => 'Imagem eliminada com sucesso'], 200);
     }
 }
