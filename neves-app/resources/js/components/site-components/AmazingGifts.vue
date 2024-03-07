@@ -76,7 +76,7 @@
       <div v-if="productsShownd.data == ''">
         <h3>Não existem produtos</h3>
       </div>
-      <card-component :products=productsShownd.data :headTitle='false' :image=productsImages.data :info="{
+      <card-component :products=productsShownd.data :headTitle='false' :info="{
         nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
       }" :cart="true"></card-component>
 
@@ -107,7 +107,6 @@ export default {
       discounts: { data: [] },
       products: { data: [] },
       productsShownd: { data: [] },
-      productsImages: { data: [] },
       priceRange: '0',
       categoria: '',
       ocasiao: '',
@@ -246,7 +245,6 @@ export default {
       let urlMaterial = this.baseUrl + 'materia'
       let urlDiscount = this.baseUrl + 'desconto'
       let urlProducts = this.baseUrl + 'produto'
-      let urlImages = this.baseUrl + 'imagens_produto'
 
       // get all the discounts
       axios.get(urlDiscount)
@@ -287,15 +285,6 @@ export default {
       axios.get(urlProducts)
         .then(response => {
           this.products.data = response.data.all
-        })
-        .catch(errors => {
-          console.log(errors);
-        })
-
-      //get all the products image
-      axios.get(urlImages)
-        .then(response => {
-          this.productsImages.data = response.data
         })
         .catch(errors => {
           console.log(errors);

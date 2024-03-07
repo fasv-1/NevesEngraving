@@ -46,7 +46,7 @@ Route::delete('materia/{materia}', [MateriaPrimaController::class, 'delete']);
 
 Route::apiResource('imagens', ImagensController::class);
 
-Route::apiResource('user_details', UserDetailsController::class);
+Route::middleware('auth:sanctum', 'ability:Profile-acess,App-manage')->apiResource('user_details', UserDetailsController::class);
 Route::apiResource('user_reviews', UserReviewsController::class);
 Route::get('user_favorites', [UserFavoritesController::class, 'index'])->name('favorites');
 Route::post('user_favorites', [UserFavoritesController::class, 'store'])->name('favorites.store');

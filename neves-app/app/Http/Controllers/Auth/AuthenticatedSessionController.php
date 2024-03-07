@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+// use Illuminate\Http\Client\Events\ResponseReceived;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 use Laravel\Sanctum\HasApiTokens;
 
 class AuthenticatedSessionController extends Controller
@@ -24,26 +25,28 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        $user = $request->user();
+        return redirect()->intended(RouteServiceProvider::HOME);
 
-        if ($user->status == 5 && $user->email_verified_at != null) {
-            $tokenResult = $user->createToken('Personal Access Token', ['App-manage']);
-        }if ($user->status == 0 ) {
-            $tokenResult = $user->createToken('Personal Access Token', ['Profile-acess']);
-        }
+        // $user = $request->user();
 
-        $token = $tokenResult->plainTextToken;
+        // if ($user->status == 5 && $user->email_verified_at != null) {
+            // $tokenResult = $user->createToken('Personal Access Token', ['App-manage']);
+        // }if ($user->status == 0 ) {
+            // $tokenResult = $user->createToken('Personal Access Token', ['Profile-acess']);
+        // }
+
+        // $token = $tokenResult->plainTextToken;
 
 
-        return response()->json([
-            'token' => $token,
-        ]);
+        // return response()->json([
+        //     'token' => $token,
+        // ]);
     }
 
     /**

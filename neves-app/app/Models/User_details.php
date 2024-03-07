@@ -20,7 +20,7 @@ class User_details extends Model
             'cidade' => 'required|max:60',
             'codigo_postal' => 'required|max:12',
             'pais' => 'required|max:60',
-            'telemovel' => 'required|numeric|unique:user_details,telemovel',
+            'telemovel' => 'numeric|unique:user_details,telemovel',
         ];
     }
     

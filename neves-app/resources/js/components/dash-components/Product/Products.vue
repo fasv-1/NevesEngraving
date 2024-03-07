@@ -45,7 +45,7 @@
   <!--End of Product filter area-->
   <!--Products display-->
 
-  <card-component :products=products.data usedArea="dashboard" :headTitle='true' :image=mainImage.data :info="{
+  <card-component :products=products.data usedArea="dashboard" :headTitle='true' :info="{
     nome: false, meta_nome: false, categoria: true, materia: false, quantidade: true, valor: true
   }" :cart="false"></card-component>
   <!-- <div class="card-box">

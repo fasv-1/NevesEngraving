@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -50,10 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        $tokenResult = $user->createToken('Personal Access Token', ['Profile-acess']);
-        
-        $token = $tokenResult->plainTextToken;
-
-        return response()->json(['token' => $token]);
+        return redirect(RouteServiceProvider::HOME);
     }
 }

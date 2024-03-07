@@ -21,7 +21,7 @@ class UserFavoritesController extends Controller
             $userFavorites = $userFavorites;
         }
 
-        return response()->json(array('favorites' => $userFavorites));
+        return response()->json(['favorites'=> $userFavorites], 200);
     }
     
     public function store(Request $request)

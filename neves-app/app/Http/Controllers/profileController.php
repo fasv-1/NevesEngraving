@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Laravel\Sanctum\HasApiTokens;
 
 class ProfileController extends Controller
 {
@@ -20,7 +21,13 @@ class ProfileController extends Controller
     public function edit(){
         $user = Auth::user();
 
-        return view('profile', ['user' => $user]);
+        $tokenResult = $user->createToken('Personal Access Token', ['Profile-acess']);
+
+         $token = $tokenResult->plainTextToken;
+
+
+
+        return view('profile', ['user' => $user, 'token' => $token]);
     }
 
     /**

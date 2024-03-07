@@ -19,7 +19,7 @@ const store = createStore({
     return {
       item: {},
       transaction: { status: '', message: '' },
-      getters: {token:''}
+      Url: 'http://127.0.0.1:8000/'
     }
   }
 })
@@ -37,14 +37,23 @@ const routes = [
       breadcrumb: 'home'
     }
   },
-  // {
-  //   path: '/home/profile',
-  //   component: Profile,
-  //   name: 'Profile',
-  //   meta: {
-  //     breadcrumb: 'Profile'
-  //   },
-  // },
+  {
+    path: '/profile',
+    component: Profile,
+    name: 'Profile',
+    meta: {
+      breadcrumb: 'Profile'
+    },
+    props:true
+  },
+  {
+    path: '/login',
+    component: login,
+    name: 'Login',
+    meta: {
+      breadcrumb: 'login'
+    },
+  },
   {
     path: '/home/amazing_gifts',
     component: AmazingGifts,

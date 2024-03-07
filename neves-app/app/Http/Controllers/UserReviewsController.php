@@ -34,7 +34,7 @@ class UserReviewsController extends Controller
             $user_reviews = $user_reviews;
         }
 
-        return response()->json($user_reviews, 200);
+        return response()->json(['review' => $user_reviews], 200);
     }
 
     /**

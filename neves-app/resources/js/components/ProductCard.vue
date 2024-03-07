@@ -8,8 +8,8 @@
           <h4>{{ value.meta_nome }}</h4>
           <h6>ID{{ value.id }}</h6>
         </div>
-        <div class="img-area" v-if="image">
-          <div v-for="i, indexValue in image" :key="indexValue">
+        <div class="img-area">
+          <div v-for="i, indexValue in  productsImages.data" :key="indexValue">
             <div class="img-cont" v-if="i.produto_id == value.id && i.posicao == 1">
               <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
             </div>
@@ -45,7 +45,12 @@
 
 <script>
 export default {
-  props: ['products', 'headTitle', 'image', 'info', 'cart'],
+  props: ['products', 'headTitle', 'info', 'cart'],
+  data(){
+    return{
+      productsImages: { data: [] },
+    }
+  },
   methods: {
     teste(id){
       let idEncode =  btoa(id)
@@ -59,9 +64,22 @@ export default {
     erraserror() {
       this.$store.state.transaction.status = '';
       this.$store.state.transaction.message = '';
-    }
+    },
+    getImage(){
+      let urlImages = this.$store.state.Url + 'api/imagens_produto'
+
+      //get all the products image
+      axios.get(urlImages)
+        .then(response => {
+          this.productsImages.data = response.data
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
   },
   mounted() {
+    this.getImage()
   }
 
 }

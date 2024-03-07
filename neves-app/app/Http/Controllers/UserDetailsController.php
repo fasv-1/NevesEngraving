@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User_details;
 use Illuminate\Http\Request;
 
@@ -14,15 +15,32 @@ class UserDetailsController extends Controller
         // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
         // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
         $this->user_details = $user_details;
+        
+        // $this->middleware(['role:User|Admin']);
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $user = Auth::user();
         $user_details = $this->user_details->with('user')->get();
 
-        return response()->json($user_details, 200);
+        if ($request->has('filtro')) {
+            $conditions = explode(':', $request->filtro);
+            $user_details = $user_details->where($conditions[0], $conditions[1], $conditions[2]);
+
+            if (isset($conditions[3])) {
+                $user_details = $user_details->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
+            }
+        } else {
+            $user_details = $user_details;
+        }
+        // if($user->id === $user_details->user_id){
+        return response()->json(['details' => $user_details ], 200);
+        // }else{
+        //     return response()->json(['msg'=>'Ainda não tem informação pessoal adicionada'], 200);
+        // }
     }
 
     /**
@@ -42,7 +60,7 @@ class UserDetailsController extends Controller
 
         $this->user_details->create($request->all());
 
-        return response()->json(['msg'=>'Destalhes de usuário adicionado com sucesso'], 201);
+        return response()->json(['msg' => 'Destalhes de usuário adicionado com sucesso'], 201);
     }
 
     /**
@@ -93,7 +111,7 @@ class UserDetailsController extends Controller
 
         $user_details->update($request->all());
 
-        return response()->json(['msg'=>'Detalhes de usuário atualizados com sucesso'], 200);
+        return response()->json(['msg' => 'Detalhes de usuário atualizados com sucesso'], 200);
     }
 
     /**
@@ -109,6 +127,6 @@ class UserDetailsController extends Controller
 
         $user_details->delete();
 
-        return response()->json(['msg'=>'Detalhes de usuário eliminados com sucesso'], 200);
+        return response()->json(['msg' => 'Detalhes de usuário eliminados com sucesso'], 200);
     }
 }

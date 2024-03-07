@@ -1,0 +1,340 @@
+<template>
+    <div id="dashboard">
+        <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
+        <section id="dash-menu">
+            <div class="sticky">
+                <!-----------------------Generate the menu home (logo) link ---------------------------->
+                <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
+                    <div class="dash-cont-logo">
+
+                        <a href="/profile" class="dash-logo" title="Página principal" @click.prevent="principal(index)">
+                            {{ page.link.text }}
+                        </a>
+                    </div>
+                    <!-----------------------Generate the rest of the menu ---------------------------->
+                </div>
+            </div>
+            <!-- <div class="color-footer"></div>Gradient on the bottom -->
+        </section>
+        <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
+        <section id="dash-screen">
+            <div class="container" v-for="(page, index) in pages" :key="index">
+                <div class="content" v-if="index == activePage">
+                    <div class="title">
+                        <h4>{{ page.pageTitle }}</h4>
+                    </div>
+
+                    <div class="fields" v-if="index == 0">
+                        <div class="field">
+                            <h6>Nome</h6>
+                            <!-- <p>{{ user.name }}</p> -->
+                        </div>
+                        <div class="field">
+                            <h6>Email</h6>
+                            <!-- <p>{{ user.email }}</p> -->
+                        </div>
+                        <a href="" @click.prevent="updatePage()"><img class="edit-btn"
+                                src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
+                    </div>
+
+                    <div class="fields" v-if="index == 1 && userDetails.data != ''">
+                        <div class="field">
+                            <h6>Morada</h6>
+                            <p>{{ addressInfo.morada1 }}</p>
+                        </div>
+                        <div class="field">
+                            <h6>Morada adicional</h6>
+                            <p>{{ addressInfo.morada2 }}</p>
+                        </div>
+                        <div class="field">
+                            <h6>Contacto telefónico</h6>
+                            <p>{{ addressInfo.telemovel }}</p>
+                        </div>
+                        <div class="field">
+                            <h6>Cidade</h6>
+                            <p>{{ addressInfo.cidade }}</p>
+                        </div>
+                        <div class="field">
+                            <h6>País</h6>
+                            <p>{{ addressInfo.pais }}</p>
+                        </div>
+                        <div class="field">
+                            <h6>Código postal</h6>
+                            <p>{{ addressInfo.codigo_postal }}</p>
+                        </div>
+                    </div>
+
+                    <div class="fields" v-if="index == 2">
+                        <div class="favorites">
+                            <div class="card-box">
+                                <div class="card-prd-dash" v-for="fav, index in userFavorites.data" :key="index">
+                                    <a :href="'/home/amazing_gifts/' + encrypt(fav.produto.id)">
+                                        <div class="img-area">
+                                            <div v-for="i, indexValue in  productsImages.data" :key="indexValue">
+                                                <div class="img-cont"
+                                                    v-if="i.produto_id == fav.produto.id && i.posicao == 1">
+                                                    <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="info-area">
+                                        <div class="info">
+                                            <h5>{{ fav.produto.meta_nome }}</h5>
+                                        </div>
+                                        <div class="buttons">
+                                            <a href="" v-if="fav.id" @click.prevent="destroy(fav.id, 'favorites')"><img
+                                                    class="delete-btn" src="/storage/images/Icons/delete.svg"
+                                                    style="width:30px" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fields" v-if="index == 3">
+                        <div class="Coments" v-for="review in userReviews.data">
+                            <div class="content">
+                                <h5 class="title">{{ review.produto.meta_nome }}</h5>
+                                <div class="buttons">
+                                    <a href="" v-if="review.id" @click.prevent="destroy(review.id, 'comments')"><img
+                                            class="delete-btn" src="/storage/images/Icons/delete.svg" style="width:30px"
+                                            alt=""></a>
+                                </div>
+                                <p>"{{ review.comentario }}"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fields" v-if="activePage == 4">
+                <h4>Atualizar dados de registo</h4>
+                <div class="field">
+                    <input-container id="updateName" title="Atualizar nome de usuario" help="updateName"
+                        helpText="Nome de usuário">
+                        <input type="text" name="updateName" aria-describedby="updateName" v-model="updateName">
+                    </input-container>
+                </div>
+                <div class="field">
+                    <input-container id="updateEmail" title="Atualizar email de usuario" help="updateEmail"
+                        helpText="Email de usuário">
+                        <input type="text" name="updateEmail" aria-describedby="updateEmail" v-model="updateEmail">
+                    </input-container>
+                </div>
+                <div class="button">
+                    <button class="button1" @click="updateCredencials()">Atualizar</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--Gradient on the bottom-->
+</template>
+
+<script>
+export default {
+    props: {
+        user: {
+            type: Object,
+            required: true
+        },
+        token: {
+            type: String,
+            required: true
+        }
+    },
+    data() {
+        return {
+            activePage: 0, //set the value of the principal pages
+            userDetails: { data: [] },
+            userReviews: { data: [] },
+            userFavorites: { data: [] },
+            productsImages: { data: [] },
+            updateName: '',
+            updateEmail: '',
+
+            pages: [
+                {
+                    link: { text: 'Area pessoal' },
+                    pageTitle: 'Area pessoal',
+                },
+                {
+                    link: { text: 'Informação pessoal' },
+                    pageTitle: "Informação pessoal",
+                },
+                {
+                    link: { text: 'Favoritos' },
+                    pageTitle: "Favoritos",
+                },
+                {
+                    link: { text: 'Comentários' },
+                    pageTitle: "Comentários",
+                },
+            ],
+
+        }
+    },
+    methods: {
+        updateCredencials() {
+            let url = this.$store.state.Url + 'profile'
+
+            let formData = new FormData();
+            formData.append('_method', 'patch')
+
+            formData.append('name', this.updateName)
+            formData.append('email', this.updateEmail)
+
+            let config = {
+                headers: {
+                    'Content-Type': 'x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                }
+            }
+
+            axios.post(url, formData, config)
+                .then(response => {
+                    console.log(response)
+                    // alert(response.data.msg)
+                    this.userData()
+                    this.activePage = 0
+                })
+                .catch(errors => {
+                    console.log(errors)
+                })
+        },
+        updatePage() {
+            localStorage.setItem('activePage', 4);
+            this.activePage = localStorage.getItem('activePage');
+        },
+        encrypt(id) {
+            let idEncode = btoa(id)
+            return idEncode
+        },
+        getImage() {
+            let urlImages = this.$store.state.Url + 'api/imagens_produto'
+
+            //get all the products image
+            axios.get(urlImages)
+                .then(response => {
+                    this.productsImages.data = response.data
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+        },
+        principal(e) {
+            localStorage.setItem('activePage', e);//Sets the active page value from the index of the link clicked
+            this.activePage = localStorage.getItem('activePage');
+            // console.log(this.activePage)
+        },
+        userData() {
+            if (localStorage.getItem('activePage') == null) {
+                this.activePage = 0
+            }
+            let urlUserDetails = this.$store.state.Url + 'api/user_details?filtro=user_id:=:' + this.user.id
+            let urlUserFavorites = this.$store.state.Url + 'api/user_favorites?filtro=user_id:=:' + this.user.id
+            let urlUserReviews = this.$store.state.Url + 'api/user_reviews?filtro=user_id:=:' + this.user.id
+
+            axios.get(urlUserDetails, {
+                headers: {
+                    'Authorization': 'Bearer ' + this.token,
+                }
+            })
+                .then(response => {
+                    this.userDetails.data = response.data
+                    // console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+
+            axios.get(urlUserFavorites)
+                .then(response => {
+                    this.userFavorites.data = response.data.favorites
+                    // console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+
+            axios.get(urlUserReviews)
+                .then(response => {
+                    this.userReviews.data = response.data.review
+                    // console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+        },
+        destroy(id, f) {
+            if (f == 'favorites') {
+                let url = this.$store.state.Url + 'api/user_favorites/' + id
+
+                if (confirm("Tem a certeza que pretende eliminar este registo?")) {
+                    let formData = new FormData();
+                    formData.append('_method', 'delete')
+
+                    axios.post(url, formData)
+                        .then(response => {
+                            // console.log(response.data)
+                            alert(response.data.msg)
+                            this.userData()
+                        })
+                        .catch(errors => {
+                            console.log(errors.response.data)
+                        })
+
+                }
+            }
+            if (f == 'comments') {
+                let url = this.$store.state.Url + 'api/user_reviews/' + id
+
+                if (confirm("Tem a certeza que pretende eliminar este registo?")) {
+                    let formData = new FormData();
+                    formData.append('_method', 'delete')
+
+                    axios.post(url, formData)
+                        .then(response => {
+                            // console.log(response.data)
+                            alert(response.data.msg)
+                            this.userData()
+                        })
+                        .catch(errors => {
+                            console.log(errors.response.data)
+                        })
+
+                }
+            }
+        }
+
+    },
+    computed: {
+        addressInfo() {
+            let info = {}
+            Object.values(this.userDetails.data).forEach(value => {
+                Object.values(value).forEach(i => {
+                    info = i
+                })
+            })
+            return info
+        },
+        favoriteProducts() {
+            let info = []
+            Object.values(this.userFavorites.data).forEach(value => {
+                info.push(value.produto)
+            })
+            return info
+        }
+
+    },
+
+
+
+
+    mounted() {
+        // this.userData()
+        // this.getImage()
+        // console.log(this.activePage)
+    },
+}
+</script>
