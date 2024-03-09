@@ -60,15 +60,17 @@
           <label for="ocasions">
             <h6>Ocasiões</h6>
           </label>
-          <h4 name="ocasions" v-for="o in ocasions.data" :key="o.id">{{ o.id == product.data.ocasioes_id ? o.nome : '' }}
+          <h4 name="ocasions" v-for="o in ocasions.data" :key="o.id">{{ o.id == product.data.ocasioes_id ? o.nome : ''
+            }}
           </h4>
         </div>
         <div>
           <label for="categoria">
             <h6>Categoria</h6>
           </label>
-          <h4 name="categoria" v-for="c in categorys.data" :key="c.id">{{ c.id == product.data.categoria_id ? c.nome : ''
-          }}
+          <h4 name="categoria" v-for="c in categorys.data" :key="c.id">{{ c.id == product.data.categoria_id ? c.nome :
+        ''
+            }}
           </h4>
         </div>
         <div>
@@ -76,16 +78,17 @@
             <h6>Matéria-prima</h6>
           </label>
           <h4 name="materia-prima" v-for="m in materials.data" :key="m.id">{{ m.id == product.data.materia_prima_id ?
-            m.nome
-            :
-            ''
-          }}</h4>
+        m.nome
+        :
+        ''
+            }}</h4>
         </div>
         <div>
           <label for="desconto">
             <h6>Desconto</h6>
           </label>
-          <h4 name="desconto" v-for="d in discounts.data" :key="d.id">{{ d.id == product.data.desconto_id ? d.nome : '' }}
+          <h4 name="desconto" v-for="d in discounts.data" :key="d.id">{{ d.id == product.data.desconto_id ? d.nome : ''
+            }}
           </h4>
         </div>
         <div>
@@ -100,7 +103,20 @@
           <label for="descrição">
             <h6>Descrição</h6>
           </label>
-          <h4>{{ product.data.descricao }}</h4>
+          <p>{{ product.data.descricao }}</p>
+        </div>
+        <div>
+          <label for="detalhes">
+            <h6>Detalhes do produto:</h6>
+          </label>
+          <ul>
+            <li v-for="detail, index in details.data" :key="index">
+              <p>- {{ detail.descricao }}</p>
+              <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
+                  src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
+            </li>
+          </ul>
+          <a href="#addDetailsModal">Adicionar detalhes +</a>
         </div>
       </div>
       <div class="info-area">
@@ -202,7 +218,8 @@
             </input-container>
 
 
-            <input-container id="material" title="Materia-prima" help="materialHelp" helpText="Escolha uma matéria-prima">
+            <input-container id="material" title="Materia-prima" help="materialHelp"
+              helpText="Escolha uma matéria-prima">
               <select name="material" v-model="updateProduct.material">
                 <option value="" disabled>Escolhe uma</option>
                 <option v-for="m in materials.data" :key="m.id" :value="m.id"
@@ -221,7 +238,7 @@
             <input-container id="customization" title="Costumização" help="costumizationHelp"
               helpText="Caso seja possível costumizar">
               <input type="checkbox" name="customization" class="form-checkbox" aria-describedby="customization"
-                :checked="product.data.costumizavel == 1 ? 'checked' : '' " v-model="updateProduct.customization">
+                :checked="product.data.costumizavel == 1 ? 'checked' : ''" v-model="updateProduct.customization">
             </input-container>
           </div>
 
@@ -280,6 +297,26 @@
     </modal-component>
     <!-----------------------------------------------End of modal to delete new products---------------------------------------------->
 
+    <!----------------------------Modal add details to product-------------------------------------->
+    <modal-component id="addDetailsModal" title="Adiconar novo detalhe">
+      <template v-slot:alerts>
+        <alert-component tipe="danger" :details="$store.state.transaction"
+          v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+      </template>
+      <template v-slot:content>
+        <input-container id="descricao" title="Detalhe " help="descricao"
+          helpText="Descrição do detalhe como irá aparecer em publico">
+          <textarea name="descricao" aria-describedby="descricao" v-model="addDetail"></textarea>
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="detail()">Adicionar</button>
+      </template>
+
+    </modal-component>
+    <!-----------------------------------------------End of modal to delete new products---------------------------------------------->
+
     <!-- Calls the computed method to separate the images by posicion-->
     {{ separateImages }}
     <!-- End of call computed -->
@@ -291,7 +328,7 @@ export default {
   props: {
     id: {
       required: true,
-      type: Number,
+      type: String,
     }
   },
   data() {
@@ -302,11 +339,13 @@ export default {
       productMainImage: [],
       productImages: [],
       categorys: { data: [] },
+      details: { data: [] },
       ocasions: { data: [] },
       materials: { data: [] },
       discounts: { data: [] },
       mainImage: [],
       images: [],
+      addDetail: '',
       url: '',
       urlImages: [],
       productImages: '',
@@ -369,6 +408,67 @@ export default {
         })
         .catch(errors => {
           console.log(errors);
+        })
+    },
+
+    loadDetails() {
+      let urlDetails = this.urlBase + 'produto_detalhe?filtro=produto_id:=:' + this.id;
+
+      axios.get(urlDetails)
+        .then(response => {
+          this.details.data = response.data
+          console.log(this.details)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    },
+    detail() {
+      let urlDetails = this.urlBase + 'produto_detalhe'
+
+      let formData = new FormData()
+      formData.append('descricao', this.addDetail)
+      formData.append('produto_id', this.id)
+
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json'
+        }
+      }
+
+      axios.post(urlDetails, formData, config)
+        .then(response => {
+          this.$store.state.transaction.status = 'added'
+          this.$store.state.transaction.message = response.data.msg
+          this.addDetail = ''
+          this.loadDetails()
+          history.back()
+          alert(response.data.msg)
+        })
+        .catch(errors => {
+          this.$store.state.transaction.status = 'error-add'
+          this.$store.state.transaction.message = errors.response.data.message
+          console.log(errors.response.data)
+        })
+
+    },
+
+    removeDetail(id) {
+      let url = this.urlBase + 'produto_detalhe/' + id;
+
+      let formData = new FormData();
+      formData.append('_method', 'delete')
+
+      axios.post(url, formData)
+        .then(response => {
+          this.$store.state.transaction.status = 'removed'
+          this.$store.state.transaction.message = response.data.msg
+          this.loadDetails()
+        })
+        .catch(errors => {
+          this.$store.state.transaction.status = 'error-remove'
+          this.$store.state.transaction.message = errors.response.data.message
         })
     },
 
@@ -620,6 +720,12 @@ export default {
         });
       }
 
+      if (this.details.data != '') {
+        this.details.data.forEach(element => {
+          this.removeDetail(element.id)
+        });
+      }
+
       let formData = new FormData();
       formData.append('_method', 'delete')
 
@@ -671,6 +777,7 @@ export default {
     this.loadMaterials();
     this.getProductImages();
     this.loadOcasions();
+    this.loadDetails()
   }
 }
 </script>

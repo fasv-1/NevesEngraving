@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <navbar-component>
+  <navbar-component :altroutes = false>
     @auth
         <a href={{route('profile.edit')}}>Profile</a>
         <form action={{ route('logout')}} method="post">

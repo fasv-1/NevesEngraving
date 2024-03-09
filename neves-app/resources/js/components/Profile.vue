@@ -3,7 +3,7 @@
         <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
         <section id="dash-menu">
             <div class="sticky">
-                <!-----------------------Generate the menu home (logo) link ---------------------------->
+                <!----------------------------------------Generate the menu home--------------------------------------->
                 <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
                     <div class="dash-cont-logo">
 
@@ -11,12 +11,10 @@
                             {{ page.link.text }}
                         </a>
                     </div>
-                    <!-----------------------Generate the rest of the menu ---------------------------->
                 </div>
             </div>
-            <!-- <div class="color-footer"></div>Gradient on the bottom -->
         </section>
-        <!--------------------------------------------------------------Dashboard show-screen----------------------------------------------------------------------------------------->
+        <!--------------------------------------------------------------show-area----------------------------------------------------------------------------------------->
         <section id="dash-screen">
             <div class="container" v-for="(page, index) in pages" :key="index">
                 <div class="content" v-if="index == activePage">
@@ -24,6 +22,7 @@
                         <h4>{{ page.pageTitle }}</h4>
                     </div>
 
+                    <!----------------------------------Area pessoal------------------------------------------------------->
                     <div class="fields" v-if="index == 0">
                         <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
                                 src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
@@ -37,6 +36,7 @@
                         </div>
                     </div>
 
+                    <!----------------------------------Info pessoal------------------------------------------------------->
                     <div class="fields" v-if="index == 1 && userDetails.data != ''">
                         <div v-if="userDetails.data.details == ''">
                             <a href="" @click.prevent="updatePage(6)">Adicionar morada+</a>
@@ -74,6 +74,7 @@
                         
                     </div>
 
+                    <!----------------------------------Favoritos------------------------------------------------------->
                     <div class="fields" v-if="index == 2">
                         <div class="favorites">
                             <div class="card-box">
@@ -103,6 +104,7 @@
                         </div>
                     </div>
 
+                    <!----------------------------------Comentarios------------------------------------------------------->
                     <div class="fields" v-if="index == 3">
                         <div class="Coments" v-for="review in userReviews.data">
                             <div class="content">
@@ -118,6 +120,8 @@
                     </div>
                 </div>
             </div>
+
+            <!----------------------------------Update Credencials------------------------------------------------------->
             <div class="container">
                 <div class="fields" v-if="activePage == 4">
                     <h4>Atualizar dados de registo</h4>
@@ -141,6 +145,7 @@
                     </form>
                 </div>
             </div>
+            <!----------------------------------Update Adress and Info------------------------------------------------------->
             <div class="container">
                 <div class="fields" v-if="activePage == 5">
                     <h4>Atualizar morada e informação do usuário</h4>
@@ -193,6 +198,8 @@
                     </form>
                 </div>
             </div>
+
+            <!----------------------------------Add new Adress and info ------------------------------------------------------->
             <div class="container">
                 <div class="fields" v-if="activePage == 6">
                     <h4>Adicionar morada e informação do usuário</h4>
@@ -553,7 +560,7 @@ export default {
     mounted() {
         this.userData()
         this.getImage()
-        console.log(this.user)
+        // console.log(this.user)
     },
 }
 </script>

@@ -62,4 +62,7 @@ class Produto extends Model
     public function userFavorites() {
         return $this->hasMany('App\Models\User_favorites');
     }
+    public function produtoDetalhes() {
+        return $this->hasMany('App\Models\User_favorites');
+    }
 }
