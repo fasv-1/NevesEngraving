@@ -7,27 +7,27 @@
           <h5 class="group-title">Categorys</h5>
           <a class="category" :class="'all' == linkcliked ? 'high-link' : ''" href="#"
             @click.prevent="getProducts()">All</a>
-          <div class="category" v-for="category, index in categorys.data" :key="index">
-            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category.nome)">{{
-              category.nome }}</a>
+          <div class="category" v-for="category, index in dinamycCategories" :key="index">
+            <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category)">{{
+            category }}</a>
           </div>
         </div>
         <div class="ocasions-area">
           <h5 class="group-title">Ocasions</h5>
-          <div class="ocasion" v-for="ocasion, index in  ocasions.data" :key="index">
+          <div class="ocasion" v-for="ocasion, index in  dinamycOcasions" :key="index">
             <div class="ocs">
-              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion.nome)">{{
-                ocasion.nome }}</a>
+              <a href="#" :class="ocasion == linkcliked ? 'high-link' : ''" @click.prevent="ocasionFilter(ocasion)">{{
+            ocasion }}</a>
               <h3 class="menu-icon" @click.prevent='toogle(index)'>
                 <img :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png'
-                  : '/storage/images/Icons/PlusIcon.png'">
+            : '/storage/images/Icons/PlusIcon.png'">
               </h3>
             </div>
             <div class="ocasionCategory" :class="{ show: id == index && active }"
               v-for="oc, ix in dinamycOcasionsCategorys" :key="ix">
               <a href="#" :class="oc.ocasiao + '/' + oc.categoria == linkcliked ? 'high-link' : ''"
-                v-if="oc.ocasiao == ocasion.nome" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
-                  oc.categoria }}</a>
+                v-if="oc.ocasiao == ocasion" @click.prevent="ocasionCategoryFilter(oc.ocasiao, oc.categoria)">{{
+            oc.categoria }}</a>
             </div>
             <br>
           </div>
@@ -42,6 +42,8 @@
         </div>
         <div class="price-bar">
           <h5 class="group-title">Price filter</h5>
+          <input type="range" :min="getPrice.minimo" :max="getPrice.maximo" v-model="priceRange" @change="barFilter()"
+            class="slider" id="priceRange">
           <div class="bar-caption">
             <p>{{ getPrice.minimo }}€</p>
             <svg width="50%" height="100%" viewBox="0 0 906 270" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,13 +62,16 @@
             <p>{{ getPrice.maximo }}€</p>
 
           </div>
-          <input type="range" :min="getPrice.minimo" :max="getPrice.maximo" v-model="priceRange" @change="barFilter()"
-            class="slider" id="priceRange">
+
         </div>
 
-        <div class="discounts" v-for="discount, index in discounts.data" :key="index">
-          <a href="" :class="discount.nome == linkcliked ? 'high-link' : ''" class="discount"
-            @click.prevent="discountFilter(discount.id, discount.nome)">{{ discount.ativo == 1 ? discount.nome : '' }}</a>
+        <div class="discount-area">
+          <h5 class="group-title">Discounts</h5>
+          <div class="discounts" v-for="discount, index in discounts.data" :key="index">
+            <a href="" :class="discount.nome == linkcliked ? 'high-link' : ''" class="discount"
+              @click.prevent="discountFilter(discount.id, discount.nome)">{{ discount.ativo == 1 ? discount.nome : ''
+              }}</a>
+          </div>
         </div>
 
       </div>
@@ -77,8 +82,8 @@
         <h3>Não existem produtos</h3>
       </div>
       <card-component :products=productsShownd.data :headTitle='false' :info="{
-        nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
-      }" :cart="true"></card-component>
+            nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
+          }" :cart="true"></card-component>
 
       <div class="pagination">
         <ul v-if="productsShownd.data != ''">
@@ -86,9 +91,9 @@
             <a href="" v-if="pages.label != index && index == 0" @click.prevent="localStorage(pages.url)">{{ '<' }}</a>
                 <a href="" v-if="pages.label == index && pages.url != null"
                   :class="pages.active == true ? 'high-link' : ''" @click.prevent="localStorage(pages.url)">{{
-                    pages.label }}</a>
+            pages.label }}</a>
                 <a href="" v-if="pages.label != index && index != 0" @click.prevent="localStorage(pages.url)">{{ '>'
-                }}</a>
+                  }}</a>
           </li>
         </ul>
       </div>

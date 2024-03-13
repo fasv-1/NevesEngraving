@@ -1,57 +1,48 @@
 <template>
   <div class="navbar-container">
-<!---------------------------Logo link------------------------------------->
+    <!---------------------------Logo link------------------------------------->
     <div class="navbar-logo" v-if="altroutes == true">
       <a href="/home">
         <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
-        <p><b>Neves Engraving</b></p>
+        <h4><b>Neves Engraving</b></h4>
       </a>
     </div>
     <div class="navbar-logo" v-else>
       <router-link to="/home">
-        <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
-        <p><b>Neves Engraving</b></p>
+        <div class="bg-logo">
+          <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
+        </div>
+        <h4><b>Neves Engraving</b></h4>
       </router-link>
     </div>
-<!---------------------------Contact link------------------------------------->
+    <!---------------------------Follow us links------------------------------------->
     <div class="navbar-top">
+      <div class="nav-contacts">
+        <div class="follow-us">
+          <p> <b>Follow us on: </b></p>
+          <a href="">
+            <img src="/storage/images/Icons/facebook.png" alt="facebook-icon" style="width: 22px;">
+          </a>
+          <a href="">
+            <img src="/storage/images/Icons/instagram.png" alt="instagram-icon" style="width: 22px;">
+          </a>
+          <a href="">
+            <img src="/storage/images/Icons/whatsapp_icon.png" alt="whatsapp-icon" style="width: 25px;">
+          </a>
+        </div>
 
-      <div class="nav-search">
-        <input type="text" placeholder="Search">
-        <a href="">
-          <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
-            xml:space="preserve">
-            <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7
-	C218,338.3,308.8,247,419,247C529.1,247,620,338.3,620,452.7z" />
-            <path id="barrinha" class="st1" d="M780.7,738.5c8.6,6,20.6,4,26.7-4.4s4.1-20-4.5-26L780.7,738.5z M574,595.2l206.7,143.4l22.2-30.3
-	L596.2,564.9L574,595.2z" />
-          </svg>
-        </a>
       </div>
 
       <div class="nav-icons">
-<!---------------------------Contact link------------------------------------->
-        <div class="contacts">
-          <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
-            xml:space="preserve">
-            <path id="telefone" class="st0" d="M226.4,424.3C244.7,580,397.5,722.4,562.4,751c101.6,17.6,228-4.4,236.9-46.5
-	c8-37.9-77-103.7-121.1-85.9c-24.1,9.7-18.7,37.6-40.1,52.4C563.6,722.6,297.7,523.1,327,433.5c7-21.5,27.1-24.5,31.8-50.8
-	c9.5-53.4-58.9-125.2-95.2-114.8C228.5,277.9,219.4,365.4,226.4,424.3z" />
-            <g id="ondas">
-              <path class="st0 first" d="M418.1,362.3c21.7-1.4,102-3.8,176.5,52.6c60.9,46.1,83.7,105.7,91.2,128.6" />
-              <path class="st0 second" d="M404.1,297.3c18.8-3.8,123.1-22.8,223,44.9C726,409.3,747.4,512,751,531.1" />
-              <path class="st0 third"
-                d="M385.5,240c29.8-10.8,97.5-30.6,179.6-12.4C674.7,252,735,327.4,752.5,349.9c51.5,66.4,65.3,135,69.7,168.8" />
-            </g>
-          </svg>
-          <div v-if="altroutes == true">
-            <a href="/home/contacts">contacts</a>
-          </div>
-          <div v-else>
-            <router-link to="/home/contacts">contacts</router-link>
-          </div>
+
+        <div class="wish">
+          <img src="/storage/images/Icons/heart.png" alt="facebook-icon" style="width: 25px;">
+          <a href="">
+            <p>Wish List</p>
+          </a>
         </div>
-<!---------------------------Logs/Profile link------------------------------------->
+
+        <!---------------------------Logs/Profile link------------------------------------->
         <div class="logs">
           <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
             xml:space="preserve">
@@ -62,7 +53,7 @@
           </svg>
           <slot></slot>
         </div>
-<!---------------------------Shopping-cart link------------------------------------->
+        <!---------------------------Shopping-cart link------------------------------------->
         <div class="shopping-cart" v-if="altroutes == true">
           <a href="/home/shopping_cart">
             <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
@@ -91,6 +82,7 @@
               </g>
             </svg>
           </a>
+          <p>nº item: 0.00€</p>
         </div>
         <div class="shopping-cart" v-else>
           <router-link to="/home/shopping_cart">
@@ -119,56 +111,94 @@
 		C499,299.4,504.4,305.2,504.4,311.7z" />
               </g>
             </svg>
+
           </router-link>
+          <p>nº item: 0.00€</p>
         </div>
-<!---------------------------Menu links------------------------------------->
+        <!---------------------------Menu links------------------------------------->
       </div>
     </div>
     <div class="navbar-links" v-if="altroutes == true">
       <div class="start-links">
         <a href="/home/amazing_gifts" @click="clearStorage()">
-          <h5>AMAZING GIFTS </h5>
+          <h6>AMAZING GIFTS </h6>
         </a>
         <a href="/home/engraving" @click="clearStorage()">
-          <h5>ENGRAVING</h5>
+          <h6>ENGRAVING</h6>
+        </a>
+        <a href="/home/lazer_cut" @click="clearStorage()">
+          <h6>LAZER CUT</h6>
         </a>
       </div>
       <div class="end-links">
-        <a href="/home/lazer_cut" @click="clearStorage()">
-          <h5>LAZER CUT</h5>
-        </a>
         <a href="/home/business_cards" @click="clearStorage()">
-          <h5>BUSINESS CARDS</h5>
+          <h6>BUSINESS CARDS</h6>
+        </a>
+        <a href="/home/contacts">
+          <h6>CONTACTS</h6>
+        </a>
+        <a href="#searchModal" @click="clearStorage()">
+          <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
+            xml:space="preserve">
+            <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7
+	C218,338.3,308.8,247,419,247C529.1,247,620,338.3,620,452.7z" />
+            <path id="barrinha" class="st1" d="M780.7,738.5c8.6,6,20.6,4,26.7-4.4s4.1-20-4.5-26L780.7,738.5z M574,595.2l206.7,143.4l22.2-30.3
+	L596.2,564.9L574,595.2z" />
+          </svg>
         </a>
       </div>
     </div>
     <div class="navbar-links" v-else>
       <div class="start-links">
         <router-link to="/home/amazing_gifts" @click="clearStorage()">
-          <h5>AMAZING GIFTS</h5>
+          <h6>AMAZING GIFTS</h6>
         </router-link>
         <router-link to="/home/engraving" @click="clearStorage()">
-          <h5>ENGRAVING</h5>
+          <h6>ENGRAVING</h6>
+        </router-link>
+        <router-link to="/home/lazer_cut" @click="clearStorage()">
+          <h6>LAZER CUT</h6>
         </router-link>
       </div>
       <div class="end-links">
-        <router-link to="/home/lazer_cut" @click="clearStorage()">
-          <h5>LAZER CUT</h5>
-        </router-link>
         <router-link to="/home/business_cards" @click="clearStorage()">
-          <h5>BUSINESS CARDS</h5>
+          <h6>BUSINESS CARDS</h6>
         </router-link>
+        <router-link to="/home/contacts" @click="clearStorage()">
+          <h6>CONTACTS</h6>
+        </router-link>
+        <a href="#searchModal" @click="clearStorage()">
+          <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
+            xml:space="preserve">
+            <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7
+	C218,338.3,308.8,247,419,247C529.1,247,620,338.3,620,452.7z" />
+            <path id="barrinha" class="st1" d="M780.7,738.5c8.6,6,20.6,4,26.7-4.4s4.1-20-4.5-26L780.7,738.5z M574,595.2l206.7,143.4l22.2-30.3
+	L596.2,564.9L574,595.2z" />
+          </svg>
+        </a>
       </div>
     </div>
   </div>
-<!---------------------------Breadcrumb------------------------------------->
+
+  <modal-component id="searchModal" title="O que procuras em especifico?">
+    <template v-slot:content>
+      <input type="text" name="search" aria-describedby="search">
+    </template>
+
+    <template v-slot:footer>
+      <button class="button-save" @click="search()">Procurar</button>
+      <!--The seconde parameter defines the endpoint for the url-->
+    </template>
+
+  </modal-component>
+  <!---------------------------Breadcrumb------------------------------------->
   <breadcrumb-component></breadcrumb-component>
 </template>
 
 <script>
 export default {
   props: {
-    altroutes:{
+    altroutes: {
       type: Boolean,
       required: true
     }

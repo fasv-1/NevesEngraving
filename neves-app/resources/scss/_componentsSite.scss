@@ -1,19 +1,28 @@
 //-------------------navbar-style-----------------------------
 .navbar-container {
-  margin: 1em;
+  // margin: 1em 0;
 
   .navbar-logo {
     position: absolute;
-    left: calc(50% - 60px);
-    top: 0.5em;
+    left: calc(50% - 100px);
+    top: 0.2em;
     a {
       display: flex;
       flex-direction: column;
       align-items: center;
       // animation: vanish 3s ease-in-out 1;
-      img {
+      .bg-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $Global-blue;
+        border-radius: 50%;
         width: 100px;
         height: 100px;
+        img {
+          width: 80px;
+          height: 80px;
+        }
       }
     }
   }
@@ -23,12 +32,118 @@
     // width: 100%;
     justify-content: space-between;
     align-items: center;
-    margin: 1em 1em 1em 3em;
+    margin: 2em 4em 1em 4em;
 
-    .nav-search {
+    .nav-contacts {
       display: flex;
+      justify-content: center;
+      width: 40%;
+
+      .follow-us {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        p {
+          margin: 0 1em;
+        }
+
+        a {
+          margin: 0 1em;
+        }
+      }
+    }
+
+    .nav-icons {
+      display: flex;
+      justify-content: space-evenly;
       align-items: center;
-      width: 30%;
+      width: 40%;
+
+      .logs {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        .st0 {
+          fill: none;
+          stroke: $Global-red;
+          stroke-width: 40;
+          stroke-miterlimit: 10;
+        }
+        svg {
+          width: 40px;
+          height: 40px;
+          overflow: visible;
+          #cabeça {
+            animation: bounce 1s ease-in-out 1;
+          }
+          #corpo {
+            animation: shrink 1s 0.8s ease-in-out 1;
+          }
+        }
+      }
+
+      .wish,
+      .shopping-cart {
+        display: flex;
+        align-items: center;
+        // width: 60px;
+        // height: 50px;
+        // border: 2px solid #ccc;
+        overflow: hidden;
+
+        a {
+          margin: 0 0 0 0.5em;
+        }
+
+        svg {
+          width: 40px;
+          height: 40px;
+          overflow: visible;
+
+          #carrinho {
+            display: block;
+          }
+
+          #prenda {
+            display: none;
+          }
+
+          .st0 {
+            fill: none;
+            stroke: $Global-red;
+            stroke-width: 30;
+            stroke-miterlimit: 10;
+          }
+
+          .st1 {
+            fill: none;
+            stroke: $Global-red;
+            stroke-width: 10;
+            stroke-miterlimit: 10;
+          }
+        }
+      }
+    }
+  }
+  .navbar-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $Global-blue;
+    margin: 1.5em 0;
+    width: 100%;
+    -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+
+    .end-links,
+    .start-links {
+      display: flex;
+      margin: 0 1em;
+      justify-content: space-evenly;
+      width: 40%;
 
       svg {
         // margin-left: 0.1em;
@@ -55,122 +170,6 @@
           animation: rotate 2s ease-in reverse 1;
         }
       }
-    }
-
-    .nav-icons {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 30%;
-
-      a {
-        color: $Darker-blue;
-      }
-
-      .logs {
-        display: flex;
-        align-items: center;
-        .st0 {
-          fill: none;
-          stroke: $Global-red;
-          stroke-width: 40;
-          stroke-miterlimit: 10;
-        }
-        svg {
-          width: 40px;
-          height: 40px;
-          overflow: visible;
-          #cabeça {
-            animation: bounce 1s ease-in-out 1;
-          }
-          #corpo {
-            animation: shrink 1s 0.8s ease-in-out 1;
-          }
-        }
-      }
-
-      .contacts {
-        display: flex;
-        align-items: center;
-
-        .st0 {
-          fill: none;
-          stroke: $Global-red;
-          stroke-width: 40;
-          stroke-miterlimit: 10;
-        }
-        svg {
-          width: 40px;
-          height: 40px;
-
-          #telefone {
-            animation: phone 2s ease-in-out 1;
-          }
-          #ondas {
-            .first {
-              animation: waves 1.5s ease-in-out 1;
-            }
-
-            .second {
-              animation: waves 1.5s 0.67s ease-in-out 1;
-            }
-            .third {
-              animation: waves 1.5s 1.34s ease-in-out 1;
-            }
-          }
-        }
-      }
-
-      .shopping-cart {
-        display: flex;
-        align-items: center;
-        width: 60px;
-        height: 50px;
-        // border: 2px solid #ccc;
-        overflow: hidden;
-
-        svg {
-          width: 40px;
-          height: 40px;
-          overflow: visible;
-
-          #carrinho {
-            display: block;
-            animation: raceCar 2s ease forwards 1;
-          }
-
-          #prenda {
-            display: none;
-          }
-
-          .st0 {
-            fill: none;
-            stroke: $Global-red;
-            stroke-width: 30;
-            stroke-miterlimit: 10;
-          }
-
-          .st1 {
-            fill: none;
-            stroke: $Global-red;
-            stroke-width: 10;
-            stroke-miterlimit: 10;
-          }
-        }
-      }
-    }
-  }
-  .navbar-links {
-    display: flex;
-    margin: 1em 3em 1em 3em;
-    justify-content: space-between;
-    align-items: center;
-
-    .end-links,
-    .start-links {
-      display: flex;
-      justify-content: center;
-      width: 40%;
 
       a {
         // &:hover{
@@ -178,8 +177,8 @@
         //   border-radius: 10px;
         // }
 
-        h5 {
-          margin: 1em 2em 1em 2em;
+        h6 {
+          margin: 1em 0;
 
           &:hover {
             color: $Global-red;
@@ -191,7 +190,7 @@
 }
 
 .breadcrumb {
-  margin-left: 5%;
+  margin: 0 0 2em 5%;
   font-size: 14px;
   ul {
     display: flex;
@@ -227,7 +226,7 @@
     ul {
       display: flex;
 
-      .high-link{
+      .high-link {
         background-color: #4591aa;
         color: #fff;
         border-radius: 50%;
@@ -245,29 +244,29 @@
   display: flex;
   flex-direction: column;
   // justify-content: center;
-  border: 1px solid #ccc;
+  border: 1px solid $Brdr-grey;
   padding: 1em;
   border-radius: 10px;
   position: fixed;
 
   .title-menu,
   .categorys-area,
-  .price-bar,
+  .price-bar, .discount-area,
   .materials-area,
   .ocasions-area {
     width: 100%;
-    margin: 0.5em 0;
+    margin: 1em 0;
 
     .group-title {
       font-weight: bold;
       border-bottom: 1px solid #ccc;
-      margin: 0 0 0.5em 0;
+      margin: 0 0 0.7em 0;
     }
   }
-  .discounts{
-    margin:0.5em;
-    .discount{
-    color: $Global-red;
+  .discounts {
+    margin: 0.5em;
+    .discount {
+      color: $Global-red;
     }
   }
   .materials,
@@ -404,3 +403,111 @@
   display: none;
   line-height: 1.6;
 }
+
+//card container and card
+.card-box {
+  display: flex;
+  flex-wrap: wrap;
+
+  .card-prd {
+    width: 280px;
+    height: 100%;
+    margin: 1em;
+    // border: 1px solid $Brdr-grey;
+    background-color: $Bg-White;
+    border-radius: 3px;
+    // padding: 0 0 1em 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    .label-area {
+      display: flex;
+      justify-content: space-between;
+
+      width: 100%;
+    }
+
+    .img-area {
+      // margin: 0.5em auto 0.2em auto;
+      width: 100%;
+      height: 250px;
+      // border: 1px solid $Brdr-grey;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+
+      .img-cont {
+        height: 250px;
+        .img-prd {
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .info-area {
+      width: 100%;
+      h6,
+      h5,
+      h3 {
+        margin: 0.5em 0 0.5em 1em;
+      }
+      .discount {
+        div {
+          display: flex;
+          align-items: center;
+          margin: 0 2em;
+          font-family: "Times New Roman", Times, serif;
+
+          s {
+            margin: 0 0 0 1em;
+          }
+        }
+      }
+    }
+
+    .stars {
+      margin: 1em 2em;
+      .bg-stars {
+        background: $Global-red;
+        width: 100px;
+        height: 20px;
+      }
+        img {
+          width: 100px;
+          position: absolute;
+        }
+    }
+
+    &:hover {
+      box-shadow: $boxShadow;
+      cursor: pointer;
+    }
+
+    .cart-btn {
+      width: 100%;
+      height: 60px;
+      border-top: 1px solid $Global-blue;
+      // background-color: #046b8d27;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+
+      .h6 {
+        color: $Darker-blue;
+        transition: ease-in 0.1s;
+      }
+      &:hover {
+        cursor: pointer;
+        // color: $Global-red;
+        background-color: $Global-blue;
+        // border: 2px solid ;
+      }
+    }
+  }
+}
+//end card container and card
