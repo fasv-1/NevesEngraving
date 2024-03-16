@@ -27,20 +27,20 @@
 }
 
 .brd-blue {
-border: 1px solid $Brdr-blue;
-border-radius: 10px;
+  border: 1px solid $Brdr-blue;
+  border-radius: 10px;
 }
 
 .brd-grey {
-border: 1px solid #ccc;
-border-radius: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 
-.b-input {
+.l-input {
   width: 100%;
 }
 
-.mb-input {
+.ml-input {
   width: 90%;
 }
 
@@ -65,8 +65,6 @@ border-radius: 10px;
 // input container component
 .inputContainer {
   display: inline-block;
-  padding: 0.5em;
-  margin: 0 0.5em 0 0.5em;
 
   .form-label {
     margin: 0.6em 0 0.6em 0;
@@ -149,12 +147,11 @@ input[type="file"] {
   }
 }
 
-.image-cont-button{
+.image-cont-button {
   margin-top: 1em;
   display: flex;
   justify-content: center;
 }
-
 
 .images-preview {
   display: flex;
@@ -174,7 +171,6 @@ input[type="file"] {
   }
 }
 
-
 //end of style for input images
 
 //style for the main button
@@ -185,12 +181,12 @@ input[type="file"] {
   color: #fff;
   padding: 5px 20px 5px 20px;
   transition: ease-in 0.1s;
-}
-.button-save:hover {
-  cursor: pointer;
-  background-color: #b60b0b;
-  border: 3px solid $Global-red;
-  // transform: translateY(-2px);
+  &:hover {
+    cursor: pointer;
+    background-color: #b60b0b;
+    border: 3px solid $Global-red;
+    // transform: translateY(-2px);
+  }
 }
 
 //end of style for the main button

@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    <navbar-component :altroutes=true>
+        @guest
+            <a href={{ route('login') }}>Login/Signup</a>
+        @endguest
+    </navbar-component>
+    <login-component csrf_token="{{ @csrf_token() }}"></login-component>
 
-<login-component csrf_token="{{ @csrf_token() }}"></login-component>
-
-  {{-- <div class="form-cont">
+    {{-- <div class="form-cont">
     <div class="form-group">
       <form method="post" action = {{ route('login') }}>
       @csrf
@@ -13,7 +17,7 @@
 
      <button type="submit" class="button-1">Submit</button> 
       </form>
-    </div>--}}
+    </div> --}}
     {{-- <a href="{{ route('password.request')}}">Forgot your password?</a>
     {{$errors}} --}}
 @endsection

@@ -1,13 +1,13 @@
 <template>
-    <div id="dashboard">
+    <div id="profile">
         <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
-        <section id="dash-menu">
+        <section id="profile-menu">
             <div class="sticky">
                 <!----------------------------------------Generate the menu home--------------------------------------->
                 <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
-                    <div class="dash-cont-logo">
+                    <div :class="activePage == index ? 'link-cont active' : 'link-cont'">
 
-                        <a href="/profile" class="dash-logo" title="Página principal" @click.prevent="principal(index)">
+                        <a href="" class="" title="Página principal" @click.prevent="principal(index)">
                             {{ page.link.text }}
                         </a>
                     </div>
@@ -19,29 +19,32 @@
             <div class="container" v-for="(page, index) in pages" :key="index">
                 <div class="content" v-if="index == activePage">
                     <div class="title">
-                        <h4>{{ page.pageTitle }}</h4>
+                        <h3>{{ page.pageTitle }}</h3>
                     </div>
 
                     <!----------------------------------Area pessoal------------------------------------------------------->
                     <div class="fields" v-if="index == 0">
-                        <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
-                                src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
-                        <div class="field">
-                            <h6>Nome</h6>
-                            <p>{{ user.name }}</p>
+                        <div class="update-link">
+                            <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
+                                    src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
                         </div>
                         <div class="field">
-                            <h6>Email</h6>
-                            <p>{{ user.email }}</p>
+                            <p>Nome</p>
+                            <h4>{{ user.name }}</h4>
                         </div>
+                        <div class="field">
+                            <p>Email</p>
+                            <h4>{{ user.email }}</h4>
+                        </div>
+
                     </div>
 
                     <!----------------------------------Info pessoal------------------------------------------------------->
                     <div class="fields" v-if="index == 1 && userDetails.data != ''">
-                        <div v-if="userDetails.data.details == ''">
-                            <a href="" @click.prevent="updatePage(6)">Adicionar morada+</a>
+                        <div class="field" v-if="userDetails.data.details == ''">
+                            <a href="" @click.prevent="updatePage(6)"><b>Adicionar morada +</b></a>
                         </div>
-                        <div v-else>
+                        <div class="update-link" v-else>
                             <a href="" @click.prevent="updatePage(5)">
                                 <img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg"
                                     style="width:30px" alt="">
@@ -71,36 +74,16 @@
                                 <p>{{ addressInfo.codigo_postal }}</p>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <!----------------------------------Favoritos------------------------------------------------------->
                     <div class="fields" v-if="index == 2">
                         <div class="favorites">
-                            <div class="card-box">
-                                <div class="card-prd-dash" v-for="fav, index in userFavorites.data" :key="index">
-                                    <a :href="'/home/amazing_gifts/' + encrypt(fav.produto.id)">
-                                        <div class="img-area">
-                                            <div v-for="i, indexValue in  productsImages.data" :key="indexValue">
-                                                <div class="img-cont"
-                                                    v-if="i.produto_id == fav.produto.id && i.posicao == 1">
-                                                    <img class="img-prd-dash" :src="'/storage/' + i.nome" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="info-area">
-                                        <div class="info">
-                                            <h5>{{ fav.produto.meta_nome }}</h5>
-                                        </div>
-                                        <div class="buttons">
-                                            <a href="" v-if="fav.id" @click.prevent="destroy(fav.id, 'favorites')"><img
-                                                    class="delete-btn" src="/storage/images/Icons/delete.svg"
-                                                    style="width:30px" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <card-component :products=favoriteProducts :headTitle='false' :info="{
+                    nome: false, meta_nome: true, categoria: false, materia: false, quantidade: false, valor: false
+                }" :cart="true">
+                            </card-component>
                         </div>
                     </div>
 
@@ -122,9 +105,11 @@
             </div>
 
             <!----------------------------------Update Credencials------------------------------------------------------->
-            <div class="container">
-                <div class="fields" v-if="activePage == 4">
-                    <h4>Atualizar dados de registo</h4>
+            <div class="content" v-if="activePage == 4">
+                <div class="title">
+                    <h3>Atualizar dados de registo</h3>
+                </div>
+                <div class="fields">
                     <form method="patch" action="" @submit.prevent="updateCredencials($event)">
                         <div class="field">
                             <input-container id="updateName" title="Atualizar nome de usuario" help="updateName"
@@ -139,16 +124,18 @@
                                     v-model="updateEmail">
                             </input-container>
                         </div>
-                        <div class="button">
+                        <div class="field">
                             <button type="submit" class="button1">Atualizar</button>
                         </div>
                     </form>
                 </div>
             </div>
             <!----------------------------------Update Adress and Info------------------------------------------------------->
-            <div class="container">
-                <div class="fields" v-if="activePage == 5">
-                    <h4>Atualizar morada e informação do usuário</h4>
+            <div class="content" v-if="activePage == 5">
+                <div class="title">
+                    <h3>Atualizar morada e informação do usuário</h3>
+                </div>
+                <div class="fields">
                     <form method="patch" action="" @submit.prevent="updateAdress($event, addressInfo.id)">
                         <div class="field">
                             <input-container id="updateMorada1" title="Atualizar morada" help="updateMorada1"
@@ -192,7 +179,7 @@
                                     :placeHolder="addressInfo.codigo_postal" v-model="updateCodigo">
                             </input-container>
                         </div>
-                        <div class="button">
+                        <div class="field">
                             <button type="submit" class="button1">Atualizar</button>
                         </div>
                     </form>
@@ -200,43 +187,50 @@
             </div>
 
             <!----------------------------------Add new Adress and info ------------------------------------------------------->
-            <div class="container">
-                <div class="fields" v-if="activePage == 6">
-                    <h4>Adicionar morada e informação do usuário</h4>
+            <div class="content" v-if="activePage == 6">
+                <div class="title">
+                    <h3>Adicionar morada e informação do usuário</h3>
+                </div>
+                <div class="fields">
                     <form method="patch" action="" @submit.prevent="saveAdress($event)">
                         <div class="field">
                             <input-container id="Morada1" title="Morada" help="Morada1"
-                                helpText="Digite a morada de usuário">
+                                helpText="Digite a morada de usuário" size="ml-input">
                                 <input type="text" name="Morada1" aria-describedby="Morada1" v-model="Morada1" required>
                             </input-container>
                         </div>
                         <div class="field">
                             <input-container id="Morada2" title="Morada adicional" help="Morada2"
-                                helpText="Digite a morada adicional">
+                                helpText="Digite a morada adicional" size="ml-input">
                                 <input type="text" name="Morada2" aria-describedby="Morada2" v-model="Morada2" required>
                             </input-container>
                         </div>
                         <div class="field">
                             <input-container id="Telemovel" title="Contato telefónico" help="Telemovel"
-                                helpText="Digite o novo contato telefonico">
-                                <input type="text" name="Telemovel" aria-describedby="Telemovel" v-model="Telemovel">
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="Cidade" title="Cidade" help="Cidade" helpText="Digite a cidade">
-                                <input type="text" name="Cidade" aria-describedby="Cidade" required v-model="Cidade">
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="Pais" title="País" help="Pais" helpText="Digite um país">
-                                <input type="text" name="Pais" aria-describedby="Pais" required v-model="Pais">
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="Codigo" title="Código-postal" help="Codigo"
-                                helpText="Digite o seu código-postal">
-                                <input type="text" name="Codigo" aria-describedby="Codigo" required v-model="Codigo">
-                            </input-container>
+                            helpText="Digite o novo contato telefonico">
+                            <input type="text" name="Telemovel" aria-describedby="Telemovel"
+                            v-model="Telemovel">
+                        </input-container>
+                    </div>
+                    <div class="side-fields">
+                    <div class="side">
+                                <input-container id="Cidade" title="Cidade" help="Cidade" helpText="Digite a cidade">
+                                    <input type="text" name="Cidade" aria-describedby="Cidade" required
+                                        v-model="Cidade">
+                                </input-container>
+                            </div>
+                            <div class="side">
+                                <input-container id="Pais" title="País" help="Pais" helpText="Digite um país">
+                                    <input type="text" name="Pais" aria-describedby="Pais" required v-model="Pais">
+                                </input-container>
+                            </div>
+                            <div class="side">
+                                <input-container id="Codigo" title="Código-postal" help="Codigo"
+                                    helpText="Digite o seu código-postal">
+                                    <input type="text" name="Codigo" aria-describedby="Codigo" required
+                                        v-model="Codigo">
+                                </input-container>
+                            </div>
                         </div>
                         <div class="button">
                             <button type="submit" class="button1">Atualizar</button>
@@ -477,7 +471,7 @@ export default {
             axios.get(urlUserFavorites)
                 .then(response => {
                     this.userFavorites.data = response.data.favorites
-                    // console.log(response.data)
+                    console.log(response.data.favorites)
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -560,7 +554,7 @@ export default {
     mounted() {
         this.userData()
         this.getImage()
-        // console.log(this.user)
+        // console.log(this.$store.state.user)
     },
 }
 </script>

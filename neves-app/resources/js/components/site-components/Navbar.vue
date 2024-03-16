@@ -3,8 +3,10 @@
     <!---------------------------Logo link------------------------------------->
     <div class="navbar-logo" v-if="altroutes == true">
       <a href="/home">
-        <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
-        <h4><b>Neves Engraving</b></h4>
+        <div class="bg-logo">
+          <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
+        </div>
+          <h4><b>Neves Engraving</b></h4>
       </a>
     </div>
     <div class="navbar-logo" v-else>
@@ -51,6 +53,7 @@
             <path id="corpo" class="st0" d="M213.3,801.3c-2.1-43.7-4.4-92.1-6.8-145.3c-2.2-49-3-76,15.6-99c39.8-49.3,115.4-14.3,282.8-14.1
 	c171,0.2,247-36.2,288.6,14.1c18.5,22.4,19,48.4,18,100.5c-0.8,39.9-2.3,86.4-5.1,138.8" />
           </svg>
+          
           <slot></slot>
         </div>
         <!---------------------------Shopping-cart link------------------------------------->
@@ -121,21 +124,21 @@
     <div class="navbar-links" v-if="altroutes == true">
       <div class="start-links">
         <a href="/home/amazing_gifts" @click="clearStorage()">
-          <h6>AMAZING GIFTS </h6>
+          <h6><b>AMAZING GIFTS</b></h6>
         </a>
         <a href="/home/engraving" @click="clearStorage()">
-          <h6>ENGRAVING</h6>
+          <h6><b>ENGRAVING</b></h6>
         </a>
         <a href="/home/lazer_cut" @click="clearStorage()">
-          <h6>LAZER CUT</h6>
+          <h6><b>LAZER CUT</b></h6>
         </a>
       </div>
       <div class="end-links">
         <a href="/home/business_cards" @click="clearStorage()">
-          <h6>BUSINESS CARDS</h6>
+          <h6><b>BUSINESS CARDS</b></h6>
         </a>
         <a href="/home/contacts">
-          <h6>CONTACTS</h6>
+          <h6><b>CONTACTS</b></h6>
         </a>
         <a href="#searchModal" @click="clearStorage()">
           <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
@@ -151,21 +154,21 @@
     <div class="navbar-links" v-else>
       <div class="start-links">
         <router-link to="/home/amazing_gifts" @click="clearStorage()">
-          <h6>AMAZING GIFTS</h6>
+          <h6><b>AMAZING GIFTS</b></h6>
         </router-link>
         <router-link to="/home/engraving" @click="clearStorage()">
-          <h6>ENGRAVING</h6>
+          <h6><b>ENGRAVING</b></h6>
         </router-link>
         <router-link to="/home/lazer_cut" @click="clearStorage()">
-          <h6>LAZER CUT</h6>
+          <h6><b>LAZER CUT</b></h6>
         </router-link>
       </div>
       <div class="end-links">
         <router-link to="/home/business_cards" @click="clearStorage()">
-          <h6>BUSINESS CARDS</h6>
+          <h6><b>BUSINESS CARDS</b></h6>
         </router-link>
         <router-link to="/home/contacts" @click="clearStorage()">
-          <h6>CONTACTS</h6>
+          <h6><b>CONTACTS</b></h6>
         </router-link>
         <a href="#searchModal" @click="clearStorage()">
           <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"

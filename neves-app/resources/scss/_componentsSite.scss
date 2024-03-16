@@ -1,16 +1,13 @@
 //-------------------navbar-style-----------------------------
 .navbar-container {
-  // margin: 1em 0;
-
   .navbar-logo {
     position: absolute;
-    left: calc(50% - 100px);
+    left: calc(50% - 95px);
     top: 0.2em;
     a {
       display: flex;
       flex-direction: column;
       align-items: center;
-      // animation: vanish 3s ease-in-out 1;
       .bg-logo {
         display: flex;
         justify-content: center;
@@ -29,7 +26,6 @@
 
   .navbar-top {
     display: flex;
-    // width: 100%;
     justify-content: space-between;
     align-items: center;
     margin: 2em 4em 1em 4em;
@@ -80,6 +76,47 @@
           }
           #corpo {
             animation: shrink 1s 0.8s ease-in-out 1;
+          }
+        }
+        .hello {
+          &:hover #drop-profile {
+            display: block;
+          }
+          #drop-profile {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            margin-top: 0.1em;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 3px;
+
+            li {
+              padding: 1em;
+              transition: all 0.1s ease-in;
+
+              &:hover {
+                background-color: $Detail-blue;
+              }
+            }
+            .logout {
+              padding: 1em;
+              transition: all 0.1s ease-in;
+
+              &:hover {
+                background-color: $Global-red;
+                button {
+                  color: #fff;
+                }
+              }
+              button {
+                background-color: transparent;
+                border: none;
+
+                padding: 0;
+                cursor: pointer;
+              }
+            }
           }
         }
       }
@@ -137,6 +174,7 @@
     -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+    letter-spacing: -0.01cm;
 
     .end-links,
     .start-links {
@@ -211,14 +249,13 @@
   display: flex;
 }
 
-.algo {
+.menu-container {
   display: flex;
   justify-content: center;
   min-width: 20%;
 }
 
 .show-products {
-  justify-content: flex-end;
   width: 80%;
 
   .pagination {
@@ -244,14 +281,16 @@
   display: flex;
   flex-direction: column;
   // justify-content: center;
-  border: 1px solid $Brdr-grey;
+  border: 1px solid $Darker-blue;
+  box-shadow: $boxShadow;
   padding: 1em;
-  border-radius: 10px;
+  border-radius: 3px;
   position: fixed;
 
   .title-menu,
   .categorys-area,
-  .price-bar, .discount-area,
+  .price-bar,
+  .discount-area,
   .materials-area,
   .ocasions-area {
     width: 100%;
@@ -413,12 +452,31 @@
     width: 280px;
     height: 100%;
     margin: 1em;
-    // border: 1px solid $Brdr-grey;
+    // border: 1px solid $Darker-blue;
     background-color: $Bg-White;
     border-radius: 3px;
-    // padding: 0 0 1em 0;
-    display: flex;
-    flex-wrap: wrap;
+
+    .wish {
+      position: absolute;
+      margin: 1em;
+      img {
+        width: 25px;
+      }
+    }
+    .icon-cont {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      .promo-icon {
+        background-color: $Global-red;
+        padding: 0.2em;
+        border-radius: 3px;
+        color: #ffff;
+        font-weight: 600;
+        position: absolute;
+        margin: 1em;
+      }
+    }
 
     .label-area {
       display: flex;
@@ -468,19 +526,6 @@
       }
     }
 
-    .stars {
-      margin: 1em 2em;
-      .bg-stars {
-        background: $Global-red;
-        width: 100px;
-        height: 20px;
-      }
-        img {
-          width: 100px;
-          position: absolute;
-        }
-    }
-
     &:hover {
       box-shadow: $boxShadow;
       cursor: pointer;
@@ -510,4 +555,318 @@
     }
   }
 }
+
+.stars {
+  width: 100px;
+  margin: 1em 2em;
+  background-color: rgba(255, 0, 0, 0.082);
+  .bg-stars {
+    background: $Global-red;
+    width: 0;
+    height: 20px;
+  }
+  img {
+    width: 100px;
+    position: absolute;
+  }
+}
 //end card container and card
+
+//Product Page
+
+.product-info {
+  display: flex;
+  flex-wrap: wrap;
+
+  .product-header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .ranking {
+      display: flex;
+      align-items: flex-end;
+      width: 50%;
+
+      p {
+        padding: 0.9em 0;
+      }
+    }
+    .share {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      ul {
+        display: flex;
+        li {
+          display: flex;
+          align-items: center;
+          margin: 0.2em;
+        }
+      }
+    }
+  }
+  .product-images {
+    width: 50%;
+
+    .images {
+      // padding: 1em;
+      border: 2px solid $Brdr-grey;
+      border-radius: 3px;
+      overflow: hidden;
+
+      img {
+        height: 500px;
+        width: 100%;
+        object-fit: contain;
+        background-color: #f3f3f377;
+
+        transition: transform 0.6s;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+    .miniatures {
+      display: flex;
+      margin: 1em 0;
+      .min-image {
+        img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          margin: 0 0.5em;
+          border-radius: 3px;
+          opacity: 0.5;
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
+          }
+          // object-position: center;
+        }
+      }
+    }
+  }
+  .product-details {
+    width: 45%;
+    margin: 0 0 0 1em;
+
+    .price,
+    .shipping,
+    .details {
+      margin: 1em 0;
+      padding: 1em 0;
+      border-bottom: 1px solid $Darker-blue;
+
+      .promo {
+        display: flex;
+        align-items: center;
+
+        span {
+          color: $Global-red;
+          padding: 0.5em;
+          border-radius: 5px;
+          background-color: rgba(252, 160, 160, 0.212);
+          margin: 0 5em;
+        }
+      }
+    }
+  }
+}
+.product-extra {
+  margin: 7em 0;
+  .title {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    border-bottom: 2px solid $Darker-blue;
+    margin: 2em 0;
+    h3 {
+      position: absolute;
+      background-color: white;
+      padding: 0 1em 0 0;
+    }
+    .toogle-bg {
+      position: absolute;
+      right: 0;
+      margin: 0 3em 0 0;
+      background-color: white;
+      padding: 0.6em 0.5em 0.5em 0.5em;
+      border: 2px solid $Darker-blue;
+      border-radius: 5px;
+      img {
+        width: 22px;
+
+        // border: 1px solid rgba(0, 0, 0, 0.2);
+        transform-origin: 50% 50%;
+        transition: all 0.3s;
+      }
+    }
+  }
+  .description {
+    margin: 3em 2em 5em 2em;
+    h6 {
+      font-weight: 500;
+      color: #828282;
+      margin: 0.5em 0;
+    }
+  }
+}
+
+.add-reviews {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
+}
+
+.user-review {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dc415017;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.32);
+  border-radius: 5px;
+  margin: 1em 0;
+  .comentary {
+    margin: 0 1em;
+  }
+}
+
+.card-center {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  // margin-top: 5em;
+
+  .card-header {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: $Global-red;
+    margin: 2% 0 1em 0;
+  }
+  .card-body {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .form-control {
+      width: 100%;
+      padding: 0.5em 0.5em;
+      border-radius: 5px;
+    }
+
+    .button-form {
+      margin: 1em 0;
+      .btn-pass {
+        width: 100%;
+        text-align: center;
+
+        .button-login {
+          background-color: rgb(231, 243, 250);
+          padding: 0.3em 2em;
+          font-weight: bold;
+          border-radius: 5px;
+          border: 2px solid $Darker-blue;
+          // color: white;
+
+          &:hover {
+            background-color: $Darker-blue;
+            color: #fff;
+            border: 2px solid $Global-blue;
+            cursor: pointer;
+          }
+        }
+        .password-link {
+          margin: 0 0 0 1em;
+          color: $Global-red;
+          font-weight: bold;
+        }
+      }
+
+      .register-link {
+        border-top: 1px solid $Darker-blue;
+        text-align: center;
+        width: 100%;
+        margin: 1em 0;
+        padding: 1em;
+        a {
+          color: $Darker-blue;
+          font-weight: bold;
+          &:hover {
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+}
+
+.verify-card {
+  // border: 1px solid $Darker-blue;
+  // padding:2em;
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content:center;
+  height: 100vh;
+  align-items: center;
+}
+
+#profile {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  #dash-screen {
+    width: 80%;
+  }
+  #profile-menu {
+    width: 20%;
+    // background-color: #fff9f7;
+    border: 1px solid #46d1ff23;
+    border-radius: 3px;
+    margin: 0 1em;
+
+    .link-cont {
+      border-bottom: 1px solid #46d1ff23;
+      border-radius: 3px;
+
+      &:hover {
+        background-color: $DshMenuActive;
+      }
+    }
+  }
+}
+.content {
+  .fields {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 2em 0;
+
+    .update-link {
+      display: flex;
+      justify-content: flex-end;
+      width: 80%;
+
+      .edit-btn {
+        position: absolute;
+        margin: 1em 0;
+      }
+    }
+    form {
+      width: 100%;
+    }
+    .field {
+      // display: flex;
+      // flex-wrap: wrap;
+      // text-align: center;
+      width: 100%;
+      margin: 1em;
+    }
+    .button {
+      width: 100%;
+      margin: 1em 0;
+      text-align: center;
+    }
+  }
+}

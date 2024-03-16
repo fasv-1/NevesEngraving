@@ -3,11 +3,32 @@
 
   <div class="card-box">
     <div class="card-prd" v-for="value, indexValue in products" :key="indexValue">
-      <a :href="'/home/amazing_gifts/' + teste(value.id)" class="b-input">
-        <div class="label-area" v-if="headTitle">
-          <h4>{{ value.meta_nome }}</h4>
-          <h6>ID{{ value.id }}</h6>
+      <!----------------------------------Put product on the wish list-------------------------------------->
+      <div class="wish" v-if="this.$store.state.user == null">
+        <a href="/login"><img src="/storage/images/Icons/heart.png" alt="small heart"></a>
+      </div>
+      <div class="wish" v-if="this.$store.state.user != null">
+        <a href="" @click.prevent="addWish(value.id)"><img src="/storage/images/Icons/heart.png" alt="small heart"></a>
+      </div>
+      <div class="wish" v-if="userFavorites.data != ''">
+        <div v-for="favorites, index in userFavorites.data" :key="index">
+          <a href="" v-if="favorites.produto_id == value.id">
+            <img @click.prevent="removeWish(favorites.id)" src="/storage/images/Icons/full-heart.png" alt="small heart">
+          </a>
         </div>
+      </div>
+      <!----------------------------------end of wish list -------------------------------------------------->
+      <!-------------------------------------------promo------------------------------------------------------->
+
+      <div class="icon-cont" v-if="info.valor">
+        <div class="promo-icon" v-if="value.desconto.ativo == 1">
+          <p>{{ value.desconto.desconto * 100 }}%</p>
+        </div>
+      </div>
+      <!-------------------------------------------emd promo------------------------------------------------------->
+
+      <!----------------------------------product info and image -------------------------------------------------->
+      <a :href="'/home/amazing_gifts/' + teste(value.id)" class="b-input">
         <div class="img-area">
           <div v-for="i, indexValue in  productsImages.data" :key="indexValue">
             <div class="img-cont" v-if="i.produto_id == value.id && i.posicao == 1">
@@ -24,7 +45,9 @@
           <div class="discount" v-if="info.valor">
             <div v-if="value.desconto.ativo == 1">
               <h2>{{ round(value.valor - (value.valor * value.desconto.desconto)) }} €</h2>
-              <s><h6>{{ value.valor }} €</h6></s>
+              <s>
+                <h6>{{ value.valor }} €</h6>
+              </s>
 
             </div>
             <div v-if="value.desconto.ativo == 0">
@@ -38,9 +61,12 @@
           <div class="bg-stars"></div>
         </div>
       </a>
+      <!----------------------------------end of product info and image -------------------------------------------------->
+      <!----------------------------------product add to cart button -------------------------------------------------->
       <div class="cart-btn" v-if="cart">
         <h6><b>Add to cart</b></h6>
       </div>
+      <!----------------------------------end of product add to cart -------------------------------------------------->
     </div>
 
   </div>
@@ -52,9 +78,68 @@ export default {
   data() {
     return {
       productsImages: { data: [] },
+      userFavorites: { data: [] },
     }
   },
   methods: {
+    addWish(id) {
+      let url = this.$store.state.Url + 'api/user_favorites'
+
+      let formData = new FormData()
+
+      formData.append('user_id', this.$store.state.user.content)
+      formData.append('produto_id', id)
+
+      let config = {
+        headers: {
+          'Content-Type': 'x-www-form-urlencoded',
+          'Accept': 'application/json'
+        }
+      }
+
+      axios.post(url, formData, config)
+        .then(response => {
+          console.log(response)
+          this.getFavorites()
+        })
+        .catch(errors => {
+          console.log(errors)
+        })
+
+    },
+    removeWish(id) {
+      let url = this.$store.state.Url + 'api/user_favorites/' + id
+
+      let formData = new FormData();
+      formData.append('_method', 'delete')
+
+      axios.post(url, formData)
+        .then(response => {
+          console.log(response)
+          this.getFavorites()
+
+        })
+        .catch(errors => {
+          console.log(errors)
+        })
+
+    },
+    getFavorites() {
+      if (this.$store.state.user != null) {
+        let url = this.$store.state.Url + 'api/user_favorites?filtro=user_id:=:' + this.$store.state.user.content
+
+        axios.get(url)
+          .then(response => {
+            this.userFavorites.data = response.data.favorites
+            // console.log()
+          })
+          .catch(errors => {
+            console.log(errors)
+          })
+      }
+
+
+    },
     round(n) {
       let round = n.toFixed(2);
 
@@ -88,6 +173,8 @@ export default {
   },
   mounted() {
     this.getImage()
+    this.getFavorites()
+    // console.log(this.$store.state.user)
   }
 
 }

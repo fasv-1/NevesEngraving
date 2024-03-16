@@ -1,46 +1,39 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Login (Component Vue)</div>
+    <div class="card-center">
+      <div class="card-header"><h1>Login</h1></div>
 
-          <div class="card-body">
-            <form method="POST" action="" @submit.prevent="login($event)">
-              <input type="hidden" name="_token" :value="csrf_token">
-              <div class="row mb-3">
-                <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
+      <div class="card-body">
+        <form method="POST" action="" @submit.prevent="login($event)">
+          <input type="hidden" name="_token" :value="csrf_token">
 
-                <div class="col-md-6">
-                  <input id="email" type="email" class="form-control" name="email" required autocomplete="email" autofocus
-                    v-model="email">
-                </div>
-              </div>
+          <input-container id="email" title="Email" help="email" helpText="O seu email" size="l-input">
+            <input id="email" type="email" class="form-control" name="email" required autocomplete="email" autofocus
+              v-model="email">
+          </input-container>
 
-              <div class="row mb-3">
-                <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
 
-                <div class="col-md-6">
-                  <input id="password" type="password" class="form-control " name="password" required
-                    autocomplete="current-password" v-model="password">
+          <input-container id="password" title="Password" help="password" helpText="O sua password" size="l-input">
+            <input id="password" type="password" class="form-control " name="password" required
+              autocomplete="current-password" v-model="password">
+          </input-container>
 
-                </div>
-              </div>
-
-              <div class="row mb-0">
-                <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">
-                    Login
-                  </button>
-
-                  <a class="btn btn-link" href="/forgot-password">
-                    Esqueci-me da password
-                  </a>
-                </div>
-              </div>
-            </form>
+          <div class="button-form">
+            <div class="btn-pass">
+              <button type="submit" class="button-login">
+                Login
+              </button>
+              <a class="password-link" href="/forgot-password">
+                Esqueci-me da password
+              </a>
+            </div>
+            <div class="register-link">
+              <a  href="/register">
+                Ainda não estou registado 
+              </a>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -77,7 +70,6 @@ export default {
         .then((response) => {
           console.log(response)
           if (response.data.token) {
-            document.cookie = 'token=' + response.data.token 
           }
           e.target.submit()
           window.location.replace("/");

@@ -1,7 +1,7 @@
 <template>
   <div class="site-container">
 
-    <div class="algo">
+    <div class="menu-container">
       <div class="side-menu">
         <div class="categorys-area">
           <h5 class="group-title">Categorys</h5>
@@ -82,7 +82,7 @@
         <h3>Não existem produtos</h3>
       </div>
       <card-component :products=productsShownd.data :headTitle='false' :info="{
-            nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
+            nome: false, meta_nome: true, categoria: false, materia: false, quantidade: false, valor: true
           }" :cart="true"></card-component>
 
       <div class="pagination">
@@ -460,6 +460,7 @@ export default {
   mounted() {
     this.getData()
     this.localStorage()
+    
   }
 }
 </script>

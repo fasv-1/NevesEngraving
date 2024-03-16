@@ -9,7 +9,6 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 
-
 //-----------------Vuex----------------------------------------------------------------
 
 import { createStore } from 'vuex'
@@ -18,8 +17,12 @@ const store = createStore({
   state() {
     return {
       item: {},
+
       transaction: { status: '', message: '' },
-      Url: 'http://127.0.0.1:8000/'
+
+      Url: 'http://127.0.0.1:8000/',
+      
+      user: document.querySelector("meta[name='user-id']"),
     }
   }
 })
@@ -42,7 +45,7 @@ const routes = [
     component: Profile,
     name: 'Profile',
     meta: {
-      breadcrumb: 'Profile'
+      breadcrumb: 'profile'
     },
     props:true
   },
