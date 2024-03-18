@@ -134,7 +134,7 @@ const routes = [
     name: 'produto',
     component: ProductPage,
     props: (route) => {
-      const id = atob(route.params.id);
+      const id = route.params.id;
       return { id }
     }
   },

@@ -6,7 +6,7 @@
       <h2 class="titulo1">{{ product.data.nome }}</h2>
       <div>
         <a href="#updateProductModal"><img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
-        <a href="#deleteProductModal"><img class="delete-btn" src="/storage/images/Icons/delete.svg" alt=""></a>
+        <a href="#deleteProductModal"><img class="delete-btn" src="/storage/images/Icons/delete.svg" style="width:40px" alt=""></a>
       </div>
     </div>
     <!---------------------------- End of Product name and meta-name ------------------------>
@@ -51,7 +51,7 @@
     <!----------------------------------- End of product input main image ------------------------------->
 
     <!----------------------------------- Product info --------------------------------------------------->
-    <div class="product-info">
+    <div class="product-information">
       <div class="sub-title">
         <h3 class="titulo2">{{ product.data.meta_nome }}</h3>
       </div>
@@ -103,20 +103,25 @@
           <label for="descrição">
             <h6>Descrição</h6>
           </label>
-          <p>{{ product.data.descricao }}</p>
+          <h4>{{ product.data.descricao }}</h4>
         </div>
-        <div>
-          <label for="detalhes">
-            <h6>Detalhes do produto:</h6>
-          </label>
-          <ul>
-            <li v-for="detail, index in details.data" :key="index">
-              <p>- {{ detail.descricao }}</p>
+        <div class="details-area">
+          <div class="space-between mrgvert1">
+            <label for="detalhes">
+              <h6>Detalhes do produto:</h6>
+            </label>
+            <a href="#addDetailsModal">
+              <h6><b>Adicionar detalhes +</b></h6>
+            </a>
+          </div>
+          <ul >
+            <li  class="space-between marginMinvert" v-for="detail, index in details.data" :key="index">
+              <h4>- {{ detail.descricao }}</h4>
               <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
                   src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
             </li>
           </ul>
-          <a href="#addDetailsModal">Adicionar detalhes +</a>
+
         </div>
       </div>
       <div class="info-area">
@@ -244,7 +249,7 @@
 
           <div class="input-form-names">
             <input-container id="description" title="Descrição do produto" help="descriptionHelp"
-              helpText="Descrição do produto" size="mb-input">
+              helpText="Descrição do produto" size="ml-input">
               <textarea name="description" aria-describedby="description" :placeholder="product.data.descricao"
                 v-model="updateProduct.description">
             </textarea>
@@ -255,12 +260,12 @@
             <input-container id="quantity" title="Quantidade do produto" help="quantityHelp"
               helpText="Quantidade deste produto que pretende adicionar">
               <input type="number" name="quantity" aria-describedby="quantity" :placeholder="product.data.quantidade"
-                v-model="updateProduct.quantity" class="small-field">
+                v-model="updateProduct.quantity" class="s-input">
             </input-container>
 
             <input-container id="price" title="Preço do produto " help="priceHelp"
               helpText="Preço do produto (sem taxas, nem descontos)">
-              <input type="number" name="price" aria-describedby="price" class="small-field"
+              <input type="number" name="price" aria-describedby="price" class="s-input"
                 :placeholder="product.data.valor" v-model="updateProduct.price">
             </input-container>
           </div>
@@ -305,7 +310,7 @@
       </template>
       <template v-slot:content>
         <input-container id="descricao" title="Detalhe " help="descricao"
-          helpText="Descrição do detalhe como irá aparecer em publico">
+          helpText="Descrição do detalhe como irá aparecer em publico" size="ml-input">
           <textarea name="descricao" aria-describedby="descricao" v-model="addDetail"></textarea>
         </input-container>
       </template>
@@ -328,7 +333,7 @@ export default {
   props: {
     id: {
       required: true,
-      type: String,
+      type: Number,
     }
   },
   data() {
@@ -444,7 +449,6 @@ export default {
           this.addDetail = ''
           this.loadDetails()
           history.back()
-          alert(response.data.msg)
         })
         .catch(errors => {
           this.$store.state.transaction.status = 'error-add'
@@ -610,7 +614,6 @@ export default {
           .then(response => {
             this.$store.state.transaction.status = 'removed'
             this.$store.state.transaction.message = response.data.msg
-            alert(response.data.msg)
             this.mainImage = []
             this.getProductImages()
           })

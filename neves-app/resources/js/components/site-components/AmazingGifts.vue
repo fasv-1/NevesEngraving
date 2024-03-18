@@ -77,6 +77,14 @@
       </div>
     </div>
     <div class="show-products">
+      <select name="orderby" id="orderby" @change="orderBy()" v-model="order">
+        <option value="" disabled>Order By</option>
+        <option value="valorAsc">Price asc</option>
+        <option value="valorDesc">Price desc</option>
+        <option value="nomeAsc">Name asc</option>
+        <option value="nomeDesc">Name desc</option>
+        <option value="adicao">Added recently</option>
+      </select>
       <h3>Gifts</h3>
       <div v-if="productsShownd.data == ''">
         <h3>Não existem produtos</h3>
@@ -121,9 +129,13 @@ export default {
       active: '',
       pagination: [],
       linkcliked: '',
+      order:'',
     }
   },
   methods: {
+    orderBy(){
+      console.log(this.order)
+    },
     toogle(c) {
       //if the id have the same value of the index of menu
       if (this.id == c) {

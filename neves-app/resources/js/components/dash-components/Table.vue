@@ -22,7 +22,7 @@
               </span>
             </td>
             <td v-if="view.visible || update || remove">
-              <a :href="view.dataTarget"><button class="btn-view" v-if="view.visible"
+              <a :href="view.dataTarget + obj.id"><button class="btn-view" v-if="view.visible"
                   @click="setState(obj)">Visualizar</button></a>
               <a :href="update.dataTarget"><button class="btn-update" v-if="update.visible"
                   @click="setState(obj)">Atualizar</button></a>

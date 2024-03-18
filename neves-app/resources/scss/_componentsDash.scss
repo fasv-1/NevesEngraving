@@ -68,7 +68,7 @@
 
 //style for the table container
 .table-container {
-  border-radius: 20px;
+  border-radius: 3px;
   background-color: #fff;
   border: 1px solid $Global-red;
   padding: 0.5em;
@@ -102,7 +102,7 @@
     display: flex;
     justify-content: space-between;
     background-color: #1f6f8a48;
-    border-radius: 10px;
+    border-radius: 3pxpx;
     padding: 1em;
     grid-area: header;
 
@@ -110,34 +110,33 @@
       margin: 0 0.5em 0 0.5em;
       width: 40px;
       height: 40px;
-      border-radius: 10px;
+      border-radius: 3px;
       transition: 0.2s ease-in;
       &:hover {
         background-color: $Darker-blue;
       }
     }
-    .delete-btn {
-      margin: 0 0.5em 0 0.5em;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      transition: 0.2s ease-in;
-      &:hover {
-        background-color: $Global-red;
-      }
+  }
+
+  .delete-btn {
+    margin: 0 0.5em 0 0.5em;
+    border-radius: 3px;
+    transition: 0.2s ease-in;
+    &:hover {
+      background-color: $Global-red;
     }
   }
   .input-form-image {
     background-color: #1f6f8a28;
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1em;
     grid-area: image;
     display: flex;
     flex-direction: column;
   }
-  .product-info {
+  .product-information {
     background-color: #1f6f8a1a;
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1em;
     grid-area: info;
 
@@ -154,14 +153,18 @@
   }
   .product-images {
     background-color: #1f6f8a10;
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1em;
     grid-area: images;
   }
   .input-product-images {
     background-color: #1f6f8a07;
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1em;
     grid-area: footer;
+  }
+
+  .details-area {
+    border-top: 1px solid #ccc;
   }
 }

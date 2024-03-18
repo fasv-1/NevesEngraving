@@ -58,7 +58,7 @@
         </div>
         <div class="stars">
           <img src="/storage/images/Icons/5-stars.png" alt="5stars">
-          <div class="bg-stars"></div>
+          <div class="bg-stars" :style="'width:' + reviewCalc(value.id) + 'px'"></div>
         </div>
       </a>
       <!----------------------------------end of product info and image -------------------------------------------------->
@@ -68,7 +68,6 @@
       </div>
       <!----------------------------------end of product add to cart -------------------------------------------------->
     </div>
-
   </div>
 </template>
 
@@ -79,6 +78,7 @@ export default {
     return {
       productsImages: { data: [] },
       userFavorites: { data: [] },
+      reviews:{ data: [] },
     }
   },
   methods: {
@@ -138,7 +138,6 @@ export default {
           })
       }
 
-
     },
     round(n) {
       let round = n.toFixed(2);
@@ -153,6 +152,39 @@ export default {
       // });
 
       return idEncode
+    },
+    reviewCalc(id){
+      let reviews = []
+      let sum = 0
+
+      let rating = ''
+
+      this.reviews.data.forEach(element => {
+        if(element.produto_id == id && element.rating){
+          reviews.push(element.rating)
+        }
+      })
+
+      reviews.forEach(e => {
+        sum += e
+      })
+
+      rating = Math.round(((sum / reviews.length) * 100) / 5)
+
+      return rating
+
+    },
+    getReviews(){
+      let urlReviews = this.$store.state.Url + 'api/user_reviews'
+
+      axios.get(urlReviews)
+        .then(response => {
+          this.reviews.data = response.data.review
+          // console.log()
+        })
+        .catch(errors => {
+          console.log(errors)
+        })
     },
     erraserror() {
       this.$store.state.transaction.status = '';
@@ -174,6 +206,7 @@ export default {
   mounted() {
     this.getImage()
     this.getFavorites()
+    this.getReviews()
     // console.log(this.$store.state.user)
   }
 

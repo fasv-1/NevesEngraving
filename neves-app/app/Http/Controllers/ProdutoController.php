@@ -35,7 +35,7 @@ class ProdutoController extends Controller
         } else{
             $product = $product;
         }
-
+        
         if ($request->has('filtro')) {
             $conditions = explode(':', $request->filtro);
             $product = $product->where($conditions[0], $conditions[1], $conditions[2]);
@@ -44,6 +44,13 @@ class ProdutoController extends Controller
                 $product = $product->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
             }
         } else {
+            $product = $product;
+        }
+
+        if($request->has('orderby')){
+            $values = explode(':', $request->orderby);
+            $product = $this->produto->orderBy($values[0], $values[1]);
+        } else{
             $product = $product;
         }
 
