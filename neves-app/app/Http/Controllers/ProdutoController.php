@@ -49,7 +49,7 @@ class ProdutoController extends Controller
 
         if($request->has('orderby')){
             $values = explode(':', $request->orderby);
-            $product = $this->produto->orderBy($values[0], $values[1]);
+            $product = $product->orderBy($values[0], $values[1]);
         } else{
             $product = $product;
         }

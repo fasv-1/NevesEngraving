@@ -5,7 +5,7 @@
       <div class="side-menu">
         <div class="categorys-area">
           <h5 class="group-title">Categorys</h5>
-          <a class="category" :class="'all' == linkcliked ? 'high-link' : ''" href="#"
+          <a class="category" :class="'All' == linkcliked ? 'high-link' : ''" href="#"
             @click.prevent="getProducts()">All</a>
           <div class="category" v-for="category, index in dinamycCategories" :key="index">
             <a href="#" :class="category == linkcliked ? 'high-link' : ''" @click.prevent="categoryFilter(category)">{{
@@ -77,16 +77,19 @@
       </div>
     </div>
     <div class="show-products">
-      <select name="orderby" id="orderby" @change="orderBy()" v-model="order">
-        <option value="" disabled>Order By</option>
-        <option value="valorAsc">Price asc</option>
-        <option value="valorDesc">Price desc</option>
-        <option value="nomeAsc">Name asc</option>
-        <option value="nomeDesc">Name desc</option>
-        <option value="adicao">Added recently</option>
-      </select>
-      <h3>Gifts</h3>
-      <div v-if="productsShownd.data == ''">
+      <div class="show-header">
+        <h3>{{ linkcliked }}</h3>
+        <select name="orderby" id="orderby" @change="orderBy()" v-model="order">
+          <option value="" disabled>Order By</option>
+          <option value="valor:asc">Price asc</option>
+          <option value="valor:desc">Price desc</option>
+          <option value="nome:asc">Name asc</option>
+          <option value="nome:desc">Name desc</option>
+          <option value="created_at:desc">Added recently</option>
+        </select>
+        
+      </div>
+      <div class="no-products" v-if="productsShownd.data == ''">
         <h3>Não existem produtos</h3>
       </div>
       <card-component :products=productsShownd.data :headTitle='false' :info="{
@@ -128,13 +131,17 @@ export default {
       id: '',
       active: '',
       pagination: [],
-      linkcliked: '',
-      order:'',
+      linkcliked: 'All',
+      order: '',
     }
   },
   methods: {
-    orderBy(){
-      console.log(this.order)
+    orderBy() {
+      let orderBy = this.order
+
+      localStorage.setItem('order', orderBy)
+
+      this.localStorage()
     },
     toogle(c) {
       //if the id have the same value of the index of menu
@@ -170,17 +177,20 @@ export default {
         return categoryId
       })
 
-      this.linkcliked = i
+      // this.linkcliked = i
 
       localStorage.setItem('category', categoryId)
+      localStorage.setItem('linkcliked', i)
 
       this.localStorage()
     },
 
     materialFilter(i, e) {
       localStorage.clear()
-      this.linkcliked = e
+      // this.linkcliked = e
       let materialId = i
+
+      localStorage.setItem('linkcliked', e)
 
       localStorage.setItem('material', materialId)
 
@@ -189,8 +199,10 @@ export default {
 
     discountFilter(i, e) {
       localStorage.clear()
-      this.linkcliked = e
+      // this.linkcliked = e
       let discountId = i
+
+      localStorage.setItem('linkcliked', e)
 
       localStorage.setItem('discount', discountId)
 
@@ -199,7 +211,8 @@ export default {
 
     ocasionFilter(i) {
       localStorage.clear()
-      this.linkcliked = i
+      // this.linkcliked = i
+      localStorage.setItem('linkcliked', i)
       let ocasionId = ''
       this.ocasions.data.forEach(element => {
         if (i == element.nome) {
@@ -216,7 +229,9 @@ export default {
     ocasionCategoryFilter(i, e) {
       localStorage.clear()
 
-      this.linkcliked = i + '/' + e
+      // this.linkcliked = i + '/' + e
+      // this.linkcliked = i + '/' + e
+      localStorage.setItem('linkcliked', i + '/' + e)
 
       let categoryId = ''
       this.categorys.data.forEach(element => {
@@ -243,7 +258,7 @@ export default {
     getProducts() {
       localStorage.clear()
 
-      this.linkcliked = 'all'
+      this.linkcliked = 'All'
 
       if (this.priceRange != '0') {
 
@@ -317,6 +332,8 @@ export default {
       let minValue = localStorage.getItem("minValue");
       let maxValue = localStorage.getItem("maxValue");
       let desconto = localStorage.getItem("discount");
+      let order = localStorage.getItem("order");
+      let linkcliked = localStorage.getItem("linkcliked");
 
       let urlProducts = this.baseUrl + 'produto?page=1'
 
@@ -326,73 +343,130 @@ export default {
       }
 
       //gets the products only filtred by the price-bar 
-      if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue != null && material == null) {
+      if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue != null && material == null && order == null) {
 
         urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         this.priceRange = maxValue
+      }
+
+      //gets the products only filtred by order
+      if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue == null && material == null && order != null) {
+
+        urlProducts = urlProducts + '&orderby=' + order
 
       }
 
       //gets the products filtred by material, and if is set, price-bar
       if (material != null) {
+        this.linkcliked = linkcliked 
         urlProducts = urlProducts + '&filtro=materia_prima_id:=:' + material
 
         if (this.priceRange != '0') {
           urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          localStorage.setItem('maxValue', this.priceRange)
         }
+
         if (maxValue != null && this.priceRange == '0') {
           this.priceRange = maxValue
           urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
+        if (this.order != '') {
+          urlProducts = urlProducts + '&orderby=' + this.order
+          localStorage.setItem('order', this.order)
+        }
+
+        if (this.order == '' && order != null) {
+          urlProducts = urlProducts + '&orderby=' + order
+          this.order = order
         }
       }
       //gets the products filtred by material, and if is set, price-bar
       if (desconto != null) {
+        this.linkcliked = linkcliked 
         urlProducts = urlProducts + '&filtro=desconto_id:=:' + desconto
 
         if (this.priceRange != '0') {
           urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          localStorage.setItem('maxValue', this.priceRange)
         }
+
         if (maxValue != null && this.priceRange == '0') {
           this.priceRange = maxValue
           urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
+        if (this.order != '') {
+          urlProducts = urlProducts + '&orderby=' + this.order
+          localStorage.setItem('order', this.order)
+        }
+
+        if (this.order == '' && order != null) {
+          urlProducts = urlProducts + '&orderby=' + order
+          this.order = order
         }
       }
 
       //gets the products filtred by category, and if is set, price-bar
       if (categoria != null) {
+        this.linkcliked = linkcliked 
         urlProducts = urlProducts + '&filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
 
         if (this.priceRange != '0') {
           urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          localStorage.setItem('maxValue', this.priceRange)
         }
+
         if (maxValue != null && this.priceRange == '0') {
           this.priceRange = maxValue
           urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
+        if (this.order != '') {
+          urlProducts = urlProducts + '&orderby=' + this.order
+          localStorage.setItem('order', this.order)
+        }
+
+        if (this.order == '' && order != null) {
+          urlProducts = urlProducts + '&orderby=' + order
+          this.order = order
         }
       }
 
       //gets the products filtred by ocasion, and if is set, price-bar
       if (ocasiao != null) {
-
+        this.linkcliked = linkcliked 
         urlProducts = urlProducts + '&filtro=ocasioes_id:=:' + ocasiao
 
         if (this.priceRange != '0') {
           urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          localStorage.setItem('maxValue', this.priceRange)
         }
 
         if (maxValue != null && this.priceRange == '0') {
           this.priceRange = maxValue
           urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
+        }
+
+        if (this.order != '') {
+          urlProducts = urlProducts + '&orderby=' + this.order
+          localStorage.setItem('order', this.order)
+        }
+
+        if (this.order == '' && order != null) {
+          urlProducts = urlProducts + '&orderby=' + order
+          this.order = order
         }
       }
 
       //gets the products filtred by category ocasion, and if is set, price-bar
       if (ocasiaoCategoria != null) {
-
+        this.linkcliked = linkcliked 
         urlProducts = urlProducts + '&filtro=categoria_id:=:' + ocasiaoCategoria + ':ocasioes_id:=:' + ocasiaodaCategoria
 
         if (this.priceRange != '0') {
           urlProducts = urlProducts + '&intervalo=valor:' + this.getPrice.minimo + ':' + this.priceRange
+          localStorage.setItem('maxValue', this.priceRange)
         }
 
         if (maxValue != null && this.priceRange == '0') {
@@ -400,7 +474,19 @@ export default {
           urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
         }
 
+        if (this.order != '') {
+          urlProducts = urlProducts + '&orderby=' + this.order
+          localStorage.setItem('order', this.order)
+        }
+
+        if (this.order == '' && order != null) {
+          urlProducts = urlProducts + '&orderby=' + order
+          this.order = order
+        }
+
       }
+
+      console.log(urlProducts)
 
 
       //gets the products and sets the pagination
@@ -472,7 +558,7 @@ export default {
   mounted() {
     this.getData()
     this.localStorage()
-    
+
   }
 }
 </script>

@@ -6,7 +6,7 @@
         <div class="bg-logo">
           <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
         </div>
-          <h4><b>Neves Engraving</b></h4>
+        <h4><b>Neves Engraving</b></h4>
       </a>
     </div>
     <div class="navbar-logo" v-else>
@@ -53,7 +53,7 @@
             <path id="corpo" class="st0" d="M213.3,801.3c-2.1-43.7-4.4-92.1-6.8-145.3c-2.2-49-3-76,15.6-99c39.8-49.3,115.4-14.3,282.8-14.1
 	c171,0.2,247-36.2,288.6,14.1c18.5,22.4,19,48.4,18,100.5c-0.8,39.9-2.3,86.4-5.1,138.8" />
           </svg>
-          
+
           <slot></slot>
         </div>
         <!---------------------------Shopping-cart link------------------------------------->
@@ -141,7 +141,7 @@
           <h6><b>CONTACTS</b></h6>
         </a>
         <a href="#searchModal" @click="clearStorage()">
-          <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
+          <svg class="mag-glass" x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
             xml:space="preserve">
             <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7
 	C218,338.3,308.8,247,419,247C529.1,247,620,338.3,620,452.7z" />
@@ -171,7 +171,7 @@
           <h6><b>CONTACTS</b></h6>
         </router-link>
         <a href="#searchModal" @click="clearStorage()">
-          <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
+          <svg class="mag-glass" x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
             xml:space="preserve">
             <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7
 	C218,338.3,308.8,247,419,247C529.1,247,620,338.3,620,452.7z" />
@@ -185,7 +185,7 @@
 
   <modal-component id="searchModal" title="O que procuras em especifico?">
     <template v-slot:content>
-      <input type="text" name="search" aria-describedby="search">
+        <input type="text" name="search" aria-describedby="search" >
     </template>
 
     <template v-slot:footer>

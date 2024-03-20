@@ -153,3 +153,99 @@ margin: 0 1em;
     }
   }
 }
+
+//style for modal inputs
+.modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.74);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  &:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  & > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // padding: 2em;
+    // background: white;
+    border-radius: 10px;
+  }
+  .modal-header {
+    display: flex;
+    margin: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: 1px solid $Darker-blue;
+    padding: 2em 4em;
+    background-color: $Global-blue;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em 2em;
+    background-color: white;
+  }
+  .modal-footer {
+    padding: 0.5em;
+    display: flex;
+    justify-content: center;
+    padding: 2em 2em;
+    border-top: 1px solid $Darker-blue;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: $Global-blue;
+  }
+}
+
+.select-options {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.x-close {
+  color: #aaa;
+  margin: 1em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  &:hover {
+    color: $Darker-blue;
+  }
+}
+
+.active {
+  display: block;
+}
+
+.alerts {
+  background-color: $DshMenuActive;
+}
+.alert-success {
+  display: inline-block;
+  margin: 1em;
+  color: rgb(0, 156, 0);
+}
+
+.alert-danger {
+  display: inline-block;
+  margin: 1em;
+  p {
+    font-weight: bold;
+    color: #db0000;
+  }
+}
+
+//end of style modal inputs
