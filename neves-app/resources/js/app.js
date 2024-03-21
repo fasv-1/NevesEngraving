@@ -149,10 +149,10 @@ const routes = [
   { path: '/dashboard/estatisticas/lucros', component: example },
   { path: '/dashboard/estatisticas/encomendas', component: example },
   { path: '/dashboard/estatisticas/logs', component: example },
-  { path: '/dashboard/clientes', component: example },
-  { path: '/dashboard/clientes/mensagens', component: example },
-  { path: '/dashboard/clientes/pedidos', component: example },
-  { path: '/dashboard/clientes/avaliacoes', component: example },
+  { path: '/dashboard/users', component: Users },
+  { path: '/dashboard/users/mensagens', component: example },
+  { path: '/dashboard/users/pedidos', component: example },
+  { path: '/dashboard/users/avaliacoes', component: example },
   { path: '/dashboard/defenicoes', component: example },
   { path: '/dashboard/defenicoes/cores', component: example },
   { path: '/dashboard/defenicoes/letra', component: example },
@@ -184,8 +184,8 @@ app.component('example', example);
 import Dashboard from './components/Dashboard.vue';
 app.component('dashboard-component', Dashboard);
 
-import Content from './components/dash-components/Content.vue';
-app.component('content-component', Content);
+import Users from './components/dash-components/Users/Users.vue';
+app.component('users-component', Users);
 
 import Products from './components/dash-components/Product/Products.vue';
 app.component('products', Products);

@@ -9,7 +9,8 @@ class DashboardController extends Controller
 {
     public function __construct()
 {
-    $this->middleware(['role:Admin']);
+    $this->middleware(['role:Super-Admin|Admin']);
+    // $this->middleware(['role:Super-Admin']);
 }
     public function index()
     {

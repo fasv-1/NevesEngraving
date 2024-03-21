@@ -141,21 +141,21 @@ export default {
           ],
         },
         {
-          link: { text: 'Clientes', url: '/dashboard/clientes' },
-          pageTitle: "Clientes",
+          link: { text: 'Usuários', url: '/dashboard/users' },
+          pageTitle: "Usuários",
           content: 'Conteudo de Clientes',
           options: [
             {
               info: 'Mensagens',
-              url: '/dashboard/clientes/mensagens'
+              url: '/dashboard/users/mensagens'
             },
             {
               info: 'Pedidos',
-              url: '/dashboard/clientes/pedidos'
+              url: '/dashboard/users/pedidos'
             },
             {
               info: 'Avaliações',
-              url: '/dashboard/clientes/avaliacoes'
+              url: '/dashboard/users/avaliacoes'
             }
           ],
         },

@@ -60,4 +60,7 @@ Route::middleware('auth:sanctum', 'ability:Profile-acess,App-manage')->group(fun
 
 
 Route::get('user', [UserController::class, 'index'])->name('users');
+Route::patch('user/{id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
 Route::resource('roles', RoleController::class);

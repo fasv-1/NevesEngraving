@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware(['role:Dev']);
+        // $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);
+        // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
+        // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -33,6 +41,46 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        // Admin permissions
+        // $permissions = [
+        //     'profile',
+        //     'user-list',
+        //     'dashboard-list',
+        //     'dashboard-create',
+        //     'dashboard-edit',
+        //     'product-list',
+        //     'product-create',
+        //     'product-edit',
+        //     'product-delete'
+        // ];
+        // Super-Admin permissions
+        // $permissions = [
+        //     'role-list',
+        //     'role-create',
+        //     'role-edit',
+        //     'role-delete',
+        //     'product-list',
+        //     'product-create',
+        //     'product-edit',
+        //     'product-delete',
+        //     'profile',
+        //     'user-list',
+        //     'user-create',
+        //     'user-edit',
+        //     'user-delete',
+        //     'dashboard-list',
+        //     'dashboard-create',
+        //     'dashboard-edit',
+        //     'dashboard-delete',
+        // ];
+        // User permissions
+        // $permissions = [
+        //     'profile',
+        //     'user-create',
+        //     'user-edit',
+        //     'user-delete',
+        // ];
+
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
@@ -40,10 +88,12 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->input('name')]);
         $permission = Permission::create(['name' => $request->input('permission')]);
+
+
         $role->syncPermissions($permission);
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+        // $role->syncPermissions($permissions);
+        return response()->json(['msg' => 'Roles and permissions added successfully']);
     }
 
     /**
@@ -57,7 +107,7 @@ class RoleController extends Controller
             ->get();
 
         // return view('roles.show', compact('role', 'rolePermissions'));
-        return response()->json(['role'=>$role,'permission' => $rolePermissions]);
+        return response()->json(['role' => $role, 'permission' => $rolePermissions]);
     }
 
     /**
@@ -88,10 +138,11 @@ class RoleController extends Controller
         $role->name = $request->input('name');
         $role->save();
 
-        $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+        $role->syncPermissions($request->input('permission'));
+        // $role->syncPermissions($permissions);
+
+        return response()->json(['msg' => 'Roles and permissions added successfully']);
     }
 
     /**
@@ -101,7 +152,7 @@ class RoleController extends Controller
     {
         DB::table("roles")->where('id', $id)->delete();
         // return redirect()->route('roles.index')
-            // ->with('success', 'Role deleted successfully');
-            return (['success' => 'Role deleted successfully']);
+        // ->with('success', 'Role deleted successfully');
+        return (['success' => 'Role deleted successfully']);
     }
 }

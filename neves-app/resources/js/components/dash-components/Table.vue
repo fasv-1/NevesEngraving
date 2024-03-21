@@ -17,8 +17,8 @@
               <span v-if="titles[indexValue].type == 'text'">{{ value }}</span>
               <span v-if="titles[indexValue].type == 'status'">{{ value == 1 ? 'ativo' : 'inativo' && value == 3 ? 'original': 'inativo'}}</span>
               <span v-if="titles[indexValue].type == 'date'"> {{ $filters.formatDateTime(value) }}</span>
-              <span v-if="titles[indexValue].type == 'image'">
-                <img :src="'/storage/' + value" alt="imagem">
+              <span v-if="titles[indexValue].type == 'data'">
+                <p v-for="v in value">{{ v.name }}</p>
               </span>
             </td>
             <td v-if="view.visible || update || remove">
