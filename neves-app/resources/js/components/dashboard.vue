@@ -67,6 +67,12 @@
 
 <script>
 export default {
+  props: {
+        token: {
+            type: String,
+            required: true
+        }
+    },
   data() {
     return {
       activePage: 0, //set the value of the principal pages
@@ -141,9 +147,9 @@ export default {
           ],
         },
         {
-          link: { text: 'Usuários', url: '/dashboard/users' },
-          pageTitle: "Usuários",
-          content: 'Conteudo de Clientes',
+          link: { text: 'Utilizadores', url: '/dashboard/users' },
+          pageTitle: "Utilizadores",
+          content: 'Conteudo de utilizadores',
           options: [
             {
               info: 'Mensagens',
@@ -154,8 +160,8 @@ export default {
               url: '/dashboard/users/pedidos'
             },
             {
-              info: 'Avaliações',
-              url: '/dashboard/users/avaliacoes'
+              info: 'Gerir',
+              url: '/dashboard/users/gestao'
             }
           ],
         },
@@ -201,8 +207,15 @@ export default {
       this.activeLink = x; //gives the name of the option selected
       this.activePage = this.id; //gives the same value of the arrow clicked to check if the option selected matches 
       this.selectedLink = y;// gives the index value of the option selected to compare with the menu open
-    }
+    },
+
+    key(){
+      this.$store.state.token = this.token
+    },
 
   },
+  mounted(){
+    this.key()
+  }
 }
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\HasApiTokens;
 
 class DashboardController extends Controller
 {
@@ -16,10 +17,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->status == 5) {
-            return view('dashboard');
-        } else {
-            return redirect('/');
-        }
+        $tokenResult = $user->createToken('Personal Access Token', ['App-manage']);
+
+        $token = $tokenResult->plainTextToken;
+
+        return view('dashboard', compact('token'));
+
     }
 }

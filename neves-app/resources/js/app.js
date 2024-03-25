@@ -23,6 +23,8 @@ const store = createStore({
       Url: 'http://127.0.0.1:8000/',
       
       user: document.querySelector("meta[name='user-id']"),
+
+      token: '',
     }
   }
 })
@@ -152,7 +154,7 @@ const routes = [
   { path: '/dashboard/users', component: Users },
   { path: '/dashboard/users/mensagens', component: example },
   { path: '/dashboard/users/pedidos', component: example },
-  { path: '/dashboard/users/avaliacoes', component: example },
+  { path: '/dashboard/users/gestao', component: Gestao },
   { path: '/dashboard/defenicoes', component: example },
   { path: '/dashboard/defenicoes/cores', component: example },
   { path: '/dashboard/defenicoes/letra', component: example },
@@ -181,11 +183,23 @@ app.component('register-component', register)
 import example from './components/example.vue';
 app.component('example', example);
 
+import Pie from './components/dash-components/Charts/Pie.vue';
+app.component('pie-component', Pie);
+
+import Line from './components/dash-components/Charts/Line.vue';
+app.component('line-component', Line);
+
+import Bar from './components/dash-components/Charts/Bar.vue';
+app.component('bar-component', Bar);
+
 import Dashboard from './components/Dashboard.vue';
 app.component('dashboard-component', Dashboard);
 
 import Users from './components/dash-components/Users/Users.vue';
 app.component('users-component', Users);
+
+import Gestao from './components/dash-components/Users/Gestao.vue';
+app.component('gestao-component', Gestao);
 
 import Products from './components/dash-components/Product/Products.vue';
 app.component('products', Products);

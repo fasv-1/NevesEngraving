@@ -58,7 +58,7 @@
           id: { title: 'ID', type: 'text' },
           nome: { title: 'Nome', type: 'text' },
           created_at: { title: 'Data de criação', type: 'date' },
-        }">
+        }" :images = "mainImage.data">
       </table-component>
 
   <!--Modal to add new products-->
@@ -110,12 +110,23 @@
               <option v-for="d in discounts.data " :key="d.id" :value="d.id">{{ d.nome }}</option>
             </select>
           </input-container>
+          
+          <input-container id="customization" title="Costumização" help="customizationtHelp" helpText="Escolha um tipo de costumização">
+            <select name="customization" v-model="newProduct.customization" required>
+              <option value="" disabled>Escolhe uma</option>
+              <option value= "0">Sem costumização</option>
+              <option value= "1">Cor</option>
+              <option value= "2">Texto</option>
+              <option value= "3">Cor e Texto</option>
+              <option value= "4">Várias</option>
+            </select>
+          </input-container>
 
-          <input-container id="customization" title="Costumização" help="costumizationHelp"
+          <!-- <input-container id="customization" title="Costumização" help="costumizationHelp"
             helpText="Caso seja possível costumizar">
             <input type="checkbox" name="customization" class="form-checkbox" aria-describedby="customization"
               v-model="newProduct.customization">
-          </input-container>
+          </input-container> -->
         </div>
 
         <div class="input-form-names">
@@ -128,14 +139,14 @@
 
         <div class="select-options">
           <input-container id="quantity" title="Quantidade do produto" help="quantityHelp"
-            helpText="Quantidade deste produto que pretende adicionar">
+            helpText="Quantidade deste produto que pretende adicionar" >
             <input type="number" name="quantity" aria-describedby="quantity" v-model="newProduct.quantity"
-              class="small-field">
+              class="s-input">
           </input-container>
 
           <input-container id="price" title="Preço do produto " help="priceHelp"
-            helpText="Preço do produto (sem taxas, nem descontos)">
-            <input type="number" name="price" aria-describedby="price" v-model="newProduct.price" class="small-field">
+            helpText="Preço do produto (sem taxas, nem descontos)" >
+            <input type="number" name="price" aria-describedby="price" v-model="newProduct.price" class="s-input">
           </input-container>
         </div>
       </div>
@@ -161,7 +172,7 @@ export default {
         ocasion: '',
         material: '',
         discount: '',
-        customization: false,
+        customization: '',
         description: '',
         quantity: '',
         price: '',
@@ -296,12 +307,6 @@ export default {
     save() {
       let url = this.urlBase + 'produto';
 
-      if (this.newProduct.customization == true) {
-        this.newProduct.customization = 1
-      } else {
-        this.newProduct.customization = 0
-      }
-
       let formData = new FormData();
 
       formData.append('nome', this.newProduct.name);
@@ -314,6 +319,7 @@ export default {
       } else {
         formData.append('valor', this.newProduct.price);
       }
+
       formData.append('costumizavel', this.newProduct.customization);
       formData.append('ocasioes_id', this.newProduct.ocasion);
       formData.append('categoria_id', this.newProduct.category);

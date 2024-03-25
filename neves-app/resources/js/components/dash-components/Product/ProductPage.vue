@@ -6,7 +6,8 @@
       <h2 class="titulo1">{{ product.data.nome }}</h2>
       <div>
         <a href="#updateProductModal"><img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
-        <a href="#deleteProductModal"><img class="delete-btn" src="/storage/images/Icons/delete.svg" style="width:40px" alt=""></a>
+        <a href="#deleteProductModal"><img class="delete-btn" src="/storage/images/Icons/delete.svg" style="width:40px"
+            alt=""></a>
       </div>
     </div>
     <!---------------------------- End of Product name and meta-name ------------------------>
@@ -95,11 +96,36 @@
           <label for="costumizavel">
             <h6>Costumizável</h6>
           </label>
-          <h4>{{ product.data.costumizavel == 1 ? 'Sim' : 'Não' }}</h4>
+          <h4 v-if="product.data.costumizavel == 0">Sem Costumização</h4>
+          <h4 v-if="product.data.costumizavel == 1">Cor</h4>
+          <h4 v-if="product.data.costumizavel == 2">Texto</h4>
+          <h4 v-if="product.data.costumizavel == 3">Cor e Texto</h4>
+          <h4 v-if="product.data.costumizavel == 4"> Vários</h4>
         </div>
       </div>
       <div class="input-form-names">
-        <div>
+        <div v-if="product.data.costumizavel == 1">
+          <div class="space-between marginMinvert">
+          <label for="cores">
+            <h6>Cores disponiveis:</h6>
+          </label>
+          <label for="costumizavel">
+            <a href="#addColorsModal">
+              <h6><b>Adicionar cores disponiveis +</b></h6>
+            </a>
+          </label>
+        </div>
+          <ul>
+            <li v-for="detail, index in details.data" :key="index">
+              <div class="space-between marginMinvert" v-if="detail.cor != null">
+                <h4>- {{ detail.cor }}</h4>
+                <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
+                    src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="details-area">
           <label for="descrição">
             <h6>Descrição</h6>
           </label>
@@ -114,11 +140,13 @@
               <h6><b>Adicionar detalhes +</b></h6>
             </a>
           </div>
-          <ul >
-            <li  class="space-between marginMinvert" v-for="detail, index in details.data" :key="index">
-              <h4>- {{ detail.descricao }}</h4>
-              <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
-                  src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
+          <ul>
+            <li v-for="detail, index in details.data" :key="index">
+              <div class="space-between marginMinvert" v-if="detail.descricao != null">
+                <h4>- {{ detail.descricao }}</h4>
+                <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
+                    src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
+              </div>
             </li>
           </ul>
 
@@ -233,17 +261,23 @@
             </input-container>
 
             <input-container id="discount" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
-              <select name="materials" v-model="updateProduct.discount">
+              <select name="discount" v-model="updateProduct.discount">
                 <option value="" disabled>Escolhe uma</option>
                 <option v-for="d in discounts.data " :key="d.id" :value="d.id"
                   :selected="d.id == product.data.discount_id ? true : false">{{ d.nome }}</option>
               </select>
             </input-container>
 
-            <input-container id="customization" title="Costumização" help="costumizationHelp"
-              helpText="Caso seja possível costumizar">
-              <input type="checkbox" name="customization" class="form-checkbox" aria-describedby="customization"
-                :checked="product.data.costumizavel == 1 ? 'checked' : ''" v-model="updateProduct.customization">
+            <input-container id="customization" title="Costumização" help="customizationtHelp"
+              helpText="Escolha um tipo de costumização">
+              <select name="customization" v-model="updateProduct.customization">
+                <option value="" disabled>Escolhe uma</option>
+                <option value="0">Sem costumização</option>
+                <option value="1">Cor</option>
+                <option value="2">Texto</option>
+                <option value="3">Cor e Texto</option>
+                <option value="4">Várias</option>
+              </select>
             </input-container>
           </div>
 
@@ -320,7 +354,31 @@
       </template>
 
     </modal-component>
-    <!-----------------------------------------------End of modal to delete new products---------------------------------------------->
+    <!-----------------------------------------------End of modal add details products---------------------------------------------->
+
+    <!----------------------------Modal add colors -------------------------------------->
+    <modal-component id="addColorsModal" title="Adiconar uma nova cor">
+      <template v-slot:alerts>
+        <alert-component tipe="danger" :details="$store.state.transaction"
+          v-if="$store.state.transaction.status == 'error-add'"></alert-component>
+      </template>
+      <template v-slot:content>
+        <input-container id="colorCode" title="Código da cor" help="colorCodeHelp"
+          helpText="Código da cor para o cliente escolher" size="sm-input">
+          <input type="text" name="colorCode" aria-describedby="colorCode" v-model="addColor.code">
+        </input-container>
+        <input-container id="colorName" title="Nome da cor" help="colorName"
+          helpText="Nome da cor para o cliente escolher" size="sm-input">
+          <input type="text" name="colorName" aria-describedby="colorName" v-model="addColor.name">
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="detail()">Adicionar</button>
+      </template>
+
+    </modal-component>
+    <!-----------------------------------------------End of modal add details products---------------------------------------------->
 
     <!-- Calls the computed method to separate the images by posicion-->
     {{ separateImages }}
@@ -333,7 +391,7 @@ export default {
   props: {
     id: {
       required: true,
-      type: Number,
+      type: String,
     }
   },
   data() {
@@ -366,6 +424,10 @@ export default {
         quantity: '',
         price: '',
       },
+      addColor: {
+        code: '',
+        name: ''
+      }
 
     }
   },
@@ -432,6 +494,7 @@ export default {
       let urlDetails = this.urlBase + 'produto_detalhe'
 
       let formData = new FormData()
+      formData.append('cor', this.addColor.code + '_' + this.addColor.name)
       formData.append('descricao', this.addDetail)
       formData.append('produto_id', this.id)
 
@@ -447,6 +510,8 @@ export default {
           this.$store.state.transaction.status = 'added'
           this.$store.state.transaction.message = response.data.msg
           this.addDetail = ''
+          this.addColor.code = ''
+          this.addColor.name = ''
           this.loadDetails()
           history.back()
         })
@@ -454,6 +519,9 @@ export default {
           this.$store.state.transaction.status = 'error-add'
           this.$store.state.transaction.message = errors.response.data.message
           console.log(errors.response.data)
+          this.addDetail = ''
+          this.addColor.code = ''
+          this.addColor.name = ''
         })
 
     },

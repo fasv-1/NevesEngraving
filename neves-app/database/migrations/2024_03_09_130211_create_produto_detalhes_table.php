@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('produto_detalhes', function (Blueprint $table) {
             $table->id();
-            $table->text('descricao');
+            $table->text('descricao')->nullable();
+            $table->string('cor')->nullable();
+            $table->string('extras')->nullable();
             $table->unsignedBigInteger('produto_id');
             $table->timestamps();
 

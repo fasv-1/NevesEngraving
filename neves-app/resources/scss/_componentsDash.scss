@@ -79,6 +79,26 @@
     overflow: auto;
     padding-right: 0.2em;
   }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    .img {
+      height: 30px;
+      width: 30px;
+      
+      display: flex;
+      align-items: center;
+      
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
 }
 //end of style table
 

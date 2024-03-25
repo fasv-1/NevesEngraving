@@ -15,9 +15,7 @@
       </p>
     </div>
 
-    Login : {{ login }}
     <br>
-    Create: {{ create }}
 
 
   </div>
@@ -27,7 +25,29 @@
 export default {
   props: ['login', 'create'],
 
-  mounted (){
+  methods:{
+
+    details(){
+      let urlDetails = this.$store.state.Url + 'api/user_details';
+
+      axios.get(urlDetails, {
+        // headers: {
+        //   // 'Authorization': 'Bearer ' + this.$store.state.token,
+        // }
+      })
+        .then(response => {
+          // this.userDetails.data = response.data
+          console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors);
+        })
+    }
+  },  
+
+  mounted(){
+
+    this.details()
   }
 
 }

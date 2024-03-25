@@ -13,7 +13,7 @@ class ProfileController extends Controller
 {
     public function __construct()
 {
-    $this->middleware(['role:User|Admin']);
+    $this->middleware(['role:User|Admin|Super-Admin']);
 }
        /**
      * Display the user's profile form.

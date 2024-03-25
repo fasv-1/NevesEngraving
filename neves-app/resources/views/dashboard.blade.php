@@ -2,5 +2,6 @@
 @extends('layouts.app')
 
 @section('content')
-<dashboard-component></dashboard-component>
+<dashboard-component token ="{{ $token }}"></dashboard-component>
+
 @endsection

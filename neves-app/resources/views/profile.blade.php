@@ -10,7 +10,7 @@
                         <li>
                             <a href={{ route('profile.edit') }}>Profile</a>
                         </li>
-                        <li>
+                        <li class="logout">
                             <form action={{ route('logout') }} method="post">
                                 @csrf
                                 <button type="submit" class="button">Logout</button>

@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProdutoDetalhe extends Model
 {
     use HasFactory;
-    protected $fillable = ['descricao', 'produto_id'];
+    protected $fillable = ['descricao', 'cor', 'extras', 'produto_id'];
 
     public function rules(){
         return [
-            'descricao' => 'required',
             'produto_id' => 'required'
         ];
     }

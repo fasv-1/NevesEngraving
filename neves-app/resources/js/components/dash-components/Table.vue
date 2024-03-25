@@ -5,17 +5,24 @@
       <table>
         <thead>
           <tr>
+            <th v-if='images'>Images</th>
             <th scope="col" v-for='t, index in titles' :key="index">{{ t.title }}</th>
             <th v-if="view.visible || update.visible || remove.visible"></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="obj, index in FiltredData" :key="index">
-
+            <td class="brd">
+              <div v-for="image, index in images" :key="index" v-if="images">
+                <span class="img" v-if="image.produto_id == obj.id && image.posicao == 1"><img :src="'/storage/' + image.nome"
+                    alt="Product image" ></span>
+              </div>
+            </td>
             <!--Return the value of the table correspondent to the title and separates the data type to treatmant -->
             <td v-for="value, indexValue in obj" :key="indexValue">
               <span v-if="titles[indexValue].type == 'text'">{{ value }}</span>
-              <span v-if="titles[indexValue].type == 'status'">{{ value == 1 ? 'ativo' : 'inativo' && value == 3 ? 'original': 'inativo'}}</span>
+              <span v-if="titles[indexValue].type == 'status'">{{ value == 1 ? 'ativo' : 'inativo' && value == 3 ?
+              'original' : 'inativo' }}</span>
               <span v-if="titles[indexValue].type == 'date'"> {{ $filters.formatDateTime(value) }}</span>
               <span v-if="titles[indexValue].type == 'data'">
                 <p v-for="v in value">{{ v.name }}</p>
@@ -38,7 +45,7 @@
 
 <script>
 export default {
-  props: ['data', 'titles', 'view', 'update', 'remove'],
+  props: ['data', 'titles', 'view', 'update', 'remove', 'images'],
   methods: {
     setState(obj) { //store the object cliked in a vuex global variable
       this.$store.state.item = obj;
