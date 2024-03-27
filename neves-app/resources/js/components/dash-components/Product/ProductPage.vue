@@ -100,11 +100,10 @@
           <h4 v-if="product.data.costumizavel == 1">Cor</h4>
           <h4 v-if="product.data.costumizavel == 2">Texto</h4>
           <h4 v-if="product.data.costumizavel == 3">Cor e Texto</h4>
-          <h4 v-if="product.data.costumizavel == 4"> Vários</h4>
         </div>
       </div>
       <div class="input-form-names">
-        <div v-if="product.data.costumizavel == 1">
+        <div v-if="product.data.costumizavel == 1 || product.data.costumizavel == 3">
           <div class="space-between marginMinvert">
           <label for="cores">
             <h6>Cores disponiveis:</h6>
@@ -714,15 +713,9 @@ export default {
         let value = this.updateProduct.price.toFixed(2);
         formData.append('valor', value);
       }
-      if (this.updateProduct.customization == true) {
-        let customization = 1;
-        formData.append('costumizavel', customization);
+      if (this.updateProduct.customization != '') {
+        formData.append('costumizavel', this.updateProduct.customization);
       }
-      if (this.updateProduct.customization == false) {
-        let customization = 0;
-        formData.append('costumizavel', customization);
-      }
-
 
       if (this.updateProduct.ocasion != '') {
         formData.append('ocasioes_id', this.updateProduct.ocasion);

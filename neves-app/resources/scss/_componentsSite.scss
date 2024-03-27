@@ -614,7 +614,7 @@
       justify-content: flex-end;
       ul {
         display: flex;
-        li {
+        a {
           display: flex;
           align-items: center;
           margin: 0.2em;
@@ -674,6 +674,54 @@
       margin: 1em 0;
       padding: 1em 0;
       border-bottom: 1px solid $Darker-blue;
+
+      .drop-button{
+        display: flex;
+        border: 1px solid $Darker-blue;
+        width: 130px;
+        align-items: center;
+        padding: 0.5em;
+        border-radius: 3px;
+        justify-content: space-between;
+        cursor: pointer;
+
+        img{
+          width: 0.7em;
+          height: 0.7em;
+        }
+      }
+
+      .drop-color {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        border: 1px solid $Darker-blue;
+        margin-top: 0.1em;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 3px;
+        cursor: pointer;
+
+        li {
+          padding: 1em;
+          transition: all 0.1s ease-in;
+
+          &:hover {
+            background-color: $Detail-blue;
+          }
+
+          .colorSquare{
+            width: 10px;
+            height: 10px;
+            margin-right: 0.5em;
+          }
+        }
+        
+      }
+
+      .drop{
+        display: block;
+      }
 
       .promo {
         display: flex;

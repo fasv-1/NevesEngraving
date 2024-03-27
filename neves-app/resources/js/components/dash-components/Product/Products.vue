@@ -118,7 +118,6 @@
               <option value= "1">Cor</option>
               <option value= "2">Texto</option>
               <option value= "3">Cor e Texto</option>
-              <option value= "4">Várias</option>
             </select>
           </input-container>
 

@@ -16,14 +16,17 @@
         </div>
         <div class="share">
           <ul>
-            <li><img src="/storage/images/icons/facebook.png" alt="facebook-icon" style="width:20px">
-              <p class="marginMinHor">Share</p>
+            <li><a href=""><img src="/storage/images/icons/facebook.png" alt="facebook-icon" style="width:20px">
+                <p class="marginMinHor">Share</p>
+              </a>
             </li>
-            <li><img src="/storage/images/icons/instagram.png" alt="instagram-icon" style="width:20px">
-              <p class="marginMinHor">Share</p>
+            <li><a href=""><img src="/storage/images/icons/instagram.png" alt="instagram-icon" style="width:20px">
+                <p class="marginMinHor">Share</p>
+              </a>
             </li>
-            <li><img src="/storage/images/icons/mail_646135.png" alt="mail-icon" style="width:20px">
-              <p class="marginMinHor">Email</p>
+            <li><a href=""><img src="/storage/images/icons/mail_646135.png" alt="mail-icon" style="width:20px">
+                <p class="marginMinHor">Email</p>
+              </a>
             </li>
           </ul>
         </div>
@@ -65,8 +68,33 @@
           <h6><b>Detalhes do produto</b></h6>
           <br>
           <ul>
-            <li v-for="detail in details.data">- {{ detail.descricao }}</li>
+            <li v-for="detail in details.data"> {{ detail.descricao != null ? '-' + detail.descricao : '' }}</li>
           </ul>
+        </div>
+        <div class="details">
+          <h6><b>Costumização</b></h6>
+          <br>
+          <div v-if="product.data.costumizavel == 1 || product.data.costumizavel == 3">
+            <div class="drop-button" @click="dropdown()">
+              <p><b>{{ colorSelected.name }}</b></p><img src="/storage/images/Icons/arrow.png" alt="">
+            </div>
+            <div class="drop-color" :class="drop == true ? 'drop' : ''">
+              <ul name="productColor" id="productColor">
+                <li @click="dropdown('Sem cor')">Sem cor</li>
+                <li class="flex-container" v-for="clr in getColors" :value="clr.code" @click="selectColor(clr)">
+                  <div class="colorSquare" :style="'background-color:' + clr.code"></div>{{ clr.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div v-if="product.data.costumizavel == 2 || product.data.costumizavel == 3">
+            <div>
+              <input-container id="customText" title="Texto personalizado" help="customTextHelp"
+                helpText="O texto não deve ultrapassar os 20 caracteres">
+                <textarea name="customText" id="customText" maxlength="20" v-model="textSelected"></textarea>
+              </input-container>
+            </div>
+          </div>
         </div>
         <div class="quantity">
           <input-container id="quantity" title='Quantidade' help="quantityHelp" helpText="Escolha a quantidade"
@@ -91,11 +119,12 @@
         <div class="title">
           <h3><b>AVALIAÇÕES</b></h3>
           <div class="toogle-bg">
-            <img src="/storage/images/Icons/arrow.png" alt="" @click="toogle()" :style="isActive ? 'transform: rotate(180deg)' : ''">
+            <img src="/storage/images/Icons/arrow.png" alt="" @click="toogle()"
+              :style="isActive ? 'transform: rotate(180deg)' : ''">
           </div>
         </div>
         <div class="reviews " v-if="isActive">
-          <div class="add-reviews" v-if="$store.state.user != ''">
+          <div class="add-reviews" v-if="$store.state.user != null">
             <a href="#addComentModal" class="button-save">Adicionar avaliação</a>
           </div>
           <div v-for="review, index in reviews.data" :key="index">
@@ -180,9 +209,30 @@ export default {
       comment: '',
       rating: '',
       isActive: false,
+      drop: false,
+      colorSelected: {
+        code: '',
+        name: 'Select Color',
+      },
+      textSelected: '',
     }
   },
   methods: {
+    selectColor(c) {
+      this.colorSelected.code = c.code
+      this.colorSelected.name = c.name
+
+      this.drop = !this.drop
+    },
+    dropdown(v) {
+      if (v) {
+        this.drop = !this.drop
+        this.colorSelected.code = ''
+        this.colorSelected.name = v
+      } else {
+        this.drop = !this.drop
+      }
+    },
     toogle() {
       this.isActive = !this.isActive
     },
@@ -322,11 +372,25 @@ export default {
       rating = Math.round(((sum / value.length) * 100) / 5)
 
       return rating
+    },
+    getColors() {
+      let color = []
+      let codes = []
+      this.details.data.forEach(e => {
+        if (e.cor) {
+          color.push(e.cor.split('_'))
+        }
+      })
+
+      color.forEach(c => {
+        codes.push({ 'code': c[0], 'name': c[1] })
+      })
+
+      return codes
     }
   },
   mounted() {
     this.getData()
-    // console.log(this.$store.state.user)
   }
 }
 </script>
