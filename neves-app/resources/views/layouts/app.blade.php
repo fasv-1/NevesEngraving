@@ -14,6 +14,7 @@
     @if (Auth::check())
         <meta name="user-id" content="{{ Auth::user()->id }}">
     @endif
+    <meta name="csrf-token" content="{{ @csrf_token() }}">
     
 </head>
 

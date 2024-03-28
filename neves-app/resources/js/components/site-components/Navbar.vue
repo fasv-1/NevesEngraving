@@ -85,7 +85,7 @@
               </g>
             </svg>
           </a>
-          <p>nº item: 0.00€</p>
+          <p>nº item: {{ totalPrice }}€</p>
         </div>
         <div class="shopping-cart" v-else>
           <router-link to="/home/shopping_cart">
@@ -116,7 +116,7 @@
             </svg>
 
           </router-link>
-          <p>nº item: 0.00€</p>
+          <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
         </div>
         <!---------------------------Menu links------------------------------------->
       </div>
@@ -196,6 +196,7 @@
   </modal-component>
   <!---------------------------Breadcrumb------------------------------------->
   <breadcrumb-component></breadcrumb-component>
+  {{ sessionTotal }}
 </template>
 
 <script>
@@ -206,6 +207,15 @@ export default {
       required: true
     }
   },
+  data() {
+        return {
+            cartProducts: { data: [] },
+            cartTotal: '',
+            totalProducts: '',
+            discounts: { data: [] },
+            totalPrice: ''
+        }
+    },
   methods: {
     profile() {
       this.$router.push({
@@ -217,10 +227,71 @@ export default {
     },
     clearStorage() {
       localStorage.clear();
+      this.getData();
       // location.reload();
-    }
+    },
+    calculatedValue(p) {
+            let price = p.strike_price
+            let discountValue = ''
+            let quantity = p.quantity
+
+            this.discounts.data.forEach(e => {
+                if (e.id == p.discount_price && e.ativo == 1) {
+                    discountValue = e.desconto
+                }
+            })
+
+            let priceDiscounted = price - (discountValue * price)
+
+            let total = (priceDiscounted * quantity).toFixed(2)
+
+            return total
+        },
+        getData() {
+            let url = this.$store.state.Url + 'cart'
+            let urlDiscount = this.$store.state.Url + 'api/desconto'
+
+            axios.get(urlDiscount)
+                .then((response) => {
+                    this.discounts.data = response.data
+                    //   console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors.response.data.message)
+                })
+            axios.get(url)
+                .then((response) => {
+                    this.cartProducts.data = response.data.cart_products
+                    this.cartTotal = response.data.cart_total
+                    this.totalProducts = response.data.total_products_count
+                    //   console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors.response.data.message)
+                })
+        }
   },
+  computed: {
+        sessionTotal() {
+            let values = []
+            let total = 0
+
+            Object.values(this.cartProducts.data).forEach(v => {
+                values.push(this.calculatedValue(v))
+            })
+
+            function sum(a) {
+                return (a.length && parseFloat(a[0]) + sum(a.slice(1))) || 0;
+            }
+
+            total = sum(values).toFixed(2)
+
+            this.totalPrice = total
+
+        },
+      },
   mounted() {
+    this.getData()
     // console.log(this.altroutes)
   }
 }

@@ -64,7 +64,10 @@
       <!----------------------------------end of product info and image -------------------------------------------------->
       <!----------------------------------product add to cart button -------------------------------------------------->
       <div class="cart-btn" v-if="cart">
-        <h6><b>Add to cart</b></h6>
+        <form method="POST" action="" @submit.prevent="addToCart(value.id)">
+          <input type="hidden" name="_token" :value="$store.state.csrf">
+          <h6><button type="submit">Add to cart</button></h6>
+        </form>
       </div>
       <!----------------------------------end of product add to cart -------------------------------------------------->
     </div>
@@ -78,10 +81,35 @@ export default {
     return {
       productsImages: { data: [] },
       userFavorites: { data: [] },
-      reviews:{ data: [] },
+      reviews: { data: [] },
     }
   },
   methods: {
+    addToCart(e) {
+
+      let url = 'http://127.0.0.1:8000/cart'
+
+      let formData = new FormData()
+
+      formData.append('product_id', e)
+      formData.append('quantity', 1)
+
+      let config = {
+        headers: {
+          'Content-Type': 'x-www-form-urlencoded',
+          'Accept': 'application/json'
+        }
+      }
+      axios.post(url, formData, config)
+        .then((response) => {
+          console.log(response)
+          alert('Produto adicionado ao carrinho')
+          location.reload()
+        })
+        .catch(errors => {
+          console.log(errors.response.data.message)
+        })
+    },
     addWish(id) {
       let url = this.$store.state.Url + 'api/user_favorites'
 
@@ -153,14 +181,14 @@ export default {
 
       return idEncode
     },
-    reviewCalc(id){
+    reviewCalc(id) {
       let reviews = []
       let sum = 0
 
       let rating = ''
 
       this.reviews.data.forEach(element => {
-        if(element.produto_id == id && element.rating){
+        if (element.produto_id == id && element.rating) {
           reviews.push(element.rating)
         }
       })
@@ -174,7 +202,7 @@ export default {
       return rating
 
     },
-    getReviews(){
+    getReviews() {
       let urlReviews = this.$store.state.Url + 'api/user_reviews'
 
       axios.get(urlReviews)

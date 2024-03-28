@@ -96,13 +96,24 @@
             </div>
           </div>
         </div>
-        <div class="quantity">
-          <input-container id="quantity" title='Quantidade' help="quantityHelp" helpText="Escolha a quantidade"
-            size="ms-input">
-            <input type="number" name="quantity" aria-describedby="quantity" class="ms-input">
-          </input-container>
-          <button class="button1">Adiconar ao carrinho</button>
-        </div>
+
+
+        <form method="POST" action="" @submit.prevent="addToCart($event)">
+          <input type="hidden" name="_token" :value="$store.state.csrf">
+          <div class="quantity">
+            <input-container id="quantity" title='Quantidade' help="quantityHelp" helpText="Escolha a quantidade"
+              size="ms-input">
+              <input type="number" name="quantity" aria-describedby="quantity" class="ms-input" v-model="quantity">
+            </input-container>
+            <div class="btn-pass">
+              <button type="submit" class="button-login">
+                addToCart
+              </button>
+            </div>
+          </div>
+        </form>
+
+
       </div>
     </section>
     <section class="product-extra">
@@ -205,7 +216,7 @@ export default {
       reviews: { data: [] },
       openImage: '',
       categoryProducts: { data: [] },
-      quantity: '',
+      quantity: 1,
       comment: '',
       rating: '',
       isActive: false,
@@ -218,6 +229,35 @@ export default {
     }
   },
   methods: {
+    addToCart(e) {
+
+      let url = 'http://127.0.0.1:8000/cart'
+
+      let formData = new FormData()
+
+      formData.append('product_id', this.id)
+      formData.append('quantity', this.quantity)
+        formData.append('color', this.colorSelected.code)
+        formData.append('text', this.textSelected)
+
+
+      let config = {
+        headers: {
+          'Content-Type': 'x-www-form-urlencoded',
+          'Accept': 'application/json'
+        }
+      }
+      axios.post(url, formData, config)
+        .then((response) => {
+          console.log(response)
+          alert('Produto adicionado ao carrinho')
+          location.reload()
+        })
+        .catch(errors => {
+          console.log(errors.response.data.message)
+        })
+    },
+
     selectColor(c) {
       this.colorSelected.code = c.code
       this.colorSelected.name = c.name

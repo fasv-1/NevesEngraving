@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\profileController;
@@ -40,7 +41,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/cart', [CartController::class, 'showCart'] )->name('cart.show');
+Route::post('/cart', [CartController::class, 'addtoCart'] )->name('cart.add');
+Route::patch('/cart', [CartController::class, 'update'] )->name('cart.update');
+Route::delete('/cart', [CartController::class, 'destroy'] )->name('cart.destroy');
 
 Route::fallback(function(){
     echo 'Página não encontrada.<a href="'.route('site').'">Clique aqui</a>';

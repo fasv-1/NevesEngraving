@@ -23,6 +23,8 @@ const store = createStore({
       Url: 'http://127.0.0.1:8000/',
       
       user: document.querySelector("meta[name='user-id']"),
+      
+      csrf: document.querySelector("meta[name='csrf-token']"),
 
       token: '',
     }
