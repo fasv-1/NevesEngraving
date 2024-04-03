@@ -20,6 +20,8 @@ use App\Http\Controllers\TaxaController;
 use App\Http\Controllers\ConteudoController;
 use App\Http\Controllers\ProdutoDetalheController;
 use App\Http\Controllers\TermoEcondicaoController;
+use App\Http\Controllers\PedidoDetalheController;
+use App\Http\Controllers\PedidoProdutoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -96,8 +98,13 @@ Route::apiResource('taxas', TaxaController::class);
 
 //---------------------------------content routes----------------------------------------
 Route::apiResource('conteudo', ConteudoController::class);
-//--------------------------------- finishcontent routes----------------------------------------
+//--------------------------------- finish content routes----------------------------------------
 
-//---------------------------------content routes----------------------------------------
+//---------------------------------terms routes----------------------------------------
 Route::apiResource('termos_condicoes', TermoEcondicaoController::class);
-//--------------------------------- finishcontent routes----------------------------------------
+//--------------------------------- terms routes----------------------------------------
+
+//---------------------------------terms routes----------------------------------------
+Route::apiResource('pedido_detalhe', PedidoDetalheController::class);
+Route::apiResource('pedido_produto', PedidoProdutoController::class);
+//--------------------------------- terms routes----------------------------------------

@@ -65,4 +65,8 @@ class Produto extends Model
     public function produtoDetalhes() {
         return $this->hasMany('App\Models\User_favorites');
     }
+
+    public function pedidos() {
+        return $this->belongsToMany('App\Models\Pedido_Detalhe', 'pedido_produtos', 'produto_id', 'pedido_id')->withPivot('created_at'); 
+    }
 }

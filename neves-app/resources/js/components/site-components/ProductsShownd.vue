@@ -237,8 +237,8 @@ export default {
 
       formData.append('product_id', this.id)
       formData.append('quantity', this.quantity)
-        formData.append('color', this.colorSelected.code)
-        formData.append('text', this.textSelected)
+      formData.append('color', this.colorSelected.code)
+      formData.append('text', this.textSelected)
 
 
       let config = {

@@ -27,7 +27,7 @@ export default {
 
   methods:{
 
-    details(){
+    /*details(){
       let urlDetails = this.$store.state.Url + 'api/user_details';
 
       axios.get(urlDetails, {
@@ -43,11 +43,12 @@ export default {
           console.log(errors);
         })
     }
+    */
   },  
 
   mounted(){
 
-    this.details()
+    // this.details()
   }
 
 }

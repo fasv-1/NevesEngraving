@@ -66,7 +66,7 @@
       <div class="cart-btn" v-if="cart">
         <form method="POST" action="" @submit.prevent="addToCart(value.id)">
           <input type="hidden" name="_token" :value="$store.state.csrf">
-          <h6><button type="submit">Add to cart</button></h6>
+          <button type="submit"><h5>Add to cart</h5></button>
         </form>
       </div>
       <!----------------------------------end of product add to cart -------------------------------------------------->
