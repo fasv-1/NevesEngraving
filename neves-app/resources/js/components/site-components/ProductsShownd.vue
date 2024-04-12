@@ -51,8 +51,8 @@
                 <h4>Promo</h4>
               </span>
             </div>
-            <h6>Antes:<s>{{ product.data.valor }}€</s></h6>
-            <h6>Poupa:{{ (product.data.valor * discount.data.desconto).toFixed(2) }} €</h6>
+            <h6>Antes: <s>{{ product.data.valor }}€</s></h6>
+            <h6>Poupa: {{ (product.data.valor * discount.data.desconto).toFixed(2) }} €</h6>
           </div>
           <div class="sale" v-else>
             <h2>{{ product.data.valor }} €</h2>
@@ -106,7 +106,7 @@
               <input type="number" name="quantity" aria-describedby="quantity" class="ms-input" v-model="quantity">
             </input-container>
             <div class="btn-pass">
-              <button type="submit" class="button-login">
+              <button type="submit" class="button1">
                 addToCart
               </button>
             </div>

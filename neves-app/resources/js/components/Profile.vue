@@ -13,6 +13,7 @@
                     </div>
                 </div>
             </div>
+            {{ page }}
         </section>
         <!--------------------------------------------------------------show-area----------------------------------------------------------------------------------------->
         <section id="dash-screen">
@@ -138,42 +139,42 @@
                 <div class="fields">
                     <form method="patch" action="" @submit.prevent="updateAdress($event, addressInfo.id)">
                         <div class="field">
-                            <input-container id="updateMorada1" title="Atualizar morada" help="updateMorada1"
+                            <input-container id="morada1" title="Atualizar morada" help="updateMorada1"
                                 helpText="Digite a nova morada de usuário">
                                 <input type="text" name="updateMorada1" aria-describedby="updateMorada1"
                                     :placeHolder="addressInfo.morada1" v-model="updateMorada1">
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="updateMorada2" title="Atualizar morada adicional" help="updateMorada2"
+                            <input-container id="morada2" title="Atualizar morada adicional" help="updateMorada2"
                                 helpText="Digite a nova morada adicional">
                                 <input type="text" name="updateMorada2" aria-describedby="updateMorada2"
                                     :placeHolder="addressInfo.morada2" v-model="updateMorada2">
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="updateTelemovel" title="Atualizar contato telefónico"
-                                help="updateTelemovel" helpText="Digite o novo contato telefonico">
+                            <input-container id="telemovel" title="Atualizar contato telefónico" help="updateTelemovel"
+                                helpText="Digite o novo contato telefonico">
                                 <input type="text" name="updateTelemovel" aria-describedby="updateTelemovel"
                                     :placeHolder="addressInfo.telemovel" v-model="updateTelemovel">
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="updateCidade" title="Atualizar cidade" help="updateCidade"
+                            <input-container id="cidade" title="Atualizar cidade" help="updateCidade"
                                 helpText="Digite a nova cidade">
                                 <input type="text" name="updateCidade" aria-describedby="updateCidade"
                                     :placeHolder="addressInfo.cidade" v-model="updateCidade">
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="updatePais" title="Atualizar país" help="updatePais"
+                            <input-container id="pais" title="Atualizar país" help="updatePais"
                                 helpText="Digite um novo país">
                                 <input type="text" name="updatePais" aria-describedby="updatePais"
                                     :placeHolder="addressInfo.pais" v-model="updatePais">
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="updateCodigo" title="Atualizar código-postal" help="updateCodigo"
+                            <input-container id="codigo_postal" title="Atualizar código-postal" help="updateCodigo"
                                 helpText="Digite um novo código-postal">
                                 <input type="text" name="updateCodigo" aria-describedby="updateCodigo"
                                     :placeHolder="addressInfo.codigo_postal" v-model="updateCodigo">
@@ -194,38 +195,37 @@
                 <div class="fields">
                     <form method="patch" action="" @submit.prevent="saveAdress($event)">
                         <div class="field">
-                            <input-container id="Morada1" title="Morada" help="Morada1"
+                            <input-container id="morada1" title="Morada" help="Morada1"
                                 helpText="Digite a morada de usuário" size="ml-input">
                                 <input type="text" name="Morada1" aria-describedby="Morada1" v-model="Morada1" required>
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="Morada2" title="Morada adicional" help="Morada2"
+                            <input-container id="morada2" title="Morada adicional" help="Morada2"
                                 helpText="Digite a morada adicional" size="ml-input">
                                 <input type="text" name="Morada2" aria-describedby="Morada2" v-model="Morada2" required>
                             </input-container>
                         </div>
                         <div class="field">
-                            <input-container id="Telemovel" title="Contato telefónico" help="Telemovel"
-                            helpText="Digite o novo contato telefonico">
-                            <input type="text" name="Telemovel" aria-describedby="Telemovel"
-                            v-model="Telemovel">
-                        </input-container>
-                    </div>
-                    <div class="side-fields">
-                    <div class="side">
-                                <input-container id="Cidade" title="Cidade" help="Cidade" helpText="Digite a cidade">
+                            <input-container id="telemovel" title="Contato telefónico" help="Telemovel"
+                                helpText="Digite o novo contato telefonico">
+                                <input type="text" name="Telemovel" aria-describedby="Telemovel" v-model="Telemovel">
+                            </input-container>
+                        </div>
+                        <div class="side-fields">
+                            <div class="side">
+                                <input-container id="cidade" title="Cidade" help="Cidade" helpText="Digite a cidade">
                                     <input type="text" name="Cidade" aria-describedby="Cidade" required
                                         v-model="Cidade">
                                 </input-container>
                             </div>
                             <div class="side">
-                                <input-container id="Pais" title="País" help="Pais" helpText="Digite um país">
+                                <input-container id="pais" title="País" help="Pais" helpText="Digite um país">
                                     <input type="text" name="Pais" aria-describedby="Pais" required v-model="Pais">
                                 </input-container>
                             </div>
                             <div class="side">
-                                <input-container id="Codigo" title="Código-postal" help="Codigo"
+                                <input-container id="codigo_posta" title="Código-postal" help="Codigo"
                                     helpText="Digite o seu código-postal">
                                     <input type="text" name="Codigo" aria-describedby="Codigo" required
                                         v-model="Codigo">
@@ -253,7 +253,7 @@ export default {
         token: {
             type: String,
             required: true
-        }
+        },
     },
     data() {
         return {
@@ -303,6 +303,14 @@ export default {
         }
     },
     methods: {
+        timeOut() {
+            setTimeout(() => {
+                if (this.$route.query.wish) {
+                    localStorage.setItem('activePage', this.$route.query.wish);
+                    this.activePage = localStorage.getItem('activePage');
+                }
+            }, 500);
+        },
         updateAdress(e, id) {
             let url = this.$store.state.Url + 'api/user_details/' + id
 
@@ -339,13 +347,13 @@ export default {
 
             axios.post(url, formData, config)
                 .then(response => {
-                    console.log(response)
-                    // alert(response.data.msg)
                     this.userData()
                     localStorage.setItem('activePage', 1)
                     e.target.submit()
                 })
                 .catch(errors => {
+                    this.$store.state.transaction.status = 'error-update'
+                    this.$store.state.transaction.message = errors.response.data.errors
                     console.log(errors)
                 })
         },
@@ -383,13 +391,13 @@ export default {
 
             axios.post(url, formData, config)
                 .then(response => {
-                    console.log(response)
-                    // alert(response.data.msg)
                     this.userData()
                     localStorage.setItem('activePage', 1)
                     e.target.submit()
                 })
                 .catch(errors => {
+                    this.$store.state.transaction.status = 'error-update'
+                    this.$store.state.transaction.message = errors.response.data.errors
                     console.log(errors)
                 })
         },
@@ -412,8 +420,6 @@ export default {
 
             axios.post(url, formData, config)
                 .then(response => {
-                    console.log(response)
-                    // alert(response.data.msg)
                     this.userData()
                     localStorage.setItem('activePage', 0)
                     e.target.submit()
@@ -471,7 +477,6 @@ export default {
             axios.get(urlUserFavorites)
                 .then(response => {
                     this.userFavorites.data = response.data.favorites
-                    console.log(response.data.favorites)
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -496,7 +501,6 @@ export default {
 
                     axios.post(url, formData)
                         .then(response => {
-                            // console.log(response.data)
                             alert(response.data.msg)
                             this.userData()
                         })
@@ -545,16 +549,12 @@ export default {
             })
             return info
         }
-
     },
-
-
-
 
     mounted() {
         this.userData()
         this.getImage()
-        // console.log(this.$store.state.user)
+        this.timeOut()
     },
 }
 </script>

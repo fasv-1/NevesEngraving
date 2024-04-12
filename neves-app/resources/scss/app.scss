@@ -116,6 +116,7 @@ table {
       padding: 0.5em;
       color: black;
       font-size: 1em;
+      align-content: center;
 
       // border: 1px solid #F1F1F1;
     }
@@ -126,26 +127,30 @@ table {
       color: #000;
 
       td {
-        border-top: 1px solid $Global-red;
-        padding: 0.5em 1em 0.5em 1em;
+        border-top: 1px solid $Darker-blue;
+        padding: 1em 1em;
         text-align: center;
+        height: 100%;
+        align-content: center;
         // border: 1px solid #000;
       }
+      
       th {
-        border-top: 1px solid $Global-red;
+        border-top: 1px solid $Darker-blue;
         text-align: center;
         // border: 1px solid #000;
       }
     }
   }
   tfoot {
-    color: $Global-red;
-    font-style: italic;
-    border-bottom: 2px solid $Global-red;
     tr {
       td {
-        padding: 0.5em;
-        border: 1px solid #f1f1f1;
+        border-top: 1px solid $Darker-blue;
+        padding: 1em 1em 0.2em 1em;
+        text-align: center;
+        font-weight: bold;
+        height: 100%;
+        align-content: center;
       }
     }
   }

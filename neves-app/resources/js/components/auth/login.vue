@@ -1,22 +1,29 @@
 <template>
   <div class="container">
     <div class="card-center">
-      <div class="card-header"><h1>Login</h1></div>
+      <div class="card-header">
+        <h1>Login</h1>
+      </div>
 
       <div class="card-body">
         <form method="POST" action="" @submit.prevent="login($event)">
           <input type="hidden" name="_token" :value="csrf_token">
 
-          <input-container id="email" title="Email" help="email" helpText="O seu email" size="l-input">
-            <input id="email" type="email" class="form-control" name="email" required autocomplete="email" autofocus
+          <input-container id="Email" title="Email" help="email" helpText="O seu email" size="l-input">
+            <input type="email" class="form-control" name="Email" required autocomplete="email" autofocus
               v-model="email">
           </input-container>
 
 
           <input-container id="password" title="Password" help="password" helpText="O sua password" size="l-input">
-            <input id="password" type="password" class="form-control " name="password" required
-              autocomplete="current-password" v-model="password">
+            <input type="password" class="form-control " name="password" required autocomplete="current-password"
+              v-model="password">
           </input-container>
+
+          <div class="error-container" v-if="$store.state.transaction.message">
+            <p class="error" v-for=" error, index in this.$store.state.transaction.message" :key="index">{{ index
+          == 'email' ? error.toString() : '' }}</p>
+          </div>
 
           <div class="button-form">
             <div class="btn-pass">
@@ -28,8 +35,8 @@
               </a>
             </div>
             <div class="register-link">
-              <a  href="/register">
-                Ainda não estou registado 
+              <a href="/register">
+                Ainda não estou registado
               </a>
             </div>
           </div>
@@ -68,14 +75,16 @@ export default {
       }
       axios.post(url, formData, config)
         .then((response) => {
-          console.log(response)
-          if (response.data.token) {
+          if (response.data.errors) {
+            this.$store.state.transaction.message = response.data.errors
+          } else {
+            e.target.submit()
+            window.location.replace("/");
           }
-          e.target.submit()
-          window.location.replace("/");
         })
         .catch(errors => {
-          console.log(errors.response.data.message)
+          console.log(errors.response.data)
+          this.$store.state.transaction.message = errors.response.data.errors
         })
     }
   }

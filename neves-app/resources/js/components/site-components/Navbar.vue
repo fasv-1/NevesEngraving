@@ -39,7 +39,7 @@
 
         <div class="wish">
           <img src="/storage/images/Icons/heart.png" alt="facebook-icon" style="width: 25px;">
-          <a href="">
+          <a href="/profile?wish=2">
             <p>Wish List</p>
           </a>
         </div>
@@ -217,14 +217,6 @@ export default {
         }
     },
   methods: {
-    profile() {
-      this.$router.push({
-        name: 'Profile',
-        params: {
-          obj: this.user
-        }
-      })
-    },
     clearStorage() {
       localStorage.clear();
       this.getData();

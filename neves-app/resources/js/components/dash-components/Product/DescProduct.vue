@@ -14,32 +14,27 @@
       </div>
       <!--Modal to add new discount-->
       <modal-component id="modalDiscountAdd" title="Adicionar novo desconto">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
-          <alert-component tipe="success" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'added'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="nameDiscount" title="Nome" help="nameDiscount" helpText="Nome do desconto" size="m-input">
-            <input type="text" name="nameDiscount" aria-describedby="nameDiscount" v-model="newDiscount.name">
+          <input-container id="nome" title="Nome" help="nameDiscount" helpText="Nome do desconto" size="m-input">
+            <input type="text" name="nome" aria-describedby="nameDiscount" v-model="newDiscount.name">
           </input-container>
 
-          <input-container id="descriptionDiscount" title="Descrição" help="descriptionDiscount"
+          <input-container id="descricao" title="Descrição" help="descriptionDiscount"
             helpText="Descrição do desconto" size="b-input">
-            <textarea name="descriptionDiscount" aria-describedby="descriptionDiscount" v-model="newDiscount.description">
+            <textarea name="descricao" aria-describedby="descriptionDiscount" v-model="newDiscount.description">
             </textarea>
           </input-container>
 
-          <input-container id="valueDiscount" title="Valor do desconto" help="valueDiscount"
+          <input-container id="desconto" title="Valor do desconto" help="valueDiscount"
             helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="valueDiscount" aria-describedby="valueDiscount" v-model="newDiscount.value"
+            <input type="number" name="desconto" aria-describedby="valueDiscount" v-model="newDiscount.value"
               class="s-input">
           </input-container>
 
-          <input-container id="statusDiscount" title="Estado do desconto" help="statusDiscount"
+          <input-container id="ativo" title="Estado do desconto" help="statusDiscount"
             helpText="Selecionar estado do desconto">
-            <select name="statusDiscount" aria-describedby="statusDiscount" v-model="newDiscount.status">
+            <select name="ativo" aria-describedby="statusDiscount" v-model="newDiscount.status">
+              <option value="" disabled>Escolha uma</option>
               <option value="0">Inativo</option>
               <option value="1">Ativo</option>
             </select>
@@ -69,11 +64,6 @@
 
       <!-- Start modal to remove discount-->
       <modal-component id="modalDiscountRemove" title="Remover Desconto">
-
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
-        </template>
         <template v-slot:content>
           <input-container id="removeDiscount" title="Tem a certeza que pretende remover este desconto?">
             <input type="text" name="removeDiscount" aria-describedby="removeDiscount" :value="$store.state.item.nome"
@@ -90,32 +80,28 @@
 
       <!-- Start modal to update discount-->
       <modal-component id="modalDiscountUpdate" title="Atualizar desconto">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="updateNameDiscount" title="Nome" help="updateNameDiscount"
+          <input-container id="nome" title="Nome" help="updateNameDiscount"
             helpText="Novo nome do desconto">
-            <input type="text" name="updateNameDiscount" aria-describedby="updateNameDiscount"
+            <input type="text" name="nome" aria-describedby="updateNameDiscount"
               :placeholder="$store.state.item.nome" v-model="updateDiscount.name">
           </input-container>
 
-          <input-container id="updateDescriptionDiscount" title="Descrição" help="updateDescriptionDiscount"
+          <input-container id="descricao" title="Descrição" help="updateDescriptionDiscount"
             helpText="Nova descrição do desconto" size="b-input">
-            <textarea name="updateDescriptionDiscount" aria-describedby="updateDescriptionDiscount"
+            <textarea name="descricao" aria-describedby="updateDescriptionDiscount"
               :placeholder="$store.state.item.descricao" v-model="updateDiscount.description"></textarea>
           </input-container>
 
-          <input-container id="updateValueDiscount" title="Valor do Desconto" help="updateValueDiscount"
+          <input-container id="desconto" title="Valor do Desconto" help="updateValueDiscount"
             helpText="Novo valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="updateValueDiscount" aria-describedby="updateValueDiscount"
+            <input type="number" name="desconto" aria-describedby="updateValueDiscount"
               :placeholder="$store.state.item.desconto" v-model="updateDiscount.value">
           </input-container>
 
-          <input-container id="updateStatusDiscount" title="Estado do desconto" help="updateStatusDiscount"
+          <input-container id="ativo" title="Estado do desconto" help="updateStatusDiscount"
             helpText="Selecionar estado do desconto">
-            <select name="updateStatusDiscount" aria-describedby="updateStatusDiscount" v-model="updateDiscount.status">
+            <select name="ativo" id="updateStatusDiscount" :value="$store.state.item.ativo" >
               <option value="0">Inativo</option>
               <option value="1">Ativo</option>
             </select>
@@ -270,7 +256,7 @@ export default {
         })
         .catch(errors => {
           this.$store.state.transaction.status = 'error-add'
-          this.$store.state.transaction.message = errors.response.data.message
+          this.$store.state.transaction.message = errors.response.data.errors
           this.newDiscount.name = ""
           this.newDiscount.description = ""
           this.newDiscount.value = ""
@@ -366,7 +352,7 @@ export default {
             .catch(errors => {
               console.log('erro de atualização', errors.response.data)
               this.$store.state.transaction.status = 'error-update'
-              this.$store.state.transaction.message = errors.response.data
+              this.$store.state.transaction.message = errors.response.data.errors
               this.checkedProducts = [],
                 this.productDiscount = ''
             })
@@ -377,6 +363,9 @@ export default {
 
     },
     update(u, n) { //update either the category or material
+      const input = document.getElementById('updateStatusDiscount')
+      const inputValue = input.value
+
       let formData = new FormData();
       formData.append('_method', 'patch')
 
@@ -391,9 +380,7 @@ export default {
           let value = this.updateDiscount.value.toFixed(2);
           formData.append('desconto', value);
         }
-        if (this.updateDiscount.status != '') {
-          formData.append('ativo', this.updateDiscount.status);
-        }
+          formData.append('ativo', inputValue);
       }
 
       let url = this.urlBase + n + '/' + u
@@ -424,7 +411,7 @@ export default {
         .catch(errors => {
           console.log('erro de atualização', errors.response.data)
           this.$store.state.transaction.status = 'error-update'
-          this.$store.state.transaction.message = errors.response.data
+          this.$store.state.transaction.message = errors.response.data.errors
           this.updateDiscount.name = ""
           this.updateDiscount.description = ""
           this.updateDiscount.value = ""

@@ -22,6 +22,8 @@ class desconto extends Model
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
+            'desconto.required' => 'O campo valor do desconto é obrigatório',
+            'ativo.required' => 'O campo estado é obrigatório',
             'nome.unique' => 'Este desconto já existe',
             'decimal' => 'O valor do desconto deve ser decimal (dividido por 100) e com 2 casas decimais',
             'max' => 'O valor máximo é 1',

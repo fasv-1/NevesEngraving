@@ -9,28 +9,27 @@
         <form method="POST" action="" @submit.prevent="register($event)">
           <input type="hidden" name="_token" :value="csrf_token">
 
-          <input-container id="nome" title="Nome" help="nome" helpText="O seu nome" size="l-input">
-            <input id="nome" type="text" class="form-control" name="nome" required autocomplete="nome" autofocus
-              v-model="nome">
+          <input-container id="name" title="Nome" help="nome" helpText="O seu nome" size="l-input">
+            <input type="text" class="form-control" name="name" autocomplete="nome" autofocus v-model="nome">
           </input-container>
 
           <input-container id="email" title="Email" help="email" helpText="O seu email" size="l-input">
-            <input id="email" type="email" class="form-control" name="email" required autocomplete="email" autofocus
+            <input type="email" class="form-control" name="email" autocomplete="email" autofocus
               v-model="email">
           </input-container>
 
 
           <div>
             <input-container id="password" title="Password" help="password" helpText="O sua password" size="l-input">
-              <input id="password" type="password" class="form-control" name="password" required
-                autocomplete="current-password" v-model="password">
+              <input type="password" class="form-control" name="password" autocomplete="current-password"
+                v-model="password">
             </input-container>
           </div>
 
           <input-container id="password_confirmation" title="Confirme a Password" help="password_confirmation"
             helpText="Confirmação da password" size="l-input">
             <input id="password_confirmation" type="password" class="form-control " name="password_confirmation"
-              required autocomplete="password_confirmation" v-model="password_confirmation">
+              autocomplete="password_confirmation" v-model="password_confirmation">
           </input-container>
           <div class="button-form">
             <div class="btn-pass">
@@ -78,15 +77,16 @@ export default {
       }
       axios.post(url, formData, config)
         .then((response) => {
-          console.log(response)
-          if (response.data.token) {
-            document.cookie = 'token=' + response.data.token
+          if (response.data.errors) {
+            this.$store.state.transaction.message = response.data.errors
+          } else {
+            e.target.submit()
+            window.location.replace("/verify-email");
           }
-          e.target.submit()
-          window.location.replace("/verify-email");
         })
         .catch(errors => {
-          console.log(errors.response.data.message)
+          this.$store.state.transaction.message = errors.response.data.errors
+          console.log(errors.response.data.errors)
         })
     }
   }

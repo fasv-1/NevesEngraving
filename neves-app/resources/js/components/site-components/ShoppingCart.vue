@@ -1,43 +1,71 @@
 <template>
     <div class="container">
         <div class="cart-page" v-if="cartProducts.data != ''">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Product</th>
-                        <th>Color</th>
-                        <th>Text</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="product, index in cartProducts.data" :key="index">
-                        <td><img :src="'/storage/' + getImage(index)" alt="product image" style="width:30px; height:30px"></td>
-                        <td>{{ product.title }}</td>
-                        <td>{{ product.color }}</td>
-                        <td>{{ product.text }}</td>
-                        <td><input type="number" :id="'quantity' + index" name="quantity" :value="product.quantity"
-                                @change="update(index)"></td>
-                        <td>{{ calculatedValue(product) }}</td>
-                        <td><button @click="remove(index)">remover</button></td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ sessionTotal }}</td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
-
+            <div class="shop-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Color</th>
+                            <th>Text</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>SUB-TOTAL</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="product, index in cartProducts.data" :key="index">
+                            <td><img :src="'/storage/' + getImage(index)" alt="product image"
+                                    style="width:30px; height:30px"></td>
+                            <td>{{ product.title }}</td>
+                            <td>{{ product.color }}</td>
+                            <td>{{ product.text }}</td>
+                            <td><input type="number" :id="'quantity' + index" name="quantity" :value="product.quantity"
+                                    @change="update(index)"></td>
+                            <td>{{ product.strike_price }}</td>
+                            <td>{{ calculatedValue(product) }} €</td>
+                            <td><a href="" @click.prevent="remove(index)"><img class="delete-btn"
+                                        src="/storage/images/Icons/delete.svg" style="width:25px" alt=""></a></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total :</td>
+                            <td>{{ sessionTotal }} €</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="finish-table">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><b>Cupon Discount</b></td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Products total</b></td>
+                            <td><h6>{{ sessionTotal }} €</h6></td>
+                        </tr>
+                        <tr>
+                            <td><b>Shipping</b></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="cart-empty" v-else>
             <h1>Cart empty</h1>
@@ -128,10 +156,10 @@ export default {
 
             return total
         },
-        getImage(id){
+        getImage(id) {
             let image = ''
             Object.values(this.images.data).forEach(v => {
-                if(v.produto_id == id && v.posicao == 1){
+                if (v.produto_id == id && v.posicao == 1) {
                     image = v.nome
                 }
             })
@@ -158,7 +186,7 @@ export default {
                     this.cartProducts.data = response.data.cart_products
                     this.cartTotal = response.data.cart_total
                     this.totalProducts = response.data.total_products_count
-                      console.log(response)
+                    console.log(response)
                 })
                 .catch(errors => {
                     console.log(errors.response.data.message)

@@ -9,13 +9,12 @@ use Illuminate\Http\Request;
 
 class PedidoProdutoController extends Controller
 {
-    public function __construct(Pedido_Produto $Pedido_Produto)
+    public function __construct()
     {
         // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);
         // $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);
         // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
         // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
-        $this->Pedido_Produto = $Pedido_Produto;
         
         // $this->middleware(['role:User|Admin']);
     }
@@ -31,14 +30,13 @@ class PedidoProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->Pedido_Produto->rules(), $this->Pedido_Produto->feedback());
+        $pedido_produto = new Pedido_Produto();
+        $request->validate($pedido_produto->rules(), $pedido_produto->feedback());
 
         $pedido = Pedido_Detalhe::find($request->input('pedido_id'));
 
-        // dd($pedido);
 
-
-        $pedido->produtos()->attach( //o metodo attach permite inserir registros na BD através da relação belongsToMany feita no modelo pedido; attach(<id relacionado com id em questão, neste caso produto_id>, <array com o valor a iserir na coluna extra da tabela de relação>)
+        $pedido->produtos()->attach( 
             $request->input('produto_id'),
             [
                 'quantidade' =>$request->input('quantidade'),
@@ -47,9 +45,7 @@ class PedidoProdutoController extends Controller
             ]
         );
 
-        // $this->Pedido_Produto->create($request->all());
-
-        return response()->json(['msg' => 'Produto do pedido adicionado com sucesso'], 201);
+        return response()->json(['msg' => 'Produto associado ao pedido com sucesso'], 201);
     }
 
     /**
@@ -71,8 +67,12 @@ class PedidoProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $pedido = Pedido_Detalhe::find($id);
+
+        $pedido->produtos()->detach($request->input('produto_id'));
+
+        return response()->json(['msg' => 'Produto desassociado do pedido'], 201);
     }
 }

@@ -54,6 +54,8 @@ class CategoriaController extends Controller
     {
         $category = $this->categoria->find($id);
 
+        $request->validate($this->categoria->rules(), $this->categoria->feedback());
+
         if ($category === null) {
             return response()->json(['error' => 'A categoria que pretende atualizar não existe'], 404);
         }

@@ -33,6 +33,7 @@ class Produto extends Model
             'categoria_id.required' => 'A categoria é obrigatória',
             'materia_prima_id.required' => 'A matéria-prima é obrigatório',
             'desconto_id.required' => 'O campo desconto é obrigatório',
+            'costumizavel.required' => 'O campo costumização é obrigatório',
             'required' => 'O campo :attribute é obrigatório',
             'numeric' => 'A quantidade do produto deve ser um valor numerico',
             'nome.unique' => 'Este produto já existe',

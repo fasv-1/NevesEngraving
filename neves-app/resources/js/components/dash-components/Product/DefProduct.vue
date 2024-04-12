@@ -16,15 +16,9 @@
 
       <!--Modal to add new category-->
       <modal-component id="modalCategoriaAdd" title="Adicionar uma categoria">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
-          <alert-component tipe="success" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'added'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="addCategory" title="Categoria" help="addCategory" helpText="Nome da Categoria">
-            <input type="text" name="addCategory" aria-describedby="addCategory" v-model="newCategory">
+          <input-container id="nome" title="Categoria" help="addCategory" helpText="Nome da Categoria">
+            <input type="text" name="nome" aria-describedby="addCategory" v-model="newCategory">
           </input-container>
         </template>
 
@@ -39,10 +33,10 @@
       <table-component :data="categorys.data" :view="{ visible: false, dataTarget: '#modalCategoriaView' }"
         :update="{ visible: true, dataTarget: '#modalCategoriaUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalCategoriaRemove' }" :titles="{
-          id: { title: 'ID', type: 'text' },
-          nome: { title: 'Nome', type: 'text' },
-          created_at: { title: 'Data de criação', type: 'date' },
-        }">
+              id: { title: 'ID', type: 'text' },
+              nome: { title: 'Nome', type: 'text' },
+              created_at: { title: 'Data de criação', type: 'date' },
+            }">
       </table-component>
       <!-- End table to show the categorys-->
 
@@ -69,14 +63,10 @@
 
       <!-- Start modal to update categorys-->
       <modal-component id="modalCategoriaUpdate" title="Atualizar categoria">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="updateCategory" title="Atualizar Categoria" help="UpdateCategory"
+          <input-container id="nome" title="Atualizar Categoria" help="UpdateCategory"
             helpText="Novo nome da Categoria">
-            <input type="text" name="updateCategory" aria-describedby="updateCategory"
+            <input type="text" name="nome" aria-describedby="updateCategory"
               :placeholder="$store.state.item.nome" v-model="updateCategory">
           </input-container>
         </template>
@@ -100,18 +90,13 @@
 
       <!--Modal to add new ocasion-->
       <modal-component id="modalOcasionAdd" title="Adicionar uma ocasião">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
-          <alert-component tipe="success" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'added'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="addOcasion" title="Ocasião" help="addOcasion" helpText="Nome da Ocasião">
-            <input type="text" name="addOcasion" aria-describedby="addOcasion" v-model="newOcasion">
+          <input-container id="nome" title="Ocasião" help="addOcasion" helpText="Nome da Ocasião">
+            <input type="text" name="nome" aria-describedby="addOcasion" v-model="newOcasion">
           </input-container>
-          <input-container id="addOcasionStatus" title="Estado" help="addOcasionStatus" helpText="Estado da Ocasião">
-            <select name="addOcasionStatus" v-model="newOcasionStatus">
+          <input-container id="estado" title="Estado" help="addOcasionStatus" helpText="Estado da Ocasião">
+            <select name="estado" v-model="newOcasionStatus">
+              <option value="" disabled>Escolha um</option>
               <option value="0">Inativo</option>
               <option value="1">Ativo</option>
             </select>
@@ -124,26 +109,22 @@
         </template>
 
       </modal-component>
+      <!-- End Modal to add new ocasion-->
 
       <!-- Start table to show the ocasions-->
       <table-component :data="ocasions.data" :view="{ visible: false, dataTarget: '#modalOcasionView' }"
         :update="{ visible: true, dataTarget: '#modalOcasionUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalOcasionRemove' }" :titles="{
-          id: { title: 'ID', type: 'text' },
-          nome: { title: 'Nome', type: 'text' },
-          estado: { title: 'Estado', type: 'status' },
-          created_at: { title: 'Data de criação', type: 'date' },
-        }">
+              id: { title: 'ID', type: 'text' },
+              nome: { title: 'Nome', type: 'text' },
+              estado: { title: 'Estado', type: 'status' },
+              created_at: { title: 'Data de criação', type: 'date' },
+            }">
       </table-component>
       <!-- End table to show the ocasions-->
 
       <!-- Start modal to remove ocasions-->
       <modal-component id="modalOcasionRemove" title="Remover ocasião">
-
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
-        </template>
         <template v-slot:content>
           <input-container id="removeOcasion" title="Tem a certeza que quer remover esta categoria?">
             <input type="text" name="removeOcasion" aria-describedby="removeOcasion" :value="$store.state.item.nome"
@@ -160,19 +141,15 @@
 
       <!-- Start modal to update ocasion-->
       <modal-component id="modalOcasionUpdate" title="Atualizar ocasião">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="updateOcasion" title="Atualizar ocasião" help="UpdateOcasion"
+          <input-container id="nome" title="Atualizar ocasião" help="UpdateOcasion"
             helpText="Novo nome da ocasião">
-            <input type="text" name="updateOcasion" aria-describedby="updateOcasion" :placeholder="$store.state.item.nome"
-              v-model="updateOcasion">
+            <input type="text" name="nome" aria-describedby="updateOcasion"
+              :placeholder="$store.state.item.nome" v-model="updateOcasion">
           </input-container>
-          <input-container id="updateOcasionStatus" title="Atualizar estado da ocasião" help="UpdateOcasionStatus"
+          <input-container id="estado" title="Atualizar estado da ocasião" help="UpdateOcasionStatus"
             helpText="Novo estado da ocasião">
-            <select name="updateOcasionStatus" v-model="updateOcasionStatus">
+            <select name="estado" id="updateOcasionStatus" :value="$store.state.item.estado">
               <option value="0">Inativo</option>
               <option value="1">Ativo</option>
             </select>
@@ -198,15 +175,9 @@
 
       <!--Modal to add new material-->
       <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-add'"></alert-component>
-          <alert-component tipe="success" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'added'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="addMaterial" title="Matéria-prima" help="addMaterial" helpText="Nome da matéria-prima">
-            <input type="text" name="addMaterial" aria-describedby="addMaterial" v-model="newMaterial">
+          <input-container id="nome" title="Matéria-prima" help="addMaterial" helpText="Nome da matéria-prima">
+            <input type="text" name="nome" aria-describedby="addMaterial" v-model="newMaterial">
           </input-container>
         </template>
 
@@ -222,10 +193,10 @@
       <table-component :data="materiais.data" :view="{ visible: false, dataTarget: '#modalMaterialView' }"
         :update="{ visible: true, dataTarget: '#modalMaterialUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalMaterialRemove' }" :titles="{
-          id: { title: 'ID', type: 'text' },
-          nome: { title: 'Nome', type: 'text' },
-          created_at: { title: 'Data de criação', type: 'date' },
-        }">
+              id: { title: 'ID', type: 'text' },
+              nome: { title: 'Nome', type: 'text' },
+              created_at: { title: 'Data de criação', type: 'date' },
+            }">
       </table-component>
       <!-- End table to show materials-->
 
@@ -253,14 +224,10 @@
 
       <!-- Start modal to update material-->
       <modal-component id="modalMaterialUpdate" title="Atualizar matéria-prima">
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction.message"
-            v-if="$store.state.transaction.status == 'error-update'"></alert-component>
-        </template>
         <template v-slot:content>
-          <input-container id="updateMaterial" title="Atualizar matéria-prima" help="updateMaterial"
+          <input-container id="nome" title="Atualizar matéria-prima" help="updateMaterial"
             helpText="Novo nome da matéria-prima">
-            <input type="text" name="updateMaterial" aria-describedby="updateMaterial"
+            <input type="text" name="nome" aria-describedby="updateMaterial"
               :placeholder="$store.state.item.nome" v-model="updateMaterial">
           </input-container>
         </template>
@@ -287,10 +254,10 @@
       <table-component :data="deletedProducts.data" :view="{ visible: false, dataTarget: '' }"
         :update="{ visible: true, dataTarget: '#modalDeletedUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalDeletedlRemove' }" :titles="{
-          id: { title: 'ID', type: 'text' },
-          nome: { title: 'Nome', type: 'text' },
-          deleted_at: { title: 'Eleminado em', type: 'date' },
-        }">
+              id: { title: 'ID', type: 'text' },
+              nome: { title: 'Nome', type: 'text' },
+              deleted_at: { title: 'Eleminado em', type: 'date' },
+            }">
       </table-component>
       <!-- End table to show deleted products-->
 
@@ -386,7 +353,7 @@ export default {
             console.log(errors);
           })
       }
-      
+
       if (urlCategory) {
         axios.get(urlCategory)
           .then(response => {
@@ -461,8 +428,8 @@ export default {
         .catch(errors => {
           console.log(errors.response.data.message)
           this.$store.state.transaction.status = 'error-add'
-          this.$store.state.transaction.message = errors.response.data.message
-          console.log(errors)
+          this.$store.state.transaction.message = errors.response.data.errors
+          console.log(errors.response.data.errors)
           this.newMaterial = ""
           this.newCategory = ""
           this.newOcasionStatus = ""
@@ -582,6 +549,9 @@ export default {
 
     },
     update(u, n) { //update either the category or material
+      const input = document.getElementById('updateOcasionStatus')
+      const inputValue = input.value
+
       let formData = new FormData();
       formData.append('_method', 'patch')
 
@@ -591,12 +561,10 @@ export default {
           formData.append('nome', this.updateOcasion)
         }
 
-        if (this.updateOcasionStatus != '') {
-          formData.append('estado', this.updateOcasionStatus)
-        }
+        formData.append('estado', inputValue)
       }
 
-      if (n == 'categoria') {
+      if (n == 'categoria' && this.updateCategory != '') {
         formData.append('nome', this.updateCategory)
       }
 
@@ -626,12 +594,15 @@ export default {
           alert(response.data.msg)
           this.updateCategory = ""
           this.updateMaterial = ""
+          this.updateOcasion = ""
+          this.updateOcasionStatus = ""
 
         })
         .catch(errors => {
           console.log('erro de atualização', errors.response.data)
           this.$store.state.transaction.status = 'error-update'
-          this.$store.state.transaction.message = errors.response.data
+          this.$store.state.transaction.message = errors.response.data.errors
+          console.log(errors.response.data.errors)
           this.updateCategory = ""
         })
     },

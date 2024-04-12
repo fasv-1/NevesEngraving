@@ -105,15 +105,15 @@
       <div class="input-form-names">
         <div v-if="product.data.costumizavel == 1 || product.data.costumizavel == 3">
           <div class="space-between marginMinvert">
-          <label for="cores">
-            <h6>Cores disponiveis:</h6>
-          </label>
-          <label for="costumizavel">
-            <a href="#addColorsModal">
-              <h6><b>Adicionar cores disponiveis +</b></h6>
-            </a>
-          </label>
-        </div>
+            <label for="cores">
+              <h6>Cores disponiveis:</h6>
+            </label>
+            <label for="costumizavel">
+              <a name='costumizavel' href="#addColorsModal">
+                <h6><b>Adicionar cores disponiveis +</b></h6>
+              </a>
+            </label>
+          </div>
           <ul>
             <li v-for="detail, index in details.data" :key="index">
               <div class="space-between marginMinvert" v-if="detail.cor != null">
@@ -211,12 +211,6 @@
 
     <!----------------------------Modal to update the product-------------------------------------->
     <modal-component id="updateProductModal" title="Atualizar produto">
-      <template v-slot:alerts>
-        <alert-component tipe="danger" :details="$store.state.transaction"
-          v-if="$store.state.transaction.status == 'error-add'"></alert-component>
-        <alert-component tipe="success" :details="$store.state.transaction.message"
-          v-if="$store.state.transaction.status == 'added'"></alert-component>
-      </template>
       <template v-slot:content>
         <div class="container-inputs">
           <div class="input-form-names">
@@ -234,42 +228,38 @@
           </div>
           <div class="select-options">
             <input-container id="ocasion" title="Ocasião" help="ocasionHelp" helpText="Escolha uma ocasião">
-              <select name="ocasion" v-model="updateProduct.ocasion">
+              <select name="ocasion" id="ocasion" :value="product.data.ocasioes_id">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="o in ocasions.data" :key="o.id" :value="o.id"
-                  :selected="o.id == product.data.categoria_id ? true : false">{{ o.nome }}</option>
+                <option v-for="o in ocasions.data" :key="o.id" :value="o.id">{{ o.nome }}</option>
               </select>
             </input-container>
 
             <input-container id="category" title="Categoria" help="categoryHelp" helpText="Escolha uma categoria">
-              <select name="category" v-model="updateProduct.category">
+              <select name="category" id="category" :value="product.data.categoria_id">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="c in categorys.data" :key="c.id" :value="c.id"
-                  :selected="c.id == product.data.categoria_id ? true : false">{{ c.nome }}</option>
+                <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
               </select>
             </input-container>
 
 
             <input-container id="material" title="Materia-prima" help="materialHelp"
               helpText="Escolha uma matéria-prima">
-              <select name="material" v-model="updateProduct.material">
+              <select name="material" id="material" :value="product.data.materia_prima_id">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="m in materials.data" :key="m.id" :value="m.id"
-                  :selected="m.id == product.data.materia_prima_id ? true : false">{{ m.nome }}</option>
+                <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
               </select>
             </input-container>
 
             <input-container id="discount" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
-              <select name="discount" v-model="updateProduct.discount">
+              <select name="discount" id="discount" :value="product.data.desconto_id">
                 <option value="" disabled>Escolhe uma</option>
-                <option v-for="d in discounts.data " :key="d.id" :value="d.id"
-                  :selected="d.id == product.data.discount_id ? true : false">{{ d.nome }}</option>
+                <option v-for="d in discounts.data " :key="d.id" :value="d.id">{{ d.nome }}</option>
               </select>
             </input-container>
 
             <input-container id="customization" title="Costumização" help="customizationtHelp"
               helpText="Escolha um tipo de costumização">
-              <select name="customization" v-model="updateProduct.customization">
+              <select name="customization" id="customization" :value="product.data.costumizavel">
                 <option value="" disabled>Escolhe uma</option>
                 <option value="0">Sem costumização</option>
                 <option value="1">Cor</option>
@@ -405,6 +395,7 @@ export default {
       ocasions: { data: [] },
       materials: { data: [] },
       discounts: { data: [] },
+      taxes: { data: [] },
       mainImage: [],
       images: [],
       addDetail: '',
@@ -583,6 +574,18 @@ export default {
         })
     },
 
+    loadTaxes() {
+      let urlTaxes = this.urlBase + 'taxas';
+
+      axios.get(urlTaxes)
+        .then(response => {
+          this.taxes.data = response.data
+        })
+        .catch(errors => {
+          console.log(errors)
+        })
+    },
+
     loadDiscounts() { //load all the disconts
       let urlDiscounts = this.urlBase + 'desconto';
 
@@ -692,7 +695,23 @@ export default {
       }
     },
     update() {
+      let ocasion = document.getElementById('ocasion')
+      let ocasionValue = ocasion.value
+
+      let category = document.getElementById('category')
+      let categoryValue = category.value
+
+      let material = document.getElementById('material')
+      let materialValue = material.value
+
+      let discount = document.getElementById('discount')
+      let discountValue = discount.value
+
+      let customization = document.getElementById('customization')
+      let customizationValue = customization.value
+
       let url = this.urlBase + 'produto/' + this.id
+
 
       let formData = new FormData();
       formData.append('_method', 'patch')
@@ -710,25 +729,25 @@ export default {
         formData.append('descricao', this.updateProduct.description);
       }
       if (this.updateProduct.price != '') {
-        let value = this.updateProduct.price.toFixed(2);
-        formData.append('valor', value);
+        let finalPrice = ''
+        this.taxes.data.forEach(element => {
+          if(element.nome == 'Iva'){
+            finalPrice = this.updateProduct.price + (element.valor * this.updateProduct.price)
+            finalPrice = finalPrice.toFixed(2)
+          }
+        });
+        formData.append('valor', finalPrice)
       }
-      if (this.updateProduct.customization != '') {
-        formData.append('costumizavel', this.updateProduct.customization);
-      }
+      formData.append('costumizavel', customizationValue);
 
-      if (this.updateProduct.ocasion != '') {
-        formData.append('ocasioes_id', this.updateProduct.ocasion);
-      }
-      if (this.updateProduct.category != '') {
-        formData.append('categoria_id', this.updateProduct.category);
-      }
-      if (this.updateProduct.material != '') {
-        formData.append('materia_prima_id', this.updateProduct.material);
-      }
-      if (this.updateProduct.discount != '') {
-        formData.append('desconto_id', this.updateProduct.discount);
-      }
+      formData.append('ocasioes_id', ocasionValue);
+
+      formData.append('categoria_id', categoryValue);
+
+      formData.append('materia_prima_id', materialValue);
+
+      formData.append('desconto_id', discountValue);
+
 
       // console.log(url)
 
@@ -842,6 +861,7 @@ export default {
     this.getProductImages();
     this.loadOcasions();
     this.loadDetails()
+    this.loadTaxes()
   }
 }
 </script>

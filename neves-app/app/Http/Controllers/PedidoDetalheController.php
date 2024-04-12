@@ -103,6 +103,8 @@ class PedidoDetalheController extends Controller
             return response()->json(['error' => 'Os detalhes do pedido que pretende eliminar não existe'], 404);
         }
 
+        $Pedido_Detalhe->produtos()->detach();
+
         $Pedido_Detalhe->delete();
 
         return response()->json(['msg' => 'Detalhes do pedido eliminados com sucesso'], 200);

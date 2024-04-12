@@ -22,6 +22,7 @@ class Ocasiao extends Model
     
     public function feedback(){
         return [
+            'nome.required' => 'O campo ocasião é obrigatório',
             'required' => 'O campo :attribute é obrigatório',
             'nome.unique' => 'Esta ocasião já existe',
             'numeric' => 'Este campo deve ser preenchido por um valor numérico'
