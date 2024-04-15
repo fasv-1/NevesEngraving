@@ -3,14 +3,14 @@
     <!---------------------------Logo link------------------------------------->
     <div class="navbar-logo" v-if="altroutes == true">
       <a href="/home">
-        <div class="bg-logo">
+        <div class="bg-logo" :class="$route.name == 'Home' ? 'active' : ''">
           <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
         </div>
         <h4><b>Neves Engraving</b></h4>
       </a>
     </div>
     <div class="navbar-logo" v-else>
-      <router-link to="/home">
+      <router-link to="/home" :class="$route.name == 'Home' ? 'active' : ''">
         <div class="bg-logo">
           <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
         </div>
@@ -123,22 +123,37 @@
     </div>
     <div class="navbar-links" v-if="altroutes == true">
       <div class="start-links">
-        <a href="/home/amazing_gifts" @click="clearStorage()">
-          <h6><b>AMAZING GIFTS</b></h6>
+        <a href="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'AmazingGifts' ? 'active' : ''">
+          <div class="glow-div">
+            <h6><b>AMAZING GIFTS</b></h6>
+          </div>
         </a>
-        <a href="/home/engraving" @click="clearStorage()">
-          <h6><b>ENGRAVING</b></h6>
+        <a href="/home/engraving" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'Engraving' ? 'active' : ''">
+          <div class="glow-div">
+            <h6><b>ENGRAVING</b></h6>
+          </div>
         </a>
-        <a href="/home/lazer_cut" @click="clearStorage()">
-          <h6><b>LAZER CUT</b></h6>
+        <a href="/home/lazer_cut" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'LazerCut' ? 'active' : ''">
+          <div class="glow-div">
+            <h6><b>LAZER CUT</b></h6>
+          </div>
         </a>
       </div>
       <div class="end-links">
-        <a href="/home/business_cards" @click="clearStorage()">
-          <h6><b>BUSINESS CARDS</b></h6>
+        <a href="/home/business_cards" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'BusinessCards' ? 'active' : ''">
+          <div class="glow-div">
+            <h6><b>BUSINESS CARDS</b></h6>
+          </div>
         </a>
-        <a href="/home/contacts">
-          <h6><b>CONTACTS</b></h6>
+        <a href="/home/contacts" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'Contacts' ? 'active' : ''">
+          <div class="glow-div">
+            <h6><b>CONTACTS</b></h6>
+          </div>
         </a>
         <a href="#searchModal" @click="clearStorage()">
           <svg class="mag-glass" x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
@@ -153,22 +168,37 @@
     </div>
     <div class="navbar-links" v-else>
       <div class="start-links">
-        <router-link to="/home/amazing_gifts" @click="clearStorage()">
-          <h6><b>AMAZING GIFTS</b></h6>
+        <router-link to="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'AmazingGifts' ? 'active' : ''">
+          <div id="glow-div">
+            <h6><b>AMAZING GIFTS</b></h6>
+          </div>
         </router-link>
-        <router-link to="/home/engraving" @click="clearStorage()">
-          <h6><b>ENGRAVING</b></h6>
+        <router-link to="/home/engraving" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'Engraving' ? 'active' : ''">
+          <div id="glow-div">
+            <h6><b>ENGRAVING</b></h6>
+          </div>
         </router-link>
-        <router-link to="/home/lazer_cut" @click="clearStorage()">
-          <h6><b>LAZER CUT</b></h6>
+        <router-link to="/home/lazer_cut" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'LazerCut' ? 'active' : ''">
+          <div id="glow-div">
+            <h6><b>LAZER CUT</b></h6>
+          </div>
         </router-link>
       </div>
       <div class="end-links">
-        <router-link to="/home/business_cards" @click="clearStorage()">
-          <h6><b>BUSINESS CARDS</b></h6>
+        <router-link to="/home/business_cards" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'BusinessCards' ? 'active' : ''">
+          <div id="glow-div">
+            <h6><b>BUSINESS CARDS</b></h6>
+          </div>
         </router-link>
-        <router-link to="/home/contacts" @click="clearStorage()">
-          <h6><b>CONTACTS</b></h6>
+        <router-link to="/home/contacts" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'Contacts' ? 'active' : ''">
+          <div id="glow-div">
+            <h6><b>CONTACTS</b></h6>
+          </div>
         </router-link>
         <a href="#searchModal" @click="clearStorage()">
           <svg class="mag-glass" x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
@@ -185,7 +215,7 @@
 
   <modal-component id="searchModal" title="O que procuras em especifico?">
     <template v-slot:content>
-        <input type="text" name="search" aria-describedby="search" >
+      <input type="text" name="search" aria-describedby="search">
     </template>
 
     <template v-slot:footer>
@@ -197,6 +227,7 @@
   <!---------------------------Breadcrumb------------------------------------->
   <breadcrumb-component></breadcrumb-component>
   {{ sessionTotal }}
+  {{ route }}
 </template>
 
 <script>
@@ -208,14 +239,14 @@ export default {
     }
   },
   data() {
-        return {
-            cartProducts: { data: [] },
-            cartTotal: '',
-            totalProducts: '',
-            discounts: { data: [] },
-            totalPrice: ''
-        }
-    },
+    return {
+      cartProducts: { data: [] },
+      cartTotal: '',
+      totalProducts: '',
+      discounts: { data: [] },
+      totalPrice: ''
+    }
+  },
   methods: {
     clearStorage() {
       localStorage.clear();
@@ -223,68 +254,72 @@ export default {
       // location.reload();
     },
     calculatedValue(p) {
-            let price = p.strike_price
-            let discountValue = ''
-            let quantity = p.quantity
+      let price = p.strike_price
+      let discountValue = ''
+      let quantity = p.quantity
 
-            this.discounts.data.forEach(e => {
-                if (e.id == p.discount_price && e.ativo == 1) {
-                    discountValue = e.desconto
-                }
-            })
-
-            let priceDiscounted = price - (discountValue * price)
-
-            let total = (priceDiscounted * quantity).toFixed(2)
-
-            return total
-        },
-        getData() {
-            let url = this.$store.state.Url + 'cart'
-            let urlDiscount = this.$store.state.Url + 'api/desconto'
-
-            axios.get(urlDiscount)
-                .then((response) => {
-                    this.discounts.data = response.data
-                    //   console.log(response.data)
-                })
-                .catch(errors => {
-                    console.log(errors.response.data.message)
-                })
-            axios.get(url)
-                .then((response) => {
-                    this.cartProducts.data = response.data.cart_products
-                    this.cartTotal = response.data.cart_total
-                    this.totalProducts = response.data.total_products_count
-                    //   console.log(response.data)
-                })
-                .catch(errors => {
-                    console.log(errors.response.data.message)
-                })
+      this.discounts.data.forEach(e => {
+        if (e.id == p.discount_price && e.ativo == 1) {
+          discountValue = e.desconto
         }
+      })
+
+      let priceDiscounted = price - (discountValue * price)
+
+      let total = (priceDiscounted * quantity).toFixed(2)
+
+      return total
+    },
+    getData() {
+      let url = this.$store.state.Url + 'cart'
+      let urlDiscount = this.$store.state.Url + 'api/desconto'
+
+      axios.get(urlDiscount)
+        .then((response) => {
+          this.discounts.data = response.data
+          //   console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors.response.data.message)
+        })
+      axios.get(url)
+        .then((response) => {
+          this.cartProducts.data = response.data.cart_products
+          this.cartTotal = response.data.cart_total
+          this.totalProducts = response.data.total_products_count
+          //   console.log(response.data)
+        })
+        .catch(errors => {
+          console.log(errors.response.data.message)
+        })
+    }
   },
   computed: {
-        sessionTotal() {
-            let values = []
-            let total = 0
+    route() {
+      console.log(this.$route.name)
+    },
+    sessionTotal() {
+      let values = []
+      let total = 0
 
-            Object.values(this.cartProducts.data).forEach(v => {
-                values.push(this.calculatedValue(v))
-            })
+      Object.values(this.cartProducts.data).forEach(v => {
+        values.push(this.calculatedValue(v))
+      })
 
-            function sum(a) {
-                return (a.length && parseFloat(a[0]) + sum(a.slice(1))) || 0;
-            }
+      function sum(a) {
+        return (a.length && parseFloat(a[0]) + sum(a.slice(1))) || 0;
+      }
 
-            total = sum(values).toFixed(2)
+      total = sum(values).toFixed(2)
 
-            this.totalPrice = total
+      this.totalPrice = total
 
-        },
-      },
+    },
+  },
   mounted() {
     this.getData()
     // console.log(this.altroutes)
+    // console.log(this.$router)
   }
 }
 </script>

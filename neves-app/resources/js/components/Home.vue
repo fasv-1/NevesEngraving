@@ -1,3 +1,20 @@
+<script setup>
+import { ref } from 'vue'
+
+const x = ref(0)
+const y = ref(0)
+
+const bgImg = ref(null)
+
+
+function onMousemove(e){
+  x.value = e.clientX
+  y.value = e.clientY
+  bgImg.style.transform = 'translateY('+(y-80)+'px)';
+  bgImg.style.transform += 'translateX('+(x-100)+'px)';
+}
+</script>
+
 <template>
   <div class="container">
     <div class="home-intro">
@@ -59,8 +76,8 @@
     <div class="home-contacts">
       <div class="form-cont">
         <div class="title">
-          <p>Contacts</p>
-          <h3>How can we help you ?</h3>
+          <p>Contact</p>
+          <h2>How can we help you ?</h2>
         </div>
         <div class="contact-form">
           <form method="POST" action="" @submit.prevent="contact($event)">
@@ -87,7 +104,7 @@
             </div>
             <div class="button-form">
               <div class="btn-pass">
-                <button type="submit" class="button-login">
+                <button type="submit" class="button-save">
                   Send
                 </button>
               </div>
@@ -96,7 +113,19 @@
         </div>
       </div>
     </div>
-    <div class="home-social"></div>
+    <div class="home-social" @mousemove="onMousemove">
+        <div class="bg-img" ref="bgImg"></div>
+      <div class="follow">
+        <h1>Follow us on:</h1>
+      </div>
+      <div class="social">
+        <h3>x: {{ x }}</h3>
+        <h3>y: {{ y }}</h3>
+        <a href=""><img src="/storage/images/Icons/facebook.png" width="50px" alt="facebook"></a>
+        <a href=""><img src="/storage/images/Icons/instagram.png" width="50px" alt="instagram"></a>
+        <a href=""><img src="/storage/images/Icons/whatsapp_icon.png" width="50px" alt="whatsapp"></a>
+      </div>
+    </div>
 
 
 
