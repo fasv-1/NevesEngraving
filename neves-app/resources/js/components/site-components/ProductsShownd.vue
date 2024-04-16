@@ -12,7 +12,7 @@
             <img src="/storage/images/Icons/5-stars.png" alt="5stars">
             <div class="bg-stars" :style="'width:' + getRating + 'px'"></div>
           </div>
-          <p>Reviews ({{ (reviews.data).length }})</p>
+          <p>Reviews ({{ reviewsNumb }})</p>
         </div>
         <div class="share">
           <ul>
@@ -157,8 +157,8 @@
         </div>
         {{ sameCategory }}
         <card-component :products=categoryProducts.data :headTitle='false' :info="{
-              nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
-            }" :cart="true"></card-component>
+          nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
+        }" :cart="true"></card-component>
       </div>
       <modal-component id="addComentModal" title="Adiciona um comentário a este produto">
         <template v-slot:content>
@@ -215,10 +215,10 @@ export default {
       details: { data: [] },
       reviews: { data: [] },
       openImage: '',
-      categoryProducts: { data: [] },
       quantity: 1,
       comment: '',
       rating: '',
+      reviewsNumb: '',
       isActive: false,
       drop: false,
       colorSelected: {
@@ -231,7 +231,7 @@ export default {
   methods: {
     addToCart(e) {
 
-      let url = 'http://127.0.0.1:8000/cart'
+      let url = this.$store.state.Url + 'cart'
 
       let formData = new FormData()
 
@@ -370,7 +370,11 @@ export default {
 
       axios.get(urlProducts)
         .then(response => {
-          this.categoryProducts.data = response.data.paginated.data
+          response.data.paginated.data.forEach(e =>{
+            if(e.id != this.id){
+              this.categoryProducts.data.push(e)
+            }
+          })
         })
         .catch(errors => {
           console.log(errors)
@@ -400,11 +404,13 @@ export default {
       let value = []
       let rating = ''
 
-      this.reviews.data.forEach(e => {
-        if (e.rating) {
-          value.push(e.rating)
-        }
+      this.reviewsNumb = Object.keys(this.reviews.data).length
+
+      Object.values(this.reviews.data).forEach(v => {
+        value.push(v.rating)
       })
+
+      
       value.forEach(e => {
         sum += e
       })

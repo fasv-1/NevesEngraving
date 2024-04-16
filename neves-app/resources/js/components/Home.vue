@@ -4,14 +4,11 @@ import { ref } from 'vue'
 const x = ref(0)
 const y = ref(0)
 
-const bgImg = ref(null)
 
 
-function onMousemove(e){
+function onMousemove(e) {
   x.value = e.clientX
   y.value = e.clientY
-  bgImg.style.transform = 'translateY('+(y-80)+'px)';
-  bgImg.style.transform += 'translateX('+(x-100)+'px)';
 }
 </script>
 
@@ -47,7 +44,7 @@ function onMousemove(e){
           <h2>Lazer-cut</h2>
         </div>
         <div class="animation">
-          <video width="200px" autoplay controls loop>
+          <video  autoplay loop>
             <source src="/storage/videos/lazer-cut-clip.mp4" type="video/mp4">
           </video>
         </div>
@@ -64,7 +61,7 @@ function onMousemove(e){
           laboriosam labore asperiores inventore placeat deleniti fugiat a unde exercitationem excepturi, quae qui
           assumenda, veniam autem reprehenderit!</div>
         <div class="animation">
-          <video height="100px" autoplay controls loop>
+          <video  autoplay loop>
             <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
           </video>
         </div>
@@ -114,16 +111,16 @@ function onMousemove(e){
       </div>
     </div>
     <div class="home-social" @mousemove="onMousemove">
-        <div class="bg-img" ref="bgImg"></div>
-      <div class="follow">
-        <h1>Follow us on:</h1>
-      </div>
-      <div class="social">
-        <h3>x: {{ x }}</h3>
-        <h3>y: {{ y }}</h3>
-        <a href=""><img src="/storage/images/Icons/facebook.png" width="50px" alt="facebook"></a>
-        <a href=""><img src="/storage/images/Icons/instagram.png" width="50px" alt="instagram"></a>
-        <a href=""><img src="/storage/images/Icons/whatsapp_icon.png" width="50px" alt="whatsapp"></a>
+      <div class="bg-img" :style="{ translate: '' + (x-110) + 'px ' + (y- dinamicHeight) + 'px' }"></div>
+      <div class="bg-logo">
+        <div class="follow">
+          <h1><b>Follow us on:</b></h1>
+        </div>
+        <div class="social">
+          <a href=""><img src="/storage/images/Icons/facebook-follow.png" width="50px" alt="facebook"></a>
+          <a href=""><img src="/storage/images/Icons/instagram-follow.png" width="50px" alt="instagram"></a>
+          <a href=""><img src="/storage/images/Icons/whatsapp-follow.png" width="50px" alt="whatsapp"></a>
+        </div>
       </div>
     </div>
 
@@ -149,8 +146,16 @@ export default {
 
   methods: {
   },
+  computed:{
+    dinamicHeight(){
+      let WindowHeight = window.innerHeight
+
+      return (WindowHeight- 130)
+    }
+  },
 
   mounted() {
+  console.log(window.innerHeight)
   }
 
 }
