@@ -22,6 +22,7 @@ use App\Http\Controllers\ProdutoDetalheController;
 use App\Http\Controllers\TermoEcondicaoController;
 use App\Http\Controllers\PedidoDetalheController;
 use App\Http\Controllers\PedidoProdutoController;
+use App\Http\Controllers\MensagemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -104,7 +105,11 @@ Route::apiResource('conteudo', ConteudoController::class);
 Route::apiResource('termos_condicoes', TermoEcondicaoController::class);
 //--------------------------------- terms routes----------------------------------------
 
-//---------------------------------terms routes----------------------------------------
+//---------------------------------order routes----------------------------------------
 Route::apiResource('pedido_detalhe', PedidoDetalheController::class);
 Route::apiResource('pedido_produto', PedidoProdutoController::class);
-//--------------------------------- terms routes----------------------------------------
+//--------------------------------- order routes---------------------------------------
+
+//---------------------------------message routes----------------------------------------
+Route::apiResource('mensagem', MensagemController::class);
+//--------------------------------- mesagem routes----------------------------------------

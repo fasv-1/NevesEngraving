@@ -7,7 +7,7 @@
         @endguest
     </navbar-component>
     <login-component csrf_token="{{ @csrf_token() }}"></login-component>
-
+    
     {{-- <div class="form-cont">
     <div class="form-group">
       <form method="post" action = {{ route('login') }}>

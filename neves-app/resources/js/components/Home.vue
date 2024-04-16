@@ -155,7 +155,6 @@ export default {
   },
 
   mounted() {
-  console.log(window.innerHeight)
   }
 
 }

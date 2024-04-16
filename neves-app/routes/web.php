@@ -22,6 +22,10 @@ Route::get('/', function () {
     return redirect('/home');
 })->name('site');
 
+Route::get('/mail', function () {
+    return view('email.userMessage');
+})->name('site');
+
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/dashboard', [DashboardController::class, 'index'] )->name('site.dashboard');
     Route::get('/dashboard/{any}', [DashboardController::class, 'index'])->where('any', '.*');
