@@ -25,9 +25,29 @@
   flex-wrap: wrap;
 }
 
+.text-red{
+  color: $Global-red;
+}
+
+.text-blue{
+  color: $Global-blue;
+}
+
+.line-17{
+  line-height: 1.7em;
+}
+
 //margin 2
 .margin2{
   margin:2em;
+}
+
+.margin4{
+  margin:4em;
+}
+
+.paddinghor1{
+  padding:0 1em;
 }
 
 .marginMinHor{

@@ -1193,7 +1193,7 @@
     background-position: center;
     background-size: contain;
     background-repeat: round;
-    background-size: 100px ;
+    background-size: 100px;
     z-index: 2;
     position: absolute;
     height: 200px;
@@ -1212,6 +1212,45 @@
       width: 60%;
       display: flex;
       justify-content: space-around;
+    }
+  }
+}
+
+.dynamic-box {
+  margin: 4em 0;
+  .nav-menu {
+    display: flex;
+
+    .option{
+      margin: 0 0.5em 0 0;
+      padding: 1em;
+      background-color: #fff;
+      border: 2px solid $Global-blue;
+      color: $Global-blue;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    .active{
+      background-color: $Global-blue;
+      color: #fff;
+    }
+  }
+  .info {
+    border: 1px solid $Global-blue;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    
+    .option-selected{
+      margin: 1em 2em;
+      .title{
+        margin: 1em 0;
+        color: $Darker-blue;
+      }
+      .text{
+        line-height: 1.7em;
+      }
     }
   }
 }

@@ -98,11 +98,11 @@ const routes = [
     }
   },
   {
-    path: '/home/business_cards',
-    component: BusinessCards,
-    name: 'BusinessCards',
+    path: '/home/policies',
+    component: Policies,
+    name: 'Policies',
     meta: {
-      breadcrumb: 'business_cards'
+      breadcrumb: 'policies'
     }
   },
   {
@@ -244,8 +244,8 @@ app.component('gifts-component', AmazingGifts);
 import ProductsShownd from './components/site-components/ProductsShownd.vue';
 app.component('gifts-products-component', ProductsShownd);
 
-import BusinessCards from './components/site-components/BusinessCards.vue';
-app.component('cards-component', BusinessCards);
+import Policies from './components/site-components/Policies.vue';
+app.component('policies-component', Policies);
 
 import Engraving from './components/site-components/Engraving.vue';
 app.component('engraving-component', Engraving);
@@ -268,6 +268,9 @@ app.component('alert-component', Alert);
 
 import ProductCard from './components/ProductCard.vue';
 app.component('card-component', ProductCard);
+
+import FormContact from './components/FormContact.vue';
+app.component('contact-component', FormContact);
 
 
 

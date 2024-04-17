@@ -143,10 +143,10 @@
         </a>
       </div>
       <div class="end-links">
-        <a href="/home/business_cards" @click="clearStorage()" class="nav-link"
-          :class="$route.name == 'BusinessCards' ? 'active' : ''">
+        <a href="/home/policies" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'Policies' ? 'active' : ''">
           <div class="glow-div">
-            <h6><b>BUSINESS CARDS</b></h6>
+            <h6><b>Policies</b></h6>
           </div>
         </a>
         <a href="/home/contacts" @click="clearStorage()" class="nav-link"
@@ -188,10 +188,10 @@
         </router-link>
       </div>
       <div class="end-links">
-        <router-link to="/home/business_cards" @click="clearStorage()" class="nav-link"
-          :class="$route.name == 'BusinessCards' ? 'active' : ''">
+        <router-link to="/home/policies" @click="clearStorage()" class="nav-link"
+          :class="$route.name == 'Policies' ? 'active' : ''">
           <div id="glow-div">
-            <h6><b>BUSINESS CARDS</b></h6>
+            <h6><b>POLICIES</b></h6>
           </div>
         </router-link>
         <router-link to="/home/contacts" @click="clearStorage()" class="nav-link"
@@ -227,7 +227,6 @@
   <!---------------------------Breadcrumb------------------------------------->
   <breadcrumb-component></breadcrumb-component>
   {{ sessionTotal }}
-  {{ route }}
 </template>
 
 <script>
@@ -295,9 +294,6 @@ export default {
     }
   },
   computed: {
-    route() {
-      console.log(this.$route.name)
-    },
     sessionTotal() {
       let values = []
       let total = 0

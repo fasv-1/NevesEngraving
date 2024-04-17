@@ -70,46 +70,7 @@ function onMousemove(e) {
     <div class="home-promo">
       <div class="content"></div>
     </div>
-    <div class="home-contacts">
-      <div class="form-cont">
-        <div class="title">
-          <p>Contact</p>
-          <h2>How can we help you ?</h2>
-        </div>
-        <div class="contact-form">
-          <form method="POST" action="" @submit.prevent="contact($event)">
-            <input type="hidden" name="_token" :value="$store.state.csrf">
-            <div>
-              <input-container id="first_name" title="First name" help="first-name" helpText="Your first name"
-                size="m-input">
-                <input type="text" name="first_name" required>
-              </input-container>
-              <input-container id="last_name" title="Last name" help="last_name" helpText="Your last name"
-                size="m-input">
-                <input type="text" name="last_name" required>
-              </input-container>
-            </div>
-            <div>
-              <input-container id="email" title="Email" help="email" helpText="Your email here" size="l-input">
-                <input type="text" name="email" required>
-              </input-container>
-            </div>
-            <div>
-              <input-container id="message" title="Message" help="message" helpText="Your message here" size="l-input">
-                <textarea name="message"></textarea>
-              </input-container>
-            </div>
-            <div class="button-form">
-              <div class="btn-pass">
-                <button type="submit" class="button-save">
-                  Send
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <contact-component></contact-component>
     <div class="home-social" @mousemove="onMousemove">
       <div class="bg-img" :style="{ translate: '' + (x-110) + 'px ' + (y- dinamicHeight) + 'px' }"></div>
       <div class="bg-logo">
