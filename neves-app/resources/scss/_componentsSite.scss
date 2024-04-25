@@ -1229,6 +1229,7 @@
       color: $Global-blue;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
+      cursor: pointer;
     }
 
     .active{
@@ -1242,6 +1243,71 @@
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     
+    .option-selected{
+      margin: 1em 2em;
+      .title{
+        margin: 1em 0;
+        color: $Darker-blue;
+      }
+      .text{
+        line-height: 1.7em;
+      }
+    }
+  }
+}
+
+.dynamic-show{
+  margin: 2em 0;
+  .nav-menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 4em 1em;
+
+    .option{
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover .eng-name{
+        color: #fff;
+      }
+      img{
+        border-radius: 50%;
+        object-position: center;
+        object-fit: fill;
+      }
+      .eng-name{
+        position: absolute;
+        color: transparent;
+        font-size: 2em;
+        transition: all 0.5s ease-in-out;
+      }
+      .blur{
+        position: absolute;
+        background-color: #3a3a3a;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        opacity: 0.8;
+      }
+
+      .active{
+        display: none;
+      }
+      
+    }
+  }
+  .info{
+    border: 1px solid $Global-blue;
+    // margin: 2em 1em;
+    padding: 2em;
+    // box-shadow: inset 0px 1px 2px 0px rgb(189, 189, 189); 
+    border-radius: 6px;
+
     .option-selected{
       margin: 1em 2em;
       .title{
