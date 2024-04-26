@@ -262,6 +262,9 @@ app.component('cart-component', ShoppingCart);
 import Contacts from './components/site-components/Contacts.vue';
 app.component('contacts-component', Contacts);
 
+import Footer from './components/Footer.vue';
+app.component('footer-component', Footer);
+
 //-------------------------------------General-Components-------------------------------
 import Alert from './components/Alert.vue';
 app.component('alert-component', Alert);

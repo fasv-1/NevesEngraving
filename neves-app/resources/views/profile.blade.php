@@ -23,4 +23,5 @@
 
     </navbar-component>
     <profile-component :user="{{ $user }}" token = "{{ $token }}"></profile-component>
+    <footer-component></footer-component>
 @endsection

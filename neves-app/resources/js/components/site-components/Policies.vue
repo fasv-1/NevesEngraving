@@ -153,6 +153,14 @@ export default {
         }
     },
     methods: {
+        timeOut() {
+            setTimeout(() => {
+                if (this.$route.query.policie) {
+                    localStorage.setItem('selectedOption', this.$route.query.policie);
+                    this.optionSelected = localStorage.getItem('selectedOption');
+                }
+            }, 200);
+        },
         select(n) {
                 localStorage.setItem('selectedOption', n);
                 this.optionSelected = localStorage.getItem('selectedOption');
@@ -171,6 +179,7 @@ export default {
     },
     mounted() {
         this.start()
+        this.timeOut()
     }
 }
 </script>

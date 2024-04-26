@@ -558,7 +558,7 @@ export default {
   mounted() {
     this.getData()
     this.localStorage()
-    console.log(this.$store.state.csrf)
+    // console.log(this.$store.state.csrf)
 
   }
 }

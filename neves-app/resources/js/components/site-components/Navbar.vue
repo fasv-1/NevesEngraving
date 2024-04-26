@@ -146,7 +146,7 @@
         <a href="/home/policies" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'Policies' ? 'active' : ''">
           <div class="glow-div">
-            <h6><b>Policies</b></h6>
+            <h6><b>POLICIES</b></h6>
           </div>
         </a>
         <a href="/home/contacts" @click="clearStorage()" class="nav-link"

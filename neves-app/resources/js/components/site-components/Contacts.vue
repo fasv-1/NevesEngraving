@@ -19,7 +19,9 @@
         <br>
         <h5>Email:</h5>
       </div>
+      <div id="contact-me">
       <contact-component></contact-component>
+    </div>
   </div>
 </template>
 
