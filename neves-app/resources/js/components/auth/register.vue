@@ -30,6 +30,8 @@
             helpText="Confirmação da password" size="l-input">
             <input id="password_confirmation" type="password" class="form-control " name="password_confirmation"
               autocomplete="password_confirmation" v-model="password_confirmation">
+              <p class="error" v-for=" error, index in this.$store.state.transaction.message" :key="index">{{ index
+    == 'password' ? error.toString() : '' }}</p>
           </input-container>
           <div class="button-form">
             <div class="btn-pass">

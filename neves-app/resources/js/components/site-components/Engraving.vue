@@ -145,6 +145,7 @@
             </div>
         </div>
     </div>
+    <contact-component></contact-component>
 </template>
 
 <script>

@@ -141,7 +141,6 @@
                 </div>
             </div>
         </div>
-        <contact-component></contact-component>
     </div>
 </template>
 

@@ -111,7 +111,7 @@ export default {
     dinamicHeight(){
       let WindowHeight = window.innerHeight
 
-      return (WindowHeight- 130)
+      return (WindowHeight - 370)
     }
   },
 

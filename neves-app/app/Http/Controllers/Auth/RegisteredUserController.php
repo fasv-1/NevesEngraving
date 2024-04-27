@@ -39,7 +39,8 @@ class RegisteredUserController extends Controller
             'required' => 'This field cannot be empty',
             'string' => 'This field has to be type string',
             'max' => 'the field :attribute as to many characters',
-            'unique' => 'sorry but this email is already taken'
+            'unique' => 'sorry but this email is already taken',
+            'confirmed' => 'sorry but the passwords dont match'
         ]);
 
         $user = User::create([

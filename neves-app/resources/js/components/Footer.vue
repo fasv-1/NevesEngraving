@@ -3,7 +3,7 @@
     <div class="footer-content">
       <div class="colum-info">
         <div class="title">
-          <h4>Policies</h4>
+          <h5>Policies</h5>
         </div>
         <div class="links">
           <a href="/home/policies?policie=0">Return</a>
@@ -24,7 +24,7 @@
 
       <div class="colum-info">
         <div class="title">
-          <h4>Store Map</h4>
+          <h5>Store Map</h5>
         </div>
         <div class="links">
           <a href="/home">Home</a>
@@ -45,7 +45,7 @@
 
       <div class="colum-info">
         <div class="title">
-          <h4>Contacts</h4>
+          <h5>Contacts</h5>
         </div>
         <div class="links">
           <p>phone number</p>
@@ -57,7 +57,7 @@
 
       <div class="colum-info">
           <div class="title">
-            <h4>About</h4>
+            <h5>About</h5>
           </div>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit vitae cum aut ducimus repellat quod incidunt
             consequatur adipisci praesentium eveniet ipsum optio iure aliquam, veniam eligendi, earum ea fugiat nam!</p>

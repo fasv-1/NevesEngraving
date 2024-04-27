@@ -21,6 +21,5 @@
      <button type="submit" class="button-1">Submit</button> 
       </form> --}}
         </div>
-        {{ $errors }}
     </div>
 @endsection
