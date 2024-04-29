@@ -21,7 +21,7 @@
             </div>
         @endauth
         @guest
-            <a href={{ route('login') }}>Login/Signup</a>
+            <a href={{ route('login') }}>My Account</a>
         @endguest
     </navbar-component>
 

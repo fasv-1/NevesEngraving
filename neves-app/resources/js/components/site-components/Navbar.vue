@@ -1,35 +1,35 @@
 <template>
   <div class="navbar-container">
-    <!---------------------------Logo link------------------------------------->
-    <div class="navbar-logo" v-if="altroutes == true">
-      <a href="/home">
-        <div class="bg-logo" :class="$route.name == 'Home' ? 'active' : ''">
-          <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
-        </div>
-        <h4><b>Neves Engraving</b></h4>
-      </a>
-    </div>
-    <div class="navbar-logo" v-else>
-      <router-link to="/home" :class="$route.name == 'Home' ? 'active' : ''">
-        <div class="bg-logo">
-          <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
-        </div>
-        <h4><b>Neves Engraving</b></h4>
-      </router-link>
-    </div>
-    <!---------------------------Follow us links------------------------------------->
     <div class="navbar-top">
+      <!---------------------------Logo link------------------------------------->
+      <div class="navbar-logo" v-if="altroutes == true">
+        <a href="/home">
+          <div class="bg-logo" :class="$route.name == 'Home' ? 'active' : ''">
+            <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
+          </div>
+          <h4><b>Neves Engraving</b></h4>
+        </a>
+      </div>
+      <div class="navbar-logo" v-else>
+        <router-link to="/home" :class="$route.name == 'Home' ? 'active' : ''">
+          <div class="bg-logo">
+            <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
+          </div>
+          <h4><b>Neves Engraving</b></h4>
+        </router-link>
+      </div>
+      <!---------------------------Follow us links------------------------------------->
       <div class="nav-contacts">
         <div class="follow-us">
           <p> <b>Follow us on: </b></p>
           <a href="">
-            <img src="/storage/images/Icons/facebook.png" alt="facebook-icon" style="width: 22px;">
+            <img src="/storage/images/Icons/facebook.png" alt="facebook-icon">
           </a>
           <a href="">
-            <img src="/storage/images/Icons/instagram.png" alt="instagram-icon" style="width: 22px;">
+            <img src="/storage/images/Icons/instagram.png" alt="instagram-icon">
           </a>
           <a href="">
-            <img src="/storage/images/Icons/whatsapp_icon.png" alt="whatsapp-icon" style="width: 25px;">
+            <img src="/storage/images/Icons/whatsapp_icon.png" alt="whatsapp-icon">
           </a>
         </div>
 
@@ -38,7 +38,7 @@
       <div class="nav-icons">
 
         <div class="wish">
-          <img src="/storage/images/Icons/heart.png" alt="facebook-icon" style="width: 25px;">
+          <img src="/storage/images/Icons/heart.png" alt="facebook-icon">
           <a href="/profile?wish=2">
             <p>Wish List</p>
           </a>
@@ -118,10 +118,24 @@
           </router-link>
           <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
         </div>
-        <!---------------------------Menu links------------------------------------->
+
+
       </div>
+      <div class="mini-menu-btn"><svg @click="active = !active" viewBox="0 0 200 200" fill="none" :class="active == true ? 'bar-anim':''">
+          <g clip-path="url(#clip0_26_2)">
+            <path class="down" d="M26 148H173" stroke="black" stroke-width="3" stroke-linecap="round" />
+            <path class="midle" d="M26 100H173" stroke="black" stroke-width="3" stroke-linecap="round" />
+            <path class="up" d="M26 50H173" stroke="black" stroke-width="3" stroke-linecap="round" />
+          </g>
+          <!-- <defs> -->
+            <!-- <clipPath id="clip0_26_2"> -->
+              <!-- <rect width="200" height="200" fill="white" /> -->
+            <!-- </clipPath> -->
+          <!-- </defs> -->
+        </svg></div>
     </div>
-    <div class="navbar-links" v-if="altroutes == true">
+    <!---------------------------Menu links------------------------------------->
+    <div class="navbar-links" v-if="altroutes == true" :class="active == true ? 'show' : ''">
       <div class="start-links">
         <a href="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'AmazingGifts' ? 'active' : ''">
@@ -166,7 +180,7 @@
         </a>
       </div>
     </div>
-    <div class="navbar-links" v-else>
+    <div class="navbar-links" :class="active == true ? 'open' : ''" v-else>
       <div class="start-links">
         <router-link to="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'AmazingGifts' ? 'active' : ''">
@@ -243,7 +257,8 @@ export default {
       cartTotal: '',
       totalProducts: '',
       discounts: { data: [] },
-      totalPrice: ''
+      totalPrice: '',
+      active: false,
     }
   },
   methods: {
@@ -252,6 +267,7 @@ export default {
       this.getData();
       // location.reload();
     },
+
     calculatedValue(p) {
       let price = p.strike_price
       let discountValue = ''
