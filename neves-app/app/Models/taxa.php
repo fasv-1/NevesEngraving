@@ -9,8 +9,10 @@ class taxa extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'valor'];
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'nome' => 'required|unique:taxas,nome,'.$this->id.'',
@@ -18,6 +20,7 @@ class taxa extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',

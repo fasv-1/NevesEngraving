@@ -1,6 +1,7 @@
 <template>
-  <div class="container margin2">
+  <div class="container">
     <section class="product-info">
+      <!----------------------------- Product header (name, rating and share links) --------------------------------->
       <div class="product-header">
         <div class="product-title width100">
           <div class="titulo">
@@ -31,6 +32,7 @@
           </ul>
         </div>
       </div>
+      <!----------------------------- Product Images shownd --------------------------------->
       <div class="product-images">
         <div class="images">
           <img :src="firstImage" alt="product image" v-if="openImage == ''">
@@ -43,6 +45,8 @@
           </div>
         </div>
       </div>
+
+      <!----------------------------- Product details info --------------------------------->
       <div class="product-details">
         <div class="price">
           <div class="sale" v-if="discount.data.ativo == 1">
@@ -71,6 +75,7 @@
             <li v-for="detail in details.data"> {{ detail.descricao != null ? '-' + detail.descricao : '' }}</li>
           </ul>
         </div>
+        <!----------------------------- Selected info provided by the Seller --------------------------------->
         <div class="details">
           <h6><b>Costumização</b></h6>
           <br>
@@ -87,6 +92,7 @@
               </ul>
             </div>
           </div>
+
           <div v-if="product.data.costumizavel == 2 || product.data.costumizavel == 3">
             <div>
               <input-container id="customText" title="Texto personalizado" help="customTextHelp"
@@ -113,9 +119,9 @@
           </div>
         </form>
 
-
       </div>
     </section>
+    <!----------------------------- Product extra info (description, coment and related links) --------------------------------->
     <section class="product-extra">
       <div class="product-description mrgvert2">
         <div class="title">
@@ -135,7 +141,7 @@
           </div>
         </div>
         <div class="reviews " v-if="isActive">
-          <div class="add-reviews" v-if="$store.state.user != null">
+          <div class="flex-container responsive-end mrghor2" v-if="$store.state.user != null">
             <a href="#addComentModal" class="button-save">Adicionar avaliação</a>
           </div>
           <div v-for="review, index in reviews.data" :key="index">
@@ -188,7 +194,6 @@
 
         <template v-slot:footer>
           <button class="button-save" @click="addReview()">Enviar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
         </template>
 
       </modal-component>
@@ -264,7 +269,8 @@ export default {
 
       this.drop = !this.drop
     },
-    dropdown(v) {
+
+    dropdown(v) { //drop the color select menu
       if (v) {
         this.drop = !this.drop
         this.colorSelected.code = ''
@@ -273,12 +279,15 @@ export default {
         this.drop = !this.drop
       }
     },
-    toogle() {
+
+    toogle() { // opens and closes the coments section
       this.isActive = !this.isActive
     },
-    starvalue(value) {
+
+    starvalue(value) { //sets the rating value
       this.rating = value
     },
+
     addReview() {
       let url = this.$store.state.Url + 'api/user_reviews'
 
@@ -315,9 +324,11 @@ export default {
           console.log(errors)
         })
     },
+
     setImage(image) {
       this.openImage = '/storage/' + image
     },
+
     getData() {
       let url = this.$store.state.Url + 'api/produto/' + this.id
       let urlImages = this.$store.state.Url + 'api/imagens_produto?filtro=produto_id:=:' + this.id
@@ -364,7 +375,7 @@ export default {
     },
   },
   computed: {
-    sameCategory() {
+    sameCategory() { // products in the same category
       let category = this.product.data.categoria_id
       let urlProducts = this.$store.state.Url + 'api/produto?filtro=categoria_id:=:' + category
 
@@ -380,17 +391,19 @@ export default {
           console.log(errors)
         })
     },
-    firstImage() {
+
+    firstImage() { // gets the main image of the product
       let image = []
       this.productImages.data.forEach(e => {
         if (e.posicao == 1) {
           image.push(e.nome)
         }
       })
-      // console.log(image[0])
+
       return '/storage/' + image[0]
     },
-    getPrice() {
+
+    getPrice() { //get the price with discount
       let discount = this.discount.data.desconto
       let price = this.product.data.valor
 
@@ -399,7 +412,8 @@ export default {
       sale = sale.toFixed(2)
       return sale
     },
-    getRating() {
+
+    getRating() { //calculates the rating from all the reviews
       let sum = 0
       let value = []
       let rating = ''
@@ -419,7 +433,8 @@ export default {
 
       return rating
     },
-    getColors() {
+
+    getColors() { // get the color info from the details
       let color = []
       let codes = []
       this.details.data.forEach(e => {

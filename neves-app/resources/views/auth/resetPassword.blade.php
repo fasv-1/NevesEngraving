@@ -30,7 +30,7 @@
 
                     <div class="button-form">
                         <div class="btn-pass">
-                            <button type="submit" class="button-login">Submit</button>
+                            <button type="submit" class="button1">Submit</button>
                         </div>
                     </div>
 

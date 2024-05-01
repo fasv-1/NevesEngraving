@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Produto extends Model
 {
     use HasFactory;
+    
+    //SoftDeletes implementation
     use SoftDeletes;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'meta_nome', 'quantidade', 'descricao', 'valor', 'costumizavel','ocasioes_id', 'categoria_id', 'materia_prima_id', 'desconto_id'];
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'nome' => 'required|unique:produtos,nome,'.$this->id.'|min:1',
@@ -28,6 +32,7 @@ class Produto extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'categoria_id.required' => 'A categoria é obrigatória',
@@ -42,6 +47,7 @@ class Produto extends Model
         ];
     }
 
+    //Table foreign relations
     public function desconto() {
         return $this->belongsTo('App\Models\Desconto');
     }

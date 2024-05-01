@@ -9,9 +9,13 @@ class envio_eua extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['peso', 'valor'];
+
+    //Table name different from that expected by laravel
     protected $table = 'envio_eua';
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'peso' => 'numeric',
@@ -19,6 +23,7 @@ class envio_eua extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'numeric' => 'Este campo so aceita números',

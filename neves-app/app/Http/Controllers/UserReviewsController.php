@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class UserReviewsController extends Controller
 {
-
-    public function __construct(User_reviews $user_reviews)
+    /**
+     * Build some intructions to the controller
+     */
+    public function __construct(User_reviews $user_reviews) 
     {
         // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);
         // $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);

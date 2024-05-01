@@ -9,8 +9,10 @@ class termoEcondicao extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['titulo', 'descricao'];
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'titulo' => 'required|unique:termo_econdicaos,titulo,'.$this->id.'',
@@ -18,6 +20,7 @@ class termoEcondicao extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',

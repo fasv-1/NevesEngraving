@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct()
     {
         // $this->middleware(['role:Dev']);

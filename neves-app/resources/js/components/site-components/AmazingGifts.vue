@@ -1,7 +1,8 @@
 <template>
-  <div class="site-container">
+  <div class="gifts-container">
 
     <div class="menu-container">
+      <!-----------------------------------------Side menu--------------------------------------------->
       <div class="side-menu">
         <div class="categorys-area">
           <h5 class="group-title">Categorys</h5>
@@ -76,6 +77,7 @@
 
       </div>
     </div>
+    <!-----------------------------------------Area where the products are showned--------------------------------------------->
     <div class="show-products">
       <div class="show-header">
         <h3>{{ linkcliked }}</h3>
@@ -92,10 +94,12 @@
       <div class="no-products" v-if="productsShownd.data == ''">
         <h3>Não existem produtos</h3>
       </div>
+      <!----------------------------------------- Cards with products --------------------------------------------->
       <card-component :products=productsShownd.data :headTitle='false' :info="{
             nome: false, meta_nome: true, categoria: false, materia: false, quantidade: false, valor: true
           }" :cart="true"></card-component>
 
+      <!----------------------------------------- Pagination --------------------------------------------->
       <div class="pagination">
         <ul v-if="productsShownd.data != ''">
           <li v-for="pages, index in pagination.links" :key="index">
@@ -116,7 +120,7 @@
 export default {
   data() {
     return {
-      baseUrl: 'http://localhost:8000/api/',
+      baseUrl: this.$store.state.Url + 'api/',
       categorys: { data: [] },
       ocasions: { data: [] },
       materials: { data: [] },
@@ -136,7 +140,7 @@ export default {
     }
   },
   methods: {
-    orderBy() {
+    orderBy() { 
       let orderBy = this.order
 
       localStorage.setItem('order', orderBy)
@@ -144,10 +148,10 @@ export default {
       this.localStorage()
     },
     toogle(c) {
-      //if the id have the same value of the index of menu
+      //if the id have the same value of the index on menu
       if (this.id == c) {
         this.active = !this.active; //toogle the menu options
-        this.id = c;// give the index value of the arrow correspondent to the menu option for validation later 
+        this.id = c;// give the index value of the correspondent menu option for validation later 
       }
       //if the id have diferent value from the index of menu
       if (this.id != c) {
@@ -323,7 +327,7 @@ export default {
         })
 
     },
-    localStorage(url) {
+    localStorage(url) { //build the queries and save's them in local storage (when the browser reloads, don't lose the search)
       let categoria = localStorage.getItem("category");
       let ocasiao = localStorage.getItem("ocasion");
       let ocasiaoCategoria = localStorage.getItem("ocasionCategory");
@@ -486,9 +490,6 @@ export default {
 
       }
 
-      console.log(urlProducts)
-
-
       //gets the products and sets the pagination
       axios.get(urlProducts)
         .then(response => {
@@ -558,7 +559,6 @@ export default {
   mounted() {
     this.getData()
     this.localStorage()
-    // console.log(this.$store.state.csrf)
 
   }
 }

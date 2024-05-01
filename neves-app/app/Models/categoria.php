@@ -9,14 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class categoria extends Model
 {
     use HasFactory;
+    //The attributes that are mass assignable.
     protected $fillable = ['nome'];
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'nome' => 'required|unique:categorias'
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo categoria é obrigatório',
@@ -24,6 +27,7 @@ class categoria extends Model
         ];
     }
 
+    //Table foreign relations
     public function produto() {
         return $this->hasMany('App\Models\Produto');
     }

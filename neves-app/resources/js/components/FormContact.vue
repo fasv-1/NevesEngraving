@@ -1,5 +1,5 @@
 <template>
-  <div class="home-contacts">
+  <div class="form-contacts">
     <div class="form-cont">
       <div class="title">
         <p>Contact</p>

@@ -5,8 +5,9 @@
                 <h1>Engraving</h1>
             </div>
         </div>
-        <div class="dynamic-show">
-            <div class="nav-menu">
+        <div class="dynamic-box mrgvert4">
+            <!----------------------------------------- Image menu --------------------------------------------->
+            <div class="img-menu">
                 <div class="option"  @click="select(0)">
                     <img src="/storage/images/gerais/woodEngrv.jpg" width="200" height="200" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 0 ? 'active' : ''"></div>
@@ -33,7 +34,8 @@
                     <div class="eng-name" :class="this.optionSelected == 4 ? 'active' : ''">Business Cards</div>
                 </div>
             </div>
-            <div class="info">
+            <div class="info rnd-brdr">
+                <!-----------------------------------------Wood info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 0">
                     <div class="title">
                         <h4><b>Wood</b></h4>
@@ -62,6 +64,7 @@
                         </div>
                     </div>
                 </div>
+                <!-----------------------------------------Acrylic info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 1">
                     <div class="title">
                         <h4><b>Acrylic</b></h4>
@@ -82,6 +85,7 @@
                             corrupti iure atque similique?</h5>
                     </div>
                 </div>
+                <!-----------------------------------------Aluminium info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 2">
                     <div class="title">
                         <h4><b>Aluminium</b></h4>
@@ -102,6 +106,7 @@
                             corrupti iure atque similique?</h5>
                     </div>
                 </div>
+                <!-----------------------------------------Glass info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 3">
                     <div class="title">
                         <h4><b>Glass</b></h4>
@@ -122,6 +127,7 @@
                             corrupti iure atque similique?</h5>
                     </div>
                 </div>
+                <!-----------------------------------------Business Cards info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 4">
                     <div class="title">
                         <h4><b>Business Cards</b></h4>

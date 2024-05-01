@@ -1,3 +1,104 @@
+//------- style for titles -------------------------
+.titulo {
+  font-weight: bolder;
+  display: inline-block;
+}
+
+.titulo_alt {
+  display: inline-block;
+  padding: 1em 0 0 1em;
+}
+
+.titulo_1 {
+  width: 40%;
+}
+
+.titulo_2 {
+  width: 100%;
+  margin: 0.2em;
+}
+//-------------------------------------------------
+
+// --- buttons view, update and remove from table ---
+.btn-view {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: $Bg-White;
+  color: #000;
+  border: 2px solid #1f6f8a;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-view:hover {
+  background-color: #1f6f8a;
+  color: #fff;
+}
+
+.btn-update {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: $Bg-White;
+  border: 2px solid $Darker-blue;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+}
+.btn-update:hover {
+  background-color: $Darker-blue;
+  color: #fff;
+}
+
+.btn-remove {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: $Bg-White;
+  border: 2px solid #9c0101;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+}
+.btn-remove:hover {
+  background-color: #9c0101;
+  color: #fff;
+}
+
+//----- end of buttons --------------------------
+
+//----- style for the table container -----------
+.table-container {
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid $Global-red;
+  padding: 0.5em;
+  margin: 0.5em;
+
+  .table {
+    height: 100%;
+    overflow: auto;
+    padding-right: 0.2em;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    .img {
+      height: 30px;
+      width: 30px;
+      
+      display: flex;
+      align-items: center;
+      
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
+//---------- end of style table ----------------
 //margin 1
 .margin1{
   margin: 1em;
@@ -106,6 +207,46 @@ margin: 2em 4em;
 .text-centered{
   text-align: center;
 }
+
+.rnd-brdr{
+  border-radius: 6px;
+}
+
+.brd-blue {
+  border: 1px solid $Brdr-blue;
+  border-radius: 6px;
+}
+
+.brd-grey {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.l-input {
+  width: 100%;
+}
+
+.ml-input {
+  width: 90%;
+}
+
+.m-input {
+  width: 45%;
+}
+
+.ms-input {
+  width: 30%;
+}
+
+.s-input {
+  width: 20%;
+}
+
+//link highlighted
+.high-link {
+  color: $Darker-blue;
+  font-weight: bold;
+}
 //conteiner 2
 .container2 {
   display: flex;
@@ -148,10 +289,10 @@ margin: 2em 4em;
     align-items: center;
   }
 }
-//end of container
+//---------------------------------
 
-//blue button
-.button1 {
+//-------- blue button ------------------- 
+.button-login {
   border: 2px solid #1d647c;
   background-color: $Darker-blue;
   border-radius: 10px;
@@ -165,12 +306,26 @@ margin: 2em 4em;
     border: 2px solid $Darker-blue;
   }
 }
-//end of button
+
+.button1 {
+  background-color: rgb(231, 243, 250);
+  padding: 0.3em 2em;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid $Darker-blue;
+
+  &:hover {
+    background-color: $Darker-blue;
+    color: #fff;
+    border: 2px solid $Global-blue;
+    cursor: pointer;
+  }
+}
+//---------------------------------------------
 
 .side-fields{
   display: flex;
   align-items: center;
-  // justify-content:space-evenly;
   flex-wrap: wrap;
 
   .side{
@@ -200,7 +355,7 @@ margin: 2em 4em;
   }
 }
 
-//style for modal inputs
+//-----------style for form modal ------------------- 
 .modal {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.74);
@@ -223,8 +378,6 @@ margin: 2em 4em;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    // padding: 2em;
-    // background: white;
     border-radius: 10px;
   }
   .modal-header {
@@ -294,4 +447,51 @@ margin: 2em 4em;
   }
 }
 
-//end of style modal inputs
+//-------------------------------------------
+
+//------ Red button ------------------
+.button-save {
+  border: 3px solid #b60b0b;
+  background-color: $Global-red;
+  border-radius: 10px;
+  color: #fff;
+  padding: 5px 20px 5px 20px;
+  transition: ease-in 0.1s;
+  &:hover {
+    cursor: pointer;
+    background-color: #b60b0b;
+    border: 3px solid $Global-red;
+    // transform: translateY(-2px);
+  }
+}
+//--------------------------------------
+
+//------- input container component ------------------
+.inputContainer {
+  display: inline-block;
+  margin: 0 0.5em;
+
+  .form-label {
+    margin: 0.6em 0 0.6em 0;
+    font-weight: bold;
+  }
+
+  .error {
+    margin: 0.2em 0;
+    font-size: 0.9em;
+    color: red;
+  }
+}
+
+.form-help {
+  margin: 0.5em 0 0.5em 0;
+  font-size: 0.8em;
+  color: #0000007c;
+}
+
+.form-text {
+  padding: 0.5em 0.4em 0.5em 0.4em;
+  width: 100%;
+  font-size: 1em;
+}
+//---------------------------------------------

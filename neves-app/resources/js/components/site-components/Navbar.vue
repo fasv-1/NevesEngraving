@@ -84,8 +84,8 @@
 		C499,299.4,504.4,305.2,504.4,311.7z" />
               </g>
             </svg>
+            <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
           </a>
-          <p>nº item: {{ totalPrice }}€</p>
         </div>
         <div class="shopping-cart" v-else>
           <router-link to="/home/shopping_cart">
@@ -114,28 +114,23 @@
 		C499,299.4,504.4,305.2,504.4,311.7z" />
               </g>
             </svg>
-
+            <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
           </router-link>
-          <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
+          
         </div>
 
 
       </div>
       <div class="mini-menu-btn"><svg @click="active = !active" viewBox="0 0 200 200" fill="none" :class="active == true ? 'bar-anim':''">
           <g clip-path="url(#clip0_26_2)">
-            <path class="down" d="M26 148H173" stroke="black" stroke-width="3" stroke-linecap="round" />
-            <path class="midle" d="M26 100H173" stroke="black" stroke-width="3" stroke-linecap="round" />
-            <path class="up" d="M26 50H173" stroke="black" stroke-width="3" stroke-linecap="round" />
+            <path class="down" d="M26 148H173" stroke="black" stroke-width="7" stroke-linecap="round" />
+            <path class="middle" d="M26 100H173" stroke="black" stroke-width="7" stroke-linecap="round" />
+            <path class="up" d="M26 50H173" stroke="black" stroke-width="7" stroke-linecap="round" />
           </g>
-          <!-- <defs> -->
-            <!-- <clipPath id="clip0_26_2"> -->
-              <!-- <rect width="200" height="200" fill="white" /> -->
-            <!-- </clipPath> -->
-          <!-- </defs> -->
         </svg></div>
     </div>
     <!---------------------------Menu links------------------------------------->
-    <div class="navbar-links" v-if="altroutes == true" :class="active == true ? 'show' : ''">
+    <div class="navbar-links" v-if="altroutes == true" :class="active == true ? 'open' : ''">
       <div class="start-links">
         <a href="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'AmazingGifts' ? 'active' : ''">
@@ -234,7 +229,6 @@
 
     <template v-slot:footer>
       <button class="button-save" @click="search()">Procurar</button>
-      <!--The seconde parameter defines the endpoint for the url-->
     </template>
 
   </modal-component>

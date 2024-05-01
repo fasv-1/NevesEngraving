@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <div class="cart-page" v-if="cartProducts.data != ''">
-            <div class="shop-table">
+            <!------------------------------Products Cart Table -------------------------------------->
+            <div class="cart-table">
                 <table>
                     <thead>
                         <tr>
@@ -44,6 +45,7 @@
                     </tfoot>
                 </table>
             </div>
+            <!------------------------------ Final check before checkout -------------------------------------->
             <div class="finish-table">
                 <table>
                     <tbody>
@@ -67,6 +69,7 @@
                 </table>
             </div>
         </div>
+        <!------------------------------ Info Page if the car is empty -------------------------------------->
         <div class="cart-empty" v-else>
             <h1>Cart empty</h1>
         </div>
@@ -111,7 +114,7 @@ export default {
                     console.log(errors)
                 })
         },
-        update(i) {
+        update(i) { //update the quantity
             const input = document.getElementById('quantity' + i)
             const inputValue = input.value
 
@@ -139,7 +142,8 @@ export default {
                     console.log(errors)
                 })
         },
-        calculatedValue(p) {
+
+        calculatedValue(p) { //gets the product value with the discount, if exists
             let price = p.strike_price
             let discountValue = ''
             let quantity = p.quantity
@@ -156,6 +160,7 @@ export default {
 
             return total
         },
+
         getImage(id) {
             let image = ''
             Object.values(this.images.data).forEach(v => {
@@ -202,7 +207,7 @@ export default {
         }
     },
     computed: {
-        sessionTotal() {
+        sessionTotal() { // gives the total to pay from all products
             let values = []
             let total = 0
 
@@ -210,11 +215,13 @@ export default {
                 values.push(this.calculatedValue(v))
             })
 
-            function sum(a) {
+            function sum(a) { //sum all the product final value and return the total with decimals 
                 return (a.length && parseFloat(a[0]) + sum(a.slice(1))) || 0;
             }
 
             total = sum(values).toFixed(2)
+
+            console.log(values)
 
             this.totalPrice = total
 

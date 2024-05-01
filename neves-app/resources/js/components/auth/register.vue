@@ -4,7 +4,7 @@
       <div class="card-header">
         <h1>Registo</h1>
       </div>
-
+      <!-----------------------------Register Form---------------------------------->
       <div class="card-body">
         <form method="POST" action="" @submit.prevent="register($event)">
           <input type="hidden" name="_token" :value="csrf_token">
@@ -35,9 +35,14 @@
           </input-container>
           <div class="button-form">
             <div class="btn-pass">
-              <button type="submit" class="button-login">
+              <button type="submit" class="button1">
                 Enviar
               </button>
+            </div>
+            <div class="register-link">
+              <a href="/login">
+                Já estou registado
+              </a>
             </div>
           </div>
         </form>
@@ -47,7 +52,6 @@
 </template>
 
 <script>
-//exportação de um atributo de configuração do vue
 export default {
   props: ['csrf_token'],
   data() {
@@ -59,7 +63,6 @@ export default {
     }
   },
   methods: {
-    //forma de capturar o email e a password para que seja gerado o token JWT
     register(e) {
 
       let url = 'http://127.0.0.1:8000/register'

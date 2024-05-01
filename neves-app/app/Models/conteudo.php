@@ -9,8 +9,10 @@ class conteudo extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['titulo', 'descricao', 'posicao'];
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'titulo' => 'required',
@@ -19,6 +21,7 @@ class conteudo extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',

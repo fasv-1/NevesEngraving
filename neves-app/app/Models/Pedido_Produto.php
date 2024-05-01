@@ -9,9 +9,10 @@ class Pedido_Produto extends Model
 {
     use HasFactory;
 
-    // protected $fillable = ['quantidade', 'cor', 'texto', 'produto_id', 'pedido_id'];
+    //Table name different from that expected by laravel
     protected $table = 'pedido_produtos';
 
+    //Rules for validate inputs
     public function rules()
     {
         return [
@@ -23,6 +24,7 @@ class Pedido_Produto extends Model
         ];
     }
 
+    //Personalized validation responses
     public function feedback()
     {
         return [

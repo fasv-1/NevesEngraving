@@ -1,8 +1,10 @@
 <template>
-  <!-- Modal -->
+  <!------------------------------------ Container to show the products ------------------------------>
 
   <div class="card-box">
+
     <div class="card-prd" v-for="value, indexValue in products" :key="indexValue">
+
       <!----------------------------------Put product on the wish list-------------------------------------->
       <div class="wish" v-if="this.$store.state.user == null">
         <a href="/login"><img src="/storage/images/Icons/heart.png" alt="small heart"></a>
@@ -25,10 +27,10 @@
           <p>{{ value.desconto.desconto * 100 }}%</p>
         </div>
       </div>
-      <!-------------------------------------------emd promo------------------------------------------------------->
+      <!-------------------------------------------end promo------------------------------------------------------->
 
       <!----------------------------------product info and image -------------------------------------------------->
-      <a :href="'/home/amazing_gifts/' + teste(value.id)" class="b-input">
+      <a :href="'/home/amazing_gifts/' + encrypt(value.id)" class="b-input">
         <div class="img-area">
           <div v-for="i, indexValue in  productsImages.data" :key="indexValue">
             <div class="img-cont" v-if="i.produto_id == value.id && i.posicao == 1">
@@ -62,12 +64,12 @@
         </div>
       </a>
       <!----------------------------------end of product info and image -------------------------------------------------->
+
       <!----------------------------------product add to cart button -------------------------------------------------->
       <div class="cart-btn" v-if="cart">
         <form method="POST" action="" @submit.prevent="addToCart(value.id)">
           <input type="hidden" name="_token" :value="$store.state.csrf">
-          
-          
+        
           <button type="submit">
             <div class="bg-anim"></div>
             <h5>Add to cart</h5>
@@ -77,7 +79,9 @@
       </div>
       <!----------------------------------end of product add to cart -------------------------------------------------->
     </div>
+
   </div>
+
 </template>
 
 <script>
@@ -116,6 +120,7 @@ export default {
           console.log(errors.response.data.message)
         })
     },
+
     addWish(id) {
       let url = this.$store.state.Url + 'api/user_favorites'
 
@@ -141,6 +146,7 @@ export default {
         })
 
     },
+
     removeWish(id) {
       let url = this.$store.state.Url + 'api/user_favorites/' + id
 
@@ -158,6 +164,7 @@ export default {
         })
 
     },
+
     getFavorites() {
       if (this.$store.state.user != null) {
         let url = this.$store.state.Url + 'api/user_favorites?filtro=user_id:=:' + this.$store.state.user.content
@@ -173,21 +180,20 @@ export default {
       }
 
     },
+
     round(n) {
       let round = n.toFixed(2);
 
       return round
     },
-    teste(id) {
+
+    encrypt(id) {
       let idEncode = btoa(id)
-      // console.log(this.products)
-      // this.products.forEach(element => {
-      //   idEncode 
-      // });
 
       return idEncode
     },
-    reviewCalc(id) {
+
+    reviewCalc(id) { // calculates the star scale from all the reviews
       let reviews = []
       let sum = 0
 
@@ -208,6 +214,7 @@ export default {
       return rating
 
     },
+
     getReviews() {
       let urlReviews = this.$store.state.Url + 'api/user_reviews'
 
@@ -220,10 +227,12 @@ export default {
           console.log(errors)
         })
     },
+
     erraserror() {
       this.$store.state.transaction.status = '';
       this.$store.state.transaction.message = '';
     },
+    
     getImage() {
       let urlImages = this.$store.state.Url + 'api/imagens_produto'
 

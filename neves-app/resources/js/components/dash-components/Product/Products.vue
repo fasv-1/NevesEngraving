@@ -5,7 +5,7 @@
   </div>
   <div class="space-between">
     <h4>Pesquisar produtos</h4>
-    <div class="marg-r">
+    <div class="mrghor2">
       <a class="high-link" href="#addProductModal">Adicionar novo produto +</a>
     </div>
   </div>

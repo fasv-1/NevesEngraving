@@ -1,113 +1,6 @@
-//style for the titles
-.titulo {
-  padding: 0.5em 0 0 1em;
-  font-weight: bolder;
-  display: inline-block;
-}
-
-.titulo_alt {
-  display: inline-block;
-  padding: 1em 0 0 1em;
-}
-
-.titulo_1 {
-  width: 40%;
-}
-
-.titulo_2 {
-  width: 100%;
-  margin: 0.2em;
-}
-
-//end of style for the titles
-
-// buttons view, update and remove
-.btn-view {
-  margin: 0.1em;
-  padding: 0.2em;
-  background-color: $Bg-White;
-  color: #000;
-  border: 2px solid #1f6f8a;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.btn-view:hover {
-  background-color: #1f6f8a;
-  color: #fff;
-}
-
-.btn-update {
-  margin: 0.1em;
-  padding: 0.2em;
-  background-color: $Bg-White;
-  border: 2px solid $Darker-blue;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.1s ease-in;
-}
-.btn-update:hover {
-  background-color: $Darker-blue;
-  color: #fff;
-}
-
-.btn-remove {
-  margin: 0.1em;
-  padding: 0.2em;
-  background-color: $Bg-White;
-  border: 2px solid #9c0101;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.1s ease-in;
-}
-.btn-remove:hover {
-  background-color: #9c0101;
-  color: #fff;
-}
-
-//end of buttons
-
-//style for the table container
-.table-container {
-  border-radius: 3px;
-  background-color: #fff;
-  border: 1px solid $Global-red;
-  padding: 0.5em;
-  margin: 0.5em;
-
-  .table {
-    height: 100%;
-    overflow: auto;
-    padding-right: 0.2em;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    .img {
-      height: 30px;
-      width: 30px;
-      
-      display: flex;
-      align-items: center;
-      
-      img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-}
-//end of style table
-
-// style for product component
-
+//------- style for product component --------------------------
 .product-content {
   display: grid;
-  // width: 100%;
-  // height: 100%;
   grid-template-rows: auto-fit;
   grid-template-columns: 2fr 2fr;
   grid-template-areas:
@@ -116,7 +9,6 @@
     "images images"
     "footer footer";
   grid-gap: 1em;
-  // overflow: auto;
 
   .title-cont {
     display: flex;
@@ -187,4 +79,235 @@
   .details-area {
     border-top: 1px solid #ccc;
   }
+}
+// ----------------------------------------------------------------
+
+//------------ Dashboard component --------------------------------
+#dashboard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#dash-screen {
+  width: 80%;
+}
+
+#dash-menu {
+  width: 20%;
+  background-color: $BgDshMenu;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+}
+.sticky {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .dash-nav-link {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .dash-cont-logo {
+    width: 100%;
+    background-color: $Global-red;
+    padding: 0.5em;
+    -webkit-box-shadow: $boxShadow;
+    -moz-box-shadow: $boxShadow;
+    box-shadow: $boxShadow;
+    border-radius: 2px;
+
+    .dash-logo {
+      width: 100%;
+      text-decoration: none;
+      color: #000;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      font-weight: bold;
+      justify-content: center;
+    }
+    img {
+      width: 100px;
+      height: 100%;
+    }
+  }
+
+  .dash-link-cont {
+    width: 100%;
+  }
+
+  .link-cont {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 2em 0 2em 0;
+
+    a {
+      font-size: 1.2em;
+      color: #000;
+      font-weight: bold;
+      margin-left: 1em;
+      cursor: pointer;
+    }
+  }
+  .active {
+    background-color: $DshMenuActive;
+  }
+}
+
+.menuIcon {
+  margin-right: 1em;
+  cursor: pointer;
+
+  img {
+    width: 15px;
+    height: 100%;
+  }
+}
+
+.title-cont {
+  padding: 1em;
+}
+
+.dash-nav-option {
+  display: none;
+  padding: 0.5em 0 0.5em 0;
+  background-color: $DshMenuActive;
+  border-radius: 0 0 2px 2px;
+
+  -webkit-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+
+  li {
+    margin-top: 0.5rem;
+    font-size: 1.1em;
+
+    a {
+      color: #000;
+    }
+  }
+
+  li:hover {
+    background-color: $Hover-grey;
+    border-radius: 2px;
+  }
+
+  .linkActive {
+    background-color: $SlctdBar;
+    border-radius: 2px;
+    a {
+      color: #b80012;
+    }
+  }
+}
+
+.blank-space {
+  height: 2rem;
+}
+
+// -------------------------------------------------------------
+
+// ------------------ style for input images ---------------------
+.imageButton {
+  height: 20%;
+  display: inline-block;
+  margin: 1em 0 1em 0;
+  i {
+    border: 2px solid #1d647c;
+    background-color: $Darker-blue;
+    border-radius: 10px;
+    color: #fff;
+    padding: 5px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #1d647c;
+      border: 2px solid $Darker-blue;
+    }
+  }
+}
+
+.principal-image-preview {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border-radius: 10px;
+  max-width: 400px;
+  align-items: center;
+
+  img {
+    border-radius: 10px;
+    max-width: 100%;
+    max-height: 80%;
+    margin: 0.2em 0 0.2em 0;
+  }
+}
+
+.image-cont-button {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.images-preview {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5em 0 0.5em 0;
+  padding: 0.5em;
+  .preview-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      border-radius: 10px;
+      width: 220px;
+      height: auto;
+      margin: 1em;
+    }
+  }
+}
+
+//----------------------------------------------------------------
+
+//-------- product search filters from product page ---------------
+.product-filters {
+  padding: 1em;
+  border: 1px solid $Darker-blue;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  // -webkit-box-shadow: $boxShadow;
+  // -moz-box-shadow: $boxShadow;
+  // box-shadow: $boxShadow;
+  .search-name {
+    display: flex;
+    align-items: center;
+
+    .button1 {
+      margin: 0 1em;
+    }
+  }
+}
+//----------------------------------------------------------------
+
+.content {
+  margin: 1em;
+}
+
+input[type="file"] {
+  display: none;
 }

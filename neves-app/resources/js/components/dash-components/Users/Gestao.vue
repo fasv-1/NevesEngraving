@@ -3,7 +3,7 @@
   <div class="title-cont">
     <h1 class="titulo">Gestão</h1>
   </div>
-  <div class="productInputContent">
+  <div class="responsive-container">
 
     <!------------------------ DISCOUNT AREA --------------------------------->
     <div class="container2">

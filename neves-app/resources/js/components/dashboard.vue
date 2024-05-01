@@ -11,7 +11,7 @@
               @click="principal(index)">
 
               <img :src="page.logoPath" :alt="page.logoPath">
-              <h6 class="sm-marg-l">Neves Engraving</h6>
+              <h6 class="marginMinHor">Neves Engraving</h6>
             </a>
           </div>
           <!-----------------------Generate the rest of the menu ---------------------------->

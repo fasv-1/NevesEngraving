@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class UserFavoritesController extends Controller
 {
-    public function index(Request $request){
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
         $userFavorites = User_favorites::with('user')->with('produto')->get();
 
         if ($request->has('filtro')) {
@@ -21,9 +25,12 @@ class UserFavoritesController extends Controller
             $userFavorites = $userFavorites;
         }
 
-        return response()->json(['favorites'=> $userFavorites], 200);
+        return response()->json(['favorites' => $userFavorites], 200);
     }
-    
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $userFavorites = new User_favorites();
@@ -35,6 +42,9 @@ class UserFavoritesController extends Controller
         return response()->json(['msg' => 'Produto adicionado aos favoritos'], 201);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($id)
     {
         $userFavorites = new User_favorites();
@@ -47,6 +57,6 @@ class UserFavoritesController extends Controller
 
         $userFavorites->delete();
 
-        return response()->json(['msg'=>'O produto selecionado foi eliminado dos favoritos'], 200);
+        return response()->json(['msg' => 'O produto selecionado foi eliminado dos favoritos'], 200);
     }
 }

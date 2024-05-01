@@ -32,21 +32,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
-
-        // $user = $request->user();
-
-        // if ($user->status == 5 && $user->email_verified_at != null) {
-            // $tokenResult = $user->createToken('Personal Access Token', ['App-manage']);
-        // }if ($user->status == 0 ) {
-            // $tokenResult = $user->createToken('Personal Access Token', ['Profile-acess']);
-        // }
-
-        // $token = $tokenResult->plainTextToken;
-
-
-        // return response()->json([
-        //     'token' => $token,
-        // ]);
     }
 
     /**

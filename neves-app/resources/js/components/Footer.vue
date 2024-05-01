@@ -1,6 +1,7 @@
 <template>
   <div class="footer-container">
     <div class="footer-content">
+      <!-----------------------------------------------------Policies-------------------------------------->
       <div class="colum-info">
         <div class="title">
           <h5>Policies</h5>
@@ -22,6 +23,7 @@
         </div>
       </div>
 
+      <!-----------------------------------------------------Site Map-------------------------------------->
       <div class="colum-info">
         <div class="title">
           <h5>Store Map</h5>
@@ -43,18 +45,20 @@
         </div>
       </div>
 
+      <!-----------------------------------------------------Contacts-------------------------------------->
       <div class="colum-info">
         <div class="title">
           <h5>Contacts</h5>
         </div>
         <div class="links">
-          <p>phone number</p>
+          <h6>phone number</h6>
         </div>
         <div class="links">
           <a href="/home/contacts?#contact-me">email here</a>
         </div>
       </div>
 
+      <!-----------------------------------------------------About-------------------------------------->
       <div class="colum-info">
           <div class="title">
             <h5>About</h5>

@@ -91,4 +91,15 @@
   }
 }
 
+@keyframes border {
+  0% {
+    border: 2px solid transparent;
+  }
+  50% {
+    border: 2px solid $Global-red;
+  }
+  100% {
+    border: 2px solid transparent;
+  }
+}
 

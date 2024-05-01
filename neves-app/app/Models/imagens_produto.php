@@ -9,8 +9,10 @@ class imagens_produto extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'posicao', 'produto_id'];
 
+    //Rules for validate inputs
     public function rules(){
         return[
             'nome' => 'required|image|max:2048',
@@ -19,6 +21,7 @@ class imagens_produto extends Model
         ];
     }
 
+    //Personalized validation responses
     public function feedback(){
         return[
             'required' => 'O campo :attribute é obrigatório',
@@ -29,6 +32,7 @@ class imagens_produto extends Model
         ];
     }
 
+    //Table foreign relations
     public function produto(){
         return $this->belongsTo('App\Models\Produto');
     }

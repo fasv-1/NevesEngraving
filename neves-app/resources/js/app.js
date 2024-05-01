@@ -6,6 +6,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 
 
+//---------------------- Vue Router--------------------------
 import { createRouter, createWebHistory } from 'vue-router';
 
 
@@ -16,22 +17,21 @@ import { createStore } from 'vuex'
 const store = createStore({
   state() {
     return {
-      item: {},
+      item: {}, //saves the item to open in a diferent page
 
-      transaction: { status: '', message: '' },
+      transaction: { status: '', message: '' }, //saves the status of the response to further notice
 
-      Url: 'http://127.0.0.1:8000/',
+      Url: 'http://127.0.0.1:8000/', //set globally the main Route
       
-      user: document.querySelector("meta[name='user-id']"),
+      user: document.querySelector("meta[name='user-id']"), // saves globally the user id
       
-      csrf: document.querySelector("meta[name='csrf-token']"),
+      csrf: document.querySelector("meta[name='csrf-token']"), // saves globally the csrf token
 
       token: '',
     }
   }
 })
 
-// axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters.token}`;
 
 //--------------------------------------Routes----------------------------------------------------
 const routes = [
@@ -288,11 +288,11 @@ app.config.globalProperties.$filters = {
     let data = d[0]
     let tempo = d[1]
 
-    //formatando a data
+    //format the date
     data = data.split('-')
     data = data[2] + '/' + data[1] + '/' + data[0]
 
-    //formatar o tempo 
+    //format the time 
     tempo = tempo.split('.')
     tempo = tempo[0]
 

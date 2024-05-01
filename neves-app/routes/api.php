@@ -41,25 +41,42 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('produto', ProdutoController::class);
+
+//---------------------- Discount Routes -----------------------------
 Route::apiResource('desconto', DescontoController::class);
+//-------------------------------------------------------------------- 
+
+//---------------------- Images Routes ---------------------------------
 Route::apiResource('imagens_produto', ImagensProdutoController::class);
+Route::apiResource('imagens', ImagensController::class);
+//-----------------------------------------------------------------------
+
+//---------------------- Ocasion Routes -------------------------------------
 Route::apiResource('ocasiao', OcasiaoController::class);
+//----------------------------------------------------------------------------
+
+//------------------------------ Category Routes --------------------------------------------------------
 // Route::post('categoria', [CategoriaController::class, 'store'])->middleware('can:categoria-create');
 Route::post('categoria', [CategoriaController::class, 'store']);
 Route::patch('categoria/{categoria}', [CategoriaController::class, 'update']);
 Route::get('categoria', [CategoriaController::class, 'show']);
 Route::delete('categoria/{categoria}', [CategoriaController::class, 'delete']);
+
+//--------------------------------- Material Routes ------------------------------------
 Route::post('materia', [MateriaPrimaController::class, 'store']);
 Route::patch('materia/{materia}', [MateriaPrimaController::class, 'update']);
 Route::get('materia', [MateriaPrimaController::class, 'show']);
 Route::delete('materia/{materia}', [MateriaPrimaController::class, 'delete']);
+
+//------------------------------- Product Routes ---------------------------------
+Route::apiResource('produto', ProdutoController::class);
 Route::get('produto_detalhe', [ProdutoDetalheController::class, 'index']);
 Route::post('produto_detalhe', [ProdutoDetalheController::class, 'store']);
 Route::delete('produto_detalhe/{produtoDetalhe}', [ProdutoDetalheController::class, 'destroy']);
+//-----------------------------------------------------------------------------------------------
 
-Route::apiResource('imagens', ImagensController::class);
 
+//---------------------------------- User routes ------------------------------------ 
 Route::middleware('auth:sanctum', 'ability:Profile-acess,App-manage')->group(function () {
   Route::apiResource('user_details', UserDetailsController::class);
 });
@@ -72,7 +89,9 @@ Route::delete('user_favorites/{id}', [UserFavoritesController::class, 'destroy']
 Route::get('user', [UserController::class, 'index'])->name('users');
 Route::patch('user/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+//-------------------------------------------------------------------------------------------
 
+//------------------------------------ Roles route -------------------------------------------
 Route::resource('roles', RoleController::class);
 
 //---------------------------------shipping costs routes----------------------------------------
@@ -91,25 +110,25 @@ Route::delete('shipping_eua/{id}', [EnvioEuaController::class, 'destroy'])->name
 Route::get('shipping_outros', [EnvioOutrosController::class, 'index'])->name('shipping_outros');
 Route::post('shipping_outros', [EnvioOutrosController::class, 'store'])->name('shipping_outros.store');
 Route::delete('shipping_outros/{id}', [EnvioOutrosController::class, 'destroy'])->name('shipping_outros.destroy');
-//---------------------------------finish shipping costs routes----------------------------------------
+//------------------------------------------------------------------------------------------
 
 //---------------------------------taxes routes----------------------------------------
 Route::apiResource('taxas', TaxaController::class);
-//---------------------------------finish taxes routes----------------------------------------
+//------------------------------------------------------------------------------------------
 
 //---------------------------------content routes----------------------------------------
 Route::apiResource('conteudo', ConteudoController::class);
-//--------------------------------- finish content routes----------------------------------------
+//--------------------------------------------------------------------------------------------
 
 //---------------------------------terms routes----------------------------------------
 Route::apiResource('termos_condicoes', TermoEcondicaoController::class);
-//--------------------------------- terms routes----------------------------------------
+//----------------------------------------------------------------------------------------------
 
 //---------------------------------order routes----------------------------------------
 Route::apiResource('pedido_detalhe', PedidoDetalheController::class);
 Route::apiResource('pedido_produto', PedidoProdutoController::class);
-//--------------------------------- order routes---------------------------------------
+//----------------------------------------------------------------------------------------
 
 //---------------------------------message routes----------------------------------------
 Route::apiResource('mensagem', MensagemController::class);
-//--------------------------------- mesagem routes----------------------------------------
+//-----------------------------------------------------------------------------------------

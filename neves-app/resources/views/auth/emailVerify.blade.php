@@ -17,7 +17,7 @@
                         <h6>If you didn't receive a verification email, please click in the button</h6>
                         <h6> below to resent email confirmation.</h6>
                         <div class="btn-pass mrgvert2">
-                            <button type="submit" name="resent-email-conf" class="button-login">Submit</button>
+                            <button type="submit" name="resent-email-conf" class="button1">Submit</button>
                         </div>
                     </form>
                     <a href="/home" class="btn-pass mrgvert2">

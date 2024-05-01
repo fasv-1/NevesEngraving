@@ -11,6 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class ProfileController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct()
 {
     $this->middleware(['role:User|Admin|Super-Admin']);

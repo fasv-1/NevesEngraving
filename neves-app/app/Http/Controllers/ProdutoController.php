@@ -8,6 +8,9 @@ use Illuminate\Validation\Rules\Exists;
 
 class ProdutoController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct(Produto $produto)
     {
         $this->produto = $produto;

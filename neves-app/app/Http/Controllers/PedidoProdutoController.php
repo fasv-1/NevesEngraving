@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class PedidoProdutoController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct()
     {
         // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);

@@ -9,18 +9,30 @@ use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct()
-{
-    // $this->middleware(['role:User|Admin']);
-}
-    public function index(){
+    {
+        // $this->middleware(['role:User|Admin']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
         $users = User::with('roles')->get();
 
         return  response()->json(array('users' => $users));
     }
 
 
-    public function update(Request $request, $id){
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
 
         $regras = [
             'role' =>  'required|exists:roles,name',
@@ -42,7 +54,11 @@ class UserController extends Controller
         return  response()->json(array('msg' => 'Role adicionado com sucesso'));
     }
 
-    public function destroy($id){
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
 
         $user = User::find($id);
 

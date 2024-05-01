@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class desconto extends Model
 {
     use HasFactory;
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'descricao', 'desconto', 'ativo'];
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'nome' => 'required|unique:descontos,nome,'.$this->id.'|min:1',
@@ -19,6 +21,7 @@ class desconto extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
@@ -31,6 +34,7 @@ class desconto extends Model
         ];
     }
 
+    //Table foreign relations
     public function produto() {
         return $this->hasMany('App\Models\Produto');
     }

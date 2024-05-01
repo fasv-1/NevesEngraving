@@ -5,7 +5,7 @@ const x = ref(0)
 const y = ref(0)
 
 
-
+//-------- stores the axys value from mouse pointer on the x and y variable--------
 function onMousemove(e) {
   x.value = e.clientX
   y.value = e.clientY
@@ -14,6 +14,8 @@ function onMousemove(e) {
 
 <template>
   <div class="container">
+
+    <!----------------------------------------------Inital intro with animations--------------------------->
     <div class="home-intro">
       <div class="home-anim">
         <div class="title responsive-center">
@@ -31,20 +33,19 @@ function onMousemove(e) {
         <div class="title">
           <h2>Engraving</h2>
         </div>
+        <div class="animation">
+          <img src="/storage/images/gerais/EngravingAnim.gif" alt="" height="200px">  
+        </div>
         <div class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem obcaecati natus
           delectus corrupti dolorum quasi? Natus velit nobis iure, vero doloremque, distinctio beatae voluptas nostrum
           consequatur quas et magni enim.</div>
-        <div class="animation">
-          <img src="/storage/images/gerais/EngravingAnim.gif" alt="" height="200px">
-
-        </div>
       </div>
       <div class="home-anim">
         <div class="title responsive-end">
           <h2>Lazer-cut</h2>
         </div>
         <div class="animation">
-          <video  autoplay loop>
+          <video autoplay loop>
             <source src="/storage/videos/lazer-cut-clip.mp4" type="video/mp4">
           </video>
         </div>
@@ -56,23 +57,29 @@ function onMousemove(e) {
         <div class="title">
           <h2>Assembled Gifts</h2>
         </div>
+        <div class="animation">
+          <video autoplay loop>
+            <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
+          </video>
+        </div>
         <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum, aperiam ipsa? Tenetur
           eligendi
           laboriosam labore asperiores inventore placeat deleniti fugiat a unde exercitationem excepturi, quae qui
           assumenda, veniam autem reprehenderit!</div>
-        <div class="animation">
-          <video  autoplay loop>
-            <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
-          </video>
-        </div>
       </div>
     </div>
+    
+    <!----------------------------------------------Promo Image or Caroussel-------------------------------->
     <div class="home-promo">
       <div class="content"></div>
     </div>
+    
+    <!----------------------------------------------Contact form--------------------------------------------->
     <contact-component></contact-component>
+    
+    <!--------------------------------------------- Follow as card--------------------------->
     <div class="home-social" @mousemove="onMousemove">
-      <div class="bg-img" :style="{ translate: '' + (x-110) + 'px ' + (y- dinamicHeight) + 'px' }"></div>
+      <div class="bg-img" :style="{ translate: '' + (x - 110) + 'px ' + (y - dinamicHeight) + 'px' }"></div>
       <div class="bg-logo">
         <div class="follow">
           <h1><b>Follow us on:</b></h1>
@@ -84,14 +91,6 @@ function onMousemove(e) {
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
 
   </div>
 </template>
@@ -107,8 +106,8 @@ export default {
 
   methods: {
   },
-  computed:{
-    dinamicHeight(){
+  computed: {
+    dinamicHeight() { // calculate the window height variation for the div attached to the pointer stays in the center
       let WindowHeight = window.innerHeight
 
       return (WindowHeight - 370)

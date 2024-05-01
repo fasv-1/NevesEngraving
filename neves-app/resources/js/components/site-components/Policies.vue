@@ -12,8 +12,9 @@
                     mollitia deserunt maiores voluptates.</h5>
             </div>
         </div>
-        <div class="dynamic-box">
-            <div class="nav-menu">
+        <div class="dynamic-box mrgvert4">
+            <!-----------------------------------------Box menu--------------------------------------------->
+            <div class="box-menu">
                 <div class="option" :class="this.optionSelected == 0 ? 'active' : ''" @click="select(0)">
                     <h3>Return</h3>
                 </div>
@@ -31,6 +32,7 @@
                 </div>
             </div>
             <div class="info">
+                <!-----------------------------------------Return info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 0">
                     <div class="title">
                         <h4><b>Return Policies</b></h4>
@@ -59,6 +61,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-----------------------------------------Privacy info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 1">
                     <div class="title">
                         <h4><b>Privacy Policies</b></h4>
@@ -79,6 +83,7 @@
                             corrupti iure atque similique?</h5>
                     </div>
                 </div>
+                <!-----------------------------------------Shipping info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 2">
                     <div class="title">
                         <h4><b>Shipping Policies</b></h4>
@@ -99,6 +104,8 @@
                             corrupti iure atque similique?</h5>
                     </div>
                 </div>
+
+                <!-----------------------------------------Terms info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 3">
                     <div class="title">
                         <h4><b>Terms</b></h4>
@@ -119,6 +126,8 @@
                             corrupti iure atque similique?</h5>
                     </div>
                 </div>
+
+                <!-----------------------------------------Bulk orders info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 4">
                     <div class="title">
                         <h4><b>Bulk Orders</b></h4>
@@ -148,23 +157,23 @@
 export default {
     data() {
         return {
-            optionSelected: localStorage.getItem('selectedOption'),
+            optionSelected: localStorage.getItem('selectedOption'), // saves the page if the browser reloads
         }
     },
     methods: {
         timeOut() {
-            setTimeout(() => {
+            setTimeout(() => { // selects a page after a timeout
                 if (this.$route.query.policie) {
                     localStorage.setItem('selectedOption', this.$route.query.policie);
                     this.optionSelected = localStorage.getItem('selectedOption');
                 }
             }, 200);
         },
-        select(n) {
+        select(n) { //selects the info from the button clicked
                 localStorage.setItem('selectedOption', n);
                 this.optionSelected = localStorage.getItem('selectedOption');
         },
-        start(){
+        start(){ // sets the first info to appears
             let selected = localStorage.getItem('selectedOption');
 
             if(selected == undefined){

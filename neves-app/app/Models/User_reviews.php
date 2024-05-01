@@ -9,9 +9,13 @@ class User_reviews extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['comentario', 'like', 'rating', 'user_id', 'produto_id'];
+
+    //Table name different from that expected by laravel
     protected $table = 'user_reviews';
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'comentario' => 'nullable',
@@ -22,6 +26,7 @@ class User_reviews extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
@@ -32,6 +37,7 @@ class User_reviews extends Model
         ];
     }
 
+    //Table foreign relations
     public function user() {
         return $this->belongsTo('App\Models\User');
     }

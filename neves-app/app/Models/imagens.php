@@ -9,9 +9,13 @@ class imagens extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'utilidade', 'desconto_id'];
+    
+    //Table name different from that expected by laravel
     protected $table = 'imagens';
 
+    //Rules for validate inputs
     public function rules()
     {
         return [
@@ -20,6 +24,7 @@ class imagens extends Model
         ];
     }
 
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class TaxaController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct(taxa $taxa)
     {
         // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);

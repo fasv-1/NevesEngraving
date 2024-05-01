@@ -1,8 +1,6 @@
 @import "reset";
 @import "colors";
 @import "animations";
-@import "dashboard";
-@import "inputsDash";
 @import "componentsDash";
 @import "componentsSite";
 @import "globalComponents";
@@ -13,10 +11,6 @@ body {
   scroll-behavior: smooth;
   background-color: $BgBody;
   height: 100%;
-  // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 81%, rgba(124,222,255,1) 100%);
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-attachment: fixed;
 }
 
 h1 {
@@ -170,7 +164,7 @@ input[type="number"],
 input[type="checkbox"],
 select{
   border: 1px solid $Darker-blue;
-  border-radius: 3px;
+  border-radius: 6px;
   padding: 0.5em 0.4em 0.5em 0.4em;
 }
 
@@ -179,7 +173,7 @@ input[type="email"],
 input[type="password"]
 {
   border: 1px solid $Darker-blue;
-  border-radius: 3px;
+  border-radius: 6px;
   padding: 0.5em 0 0.5em 0.4em;
   width: 100%;
 
@@ -192,7 +186,7 @@ input[type="password"]
 
 textarea{
   border: 1px solid $Darker-blue;
-  border-radius: 3px;
+  border-radius: 6px;
   padding: 0.5em 0.4em 2em 0.4em;
   width: 100%;
 

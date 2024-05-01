@@ -38,7 +38,7 @@ class Messages extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.userMessage',
+            view: 'email.userMessage', //view that contains the email structure 
             with:[
               'nome' => $this->mensagem->nome,  
               'apelido' => $this->mensagem->apelido,  

@@ -9,6 +9,9 @@ use App\Mail\Messages;
 
 class MensagemController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct(Mensagem $Mensagem)
     {
         $this->mensagem = $Mensagem;

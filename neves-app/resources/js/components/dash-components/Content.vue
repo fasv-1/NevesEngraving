@@ -3,7 +3,6 @@
   <div class="content">
     <div class="title-cont">
       <h1 class="titulo">{{ title }}</h1>
-      <!-- <h4 class="titulo_alt"> {{ metaTitle }} </h4> -->
     </div>
 
     <router-view></router-view>

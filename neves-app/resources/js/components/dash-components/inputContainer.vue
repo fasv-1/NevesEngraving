@@ -1,4 +1,5 @@
 <template>
+  <!--Dynamic label and help for inputs-->
   <div class="inputContainer" :class="size">
 
     <div class="form-label">

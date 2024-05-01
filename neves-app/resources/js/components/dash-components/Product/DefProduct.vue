@@ -4,7 +4,7 @@
     <h1 class="titulo">Produto</h1>
     <h4 class="titulo_alt">Defenições</h4>
   </div>
-  <div class="productInputContent">
+  <div class="responsive-container">
 
     <!------------------------ CATEGORY AREA --------------------------------->
     <div class="container2">

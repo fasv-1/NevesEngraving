@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido_Detalhe extends Model
 {
     use HasFactory;
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'apelido', 'email', 'morada', 'cidade', 'codigo_postal', 'pais', 'telemovel', 'descricao', 'quant_total', 'total_pag'];
+    
+    //Table name different from that expected by laravel
     protected $table = 'pedido_detalhes';
 
+    //Eager loading to retrieve products data to
     protected $with = ['produtos'];
 
+    //Rules for validate inputs
     public function rules()
     {
         return [
@@ -30,6 +35,7 @@ class Pedido_Detalhe extends Model
         ];
     }
 
+    //Personalized validation responses
     public function feedback()
     {
         return [
@@ -38,6 +44,7 @@ class Pedido_Detalhe extends Model
         ];
     }
 
+    //Table foreign relations
     public function produtos() {
         return $this->belongsToMany('App\Models\Produto', 'pedido_produtos', 'pedido_id', 'produto_id')->withPivot('quantidade', 'texto', 'cor'); 
     }

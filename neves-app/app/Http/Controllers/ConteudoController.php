@@ -7,6 +7,9 @@ use App\Models\conteudo;
 
 class ConteudoController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct(conteudo $conteudo)
     {
         // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);

@@ -8,6 +8,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class DashboardController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct()
 {
     $this->middleware(['role:Super-Admin|Admin']);

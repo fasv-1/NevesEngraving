@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class DescontoController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     //injects the model instance in the controller
     public function __construct(Desconto $desconto)
     {

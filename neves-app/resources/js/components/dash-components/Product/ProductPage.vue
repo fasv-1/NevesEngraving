@@ -46,7 +46,7 @@
         <p v-if="mainImage != ''">Tamanho: {{ mbConversion }} MB</p>
       </div>
       <div class="image-cont-button">
-        <button v-if="mainImage != ''" class="button-save" @click="saveImage('mainImage')">Adicionar imagem</button>
+        <button v-if="mainImage != ''" class="button1" @click="saveImage('mainImage')">Adicionar imagem</button>
       </div>
     </div>
     <!----------------------------------- End of product input main image ------------------------------->
@@ -204,7 +204,7 @@
         </div>
       </div>
       <div class="image-cont-button">
-        <button v-if="urlImages != ''" class="button-save" @click="saveImage('images')">Adicionar imagens</button>
+        <button v-if="urlImages != ''" class="button1" @click="saveImage('images')">Adicionar imagens</button>
       </div>
     </div>
     <!----------------------------------- End of product images inputs ----------------------------->

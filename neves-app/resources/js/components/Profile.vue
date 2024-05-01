@@ -1,6 +1,6 @@
 <template>
     <div id="profile">
-        <!------------------------------------------------------------------------Dashboard Menu------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------Profile Menu (re-used from Dashboard)------------------------------------------------------------------------------------->
         <section id="profile-menu">
             <div class="sticky">
                 <!----------------------------------------Generate the menu home--------------------------------------->
@@ -18,12 +18,12 @@
         <!--------------------------------------------------------------show-area----------------------------------------------------------------------------------------->
         <section id="dash-screen">
             <div class="profile-container" v-for="(page, index) in pages" :key="index">
-                <div class="content" v-if="index == activePage">
+                <div class="profile-content" v-if="index == activePage">
                     <div class="title text-red">
                         <h3>{{ page.pageTitle }}</h3>
                     </div>
 
-                    <!----------------------------------Area pessoal------------------------------------------------------->
+                    <!----------------------------------Personal Credencials------------------------------------------------------->
                     <div class="fields" v-if="index == 0">
                         <div class="update-link">
                             <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
@@ -40,7 +40,7 @@
 
                     </div>
 
-                    <!----------------------------------Info pessoal------------------------------------------------------->
+                    <!----------------------------------Personal Info------------------------------------------------------->
                     <div class="fields" v-if="index == 1 && userDetails.data != ''">
                         <div class="field" v-if="userDetails.data.details == ''">
                             <a href="" @click.prevent="updatePage(6)"><b>Adicionar morada +</b></a>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <!----------------------------------Favoritos------------------------------------------------------->
+                    <!----------------------------------Wish-List------------------------------------------------------->
                     <div class="fields" v-if="index == 2">
                         <div class="favorites">
                             <card-component :products=favoriteProducts :headTitle='false' :info="{
@@ -89,12 +89,12 @@
                         </div>
                     </div>
 
-                    <!----------------------------------Comentarios------------------------------------------------------->
+                    <!----------------------------------Coments------------------------------------------------------->
                     <div class="fields" v-if="index == 3">
                         <div class="coments" v-for="review in userReviews.data">
                             <div class="coments-container" v-if="review.comentario != null">
-                                <div class="content">
-                                    <h5 class="title">{{ review.produto.meta_nome }}</h5>
+                                <div class="profile-content">
+                                    <h5 class="title ">{{ review.produto.meta_nome }}</h5>
                                     <p>"{{ review.comentario }}"</p>
                                 </div>
                                 <div class="buttons">
@@ -109,8 +109,8 @@
             </div>
 
             <!----------------------------------Update Credencials------------------------------------------------------->
-            <div class="content" v-if="activePage == 4">
-                <div class="title">
+            <div class="profile-content" v-if="activePage == 4">
+                <div class="title text-red">
                     <h3>Atualizar dados de registo</h3>
                 </div>
                 <div class="fields">
@@ -128,15 +128,16 @@
                                     v-model="updateEmail">
                             </input-container>
                         </div>
-                        <div class="field">
+                        <div class="button">
                             <button type="submit" class="button1">Atualizar</button>
                         </div>
                     </form>
                 </div>
             </div>
+
             <!----------------------------------Update Adress and Info------------------------------------------------------->
-            <div class="content" v-if="activePage == 5">
-                <div class="title">
+            <div class="profile-content" v-if="activePage == 5">
+                <div class="title text-red">
                     <h3>Atualizar morada e informação do usuário</h3>
                 </div>
                 <div class="fields">
@@ -195,8 +196,8 @@
             </div>
 
             <!----------------------------------Add new Adress and info ------------------------------------------------------->
-            <div class="content" v-if="activePage == 6">
-                <div class="title">
+            <div class="profile-content" v-if="activePage == 6">
+                <div class="title text-red">
                     <h3>Adicionar morada e informação do usuário</h3>
                 </div>
                 <div class="fields">
@@ -245,9 +246,11 @@
                     </form>
                 </div>
             </div>
+
         </section>
+
     </div>
-    <!--Gradient on the bottom-->
+
 </template>
 
 <script>
@@ -265,10 +268,6 @@ export default {
     data() {
         return {
             activePage: localStorage.getItem('activePage'), //set the value of the principal pages
-            // selectedLink: '', //set the index value of the principal pages to link the option selected 
-            // activeLink: '', //the name of the option selected
-            // active: false, //set the style to highlight the principal menu selected
-            // id: "", // for validations
             userDetails: { data: [] },
             userReviews: { data: [] },
             userFavorites: { data: [] },
@@ -310,7 +309,7 @@ export default {
         }
     },
     methods: {
-        timeOut() {
+        timeOut() { // sets a timeout to delay the change of page incoming on-going in the url  
             setTimeout(() => {
                 if (this.$route.query.wish) {
                     localStorage.setItem('activePage', this.$route.query.wish);
@@ -458,9 +457,8 @@ export default {
         principal(e) {
             localStorage.setItem('activePage', e);//Sets the active page value from the index of the link clicked
             this.activePage = localStorage.getItem('activePage');
-            // console.log(this.activePage)
         },
-        userData() {
+        userData() { //gets all the info needed from the api's
             if (localStorage.getItem('activePage') == null) {
                 this.activePage = 0
             }
@@ -475,7 +473,6 @@ export default {
             })
                 .then(response => {
                     this.userDetails.data = response.data
-                    // console.log(response.data)
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -492,7 +489,6 @@ export default {
             axios.get(urlUserReviews)
                 .then(response => {
                     this.userReviews.data = response.data.review
-                    // console.log(response.data)
                 })
                 .catch(errors => {
                     console.log(errors);

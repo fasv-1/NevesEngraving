@@ -4,7 +4,7 @@
       <div class="card-header">
         <h1>Login</h1>
       </div>
-
+      <!-----------------------------Login Form---------------------------------->
       <div class="card-body">
         <form method="POST" action="" @submit.prevent="login($event)">
           <input type="hidden" name="_token" :value="csrf_token">
@@ -27,7 +27,7 @@
 
           <div class="button-form">
             <div class="btn-pass">
-              <button type="submit" class="button-login">
+              <button type="submit" class="button1">
                 Login
               </button>
               <a class="password-link" href="/forgot-password">

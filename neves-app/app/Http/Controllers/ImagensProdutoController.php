@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ImagensProdutoController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct(imagens_produto $imagens_produto)
     {
         $this->imagens_produto = $imagens_produto;

@@ -10,9 +10,12 @@ class Ocasiao extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['nome', 'estado'];
+    //Table name different from that expected by laravel
     protected $table = 'ocasioes';
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'nome' => 'required|unique:ocasioes',
@@ -20,6 +23,7 @@ class Ocasiao extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'nome.required' => 'O campo ocasião é obrigatório',
@@ -29,6 +33,7 @@ class Ocasiao extends Model
         ];
     }
 
+    //Table foreign relations
     public function produto() {
         return $this->hasMany('App\Models\Produto');
     }

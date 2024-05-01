@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 class OcasiaoController extends Controller
 {
 
+    /**
+     * Build some intructions to the controller
+     */
     //injects the model instance in the controller
     public function __construct(ocasiao $ocasiao)
     {

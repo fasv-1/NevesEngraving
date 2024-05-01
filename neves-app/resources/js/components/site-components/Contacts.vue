@@ -1,6 +1,7 @@
 <template>
   <div class="container">
       <div class="responsive-container responsive-center">
+        <!----------------------------------------Contact intruction--------------------------------------------->
           <div class="titulo text-red">
             <h1>Contacts</h1>
           </div>
@@ -10,6 +11,7 @@
             <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, recusandae totam, culpa odit quam, quas fugit repudiandae odio exercitationem quidem cum esse. Doloribus, fugiat facere harum mollitia deserunt maiores voluptates.</h5>
           </div>
       </div>
+        <!-----------------------------------------Contacts--------------------------------------------->
       <div class="margin4">
         <h5>Contacto telefonico:</h5>
         <br>
@@ -20,6 +22,7 @@
         <h5>Email:</h5>
       </div>
       <div id="contact-me">
+        <!-----------------------------------------Form Contact--------------------------------------------->
       <contact-component></contact-component>
     </div>
   </div>

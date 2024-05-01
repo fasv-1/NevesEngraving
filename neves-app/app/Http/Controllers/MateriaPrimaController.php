@@ -7,6 +7,9 @@ use App\Models\materia_prima;
 
 class MateriaPrimaController extends Controller
 {
+    /**
+     * Build some intructions to the controller
+     */
     //injects the model instance in the controller
     public function __construct(materia_prima $material){
         $this->material = $material;

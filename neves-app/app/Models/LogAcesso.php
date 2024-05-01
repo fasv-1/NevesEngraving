@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LogAcesso extends Model
 {
     use HasFactory;
+    //The attributes that are mass assignable.
     protected $fillable = ['log'];
     
 }

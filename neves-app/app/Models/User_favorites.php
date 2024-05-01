@@ -9,9 +9,13 @@ class User_favorites extends Model
 {
     use HasFactory;
 
+    //The attributes that are mass assignable.
     protected $fillable = ['user_id', 'produto_id'];
+
+    //Table name different from that expected by laravel
     protected $table = 'user_favorites';
 
+    //Rules for validate inputs
     public function rules(){
         return [
             'user_id' => 'required|exists:users,id',
@@ -19,6 +23,7 @@ class User_favorites extends Model
         ];
     }
     
+    //Personalized validation responses
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
@@ -26,6 +31,7 @@ class User_favorites extends Model
         ];
     }
 
+    //Table foreign relations
     public function user() {
         return $this->belongsTo('App\Models\User');
     }

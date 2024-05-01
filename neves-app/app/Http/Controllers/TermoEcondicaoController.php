@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 class TermoEcondicaoController extends Controller
 {
-
+    /**
+     * Build some intructions to the controller
+     */
     public function __construct(termoEcondicao $termoEcondicao)
     {
         // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);

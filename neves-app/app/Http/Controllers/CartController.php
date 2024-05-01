@@ -7,7 +7,9 @@ use App\Models\Produto;
 
 class CartController extends Controller
 {
-    
+    /**
+     * Display a listing of the cart
+     */
     public function showCart()
     {
         $cart_products = collect(request()->session()->get('cart'));
@@ -28,6 +30,9 @@ class CartController extends Controller
         //return view('frontend.cart.mini-cart-render',compact('cart_products'));
     }
 
+    /**
+     * Add a new product to the cart 
+     */
     public function addToCart(Request $request)
     {
         $product = Produto::findOrFail($request->product_id);
@@ -61,6 +66,9 @@ class CartController extends Controller
         return response()->json(['cart_products' => $cart_products, 'cart_total' => $cart_total ,'total_products_count' => $total_products_count], 200);
     }
 
+    /**
+     * Updates the quantity of the product
+     */
     public function update(Request $request)
     {
 
@@ -86,6 +94,9 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * Based on the id recived from request, deletes the product
+     */
     public function destroy(Request $request)
     {
         $id = $request->product_id;

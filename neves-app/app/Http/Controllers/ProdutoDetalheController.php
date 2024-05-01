@@ -7,6 +7,9 @@ use App\Models\ProdutoDetalhe;
 
 class ProdutoDetalheController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request){
         if ($request->has('filtro')) {
             $conditions = explode(':', $request->filtro);
@@ -18,6 +21,10 @@ class ProdutoDetalheController extends Controller
 
         return response()->json($produtoDetalhe, 200);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request){
         $produtoDetalhe = new ProdutoDetalhe;
 
@@ -28,6 +35,10 @@ class ProdutoDetalheController extends Controller
         return response()->json(['msg' => 'Detalhe adicionado com sucesso'], 201);
 
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($id){
 
         $produtoDetalhe = ProdutoDetalhe::find($id);
