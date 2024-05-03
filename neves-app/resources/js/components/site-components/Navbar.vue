@@ -7,7 +7,7 @@
           <div class="bg-logo" :class="$route.name == 'Home' ? 'active' : ''">
             <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
           </div>
-          <h4><b>Neves Engraving</b></h4>
+          <h6><b>Neves Engraving</b></h6>
         </a>
       </div>
       <div class="navbar-logo" v-else>
@@ -15,7 +15,7 @@
           <div class="bg-logo">
             <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
           </div>
-          <h4><b>Neves Engraving</b></h4>
+          <h6><b>Neves Engraving</b></h6>
         </router-link>
       </div>
       <!---------------------------Follow us links------------------------------------->

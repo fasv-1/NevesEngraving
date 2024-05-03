@@ -2,37 +2,40 @@
 .navbar-container {
   background-color: #fff;
 
+  //---------------Media queries ---------------------------
   @media (max-width: $descktop) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     border-bottom: 1px solid $Global-blue;
     -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     margin: 0 0 1em 0;
   }
+  //------------------------------------------------------
+
   .navbar-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 2em 4em 1em 4em;
+    margin: 0.5em;
     flex-wrap: wrap;
 
     p {
       font-weight: bold;
     }
 
+    //---------------Media queries ---------------------------
     @media (max-width: $descktop) {
       margin: 0.1em;
       justify-content: center;
     }
+    //------------------------------------------------------
 
     .navbar-logo {
       position: absolute;
-      left: calc(50% - 95px);
-      top: 0.3em;
+      left: calc(50% - 75px);
+      top: 0em;
 
+      //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
         position: relative;
         left: 0;
@@ -40,7 +43,7 @@
         display: flex;
         width: 50%;
 
-        h4 {
+        h6 {
           margin: 0 0.5em;
         }
       }
@@ -48,23 +51,34 @@
       @media (max-width: $tablet) {
         width: 30%;
 
-        h4 {
+        h6 {
           display: none;
         }
       }
+      //------------------------------------------------------
 
       a {
         display: flex;
         flex-direction: column;
         align-items: center;
 
+        //---------------Media queries ---------------------------
         @media (max-width: $descktop) {
           flex-direction: row;
           justify-content: space-around;
         }
-
+        //-----------------------------------------------------
         &:focus {
           color: $Global-red;
+        }
+
+        h6 {
+          margin: -0.15em 0;
+          text-transform: uppercase;
+
+          &:hover {
+            color: $Global-red;
+          }
         }
 
         .bg-logo {
@@ -73,22 +87,31 @@
           align-items: center;
           background-color: $Global-blue;
           border-radius: 50%;
-          width: 100px;
-          height: 100px;
+          width: 70px;
+          height: 70px;
 
-          @media (max-width: $tablet) {
-            width: 70px;
-            height: 70px;
+          //---------------Media queries ---------------------------
+          @media (max-width: $descktop) {
+            width: 65px;
+            height: 65px;
           }
 
-          img {
-            width: 80px;
-            height: 80px;
+          @media (max-width: $tablet) {
+            width: 40px;
+            height: 40px;
+          }
+          //---------------------------------------------------------
 
+          img {
+            width: 50px;
+            height: 50px;
+
+            //---------------Media queries ---------------------------
             @media (max-width: $tablet) {
-              width: 50px;
-              height: 50px;
+              width: 30px;
+              height: 30px;
             }
+            //-----------------------------------------------------------
           }
         }
       }
@@ -102,17 +125,11 @@
       justify-content: center;
       width: 40%;
 
+      //---------------Media queries ---------------------------
       @media (max-width: $tablet) {
         width: 60%;
-
-        p {
-          font-size: 0.8em;
-        }
-
-        img {
-          width: 18px;
-        }
       }
+      //--------------------------------------------------------
 
       .follow-us {
         display: flex;
@@ -120,11 +137,19 @@
         justify-content: center;
         width: 100%;
 
+        a {
+          img {
+            width: 18px;
+          }
+        }
+
         img {
           width: 22px;
+          //---------------Media queries ---------------------------
           @media (max-width: $tablet) {
             width: 18px;
           }
+          //-----------------------------------------------------------
         }
 
         p {
@@ -143,10 +168,14 @@
       align-items: center;
       width: 40%;
 
+      //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
         width: 100%;
         justify-content: space-around;
+        border-top: 1px solid $Detail-blue;
+        margin-top: 2px;
       }
+      //------------------------------------------------------------
 
       .logs {
         display: flex;
@@ -159,13 +188,16 @@
           stroke-miterlimit: 10;
         }
         svg {
-          width: 40px;
-          height: 40px;
+          width: 35px;
+          height: 35px;
           overflow: visible;
+
+          //---------------Media queries ---------------------------
           @media (max-width: $tablet) {
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
           }
+          //---------------------------------------------------------
         }
         .hello {
           cursor: pointer;
@@ -225,21 +257,25 @@
         }
 
         img {
-          width: 25px;
+          width: 22px;
+          //---------------Media queries ---------------------------
           @media (max-width: $tablet) {
-            width: 18px;
+            width: 15px;
           }
+          //--------------------------------------------------------
         }
 
         svg {
-          width: 40px;
-          height: 40px;
+          width: 35px;
+          height: 35px;
           overflow: visible;
 
+          //---------------Media queries ---------------------------
           @media (max-width: $tablet) {
             width: 30px;
             height: 30px;
           }
+          //---------------------------------------------------------
 
           #carrinho {
             display: block;
@@ -271,19 +307,20 @@
     justify-content: space-between;
     align-items: center;
     background-color: $Global-blue;
-    margin: 1.5em 0;
+    margin: 0.5em 0;
     width: 100%;
     -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     letter-spacing: -0.01cm;
 
+    //---------------Media queries ---------------------------
     @media (max-width: $descktop) {
       flex-direction: column;
       margin: 0;
       display: none;
     }
-
+    //--------------------------------------------------------------
     .end-links,
     .start-links {
       display: flex;
@@ -291,26 +328,29 @@
       justify-content: space-evenly;
       width: 40%;
 
+      //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
         flex-direction: column;
         width: 100%;
         // display: none;
       }
+      //----------------------------------------------------------------
 
       .nav-link {
         border: 2px solid transparent;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0.5em;
+        padding: 0.3em;
         margin: 0.2em;
         border-radius: 3px;
         transition: border 1s ease-in-out;
 
+        //---------------Media queries ---------------------------
         @media (max-width: $descktop) {
           width: 100%;
         }
-
+        //-------------------------------------------------------
         &:focus {
           border: 2px solid $Global-red;
           color: $Global-red;
@@ -322,7 +362,7 @@
 
         #glow-div {
           border: 2px solid transparent;
-          padding: 0.3em;
+          // padding: 0.3em;
           border-radius: 3px;
 
           h6 {
@@ -1204,6 +1244,7 @@
       text-decoration: underline;
       text-decoration-color: $Global-red;
 
+      //---------------Media Queries--------------------------------------------
       @media (max-width: $descktop) {
         width: 100%;
         justify-content: center;
@@ -1211,6 +1252,7 @@
         margin: 1em 0;
         text-align: center;
       }
+      //-----------------------------------------------------------------------
     }
 
     .text {
@@ -1220,16 +1262,23 @@
       padding: 0 2em;
       justify-content: space-around;
 
+      //---------------Media Queries--------------------------------------------
       @media (max-width: $tablet) {
         width: 100%;
         margin: 1em 0;
       }
+      //---------------------------------------------------------------------------
     }
 
     .animation {
       display: flex;
       justify-content: center;
       width: 40%;
+
+      @media (max-width: $tablet) {
+        width: 100%;
+        margin: 1em 0;
+      }
       video {
         border-radius: 6px;
         width: 300px;
@@ -1412,12 +1461,44 @@
 }
 
 //------------------ Image-menu for dynamic-box ------------------------------------
+.dynamic-box {
+  @media (max-width: $tablet) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .img-menu {
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin: 4em 1em;
-  overflow: scroll;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  @media (max-width: $tablet) {
+    overflow: scroll;
+    width: 300px;
+    margin: 1em 0;
+  }
+
+  &:-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &:-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+  }
+
+  &:-webkit-scrollbar-track {
+    background: transparent;
+  }
 
   .option {
     border-radius: 50%;
@@ -1426,6 +1507,18 @@
     justify-content: center;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    position: relative;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    transform-origin: center center;
+    transform: scale(1);
+    transition: transform 0.5s;
+    position: relative;
+
+    @media (max-width: $tablet) {
+      margin: 0 20px;
+      border-radius: 10%;
+    }
 
     &:hover .eng-name {
       color: #fff;
@@ -1434,20 +1527,32 @@
       border-radius: 50%;
       object-position: center;
       object-fit: fill;
+
+      @media (max-width: $tablet) {
+        border-radius: 10%;
+      }
     }
     .eng-name {
       position: absolute;
       color: transparent;
       font-size: 2em;
       transition: all 0.5s ease-in-out;
+
+      @media (max-width: $descktop) {
+        color: #fff;
+      }
     }
     .blur {
       position: absolute;
-      background-color: #3a3a3a;
+      background-color: #074e66;
       width: 200px;
       height: 200px;
       border-radius: 50%;
       opacity: 0.8;
+
+      @media (max-width: $tablet) {
+        border-radius: 10%;
+      }
     }
 
     .active {
@@ -1455,7 +1560,6 @@
     }
   }
 }
-
 //------------------ Foot Container ----------------------------------------------------
 .footer-container {
   margin: 2em 0 0 0;

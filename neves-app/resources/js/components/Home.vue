@@ -29,16 +29,19 @@ function onMousemove(e) {
         </div>
         <div class="animation"></div>
       </div>
+
       <div class="home-anim">
         <div class="title">
           <h2>Engraving</h2>
         </div>
-        <div class="animation">
-          <img src="/storage/images/gerais/EngravingAnim.gif" alt="" height="200px">  
+        <div class="responsive-container row-reverse">
+          <div class="animation">
+            <img src="/storage/images/gerais/EngravingAnim.gif" alt="" height="200px">
+          </div>
+          <div class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem obcaecati natus
+            delectus corrupti dolorum quasi? Natus velit nobis iure, vero doloremque, distinctio beatae voluptas nostrum
+            consequatur quas et magni enim.</div>
         </div>
-        <div class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem obcaecati natus
-          delectus corrupti dolorum quasi? Natus velit nobis iure, vero doloremque, distinctio beatae voluptas nostrum
-          consequatur quas et magni enim.</div>
       </div>
       <div class="home-anim">
         <div class="title responsive-end">
@@ -57,6 +60,7 @@ function onMousemove(e) {
         <div class="title">
           <h2>Assembled Gifts</h2>
         </div>
+        <div class="responsive-container row-reverse">
         <div class="animation">
           <video autoplay loop>
             <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
@@ -66,17 +70,18 @@ function onMousemove(e) {
           eligendi
           laboriosam labore asperiores inventore placeat deleniti fugiat a unde exercitationem excepturi, quae qui
           assumenda, veniam autem reprehenderit!</div>
+        </div>
       </div>
     </div>
-    
+
     <!----------------------------------------------Promo Image or Caroussel-------------------------------->
     <div class="home-promo">
       <div class="content"></div>
     </div>
-    
+
     <!----------------------------------------------Contact form--------------------------------------------->
     <contact-component></contact-component>
-    
+
     <!--------------------------------------------- Follow as card--------------------------->
     <div class="home-social" @mousemove="onMousemove">
       <div class="bg-img" :style="{ translate: '' + (x - 110) + 'px ' + (y - dinamicHeight) + 'px' }"></div>
