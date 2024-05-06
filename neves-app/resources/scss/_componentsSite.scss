@@ -1,6 +1,8 @@
 //------------------- Navbar -----------------------------
-.navbar-container {
+#navbar-container {
   background-color: #fff;
+  // position: fixed;
+  
 
   //---------------Media queries ---------------------------
   @media (max-width: $descktop) {
@@ -18,6 +20,7 @@
     align-items: center;
     margin: 0.5em;
     flex-wrap: wrap;
+    z-index: 20;
 
     p {
       font-weight: bold;
@@ -73,7 +76,7 @@
         }
 
         h6 {
-          margin: -0.15em 0;
+          margin: -0.45em 0;
           text-transform: uppercase;
 
           &:hover {
@@ -188,7 +191,7 @@
           stroke-miterlimit: 10;
         }
         svg {
-          width: 35px;
+          width: 34px;
           height: 35px;
           overflow: visible;
 
@@ -319,6 +322,11 @@
       flex-direction: column;
       margin: 0;
       display: none;
+      opacity: 1;
+      z-index: 10;
+      position: absolute;
+      // transform: translateY(-20px);
+      transition: opacity 1s ease;
     }
     //--------------------------------------------------------------
     .end-links,
@@ -331,7 +339,7 @@
       //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
         flex-direction: column;
-        width: 100%;
+        width: calc(100% - 0.9em);
         // display: none;
       }
       //----------------------------------------------------------------
@@ -342,7 +350,6 @@
         justify-content: center;
         align-items: center;
         padding: 0.3em;
-        margin: 0.2em;
         border-radius: 3px;
         transition: border 1s ease-in-out;
 
@@ -362,7 +369,7 @@
 
         #glow-div {
           border: 2px solid transparent;
-          // padding: 0.3em;
+          padding: 0.3em 0;
           border-radius: 3px;
 
           h6 {
@@ -376,6 +383,8 @@
       .active {
         transition: border 1s ease-in;
         border: 2px solid $Global-red;
+        // background-color: rgba(212, 3, 3, 0.103);
+        // box-shadow: inset 0px 0px 5px 0px rgb(131, 33, 33);
         color: $Global-red;
       }
     }
@@ -383,6 +392,22 @@
 
   .open {
     display: flex;
+    animation: open 0.3s ease-in-out;
+  }
+
+  @keyframes open {
+    0%{
+      // height: 0;
+      // transform: translateY(-50px);
+      opacity: 0;
+      // z-index: -1;
+    }
+    100%{
+      // transform: translateY(0);
+      opacity: 1;
+      // z-index: 5;
+    
+    }
   }
 }
 
@@ -393,6 +418,7 @@
     display: flex;
     width: 100%;
     justify-content: flex-end;
+    z-index: 20;
   }
 
   svg {
@@ -485,12 +511,46 @@
 .gifts-container {
   margin: 1em;
   display: flex;
-  min-height: 80vh;
+  min-height: 100vh;
+
+  .gift-btn{
+    width: 30px;
+    // height: 200px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: $Global-blue;
+    padding: 0.5em 0;
+    text-align: center;
+    margin: 3em 0;
+    // margin: auto 0;
+    position: absolute;
+    left: 229px;
+    // font-size: 30px;
+    word-wrap: break-word;
+
+    @media (min-width: $descktop){
+      display: none;
+    }
+  }
+
+
 
   .menu-container {
     display: flex;
     justify-content: center;
     min-width: 20%;
+    transition: transform 0.5s ease-in-out;
+
+    @media (max-width: $descktop){
+      position: fixed;
+      // width: 100%;
+      justify-content: flex-start;
+      z-index: 5;
+      left: 0;
+      transform: translateX(-230px);
+
+    }
+
 
     .side-menu {
       width: 200px;
@@ -501,6 +561,11 @@
       border-radius: 6px;
       position: absolute;
       margin: 3em 0;
+      background-color: #fff;
+
+      @media (max-width: $descktop){
+        margin: -2em 0;
+      }
 
       .title-menu,
       .categorys-area,
@@ -650,7 +715,13 @@
         }
       }
     }
+
   }
+  .open{
+    transform: translateX(0);
+  }
+  
+  
 }
 
 .ocasionCategory {
@@ -661,6 +732,9 @@
 //------------------- Area for the products on Amazing Gifts --------------------
 .show-products {
   width: 80%;
+  @media (max-width: $descktop){
+    width: 100%
+  }
   .show-header {
     display: flex;
     justify-content: space-between;
@@ -696,6 +770,7 @@
 .card-box {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   .card-prd {
     width: 260px;
@@ -1296,7 +1371,7 @@
 
 .home-social {
   display: flex;
-  background-color: $Global-red;
+  background-color: #dc4150f3;
   height: 200px;
   margin: 2em 0;
   z-index: -1;
@@ -1304,11 +1379,11 @@
   border-radius: 6px;
 
   .bg-img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background-color: rgba(0, 183, 255, 0.137);
     border-radius: 50%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 183, 255, 0.034);
+    box-shadow: 0px 0px 20px 0px rgba(0, 183, 255, 0.315);
     top: 0;
     left: 0;
     position: sticky;
@@ -1423,6 +1498,7 @@
 //------------------ Squared-menu for dynamic-box ---------------------------------------------
 .box-menu {
   display: flex;
+  justify-content: flex-start;
 
   .option {
     margin: 0 0.5em 0 0;
@@ -1433,6 +1509,13 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     cursor: pointer;
+
+    @media (max-width: $tablet) {
+      font-size: 0.8em;
+    }
+    @media (max-width: $mobile) {
+      font-size: 0.5em;
+    }
   }
 
   .active {
@@ -1462,11 +1545,13 @@
 
 //------------------ Image-menu for dynamic-box ------------------------------------
 .dynamic-box {
+  margin: 4em 0;
   @media (max-width: $tablet) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2em 0;
   }
 }
 
@@ -1482,26 +1567,15 @@
 
   @media (max-width: $tablet) {
     overflow: scroll;
-    width: 300px;
+    width: 80%;
     margin: 1em 0;
-  }
-
-  &:-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  &:-webkit-scrollbar-thumb {
-    background: black;
-    border-radius: 10px;
-  }
-
-  &:-webkit-scrollbar-track {
-    background: transparent;
+    // box-shadow: inset 0px 0px 5px 0px rgb(173, 173, 173);
+    // border-radius: 6px;
+    // &:focus
   }
 
   .option {
-    border-radius: 50%;
+    border-radius: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1511,44 +1585,46 @@
     scroll-snap-align: center;
     flex-shrink: 0;
     transform-origin: center center;
-    transform: scale(1);
     transition: transform 0.5s;
     position: relative;
 
     @media (max-width: $tablet) {
-      margin: 0 20px;
+      margin: 0 10px;
       border-radius: 10%;
+      padding: 1em 0;
     }
 
-    &:hover .eng-name {
-      color: #fff;
-    }
     img {
-      border-radius: 50%;
+      border-radius: 10%;
       object-position: center;
       object-fit: fill;
+      width: 150px;
+      height: 150px;
 
       @media (max-width: $tablet) {
         border-radius: 10%;
       }
     }
+
     .eng-name {
       position: absolute;
-      color: transparent;
+      color: #fff;
       font-size: 2em;
       transition: all 0.5s ease-in-out;
 
-      @media (max-width: $descktop) {
-        color: #fff;
+      @media (max-width: $tablet) {
+        font-size: 1.5em;
       }
     }
+
     .blur {
       position: absolute;
       background-color: #074e66;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      border-radius: 10%;
       opacity: 0.8;
+      transition: all 0.5s ease-in-out;
 
       @media (max-width: $tablet) {
         border-radius: 10%;
@@ -1556,7 +1632,7 @@
     }
 
     .active {
-      display: none;
+      opacity: 0;
     }
   }
 }
@@ -1584,6 +1660,7 @@
       flex-direction: column;
       line-height: 1.7em;
       margin: 0 0.5em; //mobile use
+      color: $Darker-blue;
 
       .title {
         margin: 1em 0 0.5em 0;
@@ -1593,6 +1670,7 @@
       .links {
         font-weight: bold;
         a {
+          color: $Darker-blue;
           &:hover {
             text-decoration: underline;
           }

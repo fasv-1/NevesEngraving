@@ -12,7 +12,7 @@
                     mollitia deserunt maiores voluptates.</h5>
             </div>
         </div>
-        <div class="dynamic-box mrgvert4">
+        <div class="dynamic-box">
             <!-----------------------------------------Box menu--------------------------------------------->
             <div class="box-menu">
                 <div class="option" :class="this.optionSelected == 0 ? 'active' : ''" @click="select(0)">

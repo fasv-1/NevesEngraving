@@ -4,12 +4,6 @@
           <div class="col-md-8">
               <div class="card">
                   <div class="card-header">Example Component</div>
-
-                  <div class="card-body">
-                      Lazer cut
-
-                      ID: {{ $route.params.id }}
-                  </div>
               </div>
           </div>
       </div>

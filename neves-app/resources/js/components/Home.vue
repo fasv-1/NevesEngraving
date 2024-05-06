@@ -84,7 +84,7 @@ function onMousemove(e) {
 
     <!--------------------------------------------- Follow as card--------------------------->
     <div class="home-social" @mousemove="onMousemove">
-      <div class="bg-img" :style="{ translate: '' + (x - 110) + 'px ' + (y - dinamicHeight) + 'px' }"></div>
+      <div class="bg-img" :style="{ translate: '' + (x - 95) + 'px ' + (y - dinamicHeight) + 'px' }"></div>
       <div class="bg-logo">
         <div class="follow">
           <h1><b>Follow us on:</b></h1>

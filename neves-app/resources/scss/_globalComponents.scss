@@ -83,14 +83,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
     .img {
       height: 30px;
       width: 30px;
-      
+
       display: flex;
       align-items: center;
-      
+
       img {
         width: 30px;
         height: 30px;
@@ -100,11 +100,11 @@
 }
 //---------- end of style table ----------------
 //margin 1
-.margin1{
+.margin1 {
   margin: 1em;
 }
 
-.container{
+.container {
   margin: 0 1em;
   min-height: 50vh;
 }
@@ -115,104 +115,108 @@
 }
 
 //container flex
-.flex-container{
+.flex-container {
   display: flex;
   align-items: center;
 }
 //container flex
 
 //container responsive
-.responsive-container{
+.responsive-container {
   display: flex;
   flex-wrap: wrap;
 }
 
-.row-reverse{
+.row-reverse {
   flex-direction: row-reverse;
 }
 
-.text-red{
+.text-red {
   color: $Global-red;
 }
 
-.text-blue{
+.text-blue {
   color: $Global-blue;
 }
 
-.line-17{
+.line-17 {
   line-height: 1.7em;
 }
 
 //margin 2
-.margin2{
-  margin:2em;
+.margin2 {
+  margin: 2em;
 }
 
-.margin4{
-  margin:4em;
+.margin4 {
+  margin: 4em;
+
+  @media (max-width: $descktop) {
+    margin: 2em;
+  }
 }
 
-.paddinghor1{
-  padding:0 1em;
+.paddinghor1 {
+  padding: 0 1em;
 }
 
-.marginMinHor{
+.marginMinHor {
   margin: 0 0.2em;
 }
 
-.marginMinvert{
+.marginMinvert {
   margin: 0.2em 0;
 }
 
 //margin up and down 1
-.mrgvert1{
-margin: 1em 0;
+.mrgvert1 {
+  margin: 1em 0;
 }
 
 //margin up and down 2
-.mrgvert2{
-margin: 2em 0;
+.mrgvert2 {
+  margin: 2em 0;
 }
 
-.mrgvert4{
-margin: 4em 0;
+.mrgvert4 {
+  margin: 4em 0;
 }
 
 //margin side to side 1
-.mrghor1{
-margin: 0 1em;
+.mrghor1 {
+  margin: 0 1em;
 }
-.mrghor2{
-margin: 0 2em;
+.mrghor2 {
+  margin: 0 2em;
 }
-.mrgTextCenter{
-margin: 2em 4em;
+.mrgTextCenter {
+  margin: 2em 4em;
 }
 
 //width 100%
-.width100{
+.width100 {
   width: 100%;
 }
 
-.mini-card{
+.mini-card {
   height: 100px;
 }
 
-.responsive-end{
+.responsive-end {
   justify-content: flex-end;
 }
-.responsive-start{
+.responsive-start {
   justify-content: flex-start;
 }
-.responsive-center{
+.responsive-center {
   justify-content: center;
 }
 
-.text-centered{
+.text-centered {
   text-align: center;
 }
 
-.rnd-brdr{
+.rnd-brdr {
   border-radius: 6px;
 }
 
@@ -224,6 +228,10 @@ margin: 2em 4em;
 .brd-grey {
   border: 1px solid #ccc;
   border-radius: 6px;
+}
+
+.brd-none {
+  border: none;
 }
 
 .l-input {
@@ -295,7 +303,7 @@ margin: 2em 4em;
 }
 //---------------------------------
 
-//-------- blue button ------------------- 
+//-------- blue button -------------------
 .button-login {
   border: 2px solid #1d647c;
   background-color: $Darker-blue;
@@ -327,39 +335,38 @@ margin: 2em 4em;
 }
 //---------------------------------------------
 
-.side-fields{
+.side-fields {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 
-  .side{
+  .side {
     margin: 1em 4em 1em 1em;
   }
 }
 
-#rating{
-  ul{
+#rating {
+  ul {
     display: flex;
-    li{
+    li {
       width: 23px;
       height: 23px;
       background-color: rgba(255, 0, 0, 0.082);
-      
-      img{
+
+      img {
         margin: -1px -1px;
         position: absolute;
         width: 25px;
         height: 25px;
       }
-      &:hover{
+      &:hover {
         background-color: $Global-red;
-
       }
     }
   }
 }
 
-//-----------style for form modal ------------------- 
+//-----------style for form modal -------------------
 .modal {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.74);
@@ -382,16 +389,21 @@ margin: 2em 4em;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
+    border-radius: 6px;
   }
   .modal-header {
     display: flex;
     margin: 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
     border-bottom: 1px solid $Darker-blue;
     padding: 2em 4em;
     background-color: $Global-blue;
+    // h2 {
+    //   @media (max-width: $tablet) {
+    //     font-size: 1em;
+    //   }
+    // }
   }
 
   .modal-body {
@@ -406,8 +418,8 @@ margin: 2em 4em;
     justify-content: center;
     padding: 2em 2em;
     border-top: 1px solid $Darker-blue;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     background-color: $Global-blue;
   }
 }
@@ -419,7 +431,7 @@ margin: 2em 4em;
 }
 
 .x-close {
-  color: #aaa;
+  color: $Global-red;
   margin: 1em;
   position: absolute;
   top: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-container">
+  <div id="navbar-container">
     <div class="navbar-top">
       <!---------------------------Logo link------------------------------------->
       <div class="navbar-logo" v-if="altroutes == true">
@@ -11,7 +11,7 @@
         </a>
       </div>
       <div class="navbar-logo" v-else>
-        <router-link to="/home" :class="$route.name == 'Home' ? 'active' : ''">
+        <router-link to="/home" :class="$route.name == 'Home' ? 'active' : ''" @click="active = false">
           <div class="bg-logo">
             <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" alt="Logo marca">
           </div>
@@ -88,7 +88,7 @@
           </a>
         </div>
         <div class="shopping-cart" v-else>
-          <router-link to="/home/shopping_cart">
+          <router-link to="/home/shopping_cart" @click="active = false">
             <svg x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
               xml:space="preserve">
               <g id="carrinho">
@@ -116,12 +116,13 @@
             </svg>
             <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
           </router-link>
-          
+
         </div>
 
 
       </div>
-      <div class="mini-menu-btn"><svg @click="active = !active" viewBox="0 0 200 200" fill="none" :class="active == true ? 'bar-anim':''">
+      <div class="mini-menu-btn"><svg @click="active = !active" viewBox="0 0 200 200" fill="none"
+          :class="active == true ? 'bar-anim' : ''">
           <g clip-path="url(#clip0_26_2)">
             <path class="down" d="M26 148H173" stroke="black" stroke-width="7" stroke-linecap="round" />
             <path class="middle" d="M26 100H173" stroke="black" stroke-width="7" stroke-linecap="round" />
@@ -134,19 +135,19 @@
       <div class="start-links">
         <a href="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'AmazingGifts' ? 'active' : ''">
-          <div class="glow-div">
+          <div id="glow-div">
             <h6><b>AMAZING GIFTS</b></h6>
           </div>
         </a>
         <a href="/home/engraving" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'Engraving' ? 'active' : ''">
-          <div class="glow-div">
+          <div id="glow-div">
             <h6><b>ENGRAVING</b></h6>
           </div>
         </a>
         <a href="/home/lazer_cut" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'LazerCut' ? 'active' : ''">
-          <div class="glow-div">
+          <div id="glow-div">
             <h6><b>LAZER CUT</b></h6>
           </div>
         </a>
@@ -154,13 +155,13 @@
       <div class="end-links">
         <a href="/home/policies" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'Policies' ? 'active' : ''">
-          <div class="glow-div">
+          <div id="glow-div">
             <h6><b>POLICIES</b></h6>
           </div>
         </a>
         <a href="/home/contacts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'Contacts' ? 'active' : ''">
-          <div class="glow-div">
+          <div id="glow-div">
             <h6><b>CONTACTS</b></h6>
           </div>
         </a>
@@ -259,7 +260,7 @@ export default {
     clearStorage() {
       localStorage.clear();
       this.getData();
-      // location.reload();
+      this.active = !this.active;
     },
 
     calculatedValue(p) {

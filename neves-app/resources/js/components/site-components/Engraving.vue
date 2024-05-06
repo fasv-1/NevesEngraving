@@ -5,38 +5,38 @@
                 <h1>Engraving</h1>
             </div>
         </div>
-        <div class="dynamic-box mrgvert4">
+        <div class="dynamic-box">
             <!----------------------------------------- Image menu --------------------------------------------->
-            <div class="img-menu">
+            <div id="option" class="img-menu" @scroll="scroll">
                 <div class="option" @click="select(0)">
-                    <img src="/storage/images/gerais/woodEngrv.jpg" width="200" height="200" alt="wood-link">
+                    <img src="/storage/images/gerais/woodEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 0 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 0 ? 'active' : ''">Wood</div>
                 </div>
                 <div class="option" :class="this.optionSelected == 1 ? 'active' : ''" @click="select(1)">
-                    <img src="/storage/images/gerais/acrylicEngrv.jpg" width="200" height="200" alt="wood-link">
+                    <img src="/storage/images/gerais/acrylicEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 1 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 1 ? 'active' : ''">Acrylic</div>
                 </div>
 
                 <div class="option" :class="this.optionSelected == 2 ? 'active' : ''" @click="select(2)">
-                    <img src="/storage/images/gerais/alumEngrv.jpg" width="200" height="200" alt="wood-link">
+                    <img src="/storage/images/gerais/alumEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 2 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 2 ? 'active' : ''">Aluminium</div>
                 </div>
 
-                <div class="option" :class="this.optionSelected == 3 ? 'active' : ''" @click="select(3)">
-                    <img src="/storage/images/gerais/glassEngrv.jpg" width="200" height="200" alt="wood-link">
-                    <div class="blur" :class="this.optionSelected == 3 ? 'active' : ''"></div>
-                    <div class="eng-name" :class="this.optionSelected == 3 ? 'active' : ''">Glass</div>
-                </div>
                 <div class="option" :class="this.optionSelected == 4 ? 'active' : ''" @click="select(4)">
-                    <img src="/storage/images/gerais/cardEngrv.jpeg" width="200" height="200" alt="wood-link">
+                    <img src="/storage/images/gerais/glassEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 4 ? 'active' : ''"></div>
-                    <div class="eng-name" :class="this.optionSelected == 4 ? 'active' : ''">Business Cards</div>
+                    <div class="eng-name" :class="this.optionSelected == 4 ? 'active' : ''">Glass</div>
+                </div>
+                <div class="option" :class="this.optionSelected == 5 ? 'active' : ''" @click="select(5)">
+                    <img src="/storage/images/gerais/cardEngrv.jpeg" alt="wood-link">
+                    <div class="blur" :class="this.optionSelected == 5 ? 'active' : ''"></div>
+                    <div class="eng-name" :class="this.optionSelected == 5 ? 'active' : ''">Business Cards</div>
                 </div>
             </div>
-            <div class="info rnd-brdr">
+            <div class="info brd-none">
                 <!-----------------------------------------Wood info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 0">
                     <div class="title">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <!-----------------------------------------Glass info--------------------------------------------->
-                <div class="option-selected" v-if="optionSelected == 3">
+                <div class="option-selected" v-if="optionSelected == 4">
                     <div class="title">
                         <h4><b>Glass</b></h4>
                     </div>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 <!-----------------------------------------Business Cards info--------------------------------------------->
-                <div class="option-selected" v-if="optionSelected == 4">
+                <div class="option-selected" v-if="optionSelected == 5">
                     <div class="title">
                         <h4><b>Business Cards</b></h4>
                     </div>
@@ -166,6 +166,7 @@
             </div>
         </div>
     </div>
+    
     <contact-component></contact-component>
 </template>
 
@@ -174,12 +175,23 @@ export default {
     data() {
         return {
             optionSelected: localStorage.getItem('selectedOption'),
+            scrollPosition: 0,
         }
     },
     methods: {
+        scroll(e) {
+            this.scrollPosition = e.target.scrollLeft;
+        },
         select(n) {
             localStorage.setItem('selectedOption', n);
             this.optionSelected = localStorage.getItem('selectedOption');
+            let option = document.getElementById('option');
+
+            if(window.innerWidth <= 440){
+                option.scrollTo((n * 120), 0)
+            }else{
+                option.scrollTo((n * 100), 0)
+            }
         },
         start() {
             let selected = localStorage.getItem('selectedOption');

@@ -22,7 +22,7 @@
             </div>
         @endauth
         @guest
-            <a href={{ route('login') }}>My Account</a>
+            <a href={{ route('login') }}><b>My Account</b></a>
         @endguest
     </navbar-component>
 

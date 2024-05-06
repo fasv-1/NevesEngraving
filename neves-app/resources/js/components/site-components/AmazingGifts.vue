@@ -1,9 +1,9 @@
 <template>
   <div class="gifts-container">
 
-    <div class="menu-container">
+    <div class="menu-container" :class = "openMenu == true ? 'open': ''">
       <!-----------------------------------------Side menu--------------------------------------------->
-      <div class="side-menu">
+      <div class="side-menu" >
         <div class="categorys-area">
           <h5 class="group-title">Categorys</h5>
           <a class="category" :class="'All' == linkcliked ? 'high-link' : ''" href="#"
@@ -76,7 +76,17 @@
         </div>
 
       </div>
+      <div class="gift-btn" @click="openMenu = !openMenu">
+        <h5>F</h5>
+        <h5>i</h5>
+        <h5>l</h5>
+        <h5>t</h5>
+        <h5>e</h5>
+        <h5>r</h5>
+        <h5>s</h5>
+      </div>
     </div>
+    
     <!-----------------------------------------Area where the products are showned--------------------------------------------->
     <div class="show-products">
       <div class="show-header">
@@ -137,6 +147,7 @@ export default {
       pagination: [],
       linkcliked: 'All',
       order: '',
+      openMenu: false,
     }
   },
   methods: {
