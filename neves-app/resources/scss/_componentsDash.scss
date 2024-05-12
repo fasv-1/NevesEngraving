@@ -91,6 +91,10 @@
 
 #dash-screen {
   width: 80%;
+  
+  @media (max-width: $descktop) {
+    width: 100%;
+  }
 }
 
 #dash-menu {

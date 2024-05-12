@@ -1,256 +1,262 @@
 <template>
-    <div id="profile">
-        <!------------------------------------------------------------------------Profile Menu (re-used from Dashboard)------------------------------------------------------------------------------------->
-        <section id="profile-menu">
-            <div class="sticky">
-                <!----------------------------------------Generate the menu home--------------------------------------->
-                <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
-                    <div :class="activePage == index ? 'link-cont active' : 'link-cont'">
+    <div class="container">
+        <div id="profile">
+            <!------------------------------------------------------------------------Profile Menu (re-used from Dashboard)------------------------------------------------------------------------------------->
+            <section id="profile-menu">
+                <div class="sticky">
+                    <!----------------------------------------Generate the menu home--------------------------------------->
+                    <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
+                        <div :class="activePage == index ? 'link-cont active' : 'link-cont'">
 
-                        <a href="" class="" title="Página principal" @click.prevent="principal(index)">
-                            {{ page.link.text }}
-                        </a>
+                            <a href="" class="" title="Página principal" @click.prevent="principal(index)">
+                                {{ page.link.text }}
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {{ page }}
-        </section>
-        <!--------------------------------------------------------------show-area----------------------------------------------------------------------------------------->
-        <section id="dash-screen">
-            <div class="profile-container" v-for="(page, index) in pages" :key="index">
-                <div class="profile-content" v-if="index == activePage">
-                    <div class="title text-red">
-                        <h3>{{ page.pageTitle }}</h3>
-                    </div>
-
-                    <!----------------------------------Personal Credencials------------------------------------------------------->
-                    <div class="fields" v-if="index == 0">
-                        <div class="update-link">
-                            <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
-                                    src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
-                        </div>
-                        <div class="field">
-                            <p>Nome</p>
-                            <h4>{{ user.name }}</h4>
-                        </div>
-                        <div class="field">
-                            <p>Email</p>
-                            <h4>{{ user.email }}</h4>
+                {{ page }}
+            </section>
+            <!--------------------------------------------------------------show-area----------------------------------------------------------------------------------------->
+            <section id="dash-screen">
+                <div class="profile-container" v-for="(page, index) in pages" :key="index">
+                    <div class="profile-content" v-if="index == activePage">
+                        <div class="title text-red">
+                            <h3>{{ page.pageTitle }}</h3>
                         </div>
 
-                    </div>
-
-                    <!----------------------------------Personal Info------------------------------------------------------->
-                    <div class="fields" v-if="index == 1 && userDetails.data != ''">
-                        <div class="field" v-if="userDetails.data.details == ''">
-                            <a href="" @click.prevent="updatePage(6)"><b>Adicionar morada +</b></a>
-                        </div>
-                        <div class="dinamyc-fields" v-else>
+                        <!----------------------------------Personal Credencials------------------------------------------------------->
+                        <div class="fields" v-if="index == 0">
                             <div class="update-link">
-                                <a href="" @click.prevent="updatePage(5)">
-                                    <img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg"
-                                        style="width:30px" alt="">
-                                </a>
+                                <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
+                                        src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
                             </div>
                             <div class="field">
-                                <h6>Morada</h6>
-                                <h4>{{ addressInfo.morada1 }}</h4>
+                                <p>Nome</p>
+                                <h4>{{ user.name }}</h4>
                             </div>
                             <div class="field">
-                                <h6>Morada adicional</h6>
-                                <h4>{{ addressInfo.morada2 }}</h4>
+                                <p>Email</p>
+                                <h4>{{ user.email }}</h4>
                             </div>
-                            <div class="field">
-                                <h6>Contacto telefónico</h6>
-                                <h4>{{ addressInfo.telemovel }}</h4>
-                            </div>
-                            <div class="field">
-                                <h6>Cidade</h6>
-                                <h4>{{ addressInfo.cidade }}</h4>
-                            </div>
-                            <div class="field">
-                                <h6>País</h6>
-                                <h4>{{ addressInfo.pais }}</h4>
-                            </div>
-                            <div class="field">
-                                <h6>Código postal</h6>
-                                <h4>{{ addressInfo.codigo_postal }}</h4>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!----------------------------------Wish-List------------------------------------------------------->
-                    <div class="fields" v-if="index == 2">
-                        <div class="favorites">
-                            <card-component :products=favoriteProducts :headTitle='false' :info="{
-                                nome: false, meta_nome: true, categoria: false, materia: false, quantidade: false, valor: false
-                            }" :cart="true">
-                            </card-component>
                         </div>
-                    </div>
 
-                    <!----------------------------------Coments------------------------------------------------------->
-                    <div class="fields" v-if="index == 3">
-                        <div class="coments" v-for="review in userReviews.data">
-                            <div class="coments-container" v-if="review.comentario != null">
-                                <div class="profile-content">
-                                    <h5 class="title ">{{ review.produto.meta_nome }}</h5>
-                                    <p>"{{ review.comentario }}"</p>
+                        <!----------------------------------Personal Info------------------------------------------------------->
+                        <div class="fields" v-if="index == 1 && userDetails.data != ''">
+                            <div class="field" v-if="userDetails.data.details == ''">
+                                <a href="" @click.prevent="updatePage(6)"><b>Adicionar morada +</b></a>
+                            </div>
+                            <div class="dinamyc-fields" v-else>
+                                <div class="update-link">
+                                    <a href="" @click.prevent="updatePage(5)">
+                                        <img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg"
+                                            style="width:30px" alt="">
+                                    </a>
                                 </div>
-                                <div class="buttons">
-                                    <a href="" v-if="review.id" @click.prevent="destroy(review.id, 'comments')"><img
-                                            class="delete-btn" src="/storage/images/Icons/delete.svg" style="width:30px"
-                                            alt=""></a>
+                                <div class="field">
+                                    <h6>Morada</h6>
+                                    <h4>{{ addressInfo.morada1 }}</h4>
+                                </div>
+                                <div class="field">
+                                    <h6>Morada adicional</h6>
+                                    <h4>{{ addressInfo.morada2 }}</h4>
+                                </div>
+                                <div class="field">
+                                    <h6>Contacto telefónico</h6>
+                                    <h4>{{ addressInfo.telemovel }}</h4>
+                                </div>
+                                <div class="field">
+                                    <h6>Cidade</h6>
+                                    <h4>{{ addressInfo.cidade }}</h4>
+                                </div>
+                                <div class="field">
+                                    <h6>País</h6>
+                                    <h4>{{ addressInfo.pais }}</h4>
+                                </div>
+                                <div class="field">
+                                    <h6>Código postal</h6>
+                                    <h4>{{ addressInfo.codigo_postal }}</h4>
                                 </div>
                             </div>
                         </div>
+
+                        <!----------------------------------Wish-List------------------------------------------------------->
+                        <div class="fields" v-if="index == 2">
+                            <div class="favorites">
+                                <card-component :products=favoriteProducts :headTitle='false' :info="{
+                                    nome: false, meta_nome: true, categoria: false, materia: false, quantidade: false, valor: false
+                                }" :cart="true">
+                                </card-component>
+                            </div>
+                        </div>
+
+                        <!----------------------------------Coments------------------------------------------------------->
+                        <div class="fields" v-if="index == 3">
+                            <div class="coments" v-for="review in userReviews.data">
+                                <div class="coments-container" v-if="review.comentario != null">
+                                    <div class="profile-content">
+                                        <h5 class="title ">{{ review.produto.meta_nome }}</h5>
+                                        <p>"{{ review.comentario }}"</p>
+                                    </div>
+                                    <div class="buttons">
+                                        <a href="" v-if="review.id" @click.prevent="destroy(review.id, 'comments')"><img
+                                                class="delete-btn" src="/storage/images/Icons/delete.svg"
+                                                style="width:30px" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!----------------------------------Update Credencials------------------------------------------------------->
-            <div class="profile-content" v-if="activePage == 4">
-                <div class="title text-red">
-                    <h3>Atualizar dados de registo</h3>
-                </div>
-                <div class="fields">
-                    <form method="patch" action="" @submit.prevent="updateCredencials($event)">
-                        <div class="field">
-                            <input-container id="updateName" title="Atualizar nome de usuario" help="updateName"
-                                helpText="Nome de usuário">
-                                <input type="text" name="updateName" aria-describedby="updateName" v-model="updateName">
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="updateEmail" title="Atualizar email de usuario" help="updateEmail"
-                                helpText="Email de usuário (caso o faça, é necessário validar o novo email)">
-                                <input type="text" name="updateEmail" aria-describedby="updateEmail"
-                                    v-model="updateEmail">
-                            </input-container>
-                        </div>
-                        <div class="button">
-                            <button type="submit" class="button1">Atualizar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!----------------------------------Update Adress and Info------------------------------------------------------->
-            <div class="profile-content" v-if="activePage == 5">
-                <div class="title text-red">
-                    <h3>Atualizar morada e informação do usuário</h3>
-                </div>
-                <div class="fields">
-                    <form method="patch" action="" @submit.prevent="updateAdress($event, addressInfo.id)">
-                        <div class="field">
-                            <input-container id="morada1" title="Atualizar morada" help="updateMorada1"
-                                helpText="Digite a nova morada de usuário" size="ml-input">
-                                <input type="text" name="updateMorada1" aria-describedby="updateMorada1"
-                                    :placeHolder="addressInfo.morada1" v-model="updateMorada1">
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="morada2" title="Atualizar morada adicional" help="updateMorada2"
-                                helpText="Digite a nova morada adicional" size="ml-input">
-                                <input type="text" name="updateMorada2" aria-describedby="updateMorada2"
-                                    :placeHolder="addressInfo.morada2" v-model="updateMorada2">
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="telemovel" title="Atualizar contato telefónico" help="updateTelemovel"
-                                helpText="Digite o novo contato telefonico">
-                                <input type="text" name="updateTelemovel" aria-describedby="updateTelemovel"
-                                    :placeHolder="addressInfo.telemovel" v-model="updateTelemovel">
-                            </input-container>
-                        </div>
-                        <div class="side-fields">
-                            <div class="side">
-                                <input-container id="cidade" title="Atualizar cidade" help="updateCidade"
-                                    helpText="Digite a nova cidade">
-                                    <input type="text" name="updateCidade" aria-describedby="updateCidade"
-                                        :placeHolder="addressInfo.cidade" v-model="updateCidade">
+                <!----------------------------------Update Credencials------------------------------------------------------->
+                <div class="profile-content" v-if="activePage == 4">
+                    <div class="title text-red">
+                        <h3>Atualizar dados de registo</h3>
+                    </div>
+                    <div class="fields">
+                        <form method="patch" action="" @submit.prevent="updateCredencials($event)">
+                            <div class="field">
+                                <input-container id="updateName" title="Atualizar nome de usuario" help="updateName"
+                                    helpText="Nome de usuário">
+                                    <input type="text" name="updateName" aria-describedby="updateName"
+                                        v-model="updateName">
                                 </input-container>
                             </div>
-                            <div class="side">
-                                <input-container id="pais" title="Atualizar país" help="updatePais"
-                                    helpText="Digite um novo país">
-                                    <input type="text" name="updatePais" aria-describedby="updatePais"
-                                        :placeHolder="addressInfo.pais" v-model="updatePais">
+                            <div class="field">
+                                <input-container id="updateEmail" title="Atualizar email de usuario" help="updateEmail"
+                                    helpText="Email de usuário (caso o faça, é necessário validar o novo email)">
+                                    <input type="text" name="updateEmail" aria-describedby="updateEmail"
+                                        v-model="updateEmail">
                                 </input-container>
                             </div>
-                            <div class="side">
-                                <input-container id="codigo_postal" title="Atualizar código-postal" help="updateCodigo"
-                                    helpText="Digite um novo código-postal">
-                                    <input type="text" name="updateCodigo" aria-describedby="updateCodigo"
-                                        :placeHolder="addressInfo.codigo_postal" v-model="updateCodigo">
-                                </input-container>
+                            <div class="button">
+                                <button type="submit" class="button1">Atualizar</button>
                             </div>
-
-                        </div>
-
-                        <div class="button">
-                            <button type="submit" class="button1">Atualizar</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
 
-            <!----------------------------------Add new Adress and info ------------------------------------------------------->
-            <div class="profile-content" v-if="activePage == 6">
-                <div class="title text-red">
-                    <h3>Adicionar morada e informação do usuário</h3>
+                <!----------------------------------Update Adress and Info------------------------------------------------------->
+                <div class="profile-content" v-if="activePage == 5">
+                    <div class="title text-red">
+                        <h3>Atualizar morada e informação do usuário</h3>
+                    </div>
+                    <div class="fields">
+                        <form method="patch" action="" @submit.prevent="updateAdress($event, addressInfo.id)">
+                            <div class="field">
+                                <input-container id="morada1" title="Atualizar morada" help="updateMorada1"
+                                    helpText="Digite a nova morada de usuário" size="ml-input">
+                                    <input type="text" name="updateMorada1" aria-describedby="updateMorada1"
+                                        :placeHolder="addressInfo.morada1" v-model="updateMorada1">
+                                </input-container>
+                            </div>
+                            <div class="field">
+                                <input-container id="morada2" title="Atualizar morada adicional" help="updateMorada2"
+                                    helpText="Digite a nova morada adicional" size="ml-input">
+                                    <input type="text" name="updateMorada2" aria-describedby="updateMorada2"
+                                        :placeHolder="addressInfo.morada2" v-model="updateMorada2">
+                                </input-container>
+                            </div>
+                            <div class="field">
+                                <input-container id="telemovel" title="Atualizar contato telefónico"
+                                    help="updateTelemovel" helpText="Digite o novo contato telefonico">
+                                    <input type="text" name="updateTelemovel" aria-describedby="updateTelemovel"
+                                        :placeHolder="addressInfo.telemovel" v-model="updateTelemovel">
+                                </input-container>
+                            </div>
+                            <div class="side-fields">
+                                <div class="side">
+                                    <input-container id="cidade" title="Atualizar cidade" help="updateCidade"
+                                        helpText="Digite a nova cidade">
+                                        <input type="text" name="updateCidade" aria-describedby="updateCidade"
+                                            :placeHolder="addressInfo.cidade" v-model="updateCidade">
+                                    </input-container>
+                                </div>
+                                <div class="side">
+                                    <input-container id="pais" title="Atualizar país" help="updatePais"
+                                        helpText="Digite um novo país">
+                                        <input type="text" name="updatePais" aria-describedby="updatePais"
+                                            :placeHolder="addressInfo.pais" v-model="updatePais">
+                                    </input-container>
+                                </div>
+                                <div class="side">
+                                    <input-container id="codigo_postal" title="Atualizar código-postal"
+                                        help="updateCodigo" helpText="Digite um novo código-postal">
+                                        <input type="text" name="updateCodigo" aria-describedby="updateCodigo"
+                                            :placeHolder="addressInfo.codigo_postal" v-model="updateCodigo">
+                                    </input-container>
+                                </div>
+
+                            </div>
+
+                            <div class="button">
+                                <button type="submit" class="button1">Atualizar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="fields">
-                    <form method="patch" action="" @submit.prevent="saveAdress($event)">
-                        <div class="field">
-                            <input-container id="morada1" title="Morada" help="Morada1"
-                                helpText="Digite a morada de usuário" size="ml-input">
-                                <input type="text" name="Morada1" aria-describedby="Morada1" v-model="Morada1" required>
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="morada2" title="Morada adicional" help="Morada2"
-                                helpText="Digite a morada adicional" size="ml-input">
-                                <input type="text" name="Morada2" aria-describedby="Morada2" v-model="Morada2" required>
-                            </input-container>
-                        </div>
-                        <div class="field">
-                            <input-container id="telemovel" title="Contato telefónico" help="Telemovel"
-                                helpText="Digite o novo contato telefonico">
-                                <input type="text" name="Telemovel" aria-describedby="Telemovel" v-model="Telemovel">
-                            </input-container>
-                        </div>
-                        <div class="side-fields">
-                            <div class="side">
-                                <input-container id="cidade" title="Cidade" help="Cidade" helpText="Digite a cidade">
-                                    <input type="text" name="Cidade" aria-describedby="Cidade" required
-                                        v-model="Cidade">
+
+                <!----------------------------------Add new Adress and info ------------------------------------------------------->
+                <div class="profile-content" v-if="activePage == 6">
+                    <div class="title text-red">
+                        <h3>Adicionar morada e informação do usuário</h3>
+                    </div>
+                    <div class="fields">
+                        <form method="patch" action="" @submit.prevent="saveAdress($event)">
+                            <div class="field">
+                                <input-container id="morada1" title="Morada" help="Morada1"
+                                    helpText="Digite a morada de usuário" size="ml-input">
+                                    <input type="text" name="Morada1" aria-describedby="Morada1" v-model="Morada1"
+                                        required>
                                 </input-container>
                             </div>
-                            <div class="side">
-                                <input-container id="pais" title="País" help="Pais" helpText="Digite um país">
-                                    <input type="text" name="Pais" aria-describedby="Pais" required v-model="Pais">
+                            <div class="field">
+                                <input-container id="morada2" title="Morada adicional" help="Morada2"
+                                    helpText="Digite a morada adicional" size="ml-input">
+                                    <input type="text" name="Morada2" aria-describedby="Morada2" v-model="Morada2"
+                                        required>
                                 </input-container>
                             </div>
-                            <div class="side">
-                                <input-container id="codigo_postal" title="Código-postal" help="Codigo"
-                                    helpText="Digite o seu código-postal">
-                                    <input type="text" name="Codigo" aria-describedby="Codigo" required
-                                        v-model="Codigo">
+                            <div class="field">
+                                <input-container id="telemovel" title="Contato telefónico" help="Telemovel"
+                                    helpText="Digite o novo contato telefonico">
+                                    <input type="text" name="Telemovel" aria-describedby="Telemovel"
+                                        v-model="Telemovel">
                                 </input-container>
                             </div>
-                        </div>
-                        <div class="button">
-                            <button type="submit" class="button1">Atualizar</button>
-                        </div>
-                    </form>
+                            <div class="side-fields">
+                                <div class="side">
+                                    <input-container id="cidade" title="Cidade" help="Cidade"
+                                        helpText="Digite a cidade">
+                                        <input type="text" name="Cidade" aria-describedby="Cidade" required
+                                            v-model="Cidade">
+                                    </input-container>
+                                </div>
+                                <div class="side">
+                                    <input-container id="pais" title="País" help="Pais" helpText="Digite um país">
+                                        <input type="text" name="Pais" aria-describedby="Pais" required v-model="Pais">
+                                    </input-container>
+                                </div>
+                                <div class="side">
+                                    <input-container id="codigo_postal" title="Código-postal" help="Codigo"
+                                        helpText="Digite o seu código-postal">
+                                        <input type="text" name="Codigo" aria-describedby="Codigo" required
+                                            v-model="Codigo">
+                                    </input-container>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <button type="submit" class="button1">Atualizar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
 
-        </section>
+            </section>
 
+        </div>
     </div>
-
 </template>
 
 <script>

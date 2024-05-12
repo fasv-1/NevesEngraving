@@ -165,7 +165,7 @@
             <h6><b>CONTACTS</b></h6>
           </div>
         </a>
-        <a href="#searchModal" @click="clearStorage()">
+        <a href="#searchModal" @click="clearStorage()" class="nav-link">
           <svg class="mag-glass" x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
             xml:space="preserve">
             <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7
@@ -210,7 +210,7 @@
             <h6><b>CONTACTS</b></h6>
           </div>
         </router-link>
-        <a href="#searchModal" @click="clearStorage()">
+        <a href="#searchModal" @click="clearStorage()" class="nav-link">
           <svg class="mag-glass" x="0px" y="0px" viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;"
             xml:space="preserve">
             <path id="circulo" class="st0" d="M620,452.7c0,114.5-90.8,205.7-201,205.7c-110.2,0-201-91.3-201-205.7

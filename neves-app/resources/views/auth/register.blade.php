@@ -11,4 +11,5 @@
             <register-component csrf_token="{{ @csrf_token() }}"></register-component>
         </div>
     </div>
+    <footer-component></footer-component>
 @endsection

@@ -35,7 +35,7 @@
     .navbar-logo {
       position: absolute;
       left: calc(50% - 75px);
-      top: 0em;
+      top: 0.3em;
 
       //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
@@ -220,7 +220,7 @@
             background-color: #f9f9f9;
             margin-top: 0.1em;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
+            z-index: 20;
             border-radius: 6px;
 
             li {
@@ -348,6 +348,7 @@
       @media (max-width: $descktop) {
         flex-direction: column;
         width: calc(100% - 0.9em);
+
         // display: none;
       }
       //----------------------------------------------------------------
@@ -365,6 +366,7 @@
         //---------------Media queries ---------------------------
         @media (max-width: $descktop) {
           width: 100%;
+          border-bottom: 1px solid $Darker-blue;
         }
         //-------------------------------------------------------
         &:focus {
@@ -1157,9 +1159,9 @@
     justify-content: center;
 
     .button-form {
-      margin: 1em;
+      margin: 1em 0;
       .btn-pass {
-        margin: 1em;
+        margin: 1em 0;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -1176,7 +1178,7 @@
         text-align: center;
         width: 100%;
         margin: 1em 0;
-        padding: 1em;
+        padding: 1em 0;
         a {
           color: $Darker-blue;
           font-weight: bold;
@@ -1201,29 +1203,64 @@
 //------------------- Profile page and components --------------------------------------------
 #profile {
   display: flex;
-  min-height: 50vh;
+  margin: 3em 0 0 0;
+
+  @media (max-width: $descktop) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
   #profile-menu {
     width: 20%;
-    border: 1px solid #46d1ff23;
-    border-radius: 3px;
+    border: 1px solid $Detail-blue;
+    border-radius: 6px;
     margin: 0 1em;
     height: 100%;
 
-    .link-cont {
-      border-bottom: 1px solid #46d1ff23;
-      border-radius: 3px;
+    @media (max-width: $descktop) {
+      width: 100%;
+      margin: 0;
+    }
 
-      &:hover {
-        background-color: $DshMenuActive;
+    .sticky {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // flex-wrap: wrap;
+
+      @media (max-width: $descktop) {
+        flex-direction: row;
+      }
+
+      .link-cont {
+        border: 1px solid $Detail-blue;
+        border-radius: 3px;
+
+        @media (max-width: $descktop) {
+          justify-content: center;
+          height: 20px;
+
+          a{
+            margin:0;
+            font-size: 1em;
+          }
+        }
+
+        &:hover {
+          background-color: $Detail-blue;
+        }
       }
     }
   }
+
   .profile-content {
+    @media (max-width: $descktop) {
+      margin: 1em 1em;
+    }
     .fields {
       display: flex;
       flex-wrap: wrap;
-      width: 90%;
+      // width: 90%;
       margin: 2em 0;
       // border-top: 1px solid $Detail-blue;
       // padding: 1em 0;
@@ -1235,11 +1272,15 @@
       .update-link {
         display: flex;
         justify-content: flex-end;
-        width: 90%;
-
+        width: 95%;
+        
         .edit-btn {
           position: absolute;
           margin: 1em 0;
+        
+          @media (max-width: $descktop) {
+            margin: -1em 0;
+          }
         }
       }
       form {
@@ -1255,6 +1296,10 @@
         padding: 2em 0 0 0;
         text-align: center;
         border-top: 1px solid $Detail-blue;
+      }
+
+      .buttons {
+        margin: 0 0.5em;
       }
 
       .coments-container {
@@ -1589,6 +1634,7 @@
     transform-origin: center center;
     transition: transform 0.5s;
     position: relative;
+    margin: 0 0.5em;
 
     @media (max-width: $tablet) {
       margin: 0 10px;
@@ -1612,6 +1658,7 @@
       position: absolute;
       color: #fff;
       font-size: 2em;
+      text-align: center;
       transition: all 0.5s ease-in-out;
 
       @media (max-width: $tablet) {

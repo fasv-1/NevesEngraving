@@ -39,4 +39,5 @@
         </div>
 
     </div>
+    <footer-component></footer-component>
 @endsection

@@ -20,4 +20,5 @@
     </div> --}}
     {{-- <a href="{{ route('password.request')}}">Forgot your password?</a>
     {{$errors}} --}}
+    <footer-component></footer-component>
 @endsection
