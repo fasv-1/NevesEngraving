@@ -1,8 +1,7 @@
 //------------------- Navbar -----------------------------
 #navbar-container {
-  background-color: #fff;
+  background: #fff;
   // position: fixed;
-  
 
   //---------------Media queries ---------------------------
   @media (max-width: $descktop) {
@@ -47,7 +46,8 @@
         width: 50%;
 
         h6 {
-          margin: 0 0.5em;
+          padding: 0 0.5em;
+          color: #000;
         }
       }
 
@@ -64,6 +64,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        color: #fff;
 
         //---------------Media queries ---------------------------
         @media (max-width: $descktop) {
@@ -88,7 +89,12 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: $Global-blue;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(0, 117, 156, 1) 70%,
+            rgba(85, 148, 170, 1) 100%
+          );
           border-radius: 50%;
           width: 70px;
           height: 70px;
@@ -206,6 +212,7 @@
           cursor: pointer;
           &:hover #drop-profile {
             display: block;
+            animation: shrink 0.3s ease-in-out;
           }
           #drop-profile {
             display: none;
@@ -309,7 +316,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $Global-blue;
+    background: linear-gradient(180deg, rgba(0, 117, 156, 1) 0%, rgba(85, 148, 170, 1) 51%, rgba(0, 117, 156, 1) 100%);
+    // background: $Global-blue;
     margin: 0.5em 0;
     width: 100%;
     -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
@@ -352,6 +360,7 @@
         padding: 0.3em;
         border-radius: 3px;
         transition: border 1s ease-in-out;
+        color: #fff;
 
         //---------------Media queries ---------------------------
         @media (max-width: $descktop) {
@@ -390,23 +399,10 @@
     }
   }
 
-  .open {
-    display: flex;
-    animation: open 0.3s ease-in-out;
-  }
-
-  @keyframes open {
-    0%{
-      // height: 0;
-      // transform: translateY(-50px);
-      opacity: 0;
-      // z-index: -1;
-    }
-    100%{
-      // transform: translateY(0);
-      opacity: 1;
-      // z-index: 5;
-    
+  @media (max-width: $descktop) {
+    .open {
+      display: flex;
+      animation: shrink 0.3s ease-in-out;
     }
   }
 }
@@ -425,6 +421,9 @@
     @media (max-width: $tablet) {
       width: 30px;
     }
+    // @media (min-width: $tablet) {
+    //   margin-top: 0.1%;
+    // }
     color: $Darker-blue;
     width: 30px;
     border-left: 1px solid $Global-blue;
@@ -439,6 +438,7 @@
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
     right: 0;
     margin-right: 1em;
+    // margin-top: 0.2%;
 
     .down {
       transition: transform 0.2s ease-out;
@@ -513,12 +513,13 @@
   display: flex;
   min-height: 100vh;
 
-  .gift-btn{
+  .gift-btn {
     width: 30px;
     // height: 200px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    background-color: $Global-blue;
+    background: $Global-grd;
+    color: #fff;
     padding: 0.5em 0;
     text-align: center;
     margin: 3em 0;
@@ -528,12 +529,10 @@
     // font-size: 30px;
     word-wrap: break-word;
 
-    @media (min-width: $descktop){
+    @media (min-width: $descktop) {
       display: none;
     }
   }
-
-
 
   .menu-container {
     display: flex;
@@ -541,16 +540,14 @@
     min-width: 20%;
     transition: transform 0.5s ease-in-out;
 
-    @media (max-width: $descktop){
+    @media (max-width: $descktop) {
       position: fixed;
       // width: 100%;
       justify-content: flex-start;
       z-index: 5;
       left: 0;
       transform: translateX(-230px);
-
     }
-
 
     .side-menu {
       width: 200px;
@@ -563,7 +560,7 @@
       margin: 3em 0;
       background-color: #fff;
 
-      @media (max-width: $descktop){
+      @media (max-width: $descktop) {
         margin: -2em 0;
       }
 
@@ -715,13 +712,10 @@
         }
       }
     }
-
   }
-  .open{
+  .open {
     transform: translateX(0);
   }
-  
-  
 }
 
 .ocasionCategory {
@@ -732,8 +726,8 @@
 //------------------- Area for the products on Amazing Gifts --------------------
 .show-products {
   width: 80%;
-  @media (max-width: $descktop){
-    width: 100%
+  @media (max-width: $descktop) {
+    width: 100%;
   }
   .show-header {
     display: flex;
@@ -1433,7 +1427,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $Global-blue;
+  background: linear-gradient(90deg, rgba(0, 117, 156, 1) 0%, rgba(85, 148, 170, 1) 51%, rgba(0, 117, 156, 1) 100%);
   border-radius: 6px;
   box-shadow: inset 0px 0px 5px 0px rgb(255, 255, 255);
 
@@ -1473,6 +1467,10 @@
         color: $Global-red;
 
         @media (max-width: $tablet) {
+          margin-top: -2%;
+          margin-left: -70%;
+        }
+        @media (max-width: $mobile) {
           margin-top: -5%;
           margin-left: -60%;
         }
@@ -1511,7 +1509,7 @@
     cursor: pointer;
 
     @media (max-width: $tablet) {
-      font-size: 0.8em;
+      font-size: 0.7em;
     }
     @media (max-width: $mobile) {
       font-size: 0.5em;
@@ -1519,7 +1517,7 @@
   }
 
   .active {
-    background-color: $Global-blue;
+    background: $Global-grd;
     color: #fff;
   }
 }
@@ -1530,6 +1528,10 @@
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
+
+  @media (max-width: $tablet) {
+    border-top-left-radius: 6px;
+  }
 
   .option-selected {
     margin: 1em 2em;
@@ -1639,13 +1641,8 @@
 //------------------ Foot Container ----------------------------------------------------
 .footer-container {
   margin: 2em 0 0 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 23%,
-    rgba(70, 209, 255, 1) 100%
-  );
-  border-top: 1px solid #ffffffa8;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 21%, rgba(0, 117, 156, 1) 93%);
+  border-top: 1px solid #ffffffde;
   position: relative;
   bottom: 0;
 

@@ -78,12 +78,12 @@
       </div>
       <div class="gift-btn" @click="openMenu = !openMenu">
         <h5>F</h5>
-        <h5>i</h5>
-        <h5>l</h5>
-        <h5>t</h5>
-        <h5>e</h5>
-        <h5>r</h5>
-        <h5>s</h5>
+        <h5>I</h5>
+        <h5>L</h5>
+        <h5>T</h5>
+        <h5>E</h5>
+        <h5>R</h5>
+        <h5>S</h5>
       </div>
     </div>
     
