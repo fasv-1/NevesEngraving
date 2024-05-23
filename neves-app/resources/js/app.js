@@ -265,7 +265,11 @@ app.component('contacts-component', Contacts);
 import Footer from './components/Footer.vue';
 app.component('footer-component', Footer);
 
+import PopUpCartAlert from './components/site-components/PopUpCartAlert.vue';
+app.component('popupCart-component', PopUpCartAlert);
 //-------------------------------------General-Components-------------------------------
+
+
 import Alert from './components/Alert.vue';
 app.component('alert-component', Alert);
 

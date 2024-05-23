@@ -20,6 +20,7 @@
         </div>
       </div>
       <!----------------------------------end of wish list -------------------------------------------------->
+
       <!-------------------------------------------promo------------------------------------------------------->
 
       <div class="icon-cont" v-if="info.valor">
@@ -79,9 +80,8 @@
       </div>
       <!----------------------------------end of product add to cart -------------------------------------------------->
     </div>
-
   </div>
-
+  <popupCart-component :name = popUpInfo.name :quantity = popUpInfo.quantity :image = popUpInfo.image></popupCart-component>
 </template>
 
 <script>
@@ -92,9 +92,40 @@ export default {
       productsImages: { data: [] },
       userFavorites: { data: [] },
       reviews: { data: [] },
+      popUpInfo : {}
+      
     }
   },
   methods: {
+    addedProductPopUp(n){
+      let image = ''
+      let name = ''
+      let quantity = 1
+
+      this.allImages.forEach(i =>{
+        if(i.produto_id == n && i.posicao == 1){
+          image = i.nome
+        }
+      })
+
+      this.products.forEach(p =>{
+        if(p.id == n){
+          name = p.meta_nome
+        }
+      })
+
+      this.popUpInfo = {'name' : name, 'quantity' : quantity, 'image' : image}
+
+      location.assign('#cartPopUp')
+
+      setTimeout(() => {
+        location.assign('#')
+        this.$router.go(0)
+      }, 2000);
+
+      
+
+    },
     addToCart(e) {
 
       let url = 'http://127.0.0.1:8000/cart'
@@ -113,12 +144,13 @@ export default {
       axios.post(url, formData, config)
         .then((response) => {
           console.log(response)
-          alert('Produto adicionado ao carrinho')
-          location.reload()
         })
         .catch(errors => {
           console.log(errors.response.data.message)
         })
+
+        this.addedProductPopUp(e)
+        
     },
 
     addWish(id) {
@@ -245,11 +277,26 @@ export default {
           console.log(errors);
         })
     },
+
+    
+
+    
+  },
+  computed: {
+    allImages(){
+      let allImages = [];
+      this.productsImages.data.forEach(element => {
+        allImages.push(element)
+      });
+
+      return allImages
+    }
   },
   mounted() {
     this.getImage()
     this.getFavorites()
     this.getReviews()
+    // this.addedProductPopUp()
     // console.log(this.$store.state.user)
   }
 
