@@ -1,17 +1,31 @@
 <template>
   <!-- Modal -->
-  <div id="cartPopUp" class="modal">
+  <div id="cartPopUp" class="popUpCart" :class="display == true ? 'active' : ''">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="modal-title " id="ModalLabel">{{ title }}</h2>
-          <a class="x-close" href="#" @click="erraserror()">
+          <h5 class="modal-title " id="ModalLabel">- Product Added to Cart -</h5>
+          <!-- <a class="x-close" href="#" @click="erraserror()">
             <h4>X</h4>
-          </a>
+          </a> -->
         </div>
-        <h1>{{ name }}</h1>
-        <h4>{{ quantity }}</h4>
-        <img :src="'/storage/' + image" alt="Product Image">
+        <div class="modal-body">
+          <div>
+            <img id="pop-img" :src="'/storage/' + image" width="40" height="40" alt="Product Image">
+          </div>
+          <div>
+            <label for="pop-name">Name</label>
+            <h5 id="pop-name">{{ name }}</h5>
+          </div>
+          <div>
+            <label for="pop-qnt">Quantity</label>
+            <h5 id="pop-qnt">{{ quantity }}</h5>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="button-login">Go to cart</button>
+          <button class="button-save">Fast checkout</button>
+        </div>
       </div>
     </div>
   </div>
@@ -19,18 +33,14 @@
 
 <script>
 export default {
-  props: ['name', 'quantity', 'image'],
+  props: ['name', 'quantity', 'image', 'display'],
   methods: {
     erraserror() {
       this.$store.state.transaction.status = '';
       this.$store.state.transaction.message = '';
     },
-    timeOut() {
-      
-    },
   },
   mounted() {
-    this.timeOut()
   }
 }
 </script>

@@ -1,6 +1,7 @@
 //------------------- Navbar -----------------------------
 #navbar-container {
-  background: #fff;
+  background: #d6e3e7;
+  margin-bottom: 1em;
   // position: fixed;
 
   //---------------Media queries ---------------------------
@@ -13,11 +14,22 @@
   }
   //------------------------------------------------------
 
+  .top-contact{
+    background: $Detail-blue;
+    color: $Global-red;
+    font-weight: bold;
+    padding: 0.2em 0;
+    display: flex;
+    // justify-content: flex-end;
+    @media (max-width: $descktop) {
+      justify-content: center;
+    }
+  }
   .navbar-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0.5em;
+    // margin: 0.5em;
     flex-wrap: wrap;
     z-index: 20;
 
@@ -35,7 +47,7 @@
     .navbar-logo {
       position: absolute;
       left: calc(50% - 75px);
-      top: 0.3em;
+      top: 0.5em;
 
       //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
@@ -89,12 +101,13 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 1) 0%,
-            rgba(0, 117, 156, 1) 70%,
-            rgba(85, 148, 170, 1) 100%
-          );
+          // background: linear-gradient(
+          //   180deg,
+          //   rgba(255, 255, 255, 1) 0%,
+          //   rgba(0, 117, 156, 1) 70%,
+          //   rgba(85, 148, 170, 1) 100%
+          // );
+          background-color: $Global-blue;
           border-radius: 50%;
           width: 70px;
           height: 70px;
@@ -316,9 +329,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(180deg, rgba(0, 117, 156, 1) 0%, rgba(85, 148, 170, 1) 51%, rgba(0, 117, 156, 1) 100%);
-    // background: $Global-blue;
-    margin: 0.5em 0;
+    // background: linear-gradient(180deg, rgba(0, 117, 156, 1) 0%, rgba(85, 148, 170, 1) 51%, rgba(0, 117, 156, 1) 100%);
+    background: $Global-blue;
+    // margin: 0.5em 0;
     width: 100%;
     -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
@@ -431,10 +444,10 @@
     border-left: 1px solid $Global-blue;
     border-right: 1px solid $Global-blue;
     border-bottom: 1px solid $Global-blue;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     position: absolute;
-    background-color: #ffff;
+    background-color: #d6e3e7;
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
@@ -468,7 +481,8 @@
     }
     .up {
       transition: transform 0.2s ease-in-out;
-      transform: translateY(-35px);
+      transform: translateY(-40px);
+      // opacity: 0;
     }
   }
 }
@@ -555,7 +569,7 @@
       width: 200px;
       display: flex;
       flex-direction: column;
-      border: 1px solid $Darker-blue;
+      border: 2px solid $Darker-blue;
       padding: 1em;
       border-radius: 6px;
       position: absolute;
@@ -564,6 +578,10 @@
 
       @media (max-width: $descktop) {
         margin: -2em 0;
+      }
+
+      a{
+        font-size: 1.2em;
       }
 
       .title-menu,
@@ -608,6 +626,16 @@
             }
           }
         }
+        .ocasionCategory{
+          background-color: #074e661a;
+          padding: 0 2px;
+          border-radius: 6px;
+          
+          a{
+            font-size: 1em;
+          }
+        }
+
       }
 
       .price-bar {
@@ -775,6 +803,8 @@
     background-color: $Bg-White;
     border-radius: 6px;
     overflow: hidden;
+    transition: border 0.2s ease-in-out;
+    border: 3px solid transparent;
 
     .wish {
       position: absolute;
@@ -845,7 +875,8 @@
     }
 
     &:hover {
-      box-shadow: $boxShadow;
+      border: 3px solid $Global-blue;
+      animation: borderBlue 0.3s ease-out;
       cursor: pointer;
     }
 

@@ -81,7 +81,7 @@
       <!----------------------------------end of product add to cart -------------------------------------------------->
     </div>
   </div>
-  <popupCart-component :name = popUpInfo.name :quantity = popUpInfo.quantity :image = popUpInfo.image></popupCart-component>
+  <popupCart-component :name = popUpInfo.name :quantity = popUpInfo.quantity :image = popUpInfo.image :display = "active"></popupCart-component>
 </template>
 
 <script>
@@ -92,7 +92,8 @@ export default {
       productsImages: { data: [] },
       userFavorites: { data: [] },
       reviews: { data: [] },
-      popUpInfo : {}
+      popUpInfo : {},
+      active: false
       
     }
   },
@@ -116,10 +117,9 @@ export default {
 
       this.popUpInfo = {'name' : name, 'quantity' : quantity, 'image' : image}
 
-      location.assign('#cartPopUp')
+      this.active = true
 
       setTimeout(() => {
-        location.assign('#')
         this.$router.go(0)
       }, 2000);
 
