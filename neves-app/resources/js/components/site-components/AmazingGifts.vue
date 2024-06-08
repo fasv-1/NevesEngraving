@@ -101,8 +101,8 @@
         </select>
         
       </div>
-      <div class="no-products" v-if="productsShownd.data == ''">
-        <h3>Não existem produtos</h3>
+      <div class="cart-empty text-red" v-if="productsShownd.data == ''">
+        <h1>Não existem produtos</h1>
       </div>
       <!----------------------------------------- Cards with products --------------------------------------------->
       <card-component :products=productsShownd.data :headTitle='false' :info="{

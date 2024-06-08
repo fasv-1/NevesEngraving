@@ -31,7 +31,7 @@
       <!-------------------------------------------end promo------------------------------------------------------->
 
       <!----------------------------------product info and image -------------------------------------------------->
-      <a :href="'/home/amazing_gifts/' + encrypt(value.id)" class="b-input">
+      <a :href="'/home/amazing_gifts/' + encrypt(value.id)" class="label-area">
         <div class="img-area">
           <div v-for="i, indexValue in  productsImages.data" :key="indexValue">
             <div class="img-cont" v-if="i.produto_id == value.id && i.posicao == 1">

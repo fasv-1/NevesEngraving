@@ -55,8 +55,8 @@
                 <h4>Promo</h4>
               </span>
             </div>
-            <h6>Antes: <s>{{ product.data.valor }}€</s></h6>
-            <h6>Poupa: {{ (product.data.valor * discount.data.desconto).toFixed(2) }} €</h6>
+            <h6><b>Antes: <s>{{ product.data.valor }}€</s></b></h6>
+            <h6><b>Poupa: {{ (product.data.valor * discount.data.desconto).toFixed(2) }} €</b></h6>
           </div>
           <div class="sale" v-else>
             <h2>{{ product.data.valor }} €</h2>
@@ -109,14 +109,14 @@
           <div class="quantity">
             <input-container id="quantity" title='Quantidade' help="quantityHelp" helpText="Escolha a quantidade"
               size="ms-input">
-              <input type="number" name="quantity" aria-describedby="quantity" class="ms-input" v-model="quantity">
+              <input type="number" min="1" name="quantity" aria-describedby="quantity" class="ms-input" v-model="quantity">
             </input-container>
-            <div class="btn-pass">
-              <button type="submit" class="button1">
-                addToCart
-              </button>
-            </div>
+          <div class="btn-pass">
+            <button type="submit" class="button-login">
+               Add to Cart  
+            </button>
           </div>
+            </div>
         </form>
 
       </div>
@@ -125,7 +125,7 @@
     <section class="product-extra">
       <div class="product-description mrgvert2">
         <div class="title">
-          <h3><b>DESCRIÇÃO GERAL</b></h3>
+          <h5><b>DESCRIÇÃO GERAL</b></h5>
         </div>
         <div class="description">
           <h6>{{ product.data.meta_nome }}</h6>
@@ -134,7 +134,7 @@
       </div>
       <div class="product-description mrgvert4">
         <div class="title">
-          <h3><b>AVALIAÇÕES</b></h3>
+          <h5><b>AVALIAÇÕES</b></h5>
           <div class="toogle-bg">
             <img src="/storage/images/Icons/arrow.png" alt="" @click="toogle()"
               :style="isActive ? 'transform: rotate(180deg)' : ''">
@@ -157,15 +157,7 @@
           </div>
         </div>
       </div>
-      <div class="sameCategory mrgvert2">
-        <div class="title">
-          <h3><b>PRODUTOS RELACIONADOS</b></h3>
-        </div>
-        {{ sameCategory }}
-        <card-component :products=categoryProducts.data :headTitle='false' :info="{
-          nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
-        }" :cart="true"></card-component>
-      </div>
+      
       <modal-component id="addComentModal" title="Adiciona um comentário a este produto">
         <template v-slot:content>
 
@@ -198,6 +190,15 @@
 
       </modal-component>
     </section>
+    <!-- <div class="sameCategory">
+        <div class="title">
+          <h3><b>PRODUTOS RELACIONADOS</b></h3>
+        </div>
+        {{ sameCategory }}
+        <card-component :products=categoryProducts.data :headTitle='false' :info="{
+          nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
+        }" :cart="true"></card-component>
+      </div> -->
   </div>
 </template>
 

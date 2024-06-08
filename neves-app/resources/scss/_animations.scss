@@ -22,34 +22,37 @@
 
 @keyframes borderBlue {
   0%{
-    border-top: 3px solid $Global-blue;
-    border-right: 3px solid transparent;
-    border-bottom: 3px solid transparent;
-    border-left: 3px solid transparent;
+    // border-top: 3px solid $Global-blue;
+    // border-right: 3px solid transparent;
+    // border-bottom: 3px solid transparent;
+    // border-left: 3px solid transparent;
+    border: 3px solid transparent;
   }
-  25%{
-    border-top: 3px solid transparent;
-    border-right: 3px solid $Global-blue;
-    border-bottom: 3px solid transparent;
-    border-left: 3px solid transparent;
-  }
+  // 25%{
+  //   border-top: 3px solid transparent;
+  //   border-right: 3px solid $Global-blue;
+  //   border-bottom: 3px solid transparent;
+  //   border-left: 3px solid transparent;
+  // }
   50%{
-    border-top: 3px solid transparent;
-    border-right: 3px solid transparent;
-    border-bottom: 3px solid $Global-blue;
-    border-left: 3px solid transparent;
+    // border-top: 3px solid transparent;
+    // border-right: 3px solid transparent;
+    // border-bottom: 3px solid $Global-blue;
+    // border: 3px solid $Global-blue;
+    // border-left: 3px solid transparent;
   }
-  75%{
-    border-top: 3px solid transparent;
-    border-right: 3px solid transparent;
-    border-bottom: 3px solid transparent;
-    border-left: 3px solid $Global-blue;
-  }
+  // 75%{
+  //   border-top: 3px solid transparent;
+  //   border-right: 3px solid transparent;
+  //   border-bottom: 3px solid transparent;
+  //   border-left: 3px solid $Global-blue;
+  // }
   100%{
-    border-top: 3px solid transparent;
-    border-right: 3px solid transparent;
-    border-bottom: 3px solid transparent;
-    border-left: 3px solid transparent;
+    // border-top: 3px solid transparent;
+    // border-right: 3px solid transparent;
+    // border-bottom: 3px solid transparent;
+    border: 3px solid $Global-blue;
+    // border-left: 3px solid transparent;
   }
 }
 

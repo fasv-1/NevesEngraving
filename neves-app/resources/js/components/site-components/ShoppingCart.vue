@@ -70,7 +70,7 @@
             </div>
         </div>
         <!------------------------------ Info Page if the car is empty -------------------------------------->
-        <div class="cart-empty" v-else>
+        <div class="cart-empty text-red" v-else>
             <h1>Cart empty</h1>
         </div>
     </div>
