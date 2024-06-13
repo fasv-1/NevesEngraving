@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <section class="product-info">
+    <section class="product-info " >
       <!----------------------------- Product header (name, rating and share links) --------------------------------->
       <div class="product-header">
         <div class="product-title width100">
@@ -107,16 +107,15 @@
         <form method="POST" action="" @submit.prevent="addToCart($event)">
           <input type="hidden" name="_token" :value="$store.state.csrf">
           <div class="quantity">
-            <input-container id="quantity" title='Quantidade' help="quantityHelp" helpText="Escolha a quantidade"
-              size="ms-input">
-              <input type="number" min="1" name="quantity" aria-describedby="quantity" class="ms-input" v-model="quantity">
-            </input-container>
-          <div class="btn-pass">
-            <button type="submit" class="button-login">
-               Add to Cart  
-            </button>
-          </div>
+              <input type="number" min="1" name="quantity" aria-describedby="quantity" class="s-input"
+                v-model="quantity">
+            <div class="btn-pass">
+              <button type="submit" class="button-login">
+                Add to Cart
+              </button>
             </div>
+            
+          </div>
         </form>
 
       </div>
@@ -157,7 +156,7 @@
           </div>
         </div>
       </div>
-      
+
       <modal-component id="addComentModal" title="Adiciona um comentário a este produto">
         <template v-slot:content>
 
@@ -189,16 +188,17 @@
         </template>
 
       </modal-component>
-    </section>
-    <!-- <div class="sameCategory">
+      <div class="same-category">
         <div class="title">
-          <h3><b>PRODUTOS RELACIONADOS</b></h3>
+          <h5><b>PRODUTOS RELACIONADOS</b></h5>
         </div>
         {{ sameCategory }}
-        <card-component :products=categoryProducts.data :headTitle='false' :info="{
-          nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
-        }" :cart="true"></card-component>
-      </div> -->
+          <card-component :products=randomProducts :headTitle='false' :info="{
+            nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
+          }" :cart="true"></card-component>
+      </div>
+    </section>
+
   </div>
 </template>
 
@@ -374,6 +374,13 @@ export default {
           console.log(errors)
         })
     },
+    shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array
+    }
   },
   computed: {
     sameCategory() { // products in the same category
@@ -382,8 +389,8 @@ export default {
 
       axios.get(urlProducts)
         .then(response => {
-          response.data.paginated.data.forEach(e =>{
-            if(e.id != this.id){
+          response.data.paginated.data.forEach(e => {
+            if (e.id != this.id) {
               this.categoryProducts.data.push(e)
             }
           })
@@ -425,7 +432,7 @@ export default {
         value.push(v.rating)
       })
 
-      
+
       value.forEach(e => {
         sum += e
       })
@@ -449,6 +456,16 @@ export default {
       })
 
       return codes
+    },
+    randomProducts() {
+      let productsKeys = Object.keys(this.categoryProducts.data)
+      let randomKeys = this.shuffleArray(productsKeys)
+      let randomProducts = []
+      randomKeys.forEach(e => {
+        randomProducts.push(this.categoryProducts.data[e])
+      })
+      return randomProducts.slice(0, 4)
+
     }
   },
   mounted() {

@@ -430,7 +430,6 @@
     width: 100%;
     justify-content: flex-end;
     z-index: 20;
-    
   }
 
   svg {
@@ -1001,16 +1000,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 100%;
 
   .product-header {
     width: 90%;
     display: flex;
     flex-wrap: wrap;
-    margin: 1em ;
+    margin: 1em;
 
     @media (max-width: $tablet) {
       width: 100%;
-      
     }
 
     .ranking {
@@ -1030,7 +1029,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      
+
       @media (max-width: $tablet) {
         width: 100%;
         // justify-content: center;
@@ -1049,7 +1048,7 @@
   .product-images {
     max-width: 50%;
 
-    @media (max-width: $tablet) {
+    @media (max-width: $descktop) {
       max-width: 100%;
       display: flex;
       flex-wrap: wrap;
@@ -1061,13 +1060,13 @@
       border-radius: 6px;
       overflow: hidden;
       height: 500px;
-      width: 100%;
+      width: 500px;
 
       @media (min-width: $descktop-hd) {
         width: 700px;
       }
 
-      @media (max-width: $tablet) {
+      @media (max-width: $descktop) {
         width: 100%;
         height: 400px;
       }
@@ -1122,8 +1121,7 @@
 
     .price,
     .shipping,
-    .details,
-    .quantity{
+    .details {
       margin: 0 0 1em 0;
       padding: 0 0 1em 1em;
       border-bottom: 1px solid $Detail-blue;
@@ -1191,22 +1189,28 @@
       }
     }
 
-    .quantity{
+    .quantity {
       display: flex;
       align-items: center;
+      margin: 2em 0 1em 0;
+      padding: 0 0 1em 1em;
+      // border-bottom: 1px solid $Detail-blue;
+      line-height: 1.5;
     }
-      .btn-pass{
-        width: 100%;
-        text-align: center;
-      }
+    .btn-pass {
+      width: 100%;
+      margin: 0 1em;
+      // text-align: center;
+    }
   }
 }
 
 //------------------- Product description, reviews and related products ---------------------------
 .product-extra {
-  margin: 7em 0;
-  width: 90%;
-  margin: 5em auto; 
+  margin: 7em ;
+  width: 95%;
+  margin: 5em auto;
+  
 
   @media (max-width: $tablet) {
     width: 100%;
@@ -1225,7 +1229,7 @@
     .toogle-bg {
       position: absolute;
       right: 0;
-      margin: 0 6em 0 0;
+      margin: 0 4em 0 0;
       background-color: $Lighter-blue;
       background-color: #fff;
       padding: 0.3em;
@@ -1247,17 +1251,19 @@
     // background-color: $Detail-blue;
     border-radius: 6px;
     padding: 1em;
+    // background-color: #074e660e;
 
-    @media (max-width: $tablet){
+    @media (max-width: $tablet) {
       margin: 1em;
     }
 
     h6 {
       font-weight: 500;
       color: #828282;
-      margin:0 0 0.5em 0 ;
+      margin: 0 0 0.5em 0;
     }
   }
+
 }
 
 //------------------- Product reviews card on product page ----------------------------------
@@ -1561,6 +1567,7 @@
     position: sticky;
     pointer-events: none;
     z-index: 1;
+
   }
 
   .bg-logo {

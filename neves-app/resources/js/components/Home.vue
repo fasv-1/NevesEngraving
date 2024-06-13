@@ -7,9 +7,19 @@ const y = ref(0)
 
 //-------- stores the axys value from mouse pointer on the x and y variable--------
 function onMousemove(e) {
-  x.value = e.clientX
-  y.value = e.clientY
+
+
+    y.value = e.clientY
+    x.value = e.clientX
+  
+
 }
+
+// function dinamicHight() { // calculate the window height variation for the div attached to the pointer stays in the center
+//       let WindowHeight = window.innerHeight
+//       console.log(WindowHeight)
+//       return (WindowHeight - 370)
+//     }
 </script>
 
 <template>
@@ -61,15 +71,15 @@ function onMousemove(e) {
           <h2>Assembled Gifts</h2>
         </div>
         <div class="responsive-container row-reverse">
-        <div class="animation">
-          <video autoplay loop>
-            <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum, aperiam ipsa? Tenetur
-          eligendi
-          laboriosam labore asperiores inventore placeat deleniti fugiat a unde exercitationem excepturi, quae qui
-          assumenda, veniam autem reprehenderit!</div>
+          <div class="animation">
+            <video autoplay loop>
+              <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum, aperiam ipsa? Tenetur
+            eligendi
+            laboriosam labore asperiores inventore placeat deleniti fugiat a unde exercitationem excepturi, quae qui
+            assumenda, veniam autem reprehenderit!</div>
         </div>
       </div>
     </div>
@@ -84,7 +94,7 @@ function onMousemove(e) {
 
     <!--------------------------------------------- Follow as card--------------------------->
     <div class="home-social" @mousemove="onMousemove">
-      <div class="bg-img" :style="{ translate: '' + (x - 95) + 'px ' + (y - dinamicHeight) + 'px' }"></div>
+      <div class="bg-img" :style="{ translate: '' + (x - 95) + 'px ' + (y-480) + 'px' }"></div>
       <div class="bg-logo">
         <div class="follow">
           <h1><b>Follow us on:</b></h1>
@@ -112,11 +122,11 @@ export default {
   methods: {
   },
   computed: {
-    dinamicHeight() { // calculate the window height variation for the div attached to the pointer stays in the center
-      let WindowHeight = window.innerHeight
-
-      return (WindowHeight - 370)
-    }
+    // dinamicHight() { // calculate the window height variation for the div attached to the pointer stays in the center
+    //   let WindowHeight = window.innerHeight
+    //   console.log(WindowHeight)
+    //   return (WindowHeight - 370)
+    // }
   },
 
   mounted() {
