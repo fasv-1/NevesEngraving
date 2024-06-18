@@ -46,32 +46,48 @@
                 </table>
             </div>
             <!------------------------------ Final check before checkout -------------------------------------->
-            <div class="finish-table">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><b>Cupon Discount</b></td>
-                            <td><input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td><b>Products total</b></td>
-                            <td><h6>{{ sessionTotal }} €</h6></td>
-                        </tr>
-                        <tr>
-                            <td><b>Shipping</b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><b>Total</b></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="cart-finish">
+                <div class="pub">
+
+                </div>
+                <div class="finish-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Finishing moves</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Cupon Discount</b></td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Products total</b></td>
+                                <td>
+                                    <h6>{{ sessionTotal }} €</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Shipping</b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>Total</b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><button class="button-login">CHECK OUT</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!------------------------------ Info Page if the car is empty -------------------------------------->
         <div class="cart-empty text-red" v-else>
-            <h1>Cart empty</h1>
+            <h1>Cart is empty</h1>
         </div>
     </div>
 </template>

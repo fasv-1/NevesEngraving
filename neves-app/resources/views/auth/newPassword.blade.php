@@ -18,8 +18,9 @@
                     @csrf
 
                     <input type="hidden" name="token" class="form-email" value="{{ $token }}">
-                    <input type="hidden" name="email" class="form-email" placeholder="E-mail" value="{{ $email }}">
-                    
+                    <input type="hidden" name="email" class="form-email" placeholder="E-mail"
+                        value="{{ $email }}">
+
                     <div class="inputContainer l-input">
                         <div class="form-label">
                             <label for="password">New Password:</label>
@@ -35,7 +36,8 @@
                         <div class="form-label">
                             <label for="password_confirmation">Confirm Password:</label>
                         </div>
-                        <input type="password" name="password_confirmation" class="form-email" placeholder="Confirm-Password">
+                        <input type="password" name="password_confirmation" class="form-email"
+                            placeholder="Confirm-Password">
                         <div id="help" class="form-help">Confirm password</div>
 
                         @if ($errors->has('password'))

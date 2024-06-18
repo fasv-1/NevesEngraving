@@ -107,6 +107,7 @@
         <form method="POST" action="" @submit.prevent="addToCart($event)">
           <input type="hidden" name="_token" :value="$store.state.csrf">
           <div class="quantity">
+            
               <input type="number" min="1" name="quantity" aria-describedby="quantity" class="s-input"
                 v-model="quantity">
             <div class="btn-pass">
@@ -134,8 +135,8 @@
       <div class="product-description mrgvert4">
         <div class="title">
           <h5><b>AVALIAÇÕES</b></h5>
-          <div class="toogle-bg">
-            <img src="/storage/images/Icons/arrow.png" alt="" @click="toogle()"
+          <div class="toogle-bg" @click="toogle()">
+            <img src="/storage/images/Icons/arrow.png" alt="" 
               :style="isActive ? 'transform: rotate(180deg)' : ''">
           </div>
         </div>

@@ -22,37 +22,11 @@
 
 @keyframes borderBlue {
   0%{
-    // border-top: 3px solid $Global-blue;
-    // border-right: 3px solid transparent;
-    // border-bottom: 3px solid transparent;
-    // border-left: 3px solid transparent;
     border: 3px solid transparent;
   }
-  // 25%{
-  //   border-top: 3px solid transparent;
-  //   border-right: 3px solid $Global-blue;
-  //   border-bottom: 3px solid transparent;
-  //   border-left: 3px solid transparent;
-  // }
-  50%{
-    // border-top: 3px solid transparent;
-    // border-right: 3px solid transparent;
-    // border-bottom: 3px solid $Global-blue;
-    // border: 3px solid $Global-blue;
-    // border-left: 3px solid transparent;
-  }
-  // 75%{
-  //   border-top: 3px solid transparent;
-  //   border-right: 3px solid transparent;
-  //   border-bottom: 3px solid transparent;
-  //   border-left: 3px solid $Global-blue;
-  // }
+
   100%{
-    // border-top: 3px solid transparent;
-    // border-right: 3px solid transparent;
-    // border-bottom: 3px solid transparent;
     border: 3px solid $Global-blue;
-    // border-left: 3px solid transparent;
   }
 }
 
@@ -67,6 +41,37 @@
     transform: translate(100%, 0);
   }
   
+}
+
+@keyframes deform {
+  0%{
+    transform: translateY(-10);
+  }
+  40%{
+    transform: matrix(1, 0, 0.1, 1, 0 , -10);
+  }
+  60%{
+    transform: matrix(1, 0, -0.1, 1, 0 , -10);
+  }
+  100%{
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+@keyframes sidetoside {
+  0%{
+    transform: matrix(1, 0, -0.2, 1, -250 , 0);
+  }
+  20%{
+    transform: matrix(1, 0, -0.2, 1, -250 , 0);
+  }
+  50%{
+    transform: translate(90vw, 0);
+    // transform: ;
+  }
+  100%{
+    transform: matrix(1, 0, -0.2, 1, -250, 0);
+  }
 }
 
 @keyframes raceCar {

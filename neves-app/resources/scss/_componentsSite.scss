@@ -209,6 +209,12 @@
           stroke-width: 40;
           stroke-miterlimit: 10;
         }
+        .st1 {
+          fill: $Global-red;
+          stroke: $Global-red;
+          stroke-width: 40;
+          stroke-miterlimit: 10;
+        }
         svg {
           width: 34px;
           height: 35px;
@@ -1124,7 +1130,7 @@
     .details {
       margin: 0 0 1em 0;
       padding: 0 0 1em 1em;
-      border-bottom: 1px solid $Detail-blue;
+      border-bottom: 2px solid $Global-blue;
       line-height: 1.5;
 
       .drop-button {
@@ -1207,10 +1213,9 @@
 
 //------------------- Product description, reviews and related products ---------------------------
 .product-extra {
-  margin: 7em ;
+  margin: 7em;
   width: 95%;
   margin: 5em auto;
-  
 
   @media (max-width: $tablet) {
     width: 100%;
@@ -1218,7 +1223,7 @@
   .title {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid $Darker-blue;
+    border-bottom: 2px solid $Darker-blue;
     margin: 2em 0;
     h5 {
       position: absolute;
@@ -1231,16 +1236,16 @@
       right: 0;
       margin: 0 4em 0 0;
       background-color: $Lighter-blue;
-      background-color: #fff;
-      padding: 0.3em;
-      border: 1px solid $Darker-blue;
+      background-color: $Global-red;
+      padding: 0.5em 0.3em;
+      border: 2px solid $Darker-blue;
       border-radius: 5px;
 
       @media (max-width: $tablet) {
         margin: 0 2em 0 0;
       }
       img {
-        width: 15px;
+        width: 20px;
         transform-origin: 50% 50%;
         transition: all 0.3s;
       }
@@ -1263,7 +1268,6 @@
       margin: 0 0 0.5em 0;
     }
   }
-
 }
 
 //------------------- Product reviews card on product page ----------------------------------
@@ -1462,6 +1466,7 @@
   border: 1px solid $Brdr-grey;
   padding: 1em;
   border-radius: 3px;
+  overflow: scroll;
 
   img {
     border-radius: 3px;
@@ -1481,6 +1486,23 @@
   align-items: center;
 }
 
+.cart-finish {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1em 0;
+  .pub {
+    width: 40%;
+    height: 200px;
+    // background-color: #285563;
+  }
+
+  .finish-table {
+    padding: 2em;
+    border: 1px solid $Brdr-grey;
+    border-radius: 6px;
+  }
+}
 //------------------- Home page components --------------------------------------------------
 .home-intro {
   .home-anim {
@@ -1557,17 +1579,18 @@
   border-radius: 6px;
 
   .bg-img {
-    width: 150px;
-    height: 150px;
-    background-color: rgba(0, 183, 255, 0.137);
-    border-radius: 50%;
-    box-shadow: 0px 0px 20px 0px rgba(0, 183, 255, 0.315);
+    width: 700px;
+    height: 200px;
+    background-color: rgba(0, 117, 156, 0.11);
+    border-radius: 6px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 117, 156, 0.11);
     top: 0;
     left: 0;
     position: sticky;
     pointer-events: none;
     z-index: 1;
-
+    // transform: rotate(45deg);
+    animation: sidetoside 10s ease-in-out infinite;
   }
 
   .bg-logo {
@@ -1586,7 +1609,8 @@
     .follow {
       width: 35%;
       text-align: center;
-      color: white;
+      color: #FFF;
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
       @media (max-width: $tablet) {
         font-size: 0.8em;
@@ -1597,10 +1621,67 @@
       width: 60%;
       display: flex;
       justify-content: space-around;
-      @media (max-width: $tablet) {
-        img {
-          width: 40px;
+
+      #facebook {
+        height: 60px;
+        // width: 100%;
+        animation: deform 1.5s ease-in-out infinite;
+        .cls-1 {
+          fill: #ffff;
+          stroke: #fff;
+          stroke-miterlimit: 10;
+          stroke-width: 7px;
         }
+        &:hover {
+          animation: none;
+          transform: scale(1.5);
+          .cls-1 {
+            fill: #1877f2;
+            stroke: #1877f2;
+            stroke-miterlimit: 10;
+            stroke-width: 7px;
+          }
+        }
+        @media (max-width: $tablet) {
+          height: 49px;
+      }
+      }
+
+      #instagram {
+        height: 50px;
+        animation: deform 1.5s ease-in-out infinite;
+        .cls-1{fill:#fff;}
+        .cls-2{fill:#fff;}
+        .cls-3{fill:#fff;}
+
+        &:hover {
+          animation: none;
+          transform: scale(1.5);
+          .cls-1{fill:url(#Espectro_);}
+          .cls-2{fill:url(#Espectro_2);}
+          .cls-3{fill:url(#Espectro_3);}
+        }
+        @media (max-width: $tablet) {
+          height: 40px;
+      }
+      }
+
+      #whatsapp {
+        height: 50px;
+        animation: deform 1.5s ease-in-out infinite;
+        .cls-1 {
+          fill: #fff;
+        }
+        &:hover {
+          animation: none;
+          transform: scale(1.5);
+          .cls-1 {
+            fill: #25d366;
+          }
+        }
+        @media (max-width: $tablet) {
+          height: 40px;
+      }
       }
     }
   }

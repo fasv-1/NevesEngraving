@@ -3,8 +3,9 @@
 @section('content')
     <navbar-component :altroutes=false>
         @auth
-        <!-- Used the auth tag to show the user name and an profile dropdown -->
+            <!-- Used the auth tag to show the user name and an profile dropdown -->
             <div class="hello">
+
                 <h6><b> Hi {{ auth()->user()->name }}</b></h6>
                 <div id="drop-profile">
                     <ul>
@@ -22,6 +23,7 @@
             </div>
         @endauth
         @guest
+
             <a href={{ route('login') }}><b>My Account</b></a>
         @endguest
     </navbar-component>
