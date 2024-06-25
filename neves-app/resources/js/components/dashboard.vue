@@ -110,10 +110,6 @@ export default {
           content: 'Conteudo de Conteudo',
           options: [
             {
-              info: 'Conteúdo geral',
-              url: '/dashboard/conteudo/geral'
-            },
-            {
               info: 'Politicas',
               url: '/dashboard/conteudo/politicas'
             },

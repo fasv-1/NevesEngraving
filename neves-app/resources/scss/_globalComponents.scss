@@ -18,7 +18,9 @@
   margin: 0.2em;
 }
 //-------------------------------------------------
-
+.dark-blue{
+  color: $Darker-blue;
+}
 // --- buttons view, update and remove from table ---
 .btn-view {
   margin: 0.1em;
@@ -170,6 +172,15 @@
 }
 //container flex
 
+//container flex-column
+.flex-column {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+//container flex
+
 //container responsive
 .responsive-container {
   display: flex;
@@ -238,6 +249,11 @@
 .mrghor2 {
   margin: 0 2em;
 }
+
+.mrghor4 {
+  margin: 0 4em;
+}
+
 .mrgTextCenter {
   margin: 2em 4em;
 }

@@ -144,8 +144,7 @@ const routes = [
   },
   { path: '/dashboard/produtos/descontos', component: DescProduct },
   { path: '/dashboard/produtos/defenicoes', component: DefProduct },
-  { path: '/dashboard/conteudo', component: example },
-  { path: '/dashboard/conteudo/geral', component: example },
+  { path: '/dashboard/conteudo', component: Content },
   { path: '/dashboard/conteudo/politicas', component: example },
   { path: '/dashboard/conteudo/informacao', component: example },
   { path: '/dashboard/estatisticas', component: example },
@@ -224,6 +223,9 @@ app.component('modal-component', Modal);
 import Table from './components/dash-components/Table.vue';
 app.component('table-component', Table);
 
+import Content from './components/dash-components/Content.vue';
+app.component('content-component', Content);
+
 //--------------------------------Site-Components------------------------------------
 
 import Home from './components/Home.vue';
@@ -278,6 +280,10 @@ app.component('card-component', ProductCard);
 
 import FormContact from './components/FormContact.vue';
 app.component('contact-component', FormContact);
+
+import ServicesInfo from './components/ServicesInfo.vue';
+app.component('services-component', ServicesInfo);
+
 
 
 

@@ -25,7 +25,7 @@
                 <p class="marginMinHor">Share</p>
               </a>
             </li>
-            <li><a href=""><img src="/storage/images/icons/mail_646135.png" alt="mail-icon" style="width:20px">
+            <li><a href=""><img src="/storage/images/icons/Postal.png" alt="mail-icon" style="width:32px">
                 <p class="marginMinHor">Email</p>
               </a>
             </li>

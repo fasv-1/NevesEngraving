@@ -29,5 +29,6 @@
     </navbar-component>
 
     <router-view></router-view>
+    <services-component></services-component>
     <footer-component></footer-component>
 @endsection

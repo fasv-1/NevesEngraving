@@ -501,6 +501,7 @@ export default {
 
       }
 
+      console.log(urlProducts)
       //gets the products and sets the pagination
       axios.get(urlProducts)
         .then(response => {
