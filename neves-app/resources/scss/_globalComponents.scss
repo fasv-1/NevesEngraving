@@ -65,6 +65,18 @@
 }
 
 //-------- blue buttons -------------------
+
+.edit-btn {
+  // margin: 0 0.5em 0 0.5em;
+  // width: 40px;
+  // height: 40px;
+  border-radius: 6px;
+  transition: 0.2s ease-in;
+  &:hover {
+    background-color: $Darker-blue;
+  }
+}
+
 .button-login {
   border: 2px solid #1d647c;
   background: $Global-blue;
@@ -211,6 +223,7 @@
   flex-direction: row-reverse;
 }
 
+// ------------ colors ------------------------------
 .text-red {
   color: $Global-red;
 }
@@ -218,6 +231,49 @@
 .text-blue {
   color: $Global-blue;
 }
+
+.text-grey {
+  color: $Text-grey;
+}
+
+.bg-blue {
+  background-color: $Global-blue;
+  border-radius: 6px;
+}
+
+.toogle-bg {
+  // // position: absolute;
+  // right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $Lighter-blue;
+  background-color: $Global-red;
+  padding: 0.2em;
+  border: 2px solid $Darker-blue;
+  border-radius: 5px;
+
+  @media (max-width: $tablet) {
+    margin: 0 2em 0 0;
+  }
+  img {
+    width: 16px;
+    // height: 18px;
+    transform-origin: 50% 50%;
+    transition: all 0.3s;
+  }
+
+  .rotate{
+    transform: rotate(180deg);
+  }
+}
+
+.bg-red {
+  border-radius: 6px;
+  background-color: $Global-red;
+}
+
+//--------------- end colors ----------------------------
 
 .line-17 {
   line-height: 1.7em;
@@ -310,6 +366,9 @@
 }
 .responsive-evenly {
   justify-content: space-evenly;
+}
+.responsive-between {
+  justify-content: space-between;
 }
 
 .text-centered {

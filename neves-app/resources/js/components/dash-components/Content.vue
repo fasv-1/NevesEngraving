@@ -1,3 +1,8 @@
+<script setup>
+import { ref } from 'vue'
+
+const checkedIntro = ref([])
+</script>
 <template>
     <div class="container">
         <div class="">
@@ -33,14 +38,24 @@
             <div class="info">
                 <!-----------------------------------------Return info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 0">
-                    <div class="title">
-                        <h4><b>Home</b></h4>
-                    </div>
                     <div class="text">
+                        <div class="title">
+                            <h4 class="text-grey">Seleciona uma introdução para a página principal</h4>
+                        </div>
                         <div id="intro-option">
-                            <h6><b>Animações e Info</b></h6>
+                            <div class="responsive-container responsive-between mrgvert1">
+                                <div class="responsive-container">
+                                    <h6><b>Animações e Info</b></h6>
+                                    <button class="toogle-bg mrghor1" @click="openHome(1)"><img
+                                            :class="home == 1 && openMenu == true ? 'rotate' : ''"
+                                            src="/storage/images/Icons/arrow.png" alt=""></button>
+                                </div>
+                                <div class="responsive-container">
+                                    <input type="radio" id="animInfo" value="animInfo" v-model="checkedIntro" />
+                                </div>
+                            </div>
                             <div class="manage-info">
-                                <div class="brick">
+                                <div class="brick" v-if="openMenu == true && home == 1">
                                     <div class="home-intro" v-for="content, index in content.data" :key=index>
                                         <!------------------------------- Brick 1 update------------------------------------->
 
@@ -77,7 +92,7 @@
                                                 v-if="updateShow == content.descricao">
                                                 <div class="width70">
                                                     <input-container id="descricao" title='Editar descrição'
-                                                            help="editHelp" helpText="Descrição atualizada">
+                                                        help="editHelp" helpText="Descrição atualizada">
                                                         <textarea name="descricao"
                                                             v-model="editValue">{{ editValue }}</textarea>
                                                     </input-container>
@@ -182,19 +197,19 @@
                                                     style="width: 30px;" @click="editfield(content.descricao)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
-                                                    v-if="updateShow == content.descricao">
-                                                    <div class="width70">
-                                                        <input-container id="descricao" title='Editar descrição'
-                                                            help="editHelp" helpText="Descrição atualizada">
-                                                            <textarea name="descricao"
-                                                                v-model="editValue">{{ editValue }}</textarea>
-                                                        </input-container>
-                                                    </div>
-                                                    <div class="mrghor2">
-                                                        <button class="button-small"
-                                                            @click="update(content.id, 'descricao')">Atualizar</button>
-                                                    </div>
+                                                v-if="updateShow == content.descricao">
+                                                <div class="width70">
+                                                    <input-container id="descricao" title='Editar descrição'
+                                                        help="editHelp" helpText="Descrição atualizada">
+                                                        <textarea name="descricao"
+                                                            v-model="editValue">{{ editValue }}</textarea>
+                                                    </input-container>
                                                 </div>
+                                                <div class="mrghor2">
+                                                    <button class="button-small"
+                                                        @click="update(content.id, 'descricao')">Atualizar</button>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!------------------------------- Brick 4 update------------------------------------->
@@ -256,7 +271,35 @@
                             </div>
                         </div>
                         <div id="intro-option">
-                            <h6><b>Slider e produtos</b></h6>
+                            <div class="responsive-container responsive-between mrgvert1">
+                                <div class="responsive-container">
+                                    <h6><b>Slider e melhores produtos</b></h6>
+                                    <button class="toogle-bg mrghor1" @click="openHome(2)"><img
+                                            :class="home == 2 && openMenu == true ? 'rotate' : ''"
+                                            src="/storage/images/Icons/arrow.png" alt=""></button>
+                                </div>
+                                <div class="responsive-container">
+                                    <input type="radio" id="slider" value="slider" v-model="checkedIntro" />
+                                </div>
+                            </div>
+                            <div class="manage-info">
+                                <div class="slide-products" v-if="openMenu == true && home == 1">
+                                    <div class="slider-container">
+                                        <div class="slider">
+                                            <img class="slide" id="1" src="/storage/images/gerais/cardEngrv.jpeg"
+                                                alt="img1" v-if="itsOn == 1">
+                                            <img class="slide" id="2" src="/storage/images/gerais/glassEngrv.jpg"
+                                                alt="img2" v-if="itsOn == 2">
+                                            <img class="slide" id="3" src="/storage/images/gerais/woodEngrv.jpg"
+                                                alt="img3" v-if="itsOn == 3">
+                                            <div id="buttons">
+                                                <button class="preview" @click="previewImage()"><img src="/storage/images/Icons/arrow.png" alt=""></button>
+                                                <button class="next" @click="nextImage()"><img src="/storage/images/Icons/arrow.png" alt=""></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -361,9 +404,30 @@ export default {
             editValue: '',
             updateShow: '',
             idUpdating: '',
+            openMenu: false,
+            home: '',
+            itsOn: 1
         }
     },
     methods: {
+        previewImage() {
+            if (this.itsOn < 2) {
+                this.itsOn = 3
+            } else {
+                this.itsOn--
+            }
+        },
+        nextImage() {
+            if (this.itsOn > 2) {
+                this.itsOn = 1
+            } else {
+                this.itsOn++
+            }
+        },
+        openHome(n) {
+            this.openMenu = !this.openMenu
+            this.home = n
+        },
         editfield(value, id) {
             this.editValue = value
             this.updateShow = value
