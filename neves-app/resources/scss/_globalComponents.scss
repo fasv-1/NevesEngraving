@@ -18,10 +18,10 @@
   margin: 0.2em;
 }
 //-------------------------------------------------
-.dark-blue{
+.dark-blue {
   color: $Darker-blue;
 }
-// --- buttons view, update and remove from table ---
+// ------------------ Buttons -----------------------------
 .btn-view {
   margin: 0.1em;
   padding: 0.2em;
@@ -64,30 +64,47 @@
   color: #fff;
 }
 
-//----- end of buttons --------------------------
-
 //-------- blue buttons -------------------
 .button-login {
   border: 2px solid #1d647c;
-  background-color: $Darker-blue;
+  background: $Global-blue;
   border-radius: 6px;
   color: #fff;
-  padding: 0.5em 1em;
+  padding: 0.6em 4em;
   transition: ease-in 0.1s;
+  font-weight: 800;
+  letter-spacing: 0.1em;
 
   &:hover {
     cursor: pointer;
-    background-color: #1d647c;
+    background: $Darker-blue;
     border: 2px solid $Darker-blue;
   }
 }
 
 .button1 {
-  background-color: rgb(227, 241, 253);
-  padding: 0.5em 1em;
-  font-weight: bold;
+  background-color: #50b1d1;
+  padding: 0.6em 3em;
+  font-weight: 800;
   border-radius: 6px;
   border: 2px solid $Darker-blue;
+  letter-spacing: 0.1em;
+
+  &:hover {
+    background-color: $Darker-blue;
+    color: #fff;
+    border: 2px solid $Global-blue;
+    cursor: pointer;
+  }
+}
+
+.button-small {
+  background-color: #50b1d1;
+  padding: 0.7em 1em;
+  // font-weight: 800;
+  border-radius: 6px;
+  border: 2px solid $Darker-blue;
+  // letter-spacing: 0.1em;
 
   &:hover {
     background-color: $Darker-blue;
@@ -104,8 +121,10 @@
   background-color: $Global-red;
   border-radius: 6px;
   color: #fff;
-  padding: 0.5em 1em;
+  padding: 0.6em 4em;
   transition: ease-in 0.1s;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   &:hover {
     cursor: pointer;
     background-color: #b60b0b;
@@ -114,6 +133,8 @@
   }
 }
 //--------------------------------------
+
+//----- end of buttons --------------------------
 
 //----- style for the table container -----------
 .table-container {
@@ -177,7 +198,6 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
 //container flex
 
@@ -242,6 +262,14 @@
   margin: 4em 0;
 }
 
+.mrgtop8 {
+  margin-top: 8em;
+
+  @media (max-width: $descktop) {
+    margin-top: 4em;
+  }
+}
+
 //margin side to side 1
 .mrghor1 {
   margin: 0 1em;
@@ -262,6 +290,10 @@
 .width100 {
   width: 100%;
 }
+//width 100%
+.width70 {
+  width: 70%;
+}
 
 .mini-card {
   height: 100px;
@@ -275,6 +307,9 @@
 }
 .responsive-center {
   justify-content: center;
+}
+.responsive-evenly {
+  justify-content: space-evenly;
 }
 
 .text-centered {
@@ -369,12 +404,18 @@
 //---------------------------------
 
 .side-fields {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+
+  @media (min-width: $descktop) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
   .side {
-    margin: 1em 4em 1em 1em;
+    margin: 1em 0;
+    @media (min-width: $descktop) {
+      margin: 1em 4em 1em 1em;
+    }
   }
 }
 
@@ -467,7 +508,7 @@
   background: $Global-grd;
   animation: vanish 0.4s ease-in-out;
 
-  .active{
+  .active {
     display: block;
   }
 
@@ -503,7 +544,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin: 0.5em ;
+      margin: 0.5em;
       label {
         margin: 0 0 1em 0;
       }
@@ -574,6 +615,7 @@
 //------- input container component ------------------
 .inputContainer {
   display: inline-block;
+  width: 100%;
 
   .form-label {
     margin: 0.6em 0 0.6em 0;
@@ -599,7 +641,7 @@
   font-size: 1em;
 }
 
-.bg-light{
+.bg-light {
   // background-color: #074e661c;
   background-color: $Detail-blue;
 }

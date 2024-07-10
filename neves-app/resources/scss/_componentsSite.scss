@@ -515,7 +515,7 @@
 
 //------------------- Bread crumb links ------------------------------
 .breadcrumb {
-  margin: 0 0 1em 5%;
+  margin: 0 0 2em 5%;
   font-size: 14px;
   ul {
     display: flex;
@@ -812,8 +812,11 @@
 .card-box {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center;  
 
+  // @media (max-width: $descktop) {
+  //   justify-content: center;  
+  // }
   .card-prd {
     max-width: 260px;
     height: 100%;
@@ -1008,205 +1011,226 @@
   justify-content: center;
   max-width: 100%;
 
-  .product-header {
-    width: 90%;
+  .characteristics {
     display: flex;
     flex-wrap: wrap;
-    margin: 1em;
-
-    @media (max-width: $tablet) {
-      width: 100%;
-    }
-
-    .ranking {
-      display: flex;
-      align-items: flex-end;
-      width: 50%;
-      @media (max-width: $tablet) {
-        width: 100%;
-        // justify-content: center;
-      }
-      p {
-        padding: 0.9em 0;
-      }
-    }
-    .share {
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      @media (max-width: $tablet) {
-        width: 100%;
-        // justify-content: center;
-      }
-
-      ul {
-        display: flex;
-        a {
-          display: flex;
-          align-items: center;
-          margin: 0.2em;
-        }
-      }
-    }
-  }
-  .product-images {
-    max-width: 50%;
-
-    @media (max-width: $descktop) {
-      max-width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .images {
-      border: 2px solid $Darker-blue;
-      border-radius: 6px;
-      overflow: hidden;
-      height: 500px;
-      width: 500px;
-
-      @media (min-width: $descktop-hd) {
-        width: 700px;
-      }
+    justify-content: center;
+    width: 100%;
+    .product-images {
+      // max-width: 50%;
 
       @media (max-width: $descktop) {
-        width: 100%;
-        height: 400px;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
-      img {
+      .images {
+        border: 2px solid $Darker-blue;
+        border-radius: 6px;
+        overflow: hidden;
         height: 500px;
-        width: 100%;
-        object-fit: contain;
-        background-color: #f3f3f377;
-        transition: transform 0.6s;
-        &:hover {
-          transform: scale(1.2);
+        width: 500px;
+
+        @media (min-width: $descktop-hd) {
+          width: 700px;
         }
+
+        @media (max-width: $descktop) {
+          width: 100%;
+          height: 400px;
+        }
+
+        img {
+          height: 500px;
+          width: 100%;
+          object-fit: contain;
+          background-color: #f3f3f377;
+          transition: transform 0.6s;
+          &:hover {
+            transform: scale(1.2);
+          }
+
+          @media (max-width: $tablet) {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .miniatures {
+        display: flex;
+        margin: 1em 0;
 
         @media (max-width: $tablet) {
-          width: 100%;
-          height: 100%;
+          overflow: scroll;
+        }
+        .min-image {
+          img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 0 0.5em;
+            border-radius: 6px;
+            opacity: 0.5;
+            &:hover {
+              cursor: pointer;
+              opacity: 1;
+            }
+          }
         }
       }
     }
-    .miniatures {
-      display: flex;
-      margin: 1em 0;
+    .product-details {
+      width: 50%;
+      margin: 0 0 0 2em;
 
       @media (max-width: $tablet) {
-        overflow: scroll;
+        width: 100%;
+        margin: 2em 0 4em 0;
       }
-      .min-image {
-        img {
-          width: 100px;
-          height: 100px;
-          object-fit: cover;
-          margin: 0 0.5em;
+
+      .product-header {
+        // width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1em;
+        .product-title {
+          width: 100%;
+          display: flex;
+          .ranking {
+            display: flex;
+            align-items: flex-end;
+            width: 50%;
+            @media (max-width: $tablet) {
+              width: 100%;
+              // justify-content: center;
+            }
+            p {
+              padding: 0.9em 0;
+            }
+          }
+        }
+        .share {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          // justify-content: flex-end;
+          margin: 1em 0;
+
+          @media (max-width: $tablet) {
+            width: 100%;
+            // justify-content: center;
+          }
+
+          ul {
+            display: flex;
+            a {
+              display: flex;
+              align-items: center;
+              margin: 0.2em;
+              object-fit: center;
+              object-position: center;
+            }
+          }
+        }
+        // @media (max-width: $tablet) {
+        //   width: 100%;
+        // }
+      }
+
+      .price,
+      .shipping,
+      .details {
+        margin: 0 0 1em 0;
+        padding: 0 0 1em 0;
+        // border-bottom: 2px solid $Global-blue;
+        line-height: 1.5;
+
+        .drop-button {
+          display: flex;
+          border: 1px solid $Darker-blue;
+          // width: 130px;
+          align-items: center;
+          padding: 0.8em 1em;
+          // width: calc(100% - 1em);
           border-radius: 6px;
-          opacity: 0.5;
-          &:hover {
-            cursor: pointer;
-            opacity: 1;
+          justify-content: space-between;
+          cursor: pointer;
+
+          img {
+            width: 1.2em;
+            height: 0.7em;
           }
         }
-      }
-    }
-  }
-  .product-details {
-    width: 48%;
-    margin: 0 0 0 1em;
 
-    @media (max-width: $tablet) {
-      width: 100%;
-      margin: 2em 0 4em 0;
-    }
-
-    .price,
-    .shipping,
-    .details {
-      margin: 0 0 1em 0;
-      padding: 0 0 1em 1em;
-      border-bottom: 2px solid $Global-blue;
-      line-height: 1.5;
-
-      .drop-button {
-        display: flex;
-        border: 1px solid $Darker-blue;
-        width: 130px;
-        align-items: center;
-        padding: 0.5em;
-        border-radius: 6px;
-        justify-content: space-between;
-        cursor: pointer;
-
-        img {
-          width: 0.7em;
-          height: 0.7em;
+        .sale{
+           h6{
+            color: #8c8f96cc;
+           }
         }
-      }
 
-      .drop-color {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        border: 1px solid $Darker-blue;
-        margin-top: 0.1em;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        border-radius: 6px;
-        cursor: pointer;
+        .drop-color {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          border: 1px solid $Darker-blue;
+          margin-top: 0.1em;
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          z-index: 1;
+          width: calc(50% - 1em);
+          border-radius: 6px;
+          cursor: pointer;
 
-        li {
-          padding: 1em;
-          transition: all 0.1s ease-in;
+          li {
+            padding: 1em 1em 1em 2em;
+            transition: all 0.1s ease-in;
 
-          &:hover {
-            background-color: $Detail-blue;
+            &:hover {
+              background-color: $Detail-blue;
+            }
+
+            .colorSquare {
+              width: 10px;
+              height: 10px;
+              margin-right: 1em;
+              border-radius: 3px;
+            }
           }
+        }
 
-          .colorSquare {
-            width: 10px;
-            height: 10px;
-            margin-right: 0.5em;
+        .drop {
+          display: block;
+        }
+
+        .promo {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          span {
+            color: $Global-red;
+            padding: 0.5em;
+            border-radius: 5px;
+            background-color: rgba(252, 160, 160, 0.212);
+            margin: 0 5em;
           }
         }
       }
 
-      .drop {
-        display: block;
-      }
-
-      .promo {
+      .quantity {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-
-        span {
-          color: $Global-red;
-          padding: 0.5em;
-          border-radius: 5px;
-          background-color: rgba(252, 160, 160, 0.212);
-          margin: 0 5em;
-        }
+        margin: 2em 0 1em 0;
+        padding: 0 0 1em 0;
+        // border-bottom: 1px solid $Detail-blue;
+        line-height: 1.5;
       }
-    }
-
-    .quantity {
-      display: flex;
-      align-items: center;
-      margin: 2em 0 1em 0;
-      padding: 0 0 1em 1em;
-      // border-bottom: 1px solid $Detail-blue;
-      line-height: 1.5;
-    }
-    .btn-pass {
-      width: 100%;
-      margin: 0 1em;
-      // text-align: center;
+      .btn-pass {
+        width: 100%;
+        margin: 0 1em;
+        // text-align: center;
+      }
     }
   }
 }
@@ -1224,11 +1248,15 @@
     display: flex;
     align-items: center;
     border-bottom: 2px solid $Darker-blue;
-    margin: 2em 0;
+    margin: 4em 0;
+    justify-content: center;
     h5 {
       position: absolute;
-      background-color: white;
-      padding: 0 1em 0 0;
+      background: $Global-grd;
+      color: #fff;
+      padding: 1em;
+      border: 2px solid $Darker-blue;
+      border-radius: 6px;
       // margin-top: -1em;
     }
     .toogle-bg {
@@ -1251,17 +1279,10 @@
       }
     }
   }
+  .same-category{
+    margin-top: 8em
+  }
   .description {
-    // margin: 2em 1em
-    // background-color: $Detail-blue;
-    border-radius: 6px;
-    padding: 1em;
-    // background-color: #074e660e;
-
-    @media (max-width: $tablet) {
-      margin: 1em;
-    }
-
     h6 {
       font-weight: 500;
       color: #828282;
@@ -1430,8 +1451,13 @@
         width: 100%;
       }
       .field {
+        margin: 1em 0;
         width: 100%;
-        margin: 1em;
+
+        @media (min-width: $descktop) {
+          margin: 1em;
+          width: 100%;
+        }
       }
       .button {
         width: 100%;
@@ -1609,8 +1635,8 @@
     .follow {
       width: 35%;
       text-align: center;
-      color: #FFF;
-      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: #fff;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 
       @media (max-width: $tablet) {
         font-size: 0.8em;
@@ -1644,26 +1670,38 @@
         }
         @media (max-width: $tablet) {
           height: 49px;
-      }
+        }
       }
 
       #instagram {
         height: 50px;
         animation: deform 1.5s ease-in-out infinite;
-        .cls-1{fill:#fff;}
-        .cls-2{fill:#fff;}
-        .cls-3{fill:#fff;}
+        .cls-1 {
+          fill: #fff;
+        }
+        .cls-2 {
+          fill: #fff;
+        }
+        .cls-3 {
+          fill: #fff;
+        }
 
         &:hover {
           animation: none;
           transform: scale(1.5);
-          .cls-1{fill:url(#Espectro_);}
-          .cls-2{fill:url(#Espectro_2);}
-          .cls-3{fill:url(#Espectro_3);}
+          .cls-1 {
+            fill: url(#Espectro_);
+          }
+          .cls-2 {
+            fill: url(#Espectro_2);
+          }
+          .cls-3 {
+            fill: url(#Espectro_3);
+          }
         }
         @media (max-width: $tablet) {
           height: 40px;
-      }
+        }
       }
 
       #whatsapp {
@@ -1681,7 +1719,7 @@
         }
         @media (max-width: $tablet) {
           height: 40px;
-      }
+        }
       }
     }
   }
@@ -1768,10 +1806,12 @@
     margin: 0 0.5em 0 0;
     padding: 1em;
     background-color: #fff;
-    border: 2px solid $Global-blue;
+    border: 1px solid $Global-blue;
     color: $Global-blue;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    display: flex;
+    align-items:center;
     cursor: pointer;
 
     @media (max-width: $tablet) {

@@ -13,7 +13,7 @@
   <div class="product-filters">
     <!-- Category filter -->
     <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
-      <button class="button1" @click="loadProducts()">Todos os produtos</button>
+      <button class="button-small" @click="loadProducts()">Todos os produtos</button>
     </input-container>
 
     <!-- End category filter-->
@@ -41,7 +41,7 @@
         size="">
         <input type="text" id="Search" placeholder="Nome do produto" class="long-name" v-model="nameFilter">
       </input-container>
-      <button class="button1" @click="filtro(nameFilter, 3)">Procurar</button>
+      <button class="button-small" @click="filtro(nameFilter, 3)">Procurar</button>
     </div>
     <!--End Materials filter-->
   </div>

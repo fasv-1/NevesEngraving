@@ -41,53 +41,214 @@
                             <h6><b>Animações e Info</b></h6>
                             <div class="manage-info">
                                 <div class="brick">
-                                    <h6>Primeiro Bloco</h6>
-                                    <div class="home-intro" v-for="content, index in content.data" :key = index>
+                                    <div class="home-intro" v-for="content, index in content.data" :key=index>
+                                        <!------------------------------- Brick 1 update------------------------------------->
+
+                                        <!------------------------------- titulo update------------------------------------->
                                         <div class="home-anim" v-if="content.posicao == 'home_brick_1'">
-                                            <div class="title responsive-center">
+                                            <div class="title responsive-center" v-if="updateShow != content.titulo">
                                                 <h1>{{ content.titulo }}</h1>
+                                                <img class="edit-btn mrghor1"
+                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    style="width: 30px;" @click="editfield(content.titulo)">
                                             </div>
-                                            <div class="text-centered mrgTextCenter">
+                                            <div class="flex-container width100 responsive-center"
+                                                v-if="updateShow == content.titulo">
+                                                <div class="width70">
+                                                    <input-container id="titulo" title='Editar titulo' help="editHelp"
+                                                        helpText="Titulo atualizado">
+                                                        <input type="text" name="titulo" v-model="editValue">
+                                                    </input-container>
+                                                </div>
+                                                <div class="mrghor2">
+                                                    <button class="button-small"
+                                                        @click="update(content.id, 'titulo')">Atualizar</button>
+                                                </div>
+                                            </div>
+                                            <!------------------------------- descricao update------------------------------------->
+                                            <div class="text-centered mrgTextCenter"
+                                                v-if="updateShow != content.descricao">
                                                 <h6>{{ content.descricao }}</h6>
+                                                <img class="edit-btn mrghor1"
+                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    style="width: 30px;" @click="editfield(content.descricao)">
                                             </div>
-                                            <div class="animation"></div>
+                                            <div class="flex-container width100 responsive-center"
+                                                v-if="updateShow == content.descricao">
+                                                <div class="width70">
+                                                    <input-container id="descricao" title='Editar descrição'
+                                                            help="editHelp" helpText="Descrição atualizada">
+                                                        <textarea name="descricao"
+                                                            v-model="editValue">{{ editValue }}</textarea>
+                                                    </input-container>
+                                                </div>
+                                                <div class="mrghor2">
+                                                    <button class="button-small"
+                                                        @click="update(content.id, 'descricao')">Atualizar</button>
+                                                </div>
+                                            </div>
+
                                         </div>
 
+                                        <!------------------------------- Brick 2 update------------------------------------->
+
+                                        <!------------------------------- Titulo update------------------------------------->
                                         <div class="home-anim" v-if="content.posicao == 'home_brick_2'">
-                                            <div class="title">
+                                            <div class="title" v-if="updateShow != content.titulo">
                                                 <h2>{{ content.titulo }}</h2>
+                                                <img class="edit-btn mrghor1"
+                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    style="width: 30px;" @click="editfield(content.titulo)">
+                                            </div>
+                                            <div class="flex-container width100 responsive-center"
+                                                v-if="updateShow == content.titulo">
+                                                <div class="width70">
+                                                    <input-container id="titulo" title='Editar titulo' help="editHelp"
+                                                        helpText="Titulo atualizado">
+                                                        <input type="text" name="titulo" v-model="editValue">
+                                                    </input-container>
+                                                </div>
+                                                <div class="mrghor2">
+                                                    <button class="button-small"
+                                                        @click="update(content.id, 'titulo')">Atualizar</button>
+                                                </div>
                                             </div>
                                             <div class="responsive-container row-reverse">
+                                                <!------------------------------- animation update------------------------------------->
                                                 <div class="animation">
                                                     <img src="/storage/images/gerais/EngravingAnim.gif" alt=""
                                                         height="200">
                                                 </div>
-                                                <div class="text">{{ content.descricao }}</div>
+
+                                                <!------------------------------- descricao update------------------------------------->
+                                                <div class="text" v-if="updateShow != content.descricao">
+                                                    {{ content.descricao }}
+                                                    <img class="edit-btn mrghor1"
+                                                        src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                        style="width: 30px;" @click="editfield(content.descricao)">
+                                                </div>
+                                                <div class="flex-container width100 responsive-center"
+                                                    v-if="updateShow == content.descricao">
+                                                    <div class="width70">
+                                                        <input-container id="descricao" title='Editar descrição'
+                                                            help="editHelp" helpText="Descrição atualizada">
+                                                            <textarea name="descricao"
+                                                                v-model="editValue">{{ editValue }}</textarea>
+                                                        </input-container>
+                                                    </div>
+                                                    <div class="mrghor2">
+                                                        <button class="button-small"
+                                                            @click="update(content.id, 'descricao')">Atualizar</button>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
+
+                                        <!------------------------------- Brick 3 update------------------------------------->
+
                                         <div class="home-anim" v-if="content.posicao == 'home_brick_3'">
-                                            <div class="title responsive-end">
+                                            <!------------------------------- title update------------------------------------->
+                                            <div class="title responsive-end" v-if="updateShow != content.titulo">
                                                 <h2>{{ content.titulo }}</h2>
+                                                <img class="edit-btn mrghor1"
+                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    style="width: 30px;" @click="editfield(content.titulo)">
                                             </div>
+                                            <div class="flex-container width100 responsive-center"
+                                                v-if="updateShow == content.titulo">
+                                                <div class="width70">
+                                                    <input-container id="titulo" title='Editar titulo' help="editHelp"
+                                                        helpText="Titulo atualizado">
+                                                        <input type="text" name="titulo" v-model="editValue">
+                                                    </input-container>
+                                                </div>
+                                                <div class="mrghor2">
+                                                    <button class="button-small"
+                                                        @click="update(content.id, 'titulo')">Atualizar</button>
+                                                </div>
+                                            </div>
+                                            <!------------------------------- animation update------------------------------------->
                                             <div class="animation">
                                                 <video autoplay loop>
                                                     <source src="/storage/videos/lazer-cut-clip.mp4" type="video/mp4">
                                                 </video>
                                             </div>
-                                            <div class="text">{{ content.descricao }}</div>
+                                            <!------------------------------- descricao update------------------------------------->
+                                            <div class="text" v-if="updateShow != content.descricao">
+                                                {{ content.descricao }}
+                                                <img class="edit-btn mrghor1"
+                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    style="width: 30px;" @click="editfield(content.descricao)">
+                                            </div>
+                                            <div class="flex-container width100 responsive-center"
+                                                    v-if="updateShow == content.descricao">
+                                                    <div class="width70">
+                                                        <input-container id="descricao" title='Editar descrição'
+                                                            help="editHelp" helpText="Descrição atualizada">
+                                                            <textarea name="descricao"
+                                                                v-model="editValue">{{ editValue }}</textarea>
+                                                        </input-container>
+                                                    </div>
+                                                    <div class="mrghor2">
+                                                        <button class="button-small"
+                                                            @click="update(content.id, 'descricao')">Atualizar</button>
+                                                    </div>
+                                                </div>
                                         </div>
+
+                                        <!------------------------------- Brick 4 update------------------------------------->
+
                                         <div class="home-anim" v-if="content.posicao == 'home_brick_4'">
-                                            <div class="title">
+                                            <!------------------------------- title update------------------------------------->
+                                            <div class="title" v-if="updateShow != content.titulo">
                                                 <h2>{{ content.titulo }}</h2>
+                                                <img class="edit-btn mrghor1"
+                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    style="width: 30px;" @click="editfield(content.titulo)">
+                                            </div>
+                                            <div class="flex-container width100 responsive-center"
+                                                v-if="updateShow == content.titulo">
+                                                <div class="width70">
+                                                    <input-container id="titulo" title='Editar titulo' help="editHelp"
+                                                        helpText="Titulo atualizado">
+                                                        <input type="text" name="titulo" v-model="editValue">
+                                                    </input-container>
+                                                </div>
+                                                <div class="mrghor2">
+                                                    <button class="button-small"
+                                                        @click="update(content.id, 'titulo')">Atualizar</button>
+                                                </div>
                                             </div>
                                             <div class="responsive-container row-reverse">
+                                                <!------------------------------- animation update------------------------------------->
                                                 <div class="animation">
                                                     <video autoplay loop>
                                                         <source src="/storage/videos/heartAcembling-clip.mp4"
                                                             type="video/mp4">
                                                     </video>
                                                 </div>
-                                                <div class="text">{{ content.descricao }}</div>
+                                                <!------------------------------- descricao update------------------------------------->
+                                                <div class="text" v-if="updateShow != content.descricao">
+                                                    {{ content.descricao }}
+                                                    <img class="edit-btn mrghor1"
+                                                        src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                        style="width: 30px;" @click="editfield(content.descricao)">
+                                                </div>
+                                                <div class="flex-container width100 responsive-center"
+                                                    v-if="updateShow == content.descricao">
+                                                    <div class="width70">
+                                                        <input-container id="descricao" title='Editar descrição'
+                                                            help="editHelp" helpText="Descrição atualizada">
+                                                            <textarea name="descricao"
+                                                                v-model="editValue">{{ editValue }}</textarea>
+                                                        </input-container>
+                                                    </div>
+                                                    <div class="mrghor2">
+                                                        <button class="button-small"
+                                                            @click="update(content.id, 'descricao')">Atualizar</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -197,48 +358,38 @@ export default {
         return {
             optionSelected: localStorage.getItem('selectedOption'), // saves the page if the browser reloads
             content: { data: [] },
+            editValue: '',
+            updateShow: '',
+            idUpdating: '',
         }
     },
     methods: {
+        editfield(value, id) {
+            this.editValue = value
+            this.updateShow = value
+            this.idUpdating = id
+        },
         loadContent() {
             let urlContent = this.$store.state.Url + 'api/conteudo';
 
             axios.get(urlContent)
                 .then(response => {
-                      this.content.data = response.data
+                    this.content.data = response.data
                     console.log(response.data)
                 })
                 .catch(errors => {
                     console.log(errors);
                 })
         },
-        update(u, n) { //update fields
-            const input = document.getElementById('updateOcasionStatus')
-            const inputValue = input.value
+        update(u, i) { //update fields
+            let updateValue = this.editValue
+            let url = this.$store.state.Url + 'api/conteudo/' + u;
 
             let formData = new FormData();
             formData.append('_method', 'patch')
 
+            formData.append(i, updateValue)
 
-            if (n == 'ocasiao') {
-                if (this.updateOcasion != '') {
-                    formData.append('nome', this.updateOcasion)
-                }
-
-                formData.append('estado', inputValue)
-            }
-
-            if (n == 'categoria' && this.updateCategory != '') {
-                formData.append('nome', this.updateCategory)
-            }
-
-            if (n == 'materia') {
-                formData.append('nome', this.updateMaterial)
-            }
-
-            let url = this.urlBase + n + '/' + u
-
-            // console.log(url)
 
             let config = {
                 headers: {
@@ -249,25 +400,18 @@ export default {
 
             axios.post(url, formData, config)
                 .then(response => {
-
                     this.$store.state.transaction.status = 'updated'
                     this.$store.state.transaction.message = response.data.msg
-                    this.loadTableData()
-                    this.deleted()
-                    history.back()
-                    alert(response.data.msg)
-                    this.updateCategory = ""
-                    this.updateMaterial = ""
-                    this.updateOcasion = ""
-                    this.updateOcasionStatus = ""
+                    this.editValue = ""
+                    this.updateShow = ""
+                    this.loadContent()
 
                 })
                 .catch(errors => {
-                    console.log('erro de atualização', errors.response.data)
                     this.$store.state.transaction.status = 'error-update'
                     this.$store.state.transaction.message = errors.response.data.errors
                     console.log(errors.response.data.errors)
-                    this.updateCategory = ""
+                    this.editValue = ""
                 })
         },
         //   timeOut() {

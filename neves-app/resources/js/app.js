@@ -284,6 +284,9 @@ app.component('contact-component', FormContact);
 import ServicesInfo from './components/ServicesInfo.vue';
 app.component('services-component', ServicesInfo);
 
+import BoxMenu from './components/BoxMenu.vue';
+app.component('boxmenu-component', BoxMenu);
+
 
 
 

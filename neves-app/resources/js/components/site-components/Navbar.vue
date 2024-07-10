@@ -1,7 +1,7 @@
 <template>
   <div id="navbar-container">
     <div class="top-contact">
-      <p class="mrghor2">Contact now: +351 987 876 534</p>
+      <p class="mrghor2">Fast contact: +351 987 876 534</p>
     </div>
     <div class="navbar-top">
       <!---------------------------Logo link------------------------------------->
