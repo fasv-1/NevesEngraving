@@ -14,29 +14,29 @@ const checkedIntro = ref([])
             <!-----------------------------------------Box menu--------------------------------------------->
             <div class="box-menu">
                 <div class="option" :class="this.optionSelected == 0 ? 'active' : ''" @click="select(0)">
-                    <h3>Home</h3>
+                    <h5>Home</h5>
                 </div>
                 <div class="option" :class="this.optionSelected == 1 ? 'active' : ''" @click="select(1)">
-                    <h3>Amazing Gifts</h3>
+                    <h5>Amazing Gifts</h5>
                 </div>
                 <div class="option" :class="this.optionSelected == 2 ? 'active' : ''" @click="select(2)">
-                    <h3>Engraving</h3>
+                    <h5>Engraving</h5>
                 </div>
                 <div class="option" :class="this.optionSelected == 3 ? 'active' : ''" @click="select(3)">
-                    <h3>Lazer Cut</h3>
+                    <h5>Lazer Cut</h5>
                 </div>
                 <div class="option" :class="this.optionSelected == 4 ? 'active' : ''" @click="select(4)">
-                    <h3>Contacts</h3>
+                    <h5>Contacts</h5>
                 </div>
                 <div class="option" :class="this.optionSelected == 5 ? 'active' : ''" @click="select(5)">
-                    <h3>Shopping Cart</h3>
+                    <h5>Shopping Cart</h5>
                 </div>
                 <div class="option" :class="this.optionSelected == 6 ? 'active' : ''" @click="select(6)">
-                    <h3>Footer</h3>
+                    <h5>Footer</h5>
                 </div>
             </div>
             <div class="info">
-                <!-----------------------------------------Return info--------------------------------------------->
+                <!-----------------------------------------Home Intro --------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 0">
                     <div class="text">
                         <div class="title">
@@ -48,7 +48,7 @@ const checkedIntro = ref([])
                                     <h6><b>Animações e Info</b></h6>
                                     <button class="toogle-bg mrghor1" @click="openHome(1)"><img
                                             :class="home == 1 && openMenu == true ? 'rotate' : ''"
-                                            src="/storage/images/Icons/arrow.png" alt=""></button>
+                                            src="/storage/images/Icons/arrow-black.png" alt=""></button>
                                 </div>
                                 <div class="responsive-container">
                                     <input type="radio" id="animInfo" value="animInfo" v-model="checkedIntro" />
@@ -56,7 +56,7 @@ const checkedIntro = ref([])
                             </div>
                             <div class="manage-info">
                                 <div class="brick" v-if="openMenu == true && home == 1">
-                                    <div class="home-intro" v-for="content, index in content.data" :key=index>
+                                    <div class="home-intro" v-for="content, index in appContent.data" :key=index>
                                         <!------------------------------- Brick 1 update------------------------------------->
 
                                         <!------------------------------- titulo update------------------------------------->
@@ -276,29 +276,37 @@ const checkedIntro = ref([])
                                     <h6><b>Slider e melhores produtos</b></h6>
                                     <button class="toogle-bg mrghor1" @click="openHome(2)"><img
                                             :class="home == 2 && openMenu == true ? 'rotate' : ''"
-                                            src="/storage/images/Icons/arrow.png" alt=""></button>
+                                            src="/storage/images/Icons/arrow-black.png" alt=""></button>
                                 </div>
                                 <div class="responsive-container">
                                     <input type="radio" id="slider" value="slider" v-model="checkedIntro" />
                                 </div>
                             </div>
                             <div class="manage-info">
-                                <div class="slide-products" v-if="openMenu == true && home == 1">
-                                    <div class="slider-container">
-                                        <div class="slider">
-                                            <img class="slide" id="1" src="/storage/images/gerais/cardEngrv.jpeg"
-                                                alt="img1" v-if="itsOn == 1">
-                                            <img class="slide" id="2" src="/storage/images/gerais/glassEngrv.jpg"
-                                                alt="img2" v-if="itsOn == 2">
-                                            <img class="slide" id="3" src="/storage/images/gerais/woodEngrv.jpg"
-                                                alt="img3" v-if="itsOn == 3">
-                                            <div id="buttons">
-                                                <button class="preview" @click="previewImage()"><img src="/storage/images/Icons/arrow.png" alt=""></button>
-                                                <button class="next" @click="nextImage()"><img src="/storage/images/Icons/arrow.png" alt=""></button>
+                                <!---------------------------- Slider ----------------------------------------------->
+                                <div class="responsive-container" v-if="openMenu == true && home == 2">
+                                    <div class="flex-container width100 responsive-end margin1"><button>Adicionar
+                                            slide</button></div>
+                                    <div class="general-card" v-for="slide, index in sliderInfo">
+                                        <div class="card-title">
+                                            <h6>Slide nº {{ index + 1 }}</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <img :id="index" :src="'/storage/' + slide.media" alt="imgSlide">
+                                            <div class="card-info">
+                                                <h5>{{ slide.titulo }}</h5>
+                                                <p>{{ slide.descricao }}</p>
                                             </div>
                                         </div>
+                                        <div class="card-buttons">
+                                            <button class="btn-rmv">
+                                                <h1>x</h1>
+                                            </button>
+                                        </div>
                                     </div>
+
                                 </div>
+                                <!---------------------------- End Slider ----------------------------------------------->
                             </div>
                         </div>
                     </div>
@@ -400,30 +408,16 @@ export default {
     data() {
         return {
             optionSelected: localStorage.getItem('selectedOption'), // saves the page if the browser reloads
-            content: { data: [] },
+            appContent: { data: [] },
             editValue: '',
             updateShow: '',
             idUpdating: '',
             openMenu: false,
-            home: '',
-            itsOn: 1
+            home: 1,
+            itsOn: 0
         }
     },
     methods: {
-        previewImage() {
-            if (this.itsOn < 2) {
-                this.itsOn = 3
-            } else {
-                this.itsOn--
-            }
-        },
-        nextImage() {
-            if (this.itsOn > 2) {
-                this.itsOn = 1
-            } else {
-                this.itsOn++
-            }
-        },
         openHome(n) {
             this.openMenu = !this.openMenu
             this.home = n
@@ -438,8 +432,8 @@ export default {
 
             axios.get(urlContent)
                 .then(response => {
-                    this.content.data = response.data
-                    console.log(response.data)
+                    this.appContent.data = response.data
+                    // console.log(response.data)
                 })
                 .catch(errors => {
                     console.log(errors);
@@ -500,6 +494,15 @@ export default {
         }
     },
     computed: {
+        sliderInfo() {
+            let slidesInfo = []
+            this.appContent.data.forEach(data => {
+                if (data.posicao == 'slider') {
+                    slidesInfo.push(data)
+                }
+            })
+            return slidesInfo
+        }
 
     },
     mounted() {

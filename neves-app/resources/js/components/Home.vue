@@ -90,7 +90,32 @@ const y = ref(0)
             assumenda, veniam autem reprehenderit!</div>
         </div>
       </div>
+
     </div>
+        <!---------------------------- Slider ----------------------------------------------->
+      <div class="slider-container">
+        <div class="slider">
+          <div v-for="slide, index in sliderInfo">
+              <div class="slide" v-if="itsOn == index" :style="'background-image: url(/storage/' + slide.media +')'">
+                  <div class="img-info">
+                      <h2>{{ slide.titulo }}</h2>
+                      <p>{{ slide.descricao }}</p>
+                  </div>
+              </div>
+          </div>
+          <div id="buttons">
+              <button class="preview" @click="previewImage()"><img
+                      src="/storage/images/Icons/arrow.png" alt=""></button>
+              <button class="next" @click="nextImage()"><img
+                      src="/storage/images/Icons/arrow.png" alt=""></button>
+          </div>
+          <div class="slider-map">
+              <div :id=slide.posicao class="circle" :class="itsOn == index ? 'on' : ''" @click="itsOn = index" v-for="slide, index in sliderInfo">
+              </div>
+          </div>
+        </div>
+      </div>
+          <!---------------------------- End Slider ----------------------------------------------->
 
     <!----------------------------------------------Promo Image or Caroussel-------------------------------->
     <div class="home-promo">
@@ -123,14 +148,50 @@ const y = ref(0)
 export default {
   data() {
     return {
-
+      appContent: { data: [] },
+      itsOn: 0
     }
   },
   props: [],
 
   methods: {
+    loadContent() {
+            let urlContent = this.$store.state.Url + 'api/conteudo';
+
+            axios.get(urlContent)
+                .then(response => {
+                    this.appContent.data = response.data
+                    console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+        },
+    previewImage() {
+            if (this.itsOn < 1) {
+                this.itsOn = this.sliderInfo.length - 1
+            } else {
+                this.itsOn--
+            }
+        },
+        nextImage() {
+            if (this.itsOn > (this.sliderInfo.length - 2)) {
+                this.itsOn = 0
+            } else {
+                this.itsOn++
+            }
+        },
   },
   computed: {
+    sliderInfo() {
+            let slidesInfo = []
+            this.appContent.data.forEach(data => {
+                if (data.posicao == 'slider') {
+                    slidesInfo.push(data)
+                }
+            })
+            return slidesInfo
+        }
     // dinamicHight() { // calculate the window height variation for the div attached to the pointer stays in the center
     //   let WindowHeight = window.innerHeight
     //   console.log(WindowHeight)
@@ -139,7 +200,7 @@ export default {
   },
 
   mounted() {
+    this.loadContent()
   }
-
 }
 </script>

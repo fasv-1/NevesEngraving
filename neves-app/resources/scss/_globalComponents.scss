@@ -247,18 +247,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $Lighter-blue;
-  background-color: $Global-red;
-  padding: 0.2em;
-  border: 2px solid $Darker-blue;
-  border-radius: 5px;
+  background-color: transparent;
+  // background-color: $Global-red;
+  // padding: 0.2em;
+  border: none;
+  // border-radius: 5px; 
 
   @media (max-width: $tablet) {
     margin: 0 2em 0 0;
   }
   img {
-    width: 16px;
-    // height: 18px;
+    width: 10px;
+    height: 7px;
     transform-origin: 50% 50%;
     transition: all 0.3s;
   }

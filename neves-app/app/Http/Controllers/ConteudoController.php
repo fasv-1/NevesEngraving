@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\conteudo;
+use Illuminate\Support\Facades\Storage;
 
 class ConteudoController extends Controller
 {
@@ -18,6 +19,7 @@ class ConteudoController extends Controller
         // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
         $this->conteudo = $conteudo;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +32,6 @@ class ConteudoController extends Controller
             $conteudo = $this->conteudo->all();
         }
 
-
         return response()->json($conteudo, 200);
     }
 
@@ -41,7 +42,24 @@ class ConteudoController extends Controller
     {
         $request->validate($this->conteudo->rules(), $this->conteudo->feedback());
 
-        $this->conteudo->create($request->all());
+
+
+        //checks for an desconto_id to choose the right place to store
+        if ($request->media != '') {
+
+            $image = $request->file('media');
+
+            $image_urn = $image->store('images/gerais', 'public');
+
+            $this->conteudo->create([
+                'titulo' => $request->titulo,
+                'descricao' => $request->descricao,
+                'media' => $image_urn,
+                'posicao' => $request->posicao
+            ]);
+        } else {
+            $this->conteudo->create($request->all());
+        }
 
         return response()->json(['msg' => 'O conteudo foi adicionado com sucesso'], 201);
     }
@@ -77,6 +95,8 @@ class ConteudoController extends Controller
             if ($request->method() === 'PATCH') {
                 $dinamycRules = [];
 
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Not working for the form-data header !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 //browse all rules for indentify the especific key and rule that's been recive, save them in the dinamycRules variable
                 foreach ($conteudo->rules() as $input => $rules) {
                     if (array_key_exists($input, $request->all())) {
@@ -105,6 +125,10 @@ class ConteudoController extends Controller
 
         if ($conteudo === null) {
             return response()->json(['error' => 'O conteudo que pretende eliminar não existe'], 404);
+        }
+
+        if ($conteudo->media != null) {
+            Storage::disk('public')->delete($conteudo->media);
         }
 
         $conteudo->delete();

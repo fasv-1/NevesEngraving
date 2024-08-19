@@ -10,14 +10,15 @@ class conteudo extends Model
     use HasFactory;
 
     //The attributes that are mass assignable.
-    protected $fillable = ['titulo', 'descricao', 'posicao'];
+    protected $fillable = ['titulo', 'descricao', 'media', 'posicao'];
 
     //Rules for validate inputs
     public function rules(){
         return [
             'titulo' => 'required',
             'descricao' => 'required',
-            'posicao' => 'required|unique:conteudos,posicao,'.$this->id.'',
+            'media' => 'image',
+            'posicao' => 'required',
         ];
     }
     
@@ -25,7 +26,7 @@ class conteudo extends Model
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
-            'posicao.unique' => 'Esta posicao já está ocupada',
+            'image' => 'O ficheiro que carregou não é uma imagem',
         ];
     }
 }
