@@ -13,25 +13,25 @@ const checkedIntro = ref([])
         <div class="dynamic-box">
             <!-----------------------------------------Box menu--------------------------------------------->
             <div class="box-menu">
-                <div class="option" :class="this.optionSelected == 0 ? 'active' : ''" @click="select(0)">
+                <div class="option" :class="optionSelected == 0 ? 'active' : ''" @click="select(0)">
                     <h5>Home</h5>
                 </div>
-                <div class="option" :class="this.optionSelected == 1 ? 'active' : ''" @click="select(1)">
+                <div class="option" :class="optionSelected == 1 ? 'active' : ''" @click="select(1)">
                     <h5>Amazing Gifts</h5>
                 </div>
-                <div class="option" :class="this.optionSelected == 2 ? 'active' : ''" @click="select(2)">
+                <div class="option" :class="optionSelected == 2 ? 'active' : ''" @click="select(2)">
                     <h5>Engraving</h5>
                 </div>
-                <div class="option" :class="this.optionSelected == 3 ? 'active' : ''" @click="select(3)">
+                <div class="option" :class="optionSelected == 3 ? 'active' : ''" @click="select(3)">
                     <h5>Lazer Cut</h5>
                 </div>
-                <div class="option" :class="this.optionSelected == 4 ? 'active' : ''" @click="select(4)">
+                <div class="option" :class="optionSelected == 4 ? 'active' : ''" @click="select(4)">
                     <h5>Contacts</h5>
                 </div>
-                <div class="option" :class="this.optionSelected == 5 ? 'active' : ''" @click="select(5)">
+                <div class="option" :class="optionSelected == 5 ? 'active' : ''" @click="select(5)">
                     <h5>Shopping Cart</h5>
                 </div>
-                <div class="option" :class="this.optionSelected == 6 ? 'active' : ''" @click="select(6)">
+                <div class="option" :class="optionSelected == 6 ? 'active' : ''" @click="select(6)">
                     <h5>Footer</h5>
                 </div>
             </div>
@@ -285,8 +285,9 @@ const checkedIntro = ref([])
                             <div class="manage-info">
                                 <!---------------------------- Slider ----------------------------------------------->
                                 <div class="responsive-container" v-if="openMenu == true && home == 2">
-                                    <div class="flex-container width100 responsive-end margin1"><button>Adicionar
-                                            slide</button></div>
+                                    <div class="flex-container width100 responsive-end margin1">
+                                        <button>Adicionar slide</button>
+                                    </div>
                                     <div class="general-card" v-for="slide, index in sliderInfo">
                                         <div class="card-title">
                                             <h6>Slide nº {{ index + 1 }}</h6>
@@ -299,7 +300,7 @@ const checkedIntro = ref([])
                                             </div>
                                         </div>
                                         <div class="card-buttons">
-                                            <button class="btn-rmv">
+                                            <button class="btn-rmv" @click="remove(slide.id)">
                                                 <h1>x</h1>
                                             </button>
                                         </div>
@@ -439,6 +440,28 @@ export default {
                     console.log(errors);
                 })
         },
+        remove(i) {
+            let url = this.$store.state.Url + 'api/conteudo/' + i;
+
+            let formData = new FormData();
+            formData.append('_method', 'delete')
+
+            console.log(url)
+
+            axios.post(url, formData)
+                .then(response => {
+                    this.$store.state.transaction.status = 'removed'
+                    this.$store.state.transaction.message = response.data.msg
+                    this.loadContent()
+
+                })
+                .catch(errors => {
+                    this.$store.state.transaction.status = 'error-update'
+                    this.$store.state.transaction.message = errors.response.data.errors
+                    console.log(errors.response.data.errors)
+                })
+        },
+
         update(u, i) { //update fields
             let updateValue = this.editValue
             let url = this.$store.state.Url + 'api/conteudo/' + u;
