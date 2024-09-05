@@ -41,10 +41,11 @@
           <i>Carregar imagem</i>
         </label>
       </input-container>
-      <div class="principal-image-preview">
+      <preview-component :data="mainImage"></preview-component>
+      <!-- <div class="principal-image-preview">
         <img v-if="url" :src="url">
         <p v-if="mainImage != ''">Tamanho: {{ mbConversion }} MB</p>
-      </div>
+      </div> -->
       <div class="image-cont-button">
         <button v-if="mainImage != ''" class="button1" @click="saveImage('mainImage')">Adicionar imagem</button>
       </div>
@@ -196,15 +197,14 @@
           <i>Carregar imagem</i>
         </label>
       </input-container>
-      <div class="images-preview brd-grey" v-if="urlImages != ''">
-        <div class="preview-cont" v-for="(urlImage, index) in urlImages" :key="index">
-          <img v-if="urlImage" :src="urlImage">
-          <p v-if="urlImages">Tamanho:{{ ((this.images[index][0].size / 1024) / 1024).toFixed(2) }} MB</p>
+      <div class="images-preview brd-grey" v-if="images != ''">
+        <div class="preview-cont" v-for="urlImage, index in images" :key="index">
+          <preview-component :data="urlImage"></preview-component>
           <button class="btn-remove ms-input" @click="deleteImage(index)">Eliminar</button>
         </div>
       </div>
       <div class="image-cont-button">
-        <button v-if="urlImages != ''" class="button1" @click="saveImage('images')">Adicionar imagens</button>
+        <button v-if="images != ''" class="button1" @click="saveImage('images')">Adicionar imagens</button>
       </div>
     </div>
     <!----------------------------------- End of product images inputs ----------------------------->
@@ -424,21 +424,16 @@ export default {
   methods: {
     uploadMainImage(e) { //variable with main image object
       this.mainImage = e.target.files[0];
-      this.url = URL.createObjectURL(this.mainImage); //creats an url to preview a loaded image
       // console.log(this.mainImage);
     },
 
     uploadImages(x) { //variable with product images object
-      let productImages = x.target.files;
+      let productImages = x.target.files[0];
       this.images.push(productImages);
-      this.urlImages.push(URL.createObjectURL(productImages[0]));
-      // console.log(this.images);
-      // console.log(this.urlImages);
     },
 
     deleteImage(del) { // delete the pre-set images from the array of product images
       this.images.splice(del, 1);
-      this.urlImages.splice(del, 1);
     },
 
     getProduct() { //gets the product clicked
@@ -644,8 +639,8 @@ export default {
       if (this.images && i == 'images') {
         this.images.forEach(element => {
 
-          if (element[0].size < 2097152) {
-            formData.append('nome', element[0]);
+          if (element.size < 2097152) {
+            formData.append('nome', element);
             formData.append('posicao', 2);
             formData.append('produto_id', this.id);
 
@@ -666,7 +661,7 @@ export default {
                 alert(errors.response.data.message)
               })
           } else {
-            alert('a imagem ' + element[0].name + ' é demasiado grande')
+            alert('a imagem ' + element.name + ' é demasiado grande')
           }
         });
 
@@ -830,13 +825,6 @@ export default {
 
   },
   computed: {
-    mbConversion() {
-      if (this.mainImage != '') {
-        let $convers = (this.mainImage.size / 1024) / 1024
-        $convers = $convers.toFixed(2)
-        return $convers
-      }
-    },
     separateImages() {
       let mainImage = []
       let images = []

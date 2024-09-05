@@ -15,7 +15,7 @@ class ImagensController extends Controller
     {
         $imagens = imagens::all();
 
-        return response()->json([$imagens], 200);
+        return response()->json($imagens, 200);
     }
 
     /**
@@ -61,7 +61,7 @@ class ImagensController extends Controller
     {
         $imagens = imagens::find($id);
 
-        return response()->json([$imagens], 200);
+        return response()->json($imagens, 200);
     }
 
     /**

@@ -17,21 +17,18 @@ const checkedIntro = ref([])
                     <h5>Home</h5>
                 </div>
                 <div class="option" :class="optionSelected == 1 ? 'active' : ''" @click="select(1)">
-                    <h5>Amazing Gifts</h5>
-                </div>
-                <div class="option" :class="optionSelected == 2 ? 'active' : ''" @click="select(2)">
                     <h5>Engraving</h5>
                 </div>
-                <div class="option" :class="optionSelected == 3 ? 'active' : ''" @click="select(3)">
+                <div class="option" :class="optionSelected == 2 ? 'active' : ''" @click="select(2)">
                     <h5>Lazer Cut</h5>
                 </div>
-                <div class="option" :class="optionSelected == 4 ? 'active' : ''" @click="select(4)">
+                <div class="option" :class="optionSelected == 3 ? 'active' : ''" @click="select(3)">
                     <h5>Contacts</h5>
                 </div>
-                <div class="option" :class="optionSelected == 5 ? 'active' : ''" @click="select(5)">
+                <div class="option" :class="optionSelected == 4 ? 'active' : ''" @click="select(4)">
                     <h5>Shopping Cart</h5>
                 </div>
-                <div class="option" :class="optionSelected == 6 ? 'active' : ''" @click="select(6)">
+                <div class="option" :class="optionSelected == 5 ? 'active' : ''" @click="select(5)">
                     <h5>Footer</h5>
                 </div>
             </div>
@@ -306,7 +303,7 @@ const checkedIntro = ref([])
                                         </div>
                                     </div>
                                 </div>
-                                <!--Modal to add new slide || !!!!!!!!!!!!!!!!!!!!!!!!!!!!! Continuar !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                                <!---------------------------- Modal to add new slide ------------------------------------>
                                 <form method="POST" action="" @submit.prevent="addSlide($event)">
                                     <modal-component id="addSlide" title="Adicionar uma categoria" dataClean="image">
                                         <template v-slot:content>
@@ -319,7 +316,7 @@ const checkedIntro = ref([])
                                                     <i>Carregar imagem</i>
                                                 </label>
                                             </input-container>
-                                            <preview-component :url="urlImage" :data="image"></preview-component>
+                                            <preview-component :data="image"></preview-component>
 
                                             <input-container id="titulo" title="Titulo" help="Slide title"
                                                 helpText="Titulo do slide">
@@ -327,10 +324,10 @@ const checkedIntro = ref([])
                                                     v-model="slideTitle">
                                             </input-container>
 
-                                            <input-container id="descricao" title="Descrição"
-                                                help="Slide description" helpText="Texto de destaque">
-                                                <input type="text" name="descricao"
-                                                    aria-describedby="description" v-model="slideDescr">
+                                            <input-container id="descricao" title="Descrição" help="Slide description"
+                                                helpText="Texto de destaque">
+                                                <input type="text" name="descricao" aria-describedby="description"
+                                                    v-model="slideDescr">
                                             </input-container>
                                         </template>
 
@@ -347,28 +344,36 @@ const checkedIntro = ref([])
                     </div>
                 </div>
 
-                <!-----------------------------------------Privacy info--------------------------------------------->
+                <!-----------------------------------------Engraving info Continuar aqui !!!!!!!!--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 1">
-                    <div class="title">
-                        <h4><b>Privacy Policies</b></h4>
-                    </div>
                     <div class="text">
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, labore odit est, quidem
-                            rerum,
-                            accusamus corporis dignissimos quibusdam mollitia vel eaque iusto recusandae esse
-                            praesentium in
-                            vero quaerat quos velit!</h5>
-                        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste distinctio quisquam architecto
-                            maiores, doloremque illum sint expedita modi dignissimos facilis unde ipsam exercitationem.
-                            Consequatur magni ex neque dolores dolor! Explicabo!</h5>
-                        <h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel quae optio aperiam
-                            reprehenderit
-                            laboriosam nam. Similique vel quam corrupti velit atque sint est distinctio asperiores?
-                            Nihil
-                            corrupti iure atque similique?</h5>
+                        <div class="title">
+                            <h4 class="text-grey">Edita as imagens e o texto da página 'Engraving'</h4>
+                        </div>
+                        <div class="" v-for="content, index in engravingInfo " :key=index>
+                            <div>
+                                <div class="update-image" v-if="updateShow != content.image && idUpdating != content.id " >
+                                    <img :src="'/storage/' + content.image" alt="" width="100">
+                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        alt="" style="width: 30px;" @click="editfield(content.image, id)">
+                                </div>
+                                <div class="update-title" v-if="updateShow != content.titulo && idUpdating != content.id ">
+                                    <h4>{{ content.titulo }}</h4>
+                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        alt="" style="width: 30px;" @click="editfield(content.titulo, id)">
+
+                                </div>
+                                <div class="update-descr" v-if="updateShow != content.descricao && idUpdating != content.id " >
+                                    <p>{{ content.descricao }}</p>
+                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        alt="" style="width: 30px;" @click="editfield(content.descricao, id)">
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <!-----------------------------------------Shipping info--------------------------------------------->
+                <!-----------------------------------------Lazer-Cut info--------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 2">
                     <div class="title">
                         <h4><b>Shipping Policies</b></h4>
@@ -436,6 +441,7 @@ const checkedIntro = ref([])
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -451,18 +457,16 @@ export default {
             home: 1,
             itsOn: 0,
             image: [],
-            urlImage: '',
             slideTitle: '',
             slideDescr: '',
+            appImages: { data: [] },
         }
     },
     methods: {
         uploadImage(x) { //variable with product images object
             let file = x.target.files;
             this.image = file[0];
-            this.urlImage = URL.createObjectURL(file[0]);
-            console.log(this.image);
-            console.log(this.urlImage);
+            console.log(file);
         },
         addSlide() {
             let urlImages = this.$store.state.Url + 'api/conteudo';
@@ -476,42 +480,39 @@ export default {
                 }
             }
 
-            
+            if (this.image.size < 2097152) {
 
-                if (this.image.size < 2097152) {
+                formData.append('titulo', this.slideTitle);
+                formData.append('descricao', this.slideDescr);
+                formData.append('media', this.image);
+                formData.append('posicao', 'slider');
 
-                    formData.append('titulo', this.slideTitle);
-                    formData.append('descricao', this.slideDescr);
-                    formData.append('media', this.image);
-                    formData.append('posicao', 'slider');
+                axios.post(urlImages, formData, config)
+                    .then(response => {
+                        this.$store.state.transaction.status = 'added'
+                        this.$store.state.transaction.message = response.data.msg
+                        this.image = []
+                        this.slideTitle = ''
+                        this.slideDescr = ''
+                        console.log(response.data.msg)
+                        this.loadContent()
+                        history.back()
+                    })
+                    .catch(errors => {
+                        this.$store.state.transaction.status = 'error-add'
+                        this.$store.state.transaction.message = errors.response.data.errors
+                        this.image = []
+                        this.slideTitle = ''
+                        this.slideDescr = ''
 
-                    axios.post(urlImages, formData, config)
-                        .then(response => {
-                            this.$store.state.transaction.status = 'added'
-                            this.$store.state.transaction.message = response.data.msg
-                            this.image = []
-                            this.urlImage = ''
-                            this.slideTitle = ''
-                            this.slideDescr = ''
-                            console.log(response.data.msg)
-                            this.loadContent()
-                            history.back()
-                        })
-                        .catch(errors => {
-                            this.$store.state.transaction.status = 'error-add'
-                            this.$store.state.transaction.message = errors.response.data.errors
-                            this.image = []
-                            this.urlImage = ''
-                            this.slideTitle = ''
-                            this.slideDescr = ''
+                        console.log(errors.response.data)
 
-                            console.log(errors.response.data)
+                    })
 
-                        })
-                } else {
-                    alert('A imagem carregada é demasiado grande, o maximo permitido é 2MB')
-                }
-            
+            } else {
+                alert('A imagem carregada é demasiado grande, o maximo permitido é 2MB')
+            }
+
         },
         openHome(n) {
             this.openMenu = !this.openMenu
@@ -524,10 +525,20 @@ export default {
         },
         loadContent() {
             let urlContent = this.$store.state.Url + 'api/conteudo';
+            let urlImages = this.$store.state.Url + 'api/imagens'
 
             axios.get(urlContent)
                 .then(response => {
                     this.appContent.data = response.data
+                    // console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+
+            axios.get(urlImages)
+                .then(response => {
+                    this.appImages.data = response.data
                     // console.log(response.data)
                 })
                 .catch(errors => {
@@ -619,6 +630,66 @@ export default {
                 }
             })
             return slidesInfo
+        },
+        engravingInfo() {
+
+            function engraving(title, description, type, contentID) {
+                this.titulo = title;
+                this.descricao = description;
+                this.type = type;
+                this.id = contentID;
+            }
+            let engravingWood = {}
+            let engravingAcrylic = {}
+            let engravingGlass = {}
+            let engravingAluminium = {}
+            let engravingCards = {}
+            let generalInfo = []
+
+            this.appContent.data.forEach(data => {
+                if (data.posicao == 'engraving_wood') {
+                    engravingWood = new engraving(data.titulo, data.descricao, data.posicao, data.id)
+                };
+                if (data.posicao == 'engraving_acrylic') {
+                    engravingAcrylic = new engraving(data.titulo, data.descricao, data.posicao, data.id)
+                };
+                if (data.posicao == 'engraving_aluminium') {
+                    engravingAluminium = new engraving(data.titulo, data.descricao, data.posicao, data.id)
+                };
+                if (data.posicao == 'engraving_glass') {
+                    engravingGlass = new engraving(data.titulo, data.descricao, data.posicao, data.id)
+                };
+                if (data.posicao == 'engraving_cards') {
+                    engravingCards = new engraving(data.titulo, data.descricao, data.posicao, data.id)
+                };
+            })
+            this.appImages.data.forEach(i => {
+                if (i.utilidade == 'engraving_wood') {
+                    engravingWood.image = i.nome
+                    engravingWood.imageID = i.id
+                };
+                if (i.utilidade == 'engraving_acrylic') {
+                    engravingAcrylic.image = i.nome
+                    engravingAcrylic.imageID = i.id
+                };
+                if (i.utilidade == 'engraving_aluminium') {
+                    engravingAluminium.image = i.nome
+                    engravingAluminium.imageID = i.id
+                };
+                if (i.utilidade == 'engraving_glass') {
+                    engravingGlass.image = i.nome
+                    engravingGlass.imageID = i.id
+                };
+                if (i.utilidade == 'engraving_cards') {
+                    engravingCards.image = i.nome
+                    engravingCards.imageID = i.id
+                };
+            })
+
+            generalInfo.push(engravingWood, engravingAcrylic, engravingAluminium, engravingGlass, engravingCards)
+
+            console.log(generalInfo)
+            return generalInfo
         }
 
     },
