@@ -184,6 +184,9 @@ app.component('register-component', register)
 import example from './components/example.vue';
 app.component('example', example);
 
+import PreviewImages from './components/dash-components/PreviewImages.vue';
+app.component('preview-component', PreviewImages);
+
 import Pie from './components/dash-components/Charts/Pie.vue';
 app.component('pie-component', Pie);
 

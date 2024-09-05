@@ -286,7 +286,7 @@ const checkedIntro = ref([])
                                 <!---------------------------- Slider ----------------------------------------------->
                                 <div class="responsive-container" v-if="openMenu == true && home == 2">
                                     <div class="flex-container width100 responsive-end margin1">
-                                        <button>Adicionar slide</button>
+                                        <a href="#addSlide"><button>Adicionar slide</button></a>
                                     </div>
                                     <div class="general-card" v-for="slide, index in sliderInfo">
                                         <div class="card-title">
@@ -305,8 +305,42 @@ const checkedIntro = ref([])
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
+                                <!--Modal to add new slide || !!!!!!!!!!!!!!!!!!!!!!!!!!!!! Continuar !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                                <form method="POST" action="" @submit.prevent="addSlide($event)">
+                                    <modal-component id="addSlide" title="Adicionar uma categoria" dataClean="image">
+                                        <template v-slot:content>
+                                            <input-container id="media" title='Adicionar imagem' help="newImageHelp"
+                                                helpText="Insira uma imagen para o slide (o tamanho da imagem não deve exceder os 2MB)">
+                                                <label class="imageButton">
+                                                    <input type="file" name="media" class="form-image"
+                                                        aria-describedby="newProductImage" placeholder="Nome do produto"
+                                                        @change="uploadImage($event)">
+                                                    <i>Carregar imagem</i>
+                                                </label>
+                                            </input-container>
+                                            <preview-component :url="urlImage" :data="image"></preview-component>
+
+                                            <input-container id="titulo" title="Titulo" help="Slide title"
+                                                helpText="Titulo do slide">
+                                                <input type="text" name="titulo" aria-describedby="title"
+                                                    v-model="slideTitle">
+                                            </input-container>
+
+                                            <input-container id="descricao" title="Descrição"
+                                                help="Slide description" helpText="Texto de destaque">
+                                                <input type="text" name="descricao"
+                                                    aria-describedby="description" v-model="slideDescr">
+                                            </input-container>
+                                        </template>
+
+                                        <template v-slot:footer>
+                                            <button type="submit" class="button-save">Adicionar</button>
+                                            <!--The seconde parameter defines the endpoint for the url-->
+                                        </template>
+
+                                    </modal-component>
+                                </form>
                                 <!---------------------------- End Slider ----------------------------------------------->
                             </div>
                         </div>
@@ -415,10 +449,70 @@ export default {
             idUpdating: '',
             openMenu: false,
             home: 1,
-            itsOn: 0
+            itsOn: 0,
+            image: [],
+            urlImage: '',
+            slideTitle: '',
+            slideDescr: '',
         }
     },
     methods: {
+        uploadImage(x) { //variable with product images object
+            let file = x.target.files;
+            this.image = file[0];
+            this.urlImage = URL.createObjectURL(file[0]);
+            console.log(this.image);
+            console.log(this.urlImage);
+        },
+        addSlide() {
+            let urlImages = this.$store.state.Url + 'api/conteudo';
+
+            let formData = new FormData();
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json'
+                }
+            }
+
+            
+
+                if (this.image.size < 2097152) {
+
+                    formData.append('titulo', this.slideTitle);
+                    formData.append('descricao', this.slideDescr);
+                    formData.append('media', this.image);
+                    formData.append('posicao', 'slider');
+
+                    axios.post(urlImages, formData, config)
+                        .then(response => {
+                            this.$store.state.transaction.status = 'added'
+                            this.$store.state.transaction.message = response.data.msg
+                            this.image = []
+                            this.urlImage = ''
+                            this.slideTitle = ''
+                            this.slideDescr = ''
+                            console.log(response.data.msg)
+                            this.loadContent()
+                            history.back()
+                        })
+                        .catch(errors => {
+                            this.$store.state.transaction.status = 'error-add'
+                            this.$store.state.transaction.message = errors.response.data.errors
+                            this.image = []
+                            this.urlImage = ''
+                            this.slideTitle = ''
+                            this.slideDescr = ''
+
+                            console.log(errors.response.data)
+
+                        })
+                } else {
+                    alert('A imagem carregada é demasiado grande, o maximo permitido é 2MB')
+                }
+            
+        },
         openHome(n) {
             this.openMenu = !this.openMenu
             this.home = n
