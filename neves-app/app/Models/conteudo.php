@@ -17,7 +17,7 @@ class conteudo extends Model
         return [
             'titulo' => 'required',
             'descricao' => 'required',
-            'media' => 'image',
+            'media' => 'mimes:jpg,bmp,png,jpeg,mp4,avi,mpeg',
             'posicao' => 'required',
         ];
     }
@@ -26,7 +26,7 @@ class conteudo extends Model
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
-            'image' => 'O ficheiro que carregou não é uma imagem',
+            'mimes' => 'O ficheiro que carregou não tem um formato aceitável',
         ];
     }
 }

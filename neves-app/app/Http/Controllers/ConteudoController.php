@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\conteudo;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPSTORM_META\type;
+
 class ConteudoController extends Controller
 {
     /**
@@ -42,14 +44,18 @@ class ConteudoController extends Controller
     {
         $request->validate($this->conteudo->rules(), $this->conteudo->feedback());
 
-
+        
 
         //checks for an desconto_id to choose the right place to store
         if ($request->media != '') {
 
             $image = $request->file('media');
 
-            $image_urn = $image->store('images/gerais', 'public');
+            if(explode('/', $_FILES['media']['type'])[0] == 'image'){
+                $image_urn = $image->store('images/gerais', 'public');
+            }else{
+                $image_urn = $image->store('videos', 'public');
+            }
 
             $this->conteudo->create([
                 'titulo' => $request->titulo,
@@ -87,33 +93,57 @@ class ConteudoController extends Controller
         $conteudo = $this->conteudo->find($id);
 
         if ($conteudo === null) {
+            return response()->json(['error' => 'Impossivel realizar o update, o id identificado não existe'], 404);
+        }
 
-            return response()->json(['error' => 'O conteudo que pretende atualizar não existe'], 404);
-        } else {
+        $regrasDinamicas = [];
 
-            //makes separation of the methods
-            if ($request->method() === 'PATCH') {
-                $dinamycRules = [];
+        if ($request->method() === 'PATCH') { //update with the possibility to use the method PUT and PATCH
 
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Not working for the form-data header !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //browse every rules in the Model 
+            foreach ($conteudo->rules() as $input => $regra) {
 
-                //browse all rules for indentify the especific key and rule that's been recive, save them in the dinamycRules variable
-                foreach ($conteudo->rules() as $input => $rules) {
-                    if (array_key_exists($input, $request->all())) {
-                        $dinamycRules[$input] = $rules;
-                    }
+                //colect only the aplied rules of request 
+                if (array_key_exists($input, $request->all())) {
+                    $regrasDinamicas[$input] = $regra;
                 }
-
-                //validation with the dinamic rules
-                $request->validate($dinamycRules, $conteudo->feedback());
-            } else {
-                $request->validate($conteudo->rules(), $conteudo->feedback());
             }
 
-            $conteudo->update($request->all());
-
-            return response()->json(['msg' => 'Conteudo atualizado com sucesso'], 200);
+            $request->validate($regrasDinamicas, $conteudo->feedback());
+        } else {
+            $request->validate($conteudo->rules(), $conteudo->feedback());
         }
+
+        //checks if a file is uploded and if it is delete the image that was stored before
+
+        if ($request->file('media')) {
+            Storage::disk('public')->delete($conteudo->media);
+        }
+
+        
+
+        $conteudo->fill($request->all());
+
+        
+
+        // checks for an uploaded image and if it exists stores it
+        if ($request->file('media')) {
+
+            $file = $request->file('media');
+
+            //checks for an desconto_id to choose the right place to store
+            if(explode('/', $_FILES['media']['type'])[0] == 'image'){
+                $image_urn = $file->store('images/gerais', 'public');
+            }else{
+                $image_urn = $file->store('videos', 'public');
+            }
+            $conteudo->media = $image_urn;
+        }
+        
+        //as a parameter is sent, save() recognize that is an update
+        $conteudo->save();
+        
+        return response()->json(['msg' => 'Conteudo atualizado com sucesso'], 200);
     }
 
     /**

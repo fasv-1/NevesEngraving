@@ -83,6 +83,8 @@ class ImagensController extends Controller
             return response()->json(['error' => 'Impossivel realizar o update, o id identificado não existe'], 404);
         }
 
+        
+
         $regrasDinamicas = [];
 
         if ($request->method() === 'PATCH') { //update with the possibility to use the method PUT and PATCH
@@ -109,6 +111,8 @@ class ImagensController extends Controller
 
         $imagens->fill($request->all());
 
+        
+
         // checks for an uploaded image and if it exists stores it
         if ($request->file('nome')) {
 
@@ -122,10 +126,9 @@ class ImagensController extends Controller
             }
             $imagens->nome = $image_urn;
         }
-
         //as a parameter is sent, save() recognize that is an update
         $imagens->save();
-
+        
         return response()->json(['msg' => 'Imagem atualizada com sucesso'], 200);
     }
 

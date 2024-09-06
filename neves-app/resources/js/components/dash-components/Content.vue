@@ -344,7 +344,7 @@ const checkedIntro = ref([])
                     </div>
                 </div>
 
-                <!-----------------------------------------Engraving info Continuar aqui !!!!!!!!--------------------------------------------->
+                <!-----------------------------------------Engraving info --------------------------------------------->
                 <div class="option-selected" v-if="optionSelected == 1">
                     <div class="text">
                         <div class="title">
@@ -352,21 +352,66 @@ const checkedIntro = ref([])
                         </div>
                         <div class="" v-for="content, index in engravingInfo " :key=index>
                             <div>
-                                <div class="update-image" v-if="updateShow != content.image && idUpdating != content.id " >
+
+                                <div class="update-image" v-if="updateShow != content.image">
                                     <img :src="'/storage/' + content.image" alt="" width="100">
                                     <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
-                                        alt="" style="width: 30px;" @click="editfield(content.image, id)">
+                                        alt="" style="width: 30px;" @click="editfield(content.image, content.id)">
                                 </div>
-                                <div class="update-title" v-if="updateShow != content.titulo && idUpdating != content.id ">
+                                <div v-else>
+                                    <input-container id="nome" title='Adicionar imagem' help="newImageHelp"
+                                        helpText="Insira uma imagen para o slide (o tamanho da imagem não deve exceder os 2MB)">
+                                        <label class="imageButton">
+                                            <input type="file" name="nome" class="form-image"
+                                                aria-describedby="newProductImage" placeholder="Nome do produto"
+                                                @change="uploadImage($event)">
+                                            <i>Carregar imagem</i>
+                                        </label>
+                                    </input-container>
+                                    <preview-component :data="image"></preview-component>
+                                    <div class="mrghor2">
+                                        <button class="button-small"
+                                            @click="updateImage(content.imageID)">Atualizar</button>
+                                    </div>
+                                </div>
+
+                                <div class="update-title"
+                                    v-if="idUpdating != content.id || updateShow != content.titulo">
                                     <h4>{{ content.titulo }}</h4>
                                     <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
-                                        alt="" style="width: 30px;" @click="editfield(content.titulo, id)">
+                                        alt="" style="width: 30px;" @click="editfield(content.titulo, content.id)">
 
                                 </div>
-                                <div class="update-descr" v-if="updateShow != content.descricao && idUpdating != content.id " >
+                                <div v-else>
+                                    <div class="width70">
+                                        <input-container id="titulo" title='Editar titulo ' help="editHelp"
+                                            helpText="Titulo atualizado">
+                                            <input type="text" name="titulo" v-model="editValue">
+                                        </input-container>
+                                    </div>
+                                    <div class="mrghor2">
+                                        <button class="button-small"
+                                            @click="update(content.id, 'titulo')">Atualizar</button>
+                                    </div>
+                                </div>
+
+                                <div class="update-descr"
+                                    v-if="idUpdating != content.id || updateShow != content.descricao">
                                     <p>{{ content.descricao }}</p>
                                     <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
-                                        alt="" style="width: 30px;" @click="editfield(content.descricao, id)">
+                                        alt="" style="width: 30px;" @click="editfield(content.descricao, content.id)">
+                                </div>
+                                <div v-else>
+                                    <div class="width70">
+                                        <input-container id="descricao" title='Editar descrição' help="editHelp"
+                                            helpText="Descrição atualizada">
+                                            <textarea name="descricao" v-model="editValue">{{ editValue }}</textarea>
+                                        </input-container>
+                                    </div>
+                                    <div class="mrghor2">
+                                        <button class="button-small"
+                                            @click="update(content.id, 'descricao')">Atualizar</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -374,24 +419,79 @@ const checkedIntro = ref([])
                     </div>
                 </div>
                 <!-----------------------------------------Lazer-Cut info--------------------------------------------->
+                <!-- Continuar aqui !|!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                 <div class="option-selected" v-if="optionSelected == 2">
-                    <div class="title">
-                        <h4><b>Shipping Policies</b></h4>
-                    </div>
                     <div class="text">
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, labore odit est, quidem
-                            rerum,
-                            accusamus corporis dignissimos quibusdam mollitia vel eaque iusto recusandae esse
-                            praesentium in
-                            vero quaerat quos velit!</h5>
-                        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste distinctio quisquam architecto
-                            maiores, doloremque illum sint expedita modi dignissimos facilis unde ipsam exercitationem.
-                            Consequatur magni ex neque dolores dolor! Explicabo!</h5>
-                        <h5>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel quae optio aperiam
-                            reprehenderit
-                            laboriosam nam. Similique vel quam corrupti velit atque sint est distinctio asperiores?
-                            Nihil
-                            corrupti iure atque similique?</h5>
+                        <div class="title">
+                            <h4 class="text-grey">Edita o video e o texto da página 'Lazer-cut'</h4>
+                        </div>
+                        <div class="" v-for="content, index in appContent.data " :key=index>
+                            <div v-if="content.posicao == 'lazer_cut'">
+                                <div class="update-image" v-if="updateShow != content.media">
+                                    <video autoplay loop>
+                                        <source :src="'/storage/' + content.media">
+                                    </video>
+                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        alt="" style="width: 30px;" @click="editfield(content.media, content.id)">
+                                </div>
+                                <div v-else>
+                                    <input-container id="nome" title='Adicionar imagem' help="newImageHelp"
+                                        helpText="Insira uma imagen para o slide (o tamanho da imagem não deve exceder os 2MB)">
+                                        <label class="imageButton">
+                                            <input type="file" name="nome" class="form-image"
+                                                aria-describedby="newProductImage" placeholder="Nome do produto"
+                                                @change="uploadImage($event)">
+                                            <i>Carregar imagem</i>
+                                        </label>
+                                    </input-container>
+                                    <preview-component :data="image"></preview-component>
+                                    <div class="mrghor2">
+                                        <button class="button-small"
+                                            @click="updateImage(content.imageID)">Atualizar</button>
+                                    </div>
+                                </div>
+
+                                <div class="update-title"
+                                    v-if="idUpdating != content.id || updateShow != content.titulo">
+                                    <h4>{{ content.titulo }}</h4>
+                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        alt="" style="width: 30px;" @click="editfield(content.titulo, content.id)">
+
+                                </div>
+                                <div v-else>
+                                    <div class="width70">
+                                        <input-container id="titulo" title='Editar titulo ' help="editHelp"
+                                            helpText="Titulo atualizado">
+                                            <input type="text" name="titulo" v-model="editValue">
+                                        </input-container>
+                                    </div>
+                                    <div class="mrghor2">
+                                        <button class="button-small"
+                                            @click="update(content.id, 'titulo')">Atualizar</button>
+                                    </div>
+                                </div>
+
+                                <div class="update-descr"
+                                    v-if="idUpdating != content.id || updateShow != content.descricao">
+                                    <p>{{ content.descricao }}</p>
+                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        alt="" style="width: 30px;" @click="editfield(content.descricao, content.id)">
+                                </div>
+                                <div v-else>
+                                    <div class="width70">
+                                        <input-container id="descricao" title='Editar descrição' help="editHelp"
+                                            helpText="Descrição atualizada">
+                                            <textarea name="descricao" v-model="editValue">{{ editValue }}</textarea>
+                                        </input-container>
+                                    </div>
+                                    <div class="mrghor2">
+                                        <button class="button-small"
+                                            @click="update(content.id, 'descricao')">Atualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -463,6 +563,41 @@ export default {
         }
     },
     methods: {
+        updateImage(id) {
+            let urlImages = this.$store.state.Url + 'api/imagens/' + id;
+
+            let formData = new FormData();
+            formData.append('_method', 'PATCH')
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json'
+                }
+            }
+
+            if (this.image.size < 2097152) {
+                formData.append('nome', this.image)
+
+                axios.post(urlImages, formData, config)
+                    .then(response => {
+                        this.$store.state.transaction.status = 'added'
+                        this.$store.state.transaction.message = response.data.msg
+                        this.image = []
+                        console.log(response.data.msg)
+                        this.loadContent()
+                    })
+                    .catch(errors => {
+                        this.$store.state.transaction.status = 'error-add'
+                        this.$store.state.transaction.message = errors.response.data.errors
+                        this.image = []
+                        console.log(errors.response.data)
+
+                    })
+            } else {
+                alert('Falta de imagem ou imagem demasiado grande')
+            }
+        },
         uploadImage(x) { //variable with product images object
             let file = x.target.files;
             this.image = file[0];
@@ -522,6 +657,8 @@ export default {
             this.editValue = value
             this.updateShow = value
             this.idUpdating = id
+            console.log(this.updateShow)
+            console.log(this.idUpdating)
         },
         loadContent() {
             let urlContent = this.$store.state.Url + 'api/conteudo';
@@ -688,7 +825,6 @@ export default {
 
             generalInfo.push(engravingWood, engravingAcrylic, engravingAluminium, engravingGlass, engravingCards)
 
-            console.log(generalInfo)
             return generalInfo
         }
 
