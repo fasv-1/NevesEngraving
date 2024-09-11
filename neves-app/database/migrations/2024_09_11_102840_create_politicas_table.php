@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('termo_econdicaos', function (Blueprint $table) {
+        Schema::create('politicas', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->text('descricao');
+            $table->string('titulo')->nullable();
+            $table->string('subtitulo')->nullable();
+            $table->text('texto');
+            $table->string('politica');
+            $table->string('ref_titulo');
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('termo_econdicaos');
+        Schema::dropIfExists('politicas');
     }
 };

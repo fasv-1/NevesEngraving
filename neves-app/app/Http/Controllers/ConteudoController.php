@@ -116,7 +116,7 @@ class ConteudoController extends Controller
 
         //checks if a file is uploded and if it is delete the image that was stored before
 
-        if ($request->file('media')) {
+        if ($request->file('media') && isset($conteudo->media)) {
             Storage::disk('public')->delete($conteudo->media);
         }
 

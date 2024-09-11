@@ -23,6 +23,8 @@ use App\Http\Controllers\TermoEcondicaoController;
 use App\Http\Controllers\PedidoDetalheController;
 use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\MensagemController;
+use App\Http\Controllers\PoliticaController;
+use App\Http\Controllers\ContactoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -120,8 +122,12 @@ Route::apiResource('taxas', TaxaController::class);
 Route::apiResource('conteudo', ConteudoController::class);
 //--------------------------------------------------------------------------------------------
 
-//---------------------------------terms routes----------------------------------------
-Route::apiResource('termos_condicoes', TermoEcondicaoController::class);
+//---------------------------------policies routes----------------------------------------
+Route::apiResource('politicas', PoliticaController::class);
+//----------------------------------------------------------------------------------------------
+
+//---------------------------------contacts routes----------------------------------------
+Route::apiResource('contactos', ContactoController::class);
 //----------------------------------------------------------------------------------------------
 
 //---------------------------------order routes----------------------------------------

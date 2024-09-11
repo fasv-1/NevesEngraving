@@ -145,7 +145,7 @@ const routes = [
   { path: '/dashboard/produtos/descontos', component: DescProduct },
   { path: '/dashboard/produtos/defenicoes', component: DefProduct },
   { path: '/dashboard/conteudo', component: Content },
-  { path: '/dashboard/conteudo/politicas', component: example },
+  { path: '/dashboard/conteudo/politicas', component: Policies_editor },
   { path: '/dashboard/conteudo/informacao', component: example },
   { path: '/dashboard/estatisticas', component: example },
   { path: '/dashboard/estatisticas/avaliacoes', component: example },
@@ -226,8 +226,11 @@ app.component('modal-component', Modal);
 import Table from './components/dash-components/Table.vue';
 app.component('table-component', Table);
 
-import Content from './components/dash-components/Content.vue';
+import Content from './components/dash-components/Content/Content.vue';
 app.component('content-component', Content);
+
+import Policies_editor from './components/dash-components/Content/Policies.vue';
+app.component('policies_editor-component', Policies_editor);
 
 //--------------------------------Site-Components------------------------------------
 
