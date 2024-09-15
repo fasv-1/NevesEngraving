@@ -1,323 +1,247 @@
-<template> <!--Continuar aqui!!!!!!!-->
-  <div class="container">
-      <div class="">
-          <div class="titulo">
-              <h1>Conteudo - Policies</h1>
-          </div>
-      </div>
-      <div class="dynamic-box">
-          <!-----------------------------------------Box menu--------------------------------------------->
-          <div class="box-menu">
-              <div class="option" v-for="policies, index in policiesTitle"
-                  :class="optionSelected == index ? 'active' : ''" @click="select(index)">
-                  <h5>{{ policies }}</h5>
-              </div>
-          </div>
-          <div class="info" v-for="policies, index in policiesTitle">
-              <!----------------------------------------- Shopping-cart Info --------------------------------------------->
-              <div class="option-selected" v-if="optionSelected == index">
-                  <div class="title">
-                      <h4 class="text-grey">Adiciona e edita as informações de {{ policies }}</h4>
-                  </div>
-                  <div class="text">
-                      <div class="responsive-container">
-                          <div class="flex-container width100 responsive-end margin1">
-                              <a href="#addInfoShop"><button>Adicionar infromação</button></a>
-                          </div>
-                          <div class="" v-for="content, index in orderPolicies " :key=index>
-                              <div v-if="content.politica == policies">
-                                  <div v-if="content.titulo != null || '' || undefined">
-                                      <div class="update-title"
-                                          v-if="idUpdating != content.id || updateShow != content.titulo">
-                                          <h4><b>{{ content.titulo }}</b></h4>
-                                          <img class="edit-btn mrghor1"
-                                              src="/storage/images/Icons/edit-square-icon.svg" alt=""
-                                              style="width: 30px;" @click="editfield(content.titulo, content.id)">
+<template> 
+    <div class="container">
+        <div class="">
+            <div class="title-cont">
+                <h1 class="titulo">Conteudo - contactos</h1>
+            </div>
+        </div>
+        <div class="dynamic-box">
+            <!-----------------------------------------Box menu--------------------------------------------->
+            <div class="">
+                <!----------------------------------------- Shopping-cart Info --------------------------------------------->
+                <div class="option-selected">
+                    <div class="title">
+                        <h4 class="text-grey">Adiciona e edita as informações dos contactos da empresa</h4>
+                    </div>
+                    <div class="text">
+                        <div class="responsive-container">
+                            <div class="flex-container width100 responsive-end margin1">
+                                <a href="#newContact"><button>Adicionar contacto</button></a>
+                            </div>
+                            <div class="" v-for="contacts, index in appContacts.data" :key=index>
+                                <div>
+                                    <div>
+                                        <div class="update-title"
+                                            v-if="idUpdating != contacts.id || updateShow != contacts.nome">
+                                            <h6><b>{{ contacts.nome }}</b></h6>
+                                            <img class="edit-btn mrghor1"
+                                                src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                style="width: 30px;" @click="editfield(contacts.nome, contacts.id)">
 
-                                      </div>
-                                      <div v-else>
-                                          <div class="width70">
-                                              <input-container id="titulo" title='Editar titulo ' help="editHelp"
-                                                  helpText="Titulo atualizado">
-                                                  <input type="text" name="titulo" v-model="editValue">
-                                              </input-container>
-                                          </div>
-                                          <div class="mrghor2">
-                                              <button class="button-small"
-                                                  @click="update(content.id, 'titulo')">Atualizar</button>
-                                          </div>
-                                      </div>
-                                  </div>
+                                        </div>
+                                        <div v-else>
+                                            <div class="width70">
+                                                <input-container id="nome" title='Editar nome do contacto'
+                                                    help="editHelp" helpText="Nome do contacto a atualizar">
+                                                    <input type="text" name="nome" v-model="editValue">
+                                                </input-container>
+                                            </div>
+                                            <div class="mrghor2">
+                                                <button class="button-small"
+                                                    @click="update(contacts.id, 'nome')">Atualizar</button>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                  <div v-if="content.subtitulo != null || '' || undefined">
-                                      <div class="update-descr"
-                                          v-if="idUpdating != content.id || updateShow != content.subtitulo">
-                                          <p><b>{{ content.subtitulo }}</b></p>
-                                          <img class="edit-btn mrghor1"
-                                              src="/storage/images/Icons/edit-square-icon.svg" alt=""
-                                              style="width: 30px;" @click="editfield(content.subtitulo, content.id)">
-                                      </div>
-                                      <div v-else>
-                                          <div class="width70">
-                                              <input-container id="descricao" title='Editar descrição' help="editHelp"
-                                                  helpText="Descrição atualizada">
-                                                  <textarea name="descricao"
-                                                      v-model="editValue">{{ editValue }}</textarea>
-                                              </input-container>
-                                          </div>
-                                          <div class="mrghor2">
-                                              <button class="button-small"
-                                                  @click="update(content.id, 'subtitulo')">Atualizar</button>
-                                          </div>
-                                      </div>
-                                  </div>
+                                    <div>
+                                        <div class="update-title"
+                                            v-if="idUpdating != contacts.id || updateShow != contacts.contacto">
+                                            <p>{{ contacts.contacto }}</p>
+                                            <img class="edit-btn mrghor1"
+                                                src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                style="width: 30px;" @click="editfield(contacts.contacto, contacts.id)">
 
-                                  <div class="update-descr"
-                                      v-if="idUpdating != content.id || updateShow != content.texto">
-                                      <p>{{ content.texto }}</p>
-                                      <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
-                                          alt="" style="width: 30px;" @click="editfield(content.texto, content.id)">
-                                  </div>
-                                  <div v-else>
-                                      <div class="width70">
-                                          <input-container id="descricao" title='Editar descrição' help="editHelp"
-                                              helpText="Descrição atualizada">
-                                              <textarea name="descricao"
-                                                  v-model="editValue">{{ editValue }}</textarea>
-                                          </input-container>
-                                      </div>
-                                      <div class="mrghor2">
-                                          <button class="button-small"
-                                              @click="update(content.id, 'texto')">Atualizar</button>
-                                      </div>
-                                  </div>
-
-                                  <div class="remove-buttons">
-                                      <button class="btn-rmv" @click="remove(content.id)">
-                                          <h1>x</h1>
-                                      </button>
-                                  </div>
-                              </div>
-
-                          </div>
-                          <!---------------------------- Modal to add new info ------------------------------------>
-                          <form method="POST" action="" @submit.prevent="addPolicie(policies)">
-                              <modal-component id="addInfoShop" title="Adicionar shopping info">
-                                  <template v-slot:content>
-                                      <a href="#" @click.prevent="titleButtons(1)">Defenir novo titulo</a>
-                                      <a href="#" @click.prevent="titleButtons(2)">Adicionar informação a titulo existente</a>
-
-                                      <div v-if="title == 1">
-                                          <input-container id="titulo" title="Titulo novo" help="Title"
-                                              helpText="Adicionar um novo titulo">
-                                              <input type="text" name="titulo" aria-describedby="title"
-                                                  v-model="addTitle">
-                                          </input-container>
-                                      </div>
-
-                                      <div v-if="title == 2">
-                                          <input-container id="oldTitle" title="Adicionar a este titulo"
-                                              help="titleHelp"
-                                              helpText="Escolha um titulo para adicionar a informação pertendida">
-                                              <select name="oldTitle" v-model= "oldTitle">
-                                                  <option value="" disabled>Escolhe uma</option>
-                                                  <option v-for="t, index in titles " :key="index" :value="t">{{
-                                                      t }}</option>
-                                              </select>
-                                          </input-container>
-                                      </div>
-
-                                      
+                                        </div>
+                                        <div v-else>
+                                            <div class="width70">
+                                                <input-container id="nome" title='Editar nome do contacto'
+                                                    help="editHelp" helpText="Nome do contacto a atualizar">
+                                                    <input type="text" name="nome" v-model="editValue">
+                                                </input-container>
+                                            </div>
+                                            <div class="mrghor2">
+                                                <button class="button-small"
+                                                    @click="update(contacts.id, 'contacto')">Atualizar</button>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                                      <input-container id="subtitulo" title="Subtitulo" help="Subtitle"
-                                          helpText="Subtitulo do texto">
-                                          <input type="text" name="subtitulo" aria-describedby="subtitle"
-                                              v-model="addSubtitle">
-                                      </input-container>
+                                    <div class="remove-buttons">
+                                        <button class="btn-rmv" @click="remove(contacts.id)">
+                                            <h1>x</h1>
+                                        </button>
+                                    </div>
+                                </div>
 
-                                      <input-container id="texto" title="Texto" help="Text"
-                                          helpText="Introdus o texto em questão">
-                                          <textarea type="text" name="texto" aria-describedby="description"
-                                              v-model="addText"></textarea>
-                                      </input-container>
-                                  </template>
+                            </div>
+                            <!---------------------------- Modal to add new info ------------------------------------>
+                            <form method="POST" action="" @submit.prevent="addContacts()">
+                                <modal-component id="newContact" title="Adicionar novo contacto">
+                                    <template v-slot:content>
 
-                                  <template v-slot:footer>
-                                      <button type="submit" class="button-save">Adicionar</button>
-                                      <!--The seconde parameter defines the endpoint for the url-->
-                                  </template>
+                                        <input-container id="nome" title="Nome do contacto" help="contact name"
+                                            helpText="Nome para este contacto (ex: telefone 1, morada, telemovel 2)">
+                                            <input type="text" name="nome" aria-describedby="name" v-model="newName">
+                                        </input-container>
 
-                              </modal-component>
-                              <!---------------------------- End modal ----------------------------------------------->
-                          </form>
-                      </div>
-                  </div>
+                                        <input-container id="contacto" title="Contacto" help="contact"
+                                            helpText="Insira o respetivo contacto">
+                                            <input type="text" name="contacto" aria-describedby="contact" v-model="newContact">
+                                        </input-container>
+                                    </template>
 
-              </div>
-          </div>
-      </div>
-  </div>
+                                    <template v-slot:footer>
+                                        <button type="submit" class="button-save">Adicionar</button>
+                                        <!--The seconde parameter defines the endpoint for the url-->
+                                    </template>
+
+                                </modal-component>
+                                <!---------------------------- End modal ----------------------------------------------->
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 </template>
 
 <script>
 export default {
-  data() {
-      return {
-          urlPolicies: this.$store.state.Url + 'api/politicas',
-          optionSelected: localStorage.getItem('selectedOption'), // saves the page if the browser reloads
-          appPolicies: { data: [] },
-          editValue: '',
-          updateShow: '',
-          idUpdating: '',
-          openMenu: false,
-          itsOn: 0,
-          addTitle: '',
-          addSubtitle: '',
-          addText: '',
-          oldTitle: '',
-          title: '',
+    data() {
+        return {
+            urlContacts: this.$store.state.Url + 'api/contactos',
+            optionSelected: localStorage.getItem('selectedOption'), // saves the page if the browser reloads
+            appContacts: { data: [] },
+            editValue: '',
+            updateShow: '',
+            idUpdating: '',
+            openMenu: false,
+            itsOn: 0,
+            newName: '',
+            newContact: '',
 
-      }
-  },
-  methods: {
-      titleButtons(v){
-          this.title = v
-          this.addTitle = ''
-          this.oldTitle = ''
-      },
-      addContacts(policie) {
-          let formData = new FormData();
+        }
+    },
+    methods: {
+        addContacts() {
+            let formData = new FormData();
 
-          let config = {
-              headers: {
-                  'Content-Type': 'multipart/form-data',
-                  'Accept': 'application/json'
-              }
-          }
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json'
+                }
+            }
 
-          formData.append('titulo', this.addTitle);
-          formData.append('subtitulo', this.addSubtitle);
-          formData.append('texto', this.addText);
-          formData.append('politica', policie);
+            formData.append('nome', this.newName);
+            formData.append('contacto', this.newContact);
 
-          if (this.addTitle != '' && this.oldTitle == '') {
-              formData.append('ref_titulo', this.addTitle)
-          } else {
-              formData.append('ref_titulo', this.oldTitle)
-          }
+            axios.post(this.urlContacts, formData, config)
+                .then(response => {
+                    this.$store.state.transaction.status = 'added'
+                    this.$store.state.transaction.message = response.data.msg
+                    this.newName = ''
+                    this.newContact = ''
+                    console.log(response.data.msg)
+                    this.loadContent()
+                    history.back()
+                })
+                .catch(errors => {
+                    this.$store.state.transaction.status = 'error-add'
+                    this.$store.state.transaction.message = errors.response.data.errors
+                    this.newName = ''
+                    this.newContact = ''
+                    console.log(errors.response.data)
+                })
 
-          if (this.addTitle == '' && this.oldTitle == '') {
-              alert('Deve escolher uma das opções para o titulo obrigatóriamente')
-          }
+        },
+        editfield(value, id) {
+            this.editValue = value
+            this.updateShow = value
+            this.idUpdating = id
+            // console.log(this.updateShow)
+            // console.log(this.idUpdating)
+        },
+        loadContent() {
+            axios.get(this.urlContacts)
+                .then(response => {
+                    this.appContacts.data = response.data.contacts
+                    console.log(response.data)
+                })
+                .catch(errors => {
+                    console.log(errors);
+                })
+        },
+        remove(i) {
+            if (confirm("Tem a certeza que pertende remover este registo?")) {
+                let url = this.urlContacts + '/' + i;
 
-          axios.post(this.urlPolicies, formData, config)
-              .then(response => {
-                  this.$store.state.transaction.status = 'added'
-                  this.$store.state.transaction.message = response.data.msg
-                  this.addTitle = ''
-                  this.addSubtitle = ''
-                  this.addText = ''
-                  this.oldTitle = '',
-                  this.title = '',
-                  console.log(response.data.msg)
-                  this.loadContent()
-                  history.back()
-              })
-              .catch(errors => {
-                  this.$store.state.transaction.status = 'error-add'
-                  this.$store.state.transaction.message = errors.response.data.errors
-                  this.addTitle = ''
-                  this.addSubtitle = ''
-                  this.addText = ''
-                  this.oldTitle = '',
-                  this.title = '',
-                  console.log(errors.response.data)
-              })
+                let formData = new FormData();
+                formData.append('_method', 'delete')
 
-      },
-      editfield(value, id) {
-          this.editValue = value
-          this.updateShow = value
-          this.idUpdating = id
-          // console.log(this.updateShow)
-          // console.log(this.idUpdating)
-      },
-      loadContent() {
-          axios.get(this.urlContacts)
-              .then(response => {
-                  this.appPolicies.data = response.data.policies
-                  // console.log(response.data.policies)
-              })
-              .catch(errors => {
-                  console.log(errors);
-              })
-      },
-      remove(i) {
-          let url = this.$store.state.Url + 'api/conteudo/' + i;
+                console.log(url)
 
-          let formData = new FormData();
-          formData.append('_method', 'delete')
+                axios.post(url, formData)
+                    .then(response => {
+                        this.$store.state.transaction.status = 'removed'
+                        this.$store.state.transaction.message = response.data.msg
+                        this.loadContent()
 
-          console.log(url)
+                    })
+                    .catch(errors => {
+                        this.$store.state.transaction.status = 'error-update'
+                        this.$store.state.transaction.message = errors.response.data.errors
+                        console.log(errors.response.data.errors)
+                    })
+            }
+        },
 
-          axios.post(url, formData)
-              .then(response => {
-                  this.$store.state.transaction.status = 'removed'
-                  this.$store.state.transaction.message = response.data.msg
-                  this.loadContent()
+        update(u, i) { //update fields
+            let updateValue = this.editValue
 
-              })
-              .catch(errors => {
-                  this.$store.state.transaction.status = 'error-update'
-                  this.$store.state.transaction.message = errors.response.data.errors
-                  console.log(errors.response.data.errors)
-              })
-      },
+            let url = this.urlContacts + '/' + u
 
-      update(u, i) { //update fields
-          let updateValue = this.editValue
+            let formData = new FormData();
+            formData.append('_method', 'patch')
 
-          let url = this.urlPolicies + '/' + u
-
-          let formData = new FormData();
-          formData.append('_method', 'patch')
-
-          formData.append(i, updateValue)
+            formData.append(i, updateValue)
 
 
-          let config = {
-              headers: {
-                  'Content-Type': 'x-www-form-urlencoded',
-                  'Accept': 'application/json'
-              }
-          }
+            let config = {
+                headers: {
+                    'Content-Type': 'x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                }
+            }
 
-          axios.post(url, formData, config)
-              .then(response => {
-                  this.$store.state.transaction.status = 'updated'
-                  this.$store.state.transaction.message = response.data.msg
-                  this.editValue = ""
-                  this.updateShow = ""
-                  this.loadContent()
+            axios.post(url, formData, config)
+                .then(response => {
+                    this.$store.state.transaction.status = 'updated'
+                    this.$store.state.transaction.message = response.data.msg
+                    this.editValue = ""
+                    this.updateShow = ""
+                    this.loadContent()
 
 
-              })
-              .catch(errors => {
-                  this.$store.state.transaction.status = 'error-update'
-                  this.$store.state.transaction.message = errors.response.data.errors
-                  console.log(errors.response.data.errors)
-                  this.editValue = ""
-                  this.updateShow = ""
-              })
-      },
-  },
-  computed: {
+                })
+                .catch(errors => {
+                    this.$store.state.transaction.status = 'error-update'
+                    this.$store.state.transaction.message = errors.response.data.errors
+                    console.log(errors.response.data.errors)
+                    this.editValue = ""
+                    this.updateShow = ""
+                })
+        },
+    },
+    computed: {
 
-  },
-  mounted() {
-      this.loadContent()
-  }
+    },
+    mounted() {
+        this.loadContent()
+    }
 }
 </script>

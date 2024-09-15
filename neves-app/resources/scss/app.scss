@@ -87,7 +87,7 @@ table {
   width: 100%;
   border-spacing: 0;
   border-collapse: separate;
-  border-radius: 10px;
+  border-radius: 6px;
 
   .feel {
     width: 20px;
@@ -109,6 +109,11 @@ table {
       color: $Global-red;
       font-size: 1em;
       align-content: center;
+      
+      @media (max-width: $tablet) {
+        padding: 0.3em 0.5em;
+        font-size: 1em;
+      }
 
       // border: 1px solid #F1F1F1;
     }
@@ -124,6 +129,10 @@ table {
         text-align: center;
         height: 100%;
         align-content: center;
+        @media (max-width: $tablet) {
+          padding: 0.3em 0.5em;
+          font-size: 0.8em;
+        }
         // border: 1px solid #000;
       }
       
@@ -159,11 +168,24 @@ table {
 
 
 input[type="number"],
-input[type="checkbox"],
+input[type="checkbox"]{
+  border: 1px solid $Darker-blue;
+  border-radius: 6px;
+  padding: 0.6em 0.4em;
+
+  @media (max-width: $tablet) {
+    padding: 0.4em 0.8em;
+  }
+}
+
 select{
   border: 1px solid $Darker-blue;
   border-radius: 6px;
-  padding: 0.8em 0.4em;
+  padding: 0.5em 0.4em;
+
+  @media (max-width: $tablet) {
+    padding: 0.3em 0.8em;
+  }
 }
 
 input[type="text"],
@@ -172,8 +194,11 @@ input[type="password"]
 {
   border: 1px solid $Darker-blue;
   border-radius: 6px;
-  padding: 0.8em 0.4em;
-  width: 100%;
+  padding: 0.6em 0.4em;
+
+  @media (max-width: $tablet) {
+    padding: 0.4em 0.8em;
+  }
 
   &:focus{
     -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
@@ -185,7 +210,7 @@ input[type="password"]
 textarea{
   border: 1px solid $Darker-blue;
   border-radius: 6px;
-  padding: 1em 0;
+  padding: 0.6em 0;
   width: 100%;
 
   &:focus{

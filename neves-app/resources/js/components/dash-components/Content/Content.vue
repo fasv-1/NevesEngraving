@@ -5,10 +5,8 @@ const checkedIntro = ref([])
 </script>
 <template>
     <div class="container">
-        <div class="">
-            <div class="titulo">
-                <h1>Conteudo</h1>
-            </div>
+        <div class="title-cont">
+            <h1 class="titulo">Conteudo</h1>
         </div>
         <div class="dynamic-box">
             <!-----------------------------------------Box menu--------------------------------------------->
@@ -654,7 +652,7 @@ const checkedIntro = ref([])
                                 </div>
 
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

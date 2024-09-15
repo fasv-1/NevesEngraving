@@ -146,7 +146,7 @@ const routes = [
   { path: '/dashboard/produtos/defenicoes', component: DefProduct },
   { path: '/dashboard/conteudo', component: Content },
   { path: '/dashboard/conteudo/politicas', component: Policies_editor },
-  { path: '/dashboard/conteudo/informacao', component: example },
+  { path: '/dashboard/conteudo/contactos', component: Contacts_editor },
   { path: '/dashboard/estatisticas', component: example },
   { path: '/dashboard/estatisticas/avaliacoes', component: example },
   { path: '/dashboard/estatisticas/lucros', component: example },
@@ -231,6 +231,9 @@ app.component('content-component', Content);
 
 import Policies_editor from './components/dash-components/Content/Policies.vue';
 app.component('policies_editor-component', Policies_editor);
+
+import Contacts_editor from './components/dash-components/Content/Contacts.vue';
+app.component('contacts_editor-component', Contacts_editor);
 
 //--------------------------------Site-Components------------------------------------
 

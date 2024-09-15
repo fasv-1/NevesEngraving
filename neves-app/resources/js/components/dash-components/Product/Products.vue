@@ -4,44 +4,58 @@
     <h1 class="titulo">Produtos</h1>
   </div>
   <div class="space-between">
-    <h4>Pesquisar produtos</h4>
-    <div class="mrghor2">
+    <div class="flex-container pointer " @click="openFilters = !openFilters">
+      <h6><b>Menu pesquisa</b></h6> <button class="toogle-bg pointer"><img
+          :class="openFilters == true ? 'rotate' : ''" src="/storage/images/Icons/arrow-black.png"
+          alt=""></button>
+    </div>
+    
+    <div class="mrghor05">
       <a class="high-link" href="#addProductModal">Adicionar novo produto +</a>
     </div>
   </div>
 
-  <div class="product-filters">
+  <div class="product-filters" v-if="openFilters == true">
     <!-- Category filter -->
-    <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
-      <button class="button-small" @click="loadProducts()">Todos os produtos</button>
-    </input-container>
+    <div class="search-name">
+      <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
+        <button class="button-small" @click="loadProducts()">Todos os produtos</button>
+      </input-container>
+    </div>
 
     <!-- End category filter-->
     <!-- Category filter -->
-    <input-container id="category" title='Por categoria' help="categoryHelp" helpText="Filtrar produtos por categoria">
-      <select id="category" v-model="categoryFilter" @change="filtro(categoryFilter, 1)">
-        <option value="" disabled>Escolhe uma</option>
-        <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
-      </select>
-    </input-container>
+    <div class="search-name">
+      <input-container id="category" title='Por categoria' help="categoryHelp"
+        helpText="Filtrar produtos por categoria">
+        <select id="category" v-model="categoryFilter" @change="filtro(categoryFilter, 1)">
+          <option value="" disabled>Escolhe uma</option>
+          <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
+        </select>
+      </input-container>
+    </div>
 
     <!-- End category filter-->
     <!-- Materials filter-->
-    <input-container id="materials" title='Por materia-prima' help="materialsHelp"
-      helpText="Filtrar produtos por matéria-prima">
-      <select id="materials" v-model="materialFilter" @change="filtro(materialFilter, 2)">
-        <option value="" disabled>Escolhe uma</option>
-        <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
-      </select>
-    </input-container>
+    <div class="search-name">
+      <input-container id="materials" title='Por materia-prima' help="materialsHelp"
+        helpText="Filtrar produtos por matéria-prima">
+        <select id="materials" v-model="materialFilter" @change="filtro(materialFilter, 2)">
+          <option value="" disabled>Escolhe uma</option>
+          <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
+        </select>
+      </input-container>
+    </div>
     <!--End Materials filter-->
     <!-- By name filter-->
     <div class="search-name">
       <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
         size="">
-        <input type="text" id="Search" placeholder="Nome do produto" class="long-name" v-model="nameFilter">
+        <div class="inputANDbutton">
+          <input type="text" id="Search" placeholder="Nome do produto" v-model="nameFilter" class="ml-input">
+          <button class="button-small" @click="filtro(nameFilter, 3)">Procurar</button>
+        </div>
       </input-container>
-      <button class="button-small" @click="filtro(nameFilter, 3)">Procurar</button>
     </div>
     <!--End Materials filter-->
   </div>
@@ -55,10 +69,10 @@
   <table-component :data="products.data" :view="{ visible: true, dataTarget: '/dashboard/produtos/' }"
     :update="{ visible: false, dataTarget: '#modalDiscountUpdate' }"
     :remove="{ visible: false, dataTarget: '#modalDiscountRemove' }" :titles="{
-        id: { title: 'ID', type: 'text' },
-        nome: { title: 'Nome', type: 'text' },
-        created_at: { title: 'Data de criação', type: 'date' },
-      }" :images="mainImage.data">
+      id: { title: 'ID', type: 'text' },
+      nome: { title: 'Nome', type: 'text' },
+      created_at: { title: 'Data de criação', type: 'date' },
+    }" :images="mainImage.data">
   </table-component>
 
   <!--Modal to add new products-->
@@ -159,6 +173,7 @@
 export default {
   data() {
     return {
+      openFilters: false,
       urlBase: this.$store.state.Url + 'api/',
       newProduct: {
         name: '',
@@ -178,7 +193,7 @@ export default {
       discounts: { data: [] },
       products: { data: [] },
       mainImage: { data: [] },
-      taxes: { data:[] },
+      taxes: { data: [] },
       categoryFilter: '',
       materialFilter: '',
       nameFilter: '',
@@ -324,7 +339,7 @@ export default {
       if (this.newProduct.price) {
         let finalPrice = ''
         this.taxes.data.forEach(element => {
-          if(element.nome == 'Iva'){
+          if (element.nome == 'Iva') {
             finalPrice = this.newProduct.price + (element.valor * this.newProduct.price)
             finalPrice = finalPrice.toFixed(2)
           }

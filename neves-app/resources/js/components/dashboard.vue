@@ -4,7 +4,7 @@
     <section id="dash-menu">
       <div class="sticky">
         <!-----------------------Generate the menu home (logo) link ---------------------------->
-        <div class="dash-nav-link" v-for="(page, index) in pages" :key="index">
+        <div class="dash-nav-link" v-for="page, index in pages" :key="index">
           <div class="dash-cont-logo" v-if="index == 0">
 
             <a href="/dashboard" class="dash-logo" :title="'This link goes to the ' + page.link.text + ' page'"
@@ -18,7 +18,7 @@
           <div class="dash-link-cont" v-else>
             <div class="link-cont" :class="this.$route.path == page.link.url ? 'active' : ''">
               <a aria-current="page" href="" :title="'This link goes to the ' + page.link.text + ' page'"
-                @click.prevent="principal(index)"><router-link :to="page.link.url">{{ page.link.text }}</router-link></a>
+                @click.prevent="principal(index)"><router-link :to="page.link.url"><img :src=" page.icon" alt="icon" width="25"><h5>{{ page.link.text }}</h5></router-link></a>
               <h3 class="menuIcon" @click.prevent='toogle(index)'>
                 <img
                   :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png' : '/storage/images/Icons/PlusIcon.png'">
@@ -91,7 +91,7 @@ export default {
         {
           link: { text: 'Produtos', url: '/dashboard/produtos' },
           pageTitle: "Produtos",
-          content: '',
+          icon: '/storage/images/Icons/new.png',
           options: [
             {
               info: 'Descontos',
@@ -107,22 +107,22 @@ export default {
         {
           link: { text: 'Conteudo', url: '/dashboard/conteudo' },
           pageTitle: "Conteudo",
-          content: 'Conteudo de Conteudo',
+          icon: '/storage/images/Icons/content.png',
           options: [
             {
               info: 'Politicas',
               url: '/dashboard/conteudo/politicas'
             },
             {
-              info: 'Informação',
-              url: '/dashboard/conteudo/informacao'
+              info: 'Contactos',
+              url: '/dashboard/conteudo/contactos'
             }
           ],
         },
         {
           link: { text: 'Estatísticas', url: '/dashboard/estatisticas' },
           pageTitle: "Estatísticas",
-          content: 'Conteudo de Estatsticas',
+          icon: '/storage/images/Icons/diagram.png',
           options: [
             {
               info: 'Avaliações',
@@ -145,7 +145,7 @@ export default {
         {
           link: { text: 'Utilizadores', url: '/dashboard/users' },
           pageTitle: "Utilizadores",
-          content: 'Conteudo de utilizadores',
+          icon: '/storage/images/Icons/group.png',
           options: [
             {
               info: 'Mensagens',
@@ -164,7 +164,7 @@ export default {
         {
           link: { text: 'Defenições', url: '/dashboard/defenicoes' },
           pageTitle: "Defenições",
-          content: 'Conteudo de Defenições',
+          icon: '/storage/images/Icons/settings.png',
           options: [
             {
               info: 'Cores',

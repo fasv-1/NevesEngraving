@@ -1,9 +1,9 @@
 <template> <!--Continuar aqui!!!!!!!-->
     <div class="container">
         <div class="">
-            <div class="titulo">
-                <h1>Conteudo - Policies</h1>
-            </div>
+            <div class="title-cont">
+            <h1 class="titulo">Conteudo - politicas</h1>
+        </div>
             <div>
                 <a href="#addnewPolicy"><button @click="resetInfo()">Adicionar
                         Politica</button></a>
@@ -108,9 +108,9 @@
                                         </button>
                                     </div>
                                 </div>
-
+                                <!---------------------------- Modal to add new info to a title ------------------------------------>
                                 <form method="POST" action="" @submit.prevent="addPolicy(policies)">
-                                    <modal-component id="addInfoShop" title="Adicionar shopping info">
+                                    <modal-component id="addInfoShop" title="Adicionar nova informação á politica">
                                         <template v-slot:content>
                                             <a href="#" @click.prevent="titleButtons(1)">Defenir novo titulo</a>
                                             <a href="#" @click.prevent="titleButtons(2)">Adicionar informação a titulo
@@ -167,7 +167,7 @@
         </div>
         <!---------------------------- Modal to add new Policie ------------------------------------>
         <form method="POST" action="" @submit.prevent="addPolicy()">
-            <modal-component id="addnewPolicy" title="Adicionar shopping info">
+            <modal-component id="addnewPolicy" title="Adicionar nova politica">
                 <template v-slot:content>
 
 
