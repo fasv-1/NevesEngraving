@@ -2,7 +2,7 @@
   <!-- Product Defenitons Page  -->
   <div class="title-cont">
     <h1 class="titulo">Produto</h1>
-    <h4 class="titulo_alt">Defenições</h4>
+    <h4 class="titulo_alt mrghor05">Defenições</h4>
   </div>
   <div class="responsive-container">
 
@@ -10,254 +10,262 @@
     <div class="container2">
 
       <div class="cont-header">
-        <h3 class="titulo_1">Categorias</h3>
-        <a class="high-link" href="#modalCategoriaAdd">Adicionar Categoria +</a>
+        <h3 class="titulo_alt">Categorias</h3>
+        <div class="type-button">
+          <a class="high-link" href="#modalCategoriaAdd">+ Nova</a>
+        </div>
       </div>
-
-      <!--Modal to add new category-->
-      <modal-component id="modalCategoriaAdd" title="Adicionar uma categoria">
-        <template v-slot:content>
-          <input-container id="nome" title="Categoria" help="addCategory" helpText="Nome da Categoria">
-            <input type="text" name="nome" aria-describedby="addCategory" v-model="newCategory">
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="save('categoria')">Adicionar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
 
       <!-- Start table to show the categorys-->
       <table-component :data="categorys.data" :view="{ visible: false, dataTarget: '#modalCategoriaView' }"
         :update="{ visible: true, dataTarget: '#modalCategoriaUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalCategoriaRemove' }" :titles="{
-              id: { title: 'ID', type: 'text' },
-              nome: { title: 'Nome', type: 'text' },
-              created_at: { title: 'Data de criação', type: 'date' },
-            }">
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
       </table-component>
       <!-- End table to show the categorys-->
 
-      <!-- Start modal to remove categorys-->
-      <modal-component id="modalCategoriaRemove" title="Remover categoria">
 
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
-        </template>
-        <template v-slot:content>
-          <input-container id="removeCatergory" title="Tem a certeza que quer remover esta categoria?">
-            <input type="text" name="removeCatergory" aria-describedby="removeCategory" :value="$store.state.item.nome"
-              disabled>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="remove($store.state.item.id, 'categoria')">Remover</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-      </modal-component>
-      <!-- End modal to remove categorys-->
-
-      <!-- Start modal to update categorys-->
-      <modal-component id="modalCategoriaUpdate" title="Atualizar categoria">
-        <template v-slot:content>
-          <input-container id="nome" title="Atualizar Categoria" help="UpdateCategory"
-            helpText="Novo nome da Categoria">
-            <input type="text" name="nome" aria-describedby="updateCategory"
-              :placeholder="$store.state.item.nome" v-model="updateCategory">
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="update($store.state.item.id, 'categoria')">Atualizar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
-      <!-- End modal to update categorys-->
     </div>
+    <!-- Start modal to remove categorys-->
+    <modal-component id="modalCategoriaRemove" title="Remover categoria">
+
+      <template v-slot:alerts>
+        <alert-component tipe="danger" :details="$store.state.transaction"
+          v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
+      </template>
+      <template v-slot:content>
+        <input-container id="removeCatergory" title="Tem a certeza que quer remover esta categoria?">
+          <input type="text" name="removeCatergory" aria-describedby="removeCategory" :value="$store.state.item.nome"
+            disabled>
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="remove($store.state.item.id, 'categoria')">Remover</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+    </modal-component>
+    <!-- End modal to remove categorys-->
+
+    <!-- Start modal to update categorys-->
+    <modal-component id="modalCategoriaUpdate" title="Atualizar categoria">
+      <template v-slot:content>
+        <input-container id="nome" title="Atualizar Categoria" help="UpdateCategory" helpText="Novo nome da Categoria">
+          <input type="text" name="nome" aria-describedby="updateCategory" :placeholder="$store.state.item.nome"
+            v-model="updateCategory">
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="update($store.state.item.id, 'categoria')">Atualizar</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+
+    </modal-component>
+    <!-- End modal to update categorys-->
+
+    <!--Modal to add new category-->
+    <modal-component id="modalCategoriaAdd" title="Adicionar uma categoria">
+      <template v-slot:content>
+        <input-container id="nome" title="Categoria" help="addCategory" helpText="Nome da Categoria">
+          <input type="text" name="nome" aria-describedby="addCategory" v-model="newCategory">
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="save('categoria')">Adicionar</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+
+    </modal-component>
 
     <!------------------------ OCASION AREA --------------------------------->
     <div class="container2">
 
       <div class="cont-header">
-        <h3 class="titulo_1">Ocasião</h3>
-        <a class="high-link" href="#modalOcasionAdd">Adicionar Ocasião +</a>
+        <h3 class="titulo_alt">Ocasião</h3>
+        <div class="type-button">
+          <a class="high-link" href="#modalOcasionAdd">+ Nova</a>
+        </div>
       </div>
 
-      <!--Modal to add new ocasion-->
-      <modal-component id="modalOcasionAdd" title="Adicionar uma ocasião">
-        <template v-slot:content>
-          <input-container id="nome" title="Ocasião" help="addOcasion" helpText="Nome da Ocasião">
-            <input type="text" name="nome" aria-describedby="addOcasion" v-model="newOcasion">
-          </input-container>
-          <input-container id="estado" title="Estado" help="addOcasionStatus" helpText="Estado da Ocasião">
-            <select name="estado" v-model="newOcasionStatus">
-              <option value="" disabled>Escolha um</option>
-              <option value="0">Inativo</option>
-              <option value="1">Ativo</option>
-            </select>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="save('ocasiao')">Adicionar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
-      <!-- End Modal to add new ocasion-->
 
       <!-- Start table to show the ocasions-->
       <table-component :data="ocasions.data" :view="{ visible: false, dataTarget: '#modalOcasionView' }"
         :update="{ visible: true, dataTarget: '#modalOcasionUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalOcasionRemove' }" :titles="{
-              id: { title: 'ID', type: 'text' },
-              nome: { title: 'Nome', type: 'text' },
-              estado: { title: 'Estado', type: 'status' },
-              created_at: { title: 'Data de criação', type: 'date' },
-            }">
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          estado: { title: 'Estado', type: 'status' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
       </table-component>
       <!-- End table to show the ocasions-->
-
-      <!-- Start modal to remove ocasions-->
-      <modal-component id="modalOcasionRemove" title="Remover ocasião">
-        <template v-slot:content>
-          <input-container id="removeOcasion" title="Tem a certeza que quer remover esta categoria?">
-            <input type="text" name="removeOcasion" aria-describedby="removeOcasion" :value="$store.state.item.nome"
-              disabled>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="remove($store.state.item.id, 'ocasiao')">Remover</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-      </modal-component>
-      <!-- End modal to remove ocasion-->
-
-      <!-- Start modal to update ocasion-->
-      <modal-component id="modalOcasionUpdate" title="Atualizar ocasião">
-        <template v-slot:content>
-          <input-container id="nome" title="Atualizar ocasião" help="UpdateOcasion"
-            helpText="Novo nome da ocasião">
-            <input type="text" name="nome" aria-describedby="updateOcasion"
-              :placeholder="$store.state.item.nome" v-model="updateOcasion">
-          </input-container>
-          <input-container id="estado" title="Atualizar estado da ocasião" help="UpdateOcasionStatus"
-            helpText="Novo estado da ocasião">
-            <select name="estado" id="updateOcasionStatus" :value="$store.state.item.estado">
-              <option value="0">Inativo</option>
-              <option value="1">Ativo</option>
-            </select>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="update($store.state.item.id, 'ocasiao')">Atualizar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
-      <!-- End modal to update categorys-->
     </div>
+
+    <!--Modal to add new ocasion-->
+    <modal-component id="modalOcasionAdd" title="Adicionar uma ocasião">
+      <template v-slot:content>
+        <input-container id="nome" title="Ocasião" help="addOcasion" helpText="Nome da Ocasião">
+          <input type="text" name="nome" aria-describedby="addOcasion" v-model="newOcasion">
+        </input-container>
+        <input-container id="estado" title="Estado" help="addOcasionStatus" helpText="Estado da Ocasião">
+          <select name="estado" v-model="newOcasionStatus">
+            <option value="" disabled>Escolha um</option>
+            <option value="0">Inativo</option>
+            <option value="1">Ativo</option>
+          </select>
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="save('ocasiao')">Adicionar</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+
+    </modal-component>
+    <!-- End Modal to add new ocasion-->
+
+    <!-- Start modal to remove ocasions-->
+    <modal-component id="modalOcasionRemove" title="Remover ocasião">
+      <template v-slot:content>
+        <input-container id="removeOcasion" title="Tem a certeza que quer remover esta categoria?">
+          <input type="text" name="removeOcasion" aria-describedby="removeOcasion" :value="$store.state.item.nome"
+            disabled>
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="remove($store.state.item.id, 'ocasiao')">Remover</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+    </modal-component>
+    <!-- End modal to remove ocasion-->
+
+    <!-- Start modal to update ocasion-->
+    <modal-component id="modalOcasionUpdate" title="Atualizar ocasião">
+      <template v-slot:content>
+        <input-container id="nome" title="Atualizar ocasião" help="UpdateOcasion" helpText="Novo nome da ocasião">
+          <input type="text" name="nome" aria-describedby="updateOcasion" :placeholder="$store.state.item.nome"
+            v-model="updateOcasion">
+        </input-container>
+        <input-container id="estado" title="Atualizar estado da ocasião" help="UpdateOcasionStatus"
+          helpText="Novo estado da ocasião">
+          <select name="estado" id="updateOcasionStatus" :value="$store.state.item.estado">
+            <option value="0">Inativo</option>
+            <option value="1">Ativo</option>
+          </select>
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="update($store.state.item.id, 'ocasiao')">Atualizar</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+
+    </modal-component>
+    <!-- End modal to update categorys-->
 
     <!------------------------ MATERIAL AREA --------------------------------->
 
     <div class="container2">
       <div class="cont-header">
-        <h3 class="titulo_1">Matéria-prima</h3>
-        <a class="high-link" href="#modalMaterialAdd">Adicionar matéria-prima +</a>
+        <h3 class="titulo_alt">Matéria-prima</h3>
+        <div class="type-button">
+          <a class="high-link" href="#modalMaterialAdd">+ Nova</a>
+        </div>
       </div>
-
-      <!--Modal to add new material-->
-      <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
-        <template v-slot:content>
-          <input-container id="nome" title="Matéria-prima" help="addMaterial" helpText="Nome da matéria-prima">
-            <input type="text" name="nome" aria-describedby="addMaterial" v-model="newMaterial">
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="save('materia')">Adicionar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
-      <!--End modal to add new material-->
 
       <!-- Start table to show the materials-->
       <table-component :data="materiais.data" :view="{ visible: false, dataTarget: '#modalMaterialView' }"
         :update="{ visible: true, dataTarget: '#modalMaterialUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalMaterialRemove' }" :titles="{
-              id: { title: 'ID', type: 'text' },
-              nome: { title: 'Nome', type: 'text' },
-              created_at: { title: 'Data de criação', type: 'date' },
-            }">
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          created_at: { title: 'Data de criação', type: 'date' },
+        }">
       </table-component>
       <!-- End table to show materials-->
 
-
-      <!-- Start modal to remove material-->
-      <modal-component id="modalMaterialRemove" title="Remover matéria-prima">
-
-        <template v-slot:alerts>
-          <alert-component tipe="danger" :details="$store.state.transaction"
-            v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
-        </template>
-        <template v-slot:content>
-          <input-container id="removeMaterial" title="Tem a certeza que quer remover esta matéria-prima?">
-            <input type="text" name="removeMaterial" aria-describedby="removeMaterial" :value="$store.state.item.nome"
-              disabled>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="remove($store.state.item.id, 'materia')">Remover</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-      </modal-component>
-      <!-- End modal to remove material-->
-
-      <!-- Start modal to update material-->
-      <modal-component id="modalMaterialUpdate" title="Atualizar matéria-prima">
-        <template v-slot:content>
-          <input-container id="nome" title="Atualizar matéria-prima" help="updateMaterial"
-            helpText="Novo nome da matéria-prima">
-            <input type="text" name="nome" aria-describedby="updateMaterial"
-              :placeholder="$store.state.item.nome" v-model="updateMaterial">
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="update($store.state.item.id, 'materia')">Atualizar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
-      <!-- End modal to update material-->
-
     </div>
+
+    <!--Modal to add new material-->
+    <modal-component id="modalMaterialAdd" title="Adicionar uma matéria-prima">
+      <template v-slot:content>
+        <input-container id="nome" title="Matéria-prima" help="addMaterial" helpText="Nome da matéria-prima">
+          <input type="text" name="nome" aria-describedby="addMaterial" v-model="newMaterial">
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="save('materia')">Adicionar</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+
+    </modal-component>
+    <!--End modal to add new material-->
+
+
+    <!-- Start modal to remove material-->
+    <modal-component id="modalMaterialRemove" title="Remover matéria-prima">
+
+      <template v-slot:alerts>
+        <alert-component tipe="danger" :details="$store.state.transaction"
+          v-if="$store.state.transaction.status == 'error-remove'"></alert-component>
+      </template>
+      <template v-slot:content>
+        <input-container id="removeMaterial" title="Tem a certeza que quer remover esta matéria-prima?">
+          <input type="text" name="removeMaterial" aria-describedby="removeMaterial" :value="$store.state.item.nome"
+            disabled>
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="remove($store.state.item.id, 'materia')">Remover</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+    </modal-component>
+    <!-- End modal to remove material-->
+
+    <!-- Start modal to update material-->
+    <modal-component id="modalMaterialUpdate" title="Atualizar matéria-prima">
+      <template v-slot:content>
+        <input-container id="nome" title="Atualizar matéria-prima" help="updateMaterial"
+          helpText="Novo nome da matéria-prima">
+          <input type="text" name="nome" aria-describedby="updateMaterial" :placeholder="$store.state.item.nome"
+            v-model="updateMaterial">
+        </input-container>
+      </template>
+
+      <template v-slot:footer>
+        <button class="button-save" @click="update($store.state.item.id, 'materia')">Atualizar</button>
+        <!--The seconde parameter defines the endpoint for the url-->
+      </template>
+
+    </modal-component>
+    <!-- End modal to update material-->
+
+
   </div>
   <div>
     <!------------------------ DELETED PRODUCTS AREA --------------------------------->
 
-    <div class="container">
+    <div class="container2">
       <div class="cont-header">
-        <h3 class="titulo_1">Produtos Eliminados</h3>
+        <h3 class="titulo_alt">Produtos Eliminados</h3>
       </div>
 
       <!-- Table to show deleted products-->
       <table-component :data="deletedProducts.data" :view="{ visible: false, dataTarget: '' }"
         :update="{ visible: true, dataTarget: '#modalDeletedUpdate' }"
         :remove="{ visible: true, dataTarget: '#modalDeletedlRemove' }" :titles="{
-              id: { title: 'ID', type: 'text' },
-              nome: { title: 'Nome', type: 'text' },
-              deleted_at: { title: 'Eleminado em', type: 'date' },
-            }">
+          id: { title: 'ID', type: 'text' },
+          nome: { title: 'Nome', type: 'text' },
+          deleted_at: { title: 'Eleminado em', type: 'date' },
+        }">
       </table-component>
       <!-- End table to show deleted products-->
 

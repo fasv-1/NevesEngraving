@@ -4,22 +4,27 @@
     <h1 class="titulo">Produtos</h1>
   </div>
   <div class="space-between">
-    <div class="flex-container pointer " @click="openFilters = !openFilters">
-      <h6><b>Menu pesquisa</b></h6> <button class="toogle-bg pointer"><img
-          :class="openFilters == true ? 'rotate' : ''" src="/storage/images/Icons/arrow-black.png"
-          alt=""></button>
+    <div class="type-button" @click="openFilters = !openFilters">
+      <h6><b>Menu pesquisa</b></h6>
+      <button class="toogle-bg mrghor05">
+        <img :class="openFilters == true ? 'rotate' : ''" src="/storage/images/Icons/arrow-black.png" alt="">
+      </button>
     </div>
-    
-    <div class="mrghor05">
-      <a class="high-link" href="#addProductModal">Adicionar novo produto +</a>
+
+    <div class="type-button">
+      <a class="high-link add" href="#addProductModal">+ Novo</a>
     </div>
   </div>
 
   <div class="product-filters" v-if="openFilters == true">
     <!-- Category filter -->
     <div class="search-name">
-      <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
-        <button class="button-small" @click="loadProducts()">Todos os produtos</button>
+      <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
+        size="">
+        <div class="inputANDbutton">
+          <input type="text" id="Search" placeholder="Nome do produto" v-model="nameFilter" class="ml-input">
+          <button class="button-small" @click="filtro(nameFilter, 3)">Procurar</button>
+        </div>
       </input-container>
     </div>
 
@@ -48,13 +53,10 @@
     </div>
     <!--End Materials filter-->
     <!-- By name filter-->
+
     <div class="search-name">
-      <input-container id="Search" title='Procurar por nome' help="SearchHelp" helpText="Filtrar produtos por nome"
-        size="">
-        <div class="inputANDbutton">
-          <input type="text" id="Search" placeholder="Nome do produto" v-model="nameFilter" class="ml-input">
-          <button class="button-small" @click="filtro(nameFilter, 3)">Procurar</button>
-        </div>
+      <input-container id="Todos" title='Todos' help="productHelp" helpText="Carregar todos os produtos">
+        <button class="button-small" @click="loadProducts()">Todos os produtos</button>
       </input-container>
     </div>
     <!--End Materials filter-->

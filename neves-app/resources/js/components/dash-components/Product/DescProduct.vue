@@ -2,51 +2,21 @@
   <!-- Product Defenitons Page  -->
   <div class="title-cont">
     <h1 class="titulo">Produto</h1>
-    <h4 class="titulo_alt">Descontos</h4>
+    <h4 class="titulo_alt mrghor05">Descontos</h4>
   </div>
   <div class="responsive-container">
 
     <!------------------------ DISCOUNT AREA --------------------------------->
     <div class="container2">
-      <div class="cont-header">
-        <h3 class="titulo_1">Descontos</h3>
-        <a class="high-link" href="#modalDiscountAdd">Adicionar desconto +</a>
+      <div class="space-between">
+        <div>
+          <h3 class="titulo_alt">Descontos</h3>
+        </div>
+
+        <div class="type-button">
+          <a class="high-link" href="#modalDiscountAdd">+ Novo</a>
+        </div>
       </div>
-      <!--Modal to add new discount-->
-      <modal-component id="modalDiscountAdd" title="Adicionar novo desconto">
-        <template v-slot:content>
-          <input-container id="nome" title="Nome" help="nameDiscount" helpText="Nome do desconto" size="m-input">
-            <input type="text" name="nome" aria-describedby="nameDiscount" v-model="newDiscount.name">
-          </input-container>
-
-          <input-container id="descricao" title="Descrição" help="descriptionDiscount"
-            helpText="Descrição do desconto" size="b-input">
-            <textarea name="descricao" aria-describedby="descriptionDiscount" v-model="newDiscount.description">
-            </textarea>
-          </input-container>
-
-          <input-container id="desconto" title="Valor do desconto" help="valueDiscount"
-            helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="desconto" aria-describedby="valueDiscount" v-model="newDiscount.value"
-              class="s-input">
-          </input-container>
-
-          <input-container id="ativo" title="Estado do desconto" help="statusDiscount"
-            helpText="Selecionar estado do desconto">
-            <select name="ativo" aria-describedby="statusDiscount" v-model="newDiscount.status">
-              <option value="" disabled>Escolha uma</option>
-              <option value="0">Inativo</option>
-              <option value="1">Ativo</option>
-            </select>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="save('desconto')">Adicionar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
 
       <!-- Start table to show the discount-->
       <table-component :data="discountData.data" :view="{ visible: false, dataTarget: '#modalDiscountView' }"
@@ -62,105 +32,139 @@
       </table-component>
       <!-- End table to show the discount-->
 
-      <!-- Start modal to remove discount-->
-      <modal-component id="modalDiscountRemove" title="Remover Desconto">
-        <template v-slot:content>
-          <input-container id="removeDiscount" title="Tem a certeza que pretende remover este desconto?">
-            <input type="text" name="removeDiscount" aria-describedby="removeDiscount" :value="$store.state.item.nome"
-              disabled>
-          </input-container>
-        </template>
 
-        <template v-slot:footer>
-          <button class="button-save" @click="remove($store.state.item.id, 'desconto')">Remover</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-      </modal-component>
-      <!-- End modal to remove discount-->
-
-      <!-- Start modal to update discount-->
-      <modal-component id="modalDiscountUpdate" title="Atualizar desconto">
-        <template v-slot:content>
-          <input-container id="nome" title="Nome" help="updateNameDiscount"
-            helpText="Novo nome do desconto">
-            <input type="text" name="nome" aria-describedby="updateNameDiscount"
-              :placeholder="$store.state.item.nome" v-model="updateDiscount.name">
-          </input-container>
-
-          <input-container id="descricao" title="Descrição" help="updateDescriptionDiscount"
-            helpText="Nova descrição do desconto" size="b-input">
-            <textarea name="descricao" aria-describedby="updateDescriptionDiscount"
-              :placeholder="$store.state.item.descricao" v-model="updateDiscount.description"></textarea>
-          </input-container>
-
-          <input-container id="desconto" title="Valor do Desconto" help="updateValueDiscount"
-            helpText="Novo valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
-            <input type="number" name="desconto" aria-describedby="updateValueDiscount"
-              :placeholder="$store.state.item.desconto" v-model="updateDiscount.value">
-          </input-container>
-
-          <input-container id="ativo" title="Estado do desconto" help="updateStatusDiscount"
-            helpText="Selecionar estado do desconto">
-            <select name="ativo" id="updateStatusDiscount" :value="$store.state.item.ativo" >
-              <option value="0">Inativo</option>
-              <option value="1">Ativo</option>
-            </select>
-          </input-container>
-        </template>
-
-        <template v-slot:footer>
-          <button class="button-save" @click="update($store.state.item.id, 'desconto')">Atualizar</button>
-          <!--The seconde parameter defines the endpoint for the url-->
-        </template>
-
-      </modal-component>
       <!-- End modal to update discount-->
     </div>
   </div>
-  <div class="container3">
+  <!-- Start modal to remove discount-->
+  <modal-component id="modalDiscountRemove" title="Remover Desconto">
+    <template v-slot:content>
+      <input-container id="removeDiscount" title="Tem a certeza que pretende remover este desconto?">
+        <input type="text" name="removeDiscount" aria-describedby="removeDiscount" :value="$store.state.item.nome"
+          disabled>
+      </input-container>
+    </template>
+
+    <template v-slot:footer>
+      <button class="button-save" @click="remove($store.state.item.id, 'desconto')">Remover</button>
+      <!--The seconde parameter defines the endpoint for the url-->
+    </template>
+  </modal-component>
+  <!-- End modal to remove discount-->
+
+  <!-- Start modal to update discount-->
+  <modal-component id="modalDiscountUpdate" title="Atualizar desconto">
+    <template v-slot:content>
+      <input-container id="nome" title="Nome" help="updateNameDiscount" helpText="Novo nome do desconto">
+        <input type="text" name="nome" aria-describedby="updateNameDiscount" :placeholder="$store.state.item.nome"
+          v-model="updateDiscount.name">
+      </input-container>
+
+      <input-container id="descricao" title="Descrição" help="updateDescriptionDiscount"
+        helpText="Nova descrição do desconto" size="b-input">
+        <textarea name="descricao" aria-describedby="updateDescriptionDiscount"
+          :placeholder="$store.state.item.descricao" v-model="updateDiscount.description"></textarea>
+      </input-container>
+
+      <input-container id="desconto" title="Valor do Desconto" help="updateValueDiscount"
+        helpText="Novo valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
+        <input type="number" name="desconto" aria-describedby="updateValueDiscount"
+          :placeholder="$store.state.item.desconto" v-model="updateDiscount.value">
+      </input-container>
+
+      <input-container id="ativo" title="Estado do desconto" help="updateStatusDiscount"
+        helpText="Selecionar estado do desconto">
+        <select name="ativo" id="updateStatusDiscount" :value="$store.state.item.ativo">
+          <option value="0">Inativo</option>
+          <option value="1">Ativo</option>
+        </select>
+      </input-container>
+    </template>
+
+    <template v-slot:footer>
+      <button class="button-save" @click="update($store.state.item.id, 'desconto')">Atualizar</button>
+      <!--The seconde parameter defines the endpoint for the url-->
+    </template>
+
+  </modal-component>
+  <!--Modal to add new discount-->
+  <modal-component id="modalDiscountAdd" title="Adicionar novo desconto">
+    <template v-slot:content>
+      <input-container id="nome" title="Nome" help="nameDiscount" helpText="Nome do desconto" size="m-input">
+        <input type="text" name="nome" aria-describedby="nameDiscount" v-model="newDiscount.name">
+      </input-container>
+
+      <input-container id="descricao" title="Descrição" help="descriptionDiscount" helpText="Descrição do desconto"
+        size="b-input">
+        <textarea name="descricao" aria-describedby="descriptionDiscount" v-model="newDiscount.description">
+            </textarea>
+      </input-container>
+
+      <input-container id="desconto" title="Valor do desconto" help="valueDiscount"
+        helpText="Valor do Desconto (deve ser um valor percentual, com duas casas decimais)">
+        <input type="number" name="desconto" aria-describedby="valueDiscount" v-model="newDiscount.value"
+          class="s-input">
+      </input-container>
+
+      <input-container id="ativo" title="Estado do desconto" help="statusDiscount"
+        helpText="Selecionar estado do desconto">
+        <select name="ativo" aria-describedby="statusDiscount" v-model="newDiscount.status">
+          <option value="" disabled>Escolha uma</option>
+          <option value="0">Inativo</option>
+          <option value="1">Ativo</option>
+        </select>
+      </input-container>
+    </template>
+
+    <template v-slot:footer>
+      <button class="button-save" @click="save('desconto')">Adicionar</button>
+      <!--The seconde parameter defines the endpoint for the url-->
+    </template>
+
+  </modal-component>
+  <div class="container2">
 
     <div class="cont-header">
-      <h3 class="titulo_2">Atribuir desconto a um produto</h3>
+      <h3 class="titulo_alt">Atribuir desconto a um produto</h3>
     </div>
 
-    <div class="content3-line">
-      <div class="el1">
-        <h5>Escolha um produto</h5>
-        <div class="table-container">
-          <div class="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>NOME</th>
-                  <th></th>
-                  <th>DESCONTO</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="product, index in products.data" :key="index">
-                  <td>{{ product.nome }}</td>
-                  <td></td>
-                  <td>{{ product.desconto.nome }}</td>
-                  <td></td>
-                  <td><input type="checkbox" id="checkedProducts" :value="product.id" v-model="checkedProducts"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <div class="grid-container">
+      <div class="el">
+        <h6 class="mrgvert1 text-centered text-grey">1º Escolha um ou vários produtos</h6>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>NOME</th>
+                <th></th>
+                <th>DESCONTO</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="product, index in products.data" :key="index">
+                <td>{{ product.nome }}</td>
+                <td></td>
+                <td>{{ product.desconto.nome }}</td>
+                <td></td>
+                <td><input type="checkbox" id="checkedProducts" :value="product.id" v-model="checkedProducts"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="el2">
-        <h5>Escolha um desconto</h5>
-        <select id="discounts" v-model="productDiscount">
-          <option value="" disabled>Escolha um desconto</option>
-          <option v-for="discount, index in discountData.data" :key="index" :value="discount.id">{{ discount.nome }}
-          </option>
-        </select>
-      </div>
 
-      <div class="el3">
-        <button class="button1" @click="updateProduct()">Atribuir desconto</button>
+      <div class="el">
+        <h6 class="mrgvert1 text-centered text-grey">2º Escolha um desconto</h6>
+          <select id="discounts" class="l-input" v-model="productDiscount">
+            <option value="" disabled>Escolha um desconto</option>
+            <option v-for="discount, index in discountData.data" :key="index" :value="discount.id">{{ discount.nome }}
+            </option>
+          </select>
+        <div class="mrgvert2">
+          <button class="button-small" @click="updateProduct()">Atribuir desconto</button>
+        </div>
       </div>
     </div>
   </div>
@@ -357,7 +361,7 @@ export default {
                 this.productDiscount = ''
             })
         })
-      }else{
+      } else {
         alert('É obrigatório selecionar pelo menos um produto e um desconto')
       }
 
@@ -380,7 +384,7 @@ export default {
           let value = this.updateDiscount.value.toFixed(2);
           formData.append('desconto', value);
         }
-          formData.append('ativo', inputValue);
+        formData.append('ativo', inputValue);
       }
 
       let url = this.urlBase + n + '/' + u

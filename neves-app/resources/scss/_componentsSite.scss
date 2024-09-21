@@ -1,7 +1,15 @@
 //------------------- Navbar -----------------------------
+
 #navbar-container {
-  background: $Lighter-blue;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 55px;
+  // background: $Lighter-blue;
   margin-bottom: 1em;
+  border-bottom: 6px solid $Global-blue;
   // position: fixed;
 
   //---------------Media queries ---------------------------
@@ -14,24 +22,23 @@
   }
   //------------------------------------------------------
 
-  .top-contact {
-    background: $Detail-blue;
-    color: $Global-red;
-    font-weight: bold;
-    padding: 0.2em 0;
-    display: flex;
-    // justify-content: flex-end;
-    @media (max-width: $descktop) {
-      justify-content: center;
-    }
-  }
+  // .top-contact {
+  //   background: $Detail-blue;
+  //   color: $Global-red;
+  //   font-weight: bold;
+  //   padding: 0.2em 0;
+  //   display: flex;
+  //   // justify-content: flex-end;
+  //   @media (max-width: $descktop) {
+  //     justify-content: center;
+  //   }
+  // }
+
   .navbar-top {
+    width: 45%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    // margin: 0.5em;
-    flex-wrap: wrap;
-    z-index: 20;
+    justify-content: center;
+    margin-bottom: 0.5em;
 
     p {
       font-weight: bold;
@@ -44,151 +51,12 @@
     }
     //------------------------------------------------------
 
-    .navbar-logo {
-      position: absolute;
-      left: calc(50% - 75px);
-      top: 0.5em;
-
-      //---------------Media queries ---------------------------
-      @media (max-width: $descktop) {
-        position: relative;
-        left: 0;
-        top: 0;
-        display: flex;
-        width: 50%;
-
-        h6 {
-          padding: 0 0.5em;
-          color: #000;
-        }
-      }
-
-      @media (max-width: $tablet) {
-        width: 30%;
-
-        h6 {
-          display: none;
-        }
-      }
-      //------------------------------------------------------
-
-      a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: #fff;
-
-        //---------------Media queries ---------------------------
-        @media (max-width: $descktop) {
-          flex-direction: row;
-          justify-content: space-around;
-        }
-        //-----------------------------------------------------
-        &:focus {
-          color: $Global-red;
-        }
-
-        h6 {
-          margin: -0.45em 0;
-          text-transform: uppercase;
-
-          &:hover {
-            color: $Global-red;
-          }
-        }
-
-        .bg-logo {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          // background: linear-gradient(
-          //   180deg,
-          //   rgba(255, 255, 255, 1) 0%,
-          //   rgba(0, 117, 156, 1) 70%,
-          //   rgba(85, 148, 170, 1) 100%
-          // );
-          background-color: $Global-blue;
-          border-radius: 50%;
-          width: 70px;
-          height: 70px;
-
-          //---------------Media queries ---------------------------
-          @media (max-width: $descktop) {
-            width: 65px;
-            height: 65px;
-          }
-
-          @media (max-width: $tablet) {
-            width: 40px;
-            height: 40px;
-          }
-          //---------------------------------------------------------
-
-          img {
-            width: 50px;
-            height: 50px;
-
-            //---------------Media queries ---------------------------
-            @media (max-width: $tablet) {
-              width: 30px;
-              height: 30px;
-            }
-            //-----------------------------------------------------------
-          }
-        }
-      }
-      .active {
-        color: $Global-red;
-      }
-    }
-
-    .nav-contacts {
-      display: flex;
-      justify-content: center;
-      width: 40%;
-
-      //---------------Media queries ---------------------------
-      @media (max-width: $tablet) {
-        width: 60%;
-      }
-      //--------------------------------------------------------
-
-      .follow-us {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-
-        a {
-          img {
-            width: 18px;
-          }
-        }
-
-        img {
-          width: 22px;
-          //---------------Media queries ---------------------------
-          @media (max-width: $tablet) {
-            width: 18px;
-          }
-          //-----------------------------------------------------------
-        }
-
-        p {
-          margin: 0 1em;
-        }
-
-        a {
-          margin: 0 1em;
-        }
-      }
-    }
-
     .nav-icons {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
-      width: 40%;
+      width: 100%;
+      position: relative;
 
       //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
@@ -200,33 +68,6 @@
       //------------------------------------------------------------
 
       .logs {
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-        .st0 {
-          fill: none;
-          stroke: $Global-red;
-          stroke-width: 40;
-          stroke-miterlimit: 10;
-        }
-        .st1 {
-          fill: $Global-red;
-          stroke: $Global-red;
-          stroke-width: 40;
-          stroke-miterlimit: 10;
-        }
-        svg {
-          width: 34px;
-          height: 35px;
-          overflow: visible;
-
-          //---------------Media queries ---------------------------
-          @media (max-width: $tablet) {
-            width: 20px;
-            height: 20px;
-          }
-          //---------------------------------------------------------
-        }
         .hello {
           cursor: pointer;
           &:hover #drop-profile {
@@ -272,17 +113,46 @@
           }
         }
       }
+      .search {
+        #search-input {
+          width: 100%;
+          input[type="text"] {
+            padding: 0.3em 0.5em 0.2em 0.3em ;
+            width: 15%;
+            color: $Text-grey;
+            background: url(../../storage/app/public/images/Icons/search.png) no-repeat right ;
+            background-color: #ffff;
+            background-size: 18px;
+            transition: width 0.5s ease-in;
+            position: absolute;
 
+            &:focus{
+              // position: absolute;
+              width: 40%;
+            }
+          }
+        }
+      }
+
+      .search,
+      .logs,
       .wish,
       .shopping-cart {
         display: flex;
         align-items: center;
-        overflow: hidden;
+        flex-wrap: nowrap;
+        // padding: 0 0.5em;
+        width: 100%;
 
         a {
-          margin: 0 0 0 0.5em;
           display: flex;
           align-items: center;
+          flex-wrap: nowrap;
+
+          p {
+            margin: 0 0 0 0.5em;
+            display: inline;
+          }
         }
 
         img {
@@ -293,57 +163,114 @@
           }
           //--------------------------------------------------------
         }
+      }
+    }
+  }
+  .navbar-logo {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+    position: relative;
+    margin: -1em 0;
 
-        svg {
-          width: 35px;
-          height: 35px;
-          overflow: visible;
+    //---------------Media queries ---------------------------
+    @media (max-width: $descktop) {
+      position: relative;
+      left: 0;
+      top: 0;
+      display: flex;
+      width: 50%;
+
+      h6 {
+        padding: 0 0.5em;
+        color: #000;
+      }
+    }
+
+    @media (max-width: $tablet) {
+      width: 30%;
+
+      h6 {
+        display: none;
+      }
+    }
+    //------------------------------------------------------
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+
+      //---------------Media queries ---------------------------
+      @media (max-width: $descktop) {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      //-----------------------------------------------------
+      &:focus {
+        color: $Global-red;
+      }
+
+      h6 {
+        margin: -0.45em 0;
+        text-transform: uppercase;
+
+        &:hover {
+          color: $Global-red;
+        }
+      }
+
+      .bg-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // position: absolute;
+        // background: linear-gradient(
+        //   180deg,
+        //   rgba(255, 255, 255, 1) 0%,
+        //   rgba(0, 117, 156, 1) 70%,
+        //   rgba(85, 148, 170, 1) 100%
+        // );
+        background-color: $Global-blue;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+
+        //---------------Media queries ---------------------------
+        @media (max-width: $descktop) {
+          width: 55px;
+          height: 55px;
+        }
+
+        @media (max-width: $tablet) {
+          width: 40px;
+          height: 40px;
+        }
+        //---------------------------------------------------------
+
+        img {
+          width: 50px;
+          height: 50px;
 
           //---------------Media queries ---------------------------
           @media (max-width: $tablet) {
             width: 30px;
             height: 30px;
           }
-          //---------------------------------------------------------
-
-          #carrinho {
-            display: block;
-          }
-
-          #prenda {
-            display: none;
-          }
-
-          .st0 {
-            fill: none;
-            stroke: $Global-red;
-            stroke-width: 30;
-            stroke-miterlimit: 10;
-          }
-
-          .st1 {
-            fill: none;
-            stroke: $Global-red;
-            stroke-width: 10;
-            stroke-miterlimit: 10;
-          }
+          //-----------------------------------------------------------
         }
       }
     }
+    .active {
+      color: $Global-blue;
+    }
   }
   .navbar-links {
+    width: 45%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    // background: linear-gradient(180deg, rgba(0, 117, 156, 1) 0%, rgba(85, 148, 170, 1) 51%, rgba(0, 117, 156, 1) 100%);
-    background: $Global-blue;
-    // margin: 0.5em 0;
-    width: 100%;
-    -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
-    letter-spacing: -0.01cm;
-
+    justify-content: center;
+    margin-bottom: 0.2em;
     //---------------Media queries ---------------------------
     @media (max-width: $descktop) {
       flex-direction: column;
@@ -356,12 +283,11 @@
       transition: opacity 1s ease;
     }
     //--------------------------------------------------------------
-    .end-links,
     .start-links {
       display: flex;
-      margin: 0 1em;
+      // margin: 0 1em;
+      width: 100%;
       justify-content: space-evenly;
-      width: 40%;
 
       //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
@@ -380,7 +306,6 @@
         // padding: 0.3em;
         border-radius: 3px;
         transition: border 1s ease-in-out;
-        color: #fff;
 
         //---------------Media queries ---------------------------
         @media (max-width: $descktop) {
@@ -389,8 +314,8 @@
         }
         //-------------------------------------------------------
         &:focus {
-          border: 2px solid $Global-red;
-          color: $Global-red;
+          border: 2px solid $Global-blue;
+          color: #fff;
         }
 
         &:focus #glow-div {
@@ -402,9 +327,9 @@
           padding: 0.3em 0;
           border-radius: 3px;
 
-          h6 {
+          p {
             &:hover {
-              color: $Global-red;
+              color: $Darker-blue;
             }
           }
         }
@@ -412,10 +337,12 @@
 
       .active {
         transition: border 1s ease-in;
-        border: 2px solid $Global-red;
+        background-color: $Global-blue;
+        border: 2px solid $Global-blue;
         // background-color: rgba(212, 3, 3, 0.103);
         // box-shadow: inset 0px 0px 5px 0px rgb(131, 33, 33);
-        color: $Global-red;
+        color: #ffff;
+        
       }
     }
   }
@@ -812,10 +739,10 @@
 .card-box {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;  
+  justify-content: center;
 
   // @media (max-width: $descktop) {
-  //   justify-content: center;  
+  //   justify-content: center;
   // }
   .card-prd {
     max-width: 260px;
@@ -1164,10 +1091,10 @@
           }
         }
 
-        .sale{
-           h6{
+        .sale {
+          h6 {
             color: #8c8f96cc;
-           }
+          }
         }
 
         .drop-color {
@@ -1260,8 +1187,8 @@
       // margin-top: -1em;
     }
   }
-  .same-category{
-    margin-top: 8em
+  .same-category {
+    margin-top: 8em;
   }
   .description {
     h6 {
@@ -1792,7 +1719,7 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     display: flex;
-    align-items:center;
+    align-items: center;
     cursor: pointer;
 
     @media (max-width: $tablet) {

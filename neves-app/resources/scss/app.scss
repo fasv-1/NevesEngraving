@@ -87,7 +87,9 @@ table {
   width: 100%;
   border-spacing: 0;
   border-collapse: separate;
+  background-color: #fff ;
   border-radius: 6px;
+  z-index: 1;
 
   .feel {
     width: 20px;
@@ -100,15 +102,17 @@ table {
     padding-bottom: 0.5em;
   }
   thead {
-    // background-color: #006ac6;
     th {
       text-transform: uppercase;
       text-align: center;
       font-weight: bold;
-      padding: 0.5em;
-      color: $Global-red;
+      padding: 1em;
+      // color: $Global-red;
       font-size: 1em;
+      // border-radius: 6px;
       align-content: center;
+      background-color: $Brdr-grey;
+      // border-bottom: 1px solid $Darker-blue;
       
       @media (max-width: $tablet) {
         padding: 0.3em 0.5em;
@@ -124,7 +128,7 @@ table {
       color: #000;
 
       td {
-        border-top: 1px solid $Darker-blue;
+        border-bottom: 1px solid $Brdr-grey;
         padding: 1em 1em;
         text-align: center;
         height: 100%;

@@ -6,7 +6,8 @@
 
 .titulo_alt {
   display: inline-block;
-  padding: 1em 0 0 1em;
+  color: $Global-blue;
+  // padding: 1em 0 0 1em;
 }
 
 .titulo_1 {
@@ -122,11 +123,25 @@
   }
 }
 
+.type-button{
+  display: flex;
+  padding: 0.5em ;
+  border: 1px solid $Darker-blue;
+  border-radius: 6px;
+  align-items: center;
+  cursor: pointer;
+
+  @media (max-width: $tablet) {
+    margin: 0.5em;
+  }
+}
+
 .button-small {
-  background-color: $Light-blue;
+  background-color: $Global-blue;
   padding: 0.5em 0.8em;
   // font-weight: 800;
   border-radius: 6px;
+  color: #fff;
   border: 2px solid $Darker-blue;
   // letter-spacing: 0.1em;
 
@@ -167,9 +182,8 @@
 //----- style for the table container -----------
 .table-container {
   border-radius: 6px;
-  background-color: #fff;
-  border: 1px solid $Darker-blue;
-  padding: 0.5em;
+  // background-color: #E1F6FD;
+  // padding: 0.5em;
   margin: 1em 0 1em 0;
 
   .table {
@@ -197,6 +211,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 //container flex
@@ -223,6 +238,18 @@
 
 .row-reverse {
   flex-direction: row-reverse;
+}
+
+.title-cont {
+  padding: 0.5em 0;
+  margin: 1em 0;
+  // text-align: center;
+  color: $Global-blue;
+  border-bottom: 1px solid $Brdr-blue;
+
+  @media (max-width: $tablet) {
+    padding: 1em;
+  }
 }
 
 // ------------ colors ------------------------------
@@ -253,7 +280,7 @@
   // background-color: $Global-red;
   // padding: 0.2em;
   border: none;
-  // border-radius: 5px;
+  cursor: pointer;
 
   @media (max-width: $tablet) {
     margin: 0 2em 0 0;
@@ -304,6 +331,10 @@
 
 .marginMinvert {
   margin: 0.2em 0;
+}
+
+.mrgvert05 {
+  margin: 0.5em 0;
 }
 
 //margin up and down 1
@@ -428,15 +459,49 @@
   color: $Darker-blue;
   font-weight: bold;
 }
-//conteiner 2
+//container 2
 .container2 {
-  display: flex;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-wrap: wrap;
+  // background-color: $DshMenuActive;
+  // border-radius: 6px;
   width: 100%;
-  padding: 1em;
+  margin-bottom: 1em;
+  padding: 1em 0;
   border-bottom: 1px solid $Brdr-blue;
 }
 //end of container 2
+
+//grid container 
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 1em 0;
+  .el{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+
+    @media (max-width: $tablet) {
+      width: 100%;
+    }
+  }
+}
+
+.split{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  border-top: 1px solid $Brdr-grey;
+
+}
+//end of grid-container 
 
 .cont-header {
   display: flex;

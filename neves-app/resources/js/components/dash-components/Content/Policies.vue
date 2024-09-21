@@ -2,8 +2,8 @@
     <div class="container">
         <div class="">
             <div class="title-cont">
-            <h1 class="titulo">Conteudo - politicas</h1>
-        </div>
+                <h1 class="titulo">Conteudo - politicas</h1>
+            </div>
             <div>
                 <a href="#addnewPolicy"><button @click="resetInfo()">Adicionar
                         Politica</button></a>
