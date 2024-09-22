@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produto;
+use PhpParser\Node\Stmt\Foreach_;
 
 class CartController extends Controller
 {
@@ -18,7 +19,7 @@ class CartController extends Controller
         if (session('cart')) {
             foreach ($cart_products as $key => $product) {
 
-                $cart_total += $product['quantity'] ;
+                $cart_total += $product['quantity'];
             }
         }
 
@@ -39,18 +40,41 @@ class CartController extends Controller
 
         $cart = $request->session()->get('cart', []);
 
-        if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity']++;
+        if ($cart != null) {
+
+            $i = 0;
+
+            foreach ($cart as $key => $cart_product) {
+                if ($cart_product['productId'] == $product->id && $cart_product['color'] == $request->color && $cart_product['text'] == $request->text) {
+                    $cart[$key]['quantity']++;
+                } else {
+                    $i ++;
+                }
+            }
+
+            if ($i == count($cart)) {
+                array_push($cart, [
+                    'productId' => $product->id,
+                    "title" => $product->nome,
+                    "quantity" => $request->quantity,
+                    "color" => $request->color,
+                    "text" => $request->text,
+                    "discount_price" => $product->desconto_id,
+                    "strike_price" => $product->valor,
+                ]);
+            }
         } else {
-            $cart[$product->id] = [
+            array_push($cart, [
+                'productId' => $product->id,
                 "title" => $product->nome,
                 "quantity" => $request->quantity,
                 "color" => $request->color,
                 "text" => $request->text,
                 "discount_price" => $product->desconto_id,
                 "strike_price" => $product->valor,
-            ];
+            ]);
         }
+
 
         $request->session()->put('cart', $cart);
 
@@ -63,7 +87,7 @@ class CartController extends Controller
 
         // $renderHTML = view('frontend.cart.mini-cart-render', compact('cart_products', 'cart_total'))->render();
         $total_products_count = count(request()->session()->get('cart'));
-        return response()->json(['cart_products' => $cart_products, 'cart_total' => $cart_total ,'total_products_count' => $total_products_count], 200);
+        return response()->json(['cart_products' => $cart_products, 'cart_total' => $cart_total, 'total_products_count' => $total_products_count], 200);
     }
 
     /**
@@ -108,6 +132,6 @@ class CartController extends Controller
         }
         $request->session()->put('cart', $cart);
 
-        return response()->json(['success' => true, 'msg' =>'Produto eliminado do seu carrinho']);
+        return response()->json(['success' => true, 'msg' => 'Produto eliminado do seu carrinho']);
     }
 }

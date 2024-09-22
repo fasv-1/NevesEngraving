@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title " id="ModalLabel">- Product Added to Cart -</h5>
+          <h6 class="modal-title " id="ModalLabel"> Product Added to Cart </h6>
           <!-- <a class="x-close" href="#" @click="erraserror()">
             <h4>X</h4>
           </a> -->
@@ -23,8 +23,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button-login">Go to cart</button>
-          <button class="button-save">Fast checkout</button>
+          <button class="button-save">Go to cart</button>
+          <button class="button-login">Buy now</button>
         </div>
       </div>
     </div>

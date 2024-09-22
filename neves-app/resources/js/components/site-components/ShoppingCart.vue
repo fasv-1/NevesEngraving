@@ -27,8 +27,7 @@
                                     @change="update(index)"></td>
                             <td>{{ product.strike_price }}</td>
                             <td>{{ calculatedValue(product) }} €</td>
-                            <td><a href="" @click.prevent="remove(index)"><img class="delete-btn"
-                                        src="/storage/images/Icons/delete.svg" style="width:25px" alt=""></a></td>
+                            <td><a href="" @click.prevent="remove(index)">x</a></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -125,6 +124,7 @@ export default {
                 .then(response => {
                     alert(response.data.msg)
                     this.getData()
+                    location.reload()
                 })
                 .catch(errors => {
                     console.log(errors)

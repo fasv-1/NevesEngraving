@@ -77,13 +77,15 @@
 
       </div>
       <div class="gift-btn" @click="openMenu = !openMenu">
-        <h5>F</h5>
-        <h5>I</h5>
-        <h5>L</h5>
-        <h5>T</h5>
-        <h5>E</h5>
-        <h5>R</h5>
-        <h5>S</h5>
+        <p v-if="openMenu">x</p>
+        <p v-if="openMenu">-</p>
+        <p>F</p>
+        <p>I</p>
+        <p>L</p>
+        <p>T</p>
+        <p>E</p>
+        <p>R</p>
+        <p>S</p>
       </div>
     </div>
     

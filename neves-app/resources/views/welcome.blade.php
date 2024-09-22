@@ -6,7 +6,7 @@
             <!-- Used the auth tag to show the user name and an profile dropdown -->
             <div class="hello">
 
-                <h6><b> Hi {{ auth()->user()->name }}</b></h6>
+                <p><b> Hi {{ auth()->user()->name }}</b></p>
                 <div id="drop-profile">
                     <ul>
                         <li>
@@ -24,7 +24,7 @@
         @endauth
         @guest
 
-            <a href={{ route('login') }}><b>My Account</b></a>
+            <a href={{ route('login') }}><p><b>My Account</b></p></a>
         @endguest
     </navbar-component>
 

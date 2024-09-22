@@ -65,7 +65,6 @@
               <h2>{{ product.data.valor }} €</h2>
               <br>
             </div>
-            <br>
             <p>O preço inclui personalização</p>
           </div>
           <div class="shipping">
@@ -73,29 +72,32 @@
             <h5><b>Tempo médio de envio (BD tempo de envio)</b></h5>
           </div>
           <div class="details">
-            <h6><b>Detalhes do produto</b></h6>
-            <br>
             <ul>
-              <li v-for="detail in details.data"> {{ detail.descricao != null ? '-' + detail.descricao : '' }}</li>
+              <li v-for="detail in details.data"> {{ detail.descricao != null ? '-' + detail.descricao : 'No details' }}
+              </li>
             </ul>
           </div>
           <!----------------------------- Selected info provided by the Seller --------------------------------->
-          <div class="details">
-            <div v-if="product.data.costumizavel == 1 || product.data.costumizavel == 3">
-              <div class="drop-button" @click="dropdown()">
-                <p><b>{{ colorSelected.name }}</b></p><img src="/storage/images/Icons/arrow-black.png" alt="">
-              </div>
-              <div class="drop-color" :class="drop == true ? 'drop' : ''">
-                <ul name="productColor" id="productColor">
-                  <li @click="dropdown('Sem cor')">Sem cor</li>
-                  <li class="flex-container" v-for="clr in getColors" :value="clr.code" @click="selectColor(clr)">
-                    <div class="colorSquare" :style="'background-color:' + clr.code"></div><p>{{ clr.name }}</p>
-                  </li>
-                </ul>
+          <div class="details" v-if="product.data.costumizavel == 1 || product.data.costumizavel == 3">
+            <div >
+              <p><b>Select one color</b></p>
+              <div class="colors">
+                <div class="color-box" @click="colorSelected.name = 'No color', colorSelected.code = 'No color'">
+                  <div class="color-square" :class="colorSelected.name == 'No color' ? 'drop': ''"  style="background-color:#cccc;"></div>
+                  <p>Sem cor</p>
+                </div>
+                <div class="color-box" v-for="clr in getColors" @click="selectColor(clr)">
+                  <div class="color-square" :class="colorSelected.name == clr.name ? 'drop': ''"  :style="'background-color:' + clr.code"></div>
+                  <p>{{ clr.name }}</p>
+                </div>
               </div>
             </div>
+          </div>
 
-            <div v-if="product.data.costumizavel == 2 || product.data.costumizavel == 3">
+          {{ colorSelected }}
+
+          <div class="details" v-if="product.data.costumizavel == 2 || product.data.costumizavel == 3">
+            <div >
               <div>
                 <input-container id="customText" title="Texto personalizado" help="customTextHelp"
                   helpText="O texto não deve ultrapassar os 20 caracteres">
@@ -109,9 +111,11 @@
           <form method="POST" action="" @submit.prevent="addToCart($event)">
             <input type="hidden" name="_token" :value="$store.state.csrf">
             <div class="quantity">
-
-              <input type="number" min="1" name="quantity" aria-describedby="quantity" class="s-input"
-                v-model="quantity">
+              <input-container id="quantity" title="Quantity" help="quantityHelp"
+                helpText="How many products?" size="50%">
+                <input type="number" min="1" name="quantity" aria-describedby="quantity" class="s-input"
+                  v-model="quantity">
+              </input-container>
               <div class="btn-pass">
                 <button type="submit" class="button-login">
                   Add to Cart
@@ -196,7 +200,7 @@
         {{ sameCategory }}
         <card-component :products=randomProducts :headTitle='false' :info="{
           nome: false, meta_nome: true, categoria: true, materia: false, quantidade: false, valor: true
-        }" :cart="true"></card-component>
+        }" :cart="true" :scroll="true"></card-component>
       </div>
     </section>
 
@@ -230,8 +234,8 @@ export default {
       isActive: false,
       drop: false,
       colorSelected: {
-        code: '',
-        name: 'Select Color',
+        code: 'No color',
+        name: 'No color',
       },
       textSelected: '',
     }
@@ -343,7 +347,7 @@ export default {
           this.product.data = response.data
           this.discount.data = response.data.desconto
           this.categoryId = response.data.categoria_id
-          // console.log(response.data)
+          console.log(response.data)
         })
         .catch(errors => {
           console.log(errors)
@@ -361,7 +365,7 @@ export default {
       axios.get(urlDetails)
         .then(response => {
           this.details.data = response.data
-          // console.log(response)
+          console.log(response)
         })
         .catch(errors => {
           console.log(errors)
@@ -466,7 +470,7 @@ export default {
       randomKeys.forEach(e => {
         randomProducts.push(this.categoryProducts.data[e])
       })
-      return randomProducts.slice(0, 4)
+      return randomProducts
 
     }
   },

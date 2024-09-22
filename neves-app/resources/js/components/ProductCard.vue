@@ -1,7 +1,7 @@
 <template>
   <!------------------------------------ Container to show the products ------------------------------>
 
-  <div class="card-box">
+  <div :class="scroll == true ? 'scroll-side' : 'card-box'">
 
     <div class="card-prd" v-for="value, indexValue in products" :key="indexValue">
 
@@ -86,7 +86,7 @@
 
 <script>
 export default {
-  props: ['products', 'headTitle', 'info', 'cart'],
+  props: ['products', 'headTitle', 'info', 'cart', 'scroll'],
   data() {
     return {
       productsImages: { data: [] },
@@ -119,9 +119,9 @@ export default {
 
       this.active = true
 
-      setTimeout(() => {
-        this.$router.go(0)
-      }, 2000);
+     setTimeout(() => {
+       this.$router.go(0)
+     }, 2000);
 
       
 

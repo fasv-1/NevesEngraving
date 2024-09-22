@@ -4,7 +4,7 @@
     <navbar-component :altroutes=true>
         @auth
             <div class="hello">
-                <h6><a href="#drop-profile"> <b>Hi {{ auth()->user()->name }}</b></a></h6>
+                <p><a href="#drop-profile"> <b>Hi {{ auth()->user()->name }}</b></a></p>
                 <div id="drop-profile">
                     <ul>
                         <li>

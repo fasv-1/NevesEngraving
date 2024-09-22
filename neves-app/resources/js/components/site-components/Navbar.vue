@@ -6,7 +6,7 @@
 
       <div class="nav-icons">
         <div class="search">
-          <a href="#" @click="clearStorage()" id="search-input">
+          <a href="#" id="search-input">
             <input type="text">
           </a>
         </div>
@@ -14,7 +14,7 @@
         <div class="wish">
           <a href="/profile?wish=2">
             <img src="/storage/images/Icons/heart.png" alt="wish-icon">
-            <p>Wish List</p>
+            <p class="wish-label">Wish List</p>
           </a>
         </div>
 
@@ -27,14 +27,16 @@
         <!---------------------------Shopping-cart link------------------------------------->
         <div class="shopping-cart" v-if="altroutes == true">
           <a href="/home/shopping_cart">
-            <img src="/storage/images/Icons/shopping-cart.png" alt="user-icon">
-            <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
+            <img src="/storage/images/Icons/shopping-cart-1.png" alt="user-icon">
+            <p class="num-items"> <b>{{ cartTotal }}</b></p>
+            <p class="total"><b>{{ totalPrice }}€</b></p>
           </a>
         </div>
         <div class="shopping-cart" v-else>
           <router-link to="/home/shopping_cart" @click="active = false">
-            <img src="/storage/images/Icons/shopping-cart.png" alt="user-icon">
-            <p> <b>{{ totalProducts }}</b> item(s): <b>{{ totalPrice }}€</b></p>
+            <img src="/storage/images/Icons/shopping-cart-1.png" alt="user-icon">
+            <p class="num-items"> <b>{{ cartTotal }}</b></p>
+            <p class="total"><b>{{ totalPrice }}€</b></p>
           </router-link>
 
         </div>
@@ -44,22 +46,22 @@
       <div class="mini-menu-btn"><svg @click="active = !active" viewBox="0 0 200 200" fill="none"
           :class="active == true ? 'bar-anim' : ''">
           <g clip-path="url(#clip0_26_2)">
-            <path class="down" d="M26 148H173" stroke="black" stroke-width="7" stroke-linecap="round" />
-            <path class="middle" d="M26 100H173" stroke="black" stroke-width="7" stroke-linecap="round" />
-            <path class="up" d="M26 50H173" stroke="black" stroke-width="7" stroke-linecap="round" />
+            <path class="down" d="M26 148H173" stroke-linecap="round" />
+            <path class="middle" d="M26 100H173" stroke-linecap="round" />
+            <path class="up" d="M26 50H173" stroke-linecap="round" />
           </g>
         </svg></div>
     </div>
 
     <div class="navbar-logo" v-if="altroutes == true">
       <a href="/home">
-        <div class="bg-logo" :class="$route.name == 'Home' ? 'active' : ''">
+        <div class="bg-logo" >
           <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" width="50" alt="Logo marca">
         </div>
       </a>
     </div>
     <div class="navbar-logo" v-else>
-      <router-link to="/home" :class="$route.name == 'Home' ? 'active' : ''" @click="active = false">
+      <router-link to="/home" >
         <div class="bg-logo">
           <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" width="50" alt="Logo marca">
         </div>
@@ -171,6 +173,7 @@ export default {
     }
   },
   methods: {
+
     clearStorage() {
       localStorage.clear();
       this.getData();
@@ -211,7 +214,7 @@ export default {
           this.cartProducts.data = response.data.cart_products
           this.cartTotal = response.data.cart_total
           this.totalProducts = response.data.total_products_count
-          //   console.log(response.data)
+            console.log(response.data)
         })
         .catch(errors => {
           console.log(errors.response.data.message)
@@ -238,8 +241,7 @@ export default {
     },
   },
   mounted() {
-    this.getData()
-    // console.log(this.altroutes)
+    this.getData();
     // console.log(this.$router)
   }
 }
