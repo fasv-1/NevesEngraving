@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use App\Repositories\CategoriaRepo;
 
 class CategoriaController extends Controller
 {
@@ -25,15 +27,18 @@ class CategoriaController extends Controller
      */
     public function show(Request $request)
     {
-        if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $categorias = $this->categoria->where($conditions[0], $conditions[1], $conditions[2])->get();
-        } else {
-            $categorias = $this->categoria->all();
-        }
-        
+        $categoriaRepo = new CategoriaRepo($this->categoria);
 
-        return response()->json($categorias, 200);
+        if ($request->has('filtro')) {
+
+            $categoriaRepo->filter($request->filtro);
+
+            $categoria = $categoriaRepo->getResult($request->filtro);
+        }else{
+            $categoria = $categoriaRepo->getResult('allCategorys');
+        }
+
+        return response()->json($categoria, 200);
     }
 
     /**

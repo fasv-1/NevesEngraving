@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Exists;
+use App\Repositories\ProdutoRepo;
 
 class ProdutoController extends Controller
 {
@@ -22,49 +23,77 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
 
-        $product = array();
+        // $product = array();
+        $produtoRepo = new ProdutoRepo($this->produto);
+        $cacheName = '';
 
 
         if ($request->has('atributos')) {
-            $attributes = $request->atributos;
-            $product = $this->produto->selectRaw($attributes);
-        } else {
-            $product = $this->produto;
-        }
+            $produtoRepo->atributes($request->atributos);
+            $cacheName = $request->atributos;
+            // $attributes = $request->atributos;
+            // $product = $this->produto->selectRaw($attributes);
+        } 
+        // else {
+        //     $product = $this->produto;
+        // }
 
         if($request->has('intervalo')){
-            $values = explode(':', $request->intervalo);
-            $product = $this->produto->whereBetween($values[0], [$values[1], $values[2]]);
-        } else{
-            $product = $product;
-        }
+            $produtoRepo->interval($request->intervalo);
+            $cacheName .= $request->intervalo; 
+            // $values = explode(':', $request->intervalo);
+            // $product = $this->produto->whereBetween($values[0], [$values[1], $values[2]]);
+        } 
+        // else{
+        //     $product = $product;
+        // }
         
         if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $product = $product->where($conditions[0], $conditions[1], $conditions[2]);
-
-            if (isset($conditions[3])) {
-                $product = $product->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
-            }
-        } else {
-            $product = $product;
-        }
+            $produtoRepo->filter($request->filtro);
+            $cacheName .= $request->filtro; 
+        } 
+        // else {
+        //     $product = $product;
+        // }
 
         if($request->has('orderby')){
-            $values = explode(':', $request->orderby);
-            $product = $product->orderBy($values[0], $values[1]);
-        } else{
-            $product = $product;
-        }
+            $produtoRepo->order($request->orderby);
+            $cacheName .= $request->orderby; 
+            // $values = explode(':', $request->orderby);
+            // $product = $product->orderBy($values[0], $values[1]);
+        } 
+        // else{
+        //     $product = $product;
+        // }
 
         if ($request->has('deleted')) { // finds every regists even the ones who are deleted(softDeletes)
-            $product = $product->onlyTrashed()->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
-        } else {
-            $product = $product->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
+            $produtoRepo->deleted();
+            $cacheName .= 'deleted'; 
+
+            // $product = $product->onlyTrashed()->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
+        } 
+        // else {
+            // $product = $product->with('desconto')->with('materiaPrima')->with('ocasioes')->with('categoria');
             // $allproduct = $product->get();
+        // }
+
+        $produtoRepo->relatedRegists('desconto');
+        $produtoRepo->relatedRegists('materiaPrima');
+        $produtoRepo->relatedRegists('ocasioes');
+        $produtoRepo->relatedRegists('categoria');
+
+        if($cacheName == ''){
+            $product = $produtoRepo->getResult('allProducts');
+            $productPaginated = $produtoRepo->getPaginatedResult($request->page, 15);
+        }else{
+            $product = $produtoRepo->getResult($cacheName);
+            $productPaginated = $produtoRepo->getPaginatedResult($cacheName, 15);
         }
 
-        return response()->json(['all' => $product->get(), 'paginated' => $product->paginate(15) ], 200);
+
+        // dd($cacheName);
+
+        return response()->json(['all' => $product, 'paginated' => $productPaginated], 200);
     }
 
     /**

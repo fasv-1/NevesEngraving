@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\conteudo;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\ConteudoRepo;
+use Illuminate\Support\Facades\Cache;
+
 
 use function PHPSTORM_META\type;
 
@@ -27,12 +30,17 @@ class ConteudoController extends Controller
      */
     public function index(Request $request)
     {
+        $conteudoRepo = new ConteudoRepo($this->conteudo);
+
         if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $conteudo = $this->conteudo->where($conditions[0], $conditions[1], $conditions[2])->get();
+
+            $conteudoRepo->filter($request->filtro);
+
+            $conteudo = $conteudoRepo->getResult($request->filtro);
         } else {
-            $conteudo = $this->conteudo->all();
+            $conteudo = $conteudoRepo->getResult('allContent');
         }
+
 
         return response()->json($conteudo, 200);
     }
@@ -44,16 +52,16 @@ class ConteudoController extends Controller
     {
         $request->validate($this->conteudo->rules(), $this->conteudo->feedback());
 
-        
+
 
         //checks for an desconto_id to choose the right place to store
         if ($request->media != '') {
 
             $image = $request->file('media');
 
-            if(explode('/', $_FILES['media']['type'])[0] == 'image'){
+            if (explode('/', $_FILES['media']['type'])[0] == 'image') {
                 $image_urn = $image->store('images/gerais', 'public');
-            }else{
+            } else {
                 $image_urn = $image->store('videos', 'public');
             }
 
@@ -75,7 +83,9 @@ class ConteudoController extends Controller
      */
     public function show(string $id)
     {
-        $conteudo = $this->conteudo->find($id);
+        $conteudoRepo = new ConteudoRepo($this->conteudo);
+
+        $conteudo = $conteudoRepo->findResult('conteudo', $id);
 
         if ($conteudo === null) {
 
@@ -120,11 +130,11 @@ class ConteudoController extends Controller
             Storage::disk('public')->delete($conteudo->media);
         }
 
-        
+
 
         $conteudo->fill($request->all());
 
-        
+
 
         // checks for an uploaded image and if it exists stores it
         if ($request->file('media')) {
@@ -132,17 +142,17 @@ class ConteudoController extends Controller
             $file = $request->file('media');
 
             //checks for an desconto_id to choose the right place to store
-            if(explode('/', $_FILES['media']['type'])[0] == 'image'){
+            if (explode('/', $_FILES['media']['type'])[0] == 'image') {
                 $image_urn = $file->store('images/gerais', 'public');
-            }else{
+            } else {
                 $image_urn = $file->store('videos', 'public');
             }
             $conteudo->media = $image_urn;
         }
-        
+
         //as a parameter is sent, save() recognize that is an update
         $conteudo->save();
-        
+
         return response()->json(['msg' => 'Conteudo atualizado com sucesso'], 200);
     }
 

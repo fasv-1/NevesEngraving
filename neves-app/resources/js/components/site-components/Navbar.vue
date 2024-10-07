@@ -214,7 +214,7 @@ export default {
           this.cartProducts.data = response.data.cart_products
           this.cartTotal = response.data.cart_total
           this.totalProducts = response.data.total_products_count
-            console.log(response.data)
+            // console.log(response.data)
         })
         .catch(errors => {
           console.log(errors.response.data.message)

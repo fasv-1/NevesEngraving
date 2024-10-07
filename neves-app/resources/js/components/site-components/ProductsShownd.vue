@@ -94,8 +94,6 @@
             </div>
           </div>
 
-          {{ colorSelected }}
-
           <div class="details" v-if="product.data.costumizavel == 2 || product.data.costumizavel == 3">
             <div >
               <div>
