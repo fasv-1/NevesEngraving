@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\taxa;
+use App\Repositories\TaxaRepo;
 use Illuminate\Http\Request;
 
 class TaxaController extends Controller
@@ -23,11 +24,16 @@ class TaxaController extends Controller
      */
     public function index(Request $request)
     {
+
+       $TaxaRepo = new TaxaRepo($this->taxa);
+
         if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $taxa = $this->taxa->where($conditions[0], $conditions[1], $conditions[2])->get();
+
+            $TaxaRepo->filter($request->filtro);
+
+            $taxa = $TaxaRepo->getResult($request->filtro);
         } else {
-            $taxa = $this->taxa->all();
+            $taxa = $TaxaRepo->getResult('allTaxes');
         }
 
 
@@ -51,7 +57,9 @@ class TaxaController extends Controller
      */
     public function show(string $id)
     {
-        $taxa = $this->taxa->find($id);
+        $TaxaRepo = new TaxaRepo($this->taxa);
+
+        $taxa = $TaxaRepo->findResult('taxa', $id);
 
         if ($taxa === null) {
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\imagens_produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\ImagensProdRepo;
 
 class ImagensProdutoController extends Controller
 {
@@ -20,22 +21,44 @@ class ImagensProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $product_images = array();
+        $imagensProdRepo = new ImagensProdRepo($this->imagens_produto);
+        $cacheName = '';
+
+        if ($request->has('atributos')) {
+            $imagensProdRepo->atributes($request->atributos);
+            $cacheName = $request->atributos;
+        } 
+
+        if ($request->has('filtro')) {
+            $imagensProdRepo->filter($request->filtro);
+            $cacheName .= $request->filtro; 
+        } 
+
+        $imagensProdRepo->relatedRegists('produto');
+
+        if($cacheName == ''){
+            $product_images = $imagensProdRepo->getResult('allImagesProd');
+
+        }else{
+            $product_images = $imagensProdRepo->getResult($cacheName);
+
+        }
+        // $product_images = array();
 
         
-        if ($request->has('atributos')) {
-            $attributes = $request->atributos;
-            $product_images = $this->imagens_produto->selectRaw($attributes)->with('produto');
-        }else{
-            $product_images = $this->imagens_produto->with('produto');
+        // if ($request->has('atributos')) {
+        //     $attributes = $request->atributos;
+        //     $product_images = $this->imagens_produto->selectRaw($attributes)->with('produto');
+        // }else{
+        //     $product_images = $this->imagens_produto->with('produto');
             
-        }
-        if($request->has('filtro')){
-            $conditions = explode(':',$request->filtro);
-            $product_images = $product_images->where($conditions[0],$conditions[1],$conditions[2])->get();
-        }else{
-            $product_images = $product_images->get();
-        }
+        // }
+        // if($request->has('filtro')){
+        //     $conditions = explode(':',$request->filtro);
+        //     $product_images = $product_images->where($conditions[0],$conditions[1],$conditions[2])->get();
+        // }else{
+        //     $product_images = $product_images->get();
+        // }
         return response()->json($product_images, 200);
     }
 
@@ -75,9 +98,18 @@ class ImagensProdutoController extends Controller
      */
     public function show($id)
     {
-        $imagens = imagens_produto::find($id);
+        $imagensProdRepo = new ImagensProdRepo($this->imagens_produto);
 
-        return response()->json($imagens, 200);
+        $imagensProdRepo->relatedRegists('produto');
+        
+        $imagens_produto = $imagensProdRepo->findResult('imagensProd', $id);
+
+        if ($imagens_produto === null) {
+
+            return response()->json(['error' => 'A imagem do produto que procura não existe'], 404);
+        }
+
+        return response()->json($imagens_produto, 200);
     }
 
     /**

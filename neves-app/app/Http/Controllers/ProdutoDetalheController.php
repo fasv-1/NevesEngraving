@@ -4,18 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProdutoDetalhe;
+use App\Repositories\ProdDetalheRepo;
 
 class ProdutoDetalheController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct(ProdutoDetalhe $detalhe)
+    {
+        // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);
+        // $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);
+        // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
+        // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
+        $this->detalhe = $detalhe;
+        
+        // $this->middleware(['role:User|Admin']);
+    }
     public function index(Request $request){
+        
+        $detalheRepo = new ProdDetalheRepo($this->detalhe);
+
         if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $produtoDetalhe = ProdutoDetalhe::where($conditions[0], $conditions[1], $conditions[2])->get();
+
+            $detalheRepo->filter($request->filtro);
+
+            $produtoDetalhe = $detalheRepo->getResult($request->filtro);
         } else {
-            $produtoDetalhe = ProdutoDetalhe::all();
+            $produtoDetalhe = $detalheRepo->getResult('allProdDetails');
         }
         
 
@@ -26,7 +42,7 @@ class ProdutoDetalheController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
-        $produtoDetalhe = new ProdutoDetalhe;
+        $produtoDetalhe = $this->detalhe;
 
         $request->validate($produtoDetalhe->rules(), $produtoDetalhe->feedback());
 
@@ -41,7 +57,7 @@ class ProdutoDetalheController extends Controller
      */
     public function destroy($id){
 
-        $produtoDetalhe = ProdutoDetalhe::find($id);
+        $produtoDetalhe = $this->detalhe->find($id);
 
         if ($produtoDetalhe === null) {
             return response()->json(['error' => 'O detalhe que pretende eliminar não existe'], 404);

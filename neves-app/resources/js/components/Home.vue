@@ -186,11 +186,11 @@ export default {
   computed: {
     sliderInfo() {
             let slidesInfo = []
-            // this.appContent.data.forEach(data => {
-            //     if (data.posicao == 'slider') {
-            //         slidesInfo.push(data)
-            //     }
-            // })
+             this.appContent.data.forEach(data => {
+                 if (data.posicao == 'slider') {
+                     slidesInfo.push(data)
+                 }
+             })
             return slidesInfo
         }
     // dinamicHight() { // calculate the window height variation for the div attached to the pointer stays in the center

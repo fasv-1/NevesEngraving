@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\materia_prima;
+use App\Repositories\MaterialRepo;
 
 class MateriaPrimaController extends Controller
 {
@@ -20,7 +21,16 @@ class MateriaPrimaController extends Controller
      */
     public function show(Request $request)
     {
-        $materiais = $this->material->all();
+        $materialRepo = new MaterialRepo($this->material);
+
+        if ($request->has('filtro')) {
+
+            $materialRepo->filter($request->filtro);
+
+            $materiais = $materialRepo->getResult($request->filtro);
+        } else {
+            $materiais = $materialRepo->getResult('allMaterials');
+        }
 
         return response()->json($materiais , 200);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Desconto;
 use Illuminate\Http\Request;
+use App\Repositories\DescontoRepo;
 
 class DescontoController extends Controller
 {
@@ -18,9 +19,18 @@ class DescontoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $descontos = $this->desconto->all();
+        $descontoRepo = new DescontoRepo($this->desconto);
+
+        if ($request->has('filtro')) {
+
+            $descontoRepo->filter($request->filtro);
+
+            $descontos = $descontoRepo->getResult($request->filtro);
+        } else {
+            $descontos = $descontoRepo->getResult('allDiscount');
+        }
 
         return response()->json($descontos, 200);
     }
@@ -50,7 +60,14 @@ class DescontoController extends Controller
      */
     public function show($id)
     {
-        $descontos = $this->desconto->find($id);
+        $descontoRepo = new DescontoRepo($this->desconto);
+
+        $descontos = $descontoRepo->findResult('desconto', $id);
+
+        if ($descontos === null) {
+
+            return response()->json(['error' => 'O conteudo que procura não existe'], 404);
+        }
 
         return response()->json($descontos, 200);
     }

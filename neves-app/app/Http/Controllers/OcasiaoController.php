@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ocasiao;
 use Illuminate\Http\Request;
+use App\Repositories\OcasiaoRepo;
 
 class OcasiaoController extends Controller
 {
@@ -12,7 +13,7 @@ class OcasiaoController extends Controller
      * Build some intructions to the controller
      */
     //injects the model instance in the controller
-    public function __construct(ocasiao $ocasiao)
+    public function __construct(Ocasiao $ocasiao)
     {
         $this->ocasiao = $ocasiao;
     }
@@ -21,11 +22,15 @@ class OcasiaoController extends Controller
      */
     public function index(Request $request)
     {
+        $ocasiaoRepo = new OcasiaoRepo($this->ocasiao);
+
         if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $ocasioes = $this->ocasiao->where($conditions[0], $conditions[1], $conditions[2])->get();
+
+            $ocasiaoRepo->filter($request->filtro);
+
+            $ocasioes = $ocasiaoRepo->getResult($request->filtro);
         } else {
-            $ocasioes = $this->ocasiao->all();
+            $ocasioes = $ocasiaoRepo->getResult('allOcasions');
         }
 
         return response()->json($ocasioes, 200);
@@ -56,7 +61,14 @@ class OcasiaoController extends Controller
      */
     public function show($id)
     {
-        $ocasioes = $this->ocasiao->find($id);
+        $ocasiaoRepo = new OcasiaoRepo($this->ocasiao);
+
+        $ocasioes = $ocasiaoRepo->findResult('ocasiao', $id);
+
+        if ($ocasioes === null) {
+
+            return response()->json(['error' => 'A ocasião que procura não existe'], 404);
+        }
 
         return response()->json($ocasioes, 200);
     }

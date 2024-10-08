@@ -351,12 +351,16 @@ export default {
       let desconto = localStorage.getItem("discount");
       let order = localStorage.getItem("order");
       let linkcliked = localStorage.getItem("linkcliked");
-
+      let page = localStorage.getItem("urlPage");
       let urlProducts = this.baseUrl + 'produto?page=1'
 
+      if(page != null){
+        urlProducts = page
+      }
       //changes the url to change the pages
-      if (url != null) {
+      if (url != undefined) {
         urlProducts = url
+        localStorage.setItem("urlPage", url)
       }
 
       //gets the products only filtred by the price-bar 
@@ -504,6 +508,8 @@ export default {
       }
 
       console.log(urlProducts)
+      console.log(page)
+      
       // gets the products and sets the pagination
       axios.get(urlProducts)
         .then(response => {

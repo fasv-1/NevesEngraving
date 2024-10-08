@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\conteudo;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\ConteudoRepo;
-use Illuminate\Support\Facades\Cache;
 
 
 use function PHPSTORM_META\type;

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreContactoRequest;
 use App\Http\Requests\UpdateContactoRequest;
 use App\Models\Contacto;
 use Illuminate\Http\Request;
+use App\Repositories\ContactRepo;
 
 class ContactoController extends Controller
 {
@@ -24,18 +25,16 @@ class ContactoController extends Controller
      */
     public function index(Request $request)
     {
-         $contactos = $this->contacto->get();
+        $contactoRepo = new ContactRepo($this->contacto);
 
-         if ($request->has('filtro')) {
-             $conditions = explode(':', $request->filtro);
-             $contactos = $contactos->where($conditions[0], $conditions[1], $conditions[2]);
- 
-             if (isset($conditions[3])) {
-                 $contactos = $contactos->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
-             }
-         } else {
-             $contactos = $contactos;
-         }
+        if ($request->has('filtro')) {
+
+            $contactoRepo->filter($request->filtro);
+
+            $contactos = $contactoRepo->getResult($request->filtro);
+        } else {
+            $contactos = $contactoRepo->getResult('allContacts');
+        }
 
          return response()->json(['contacts' => $contactos ], 200);
     }
@@ -57,7 +56,16 @@ class ContactoController extends Controller
      */
     public function show($id)
     {
-        $contacto = $this->contacto->find($id);
+        $contactoRepo = new ContactRepo($this->contacto);
+
+        $contacto = $contactoRepo->findResult('contacto', $id);
+
+        if ($contacto === null) {
+
+            return response()->json(['error' => 'O conteudo que procura não existe'], 404);
+        }
+
+        // $contacto = $this->contacto->find($id);
 
         return response()->json($contacto, 200);
     }

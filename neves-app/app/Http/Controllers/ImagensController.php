@@ -5,15 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\imagens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\ImagensRepo;
 
 class ImagensController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __construct(imagens $imagens)
     {
-        $imagens = imagens::all();
+        // $this->middleware(['permission:role-list|role-create|role-edit|role-delete'], ['only' => ['index', 'store']]);
+        // $this->middleware(['permission:role-create'], ['only' => ['create', 'store']]);
+        // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
+        // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
+        $this->imagens = $imagens;
+    }
+
+    public function index(Request $request)
+    {
+        $imagensRepo = new ImagensRepo($this->imagens);
+
+        if ($request->has('filtro')) {
+
+            $imagensRepo->filter($request->filtro);
+
+            $imagens = $imagensRepo->getResult($request->filtro);
+        } else {
+            $imagens = $imagensRepo->getResult('allImages');
+        }
 
         return response()->json($imagens, 200);
     }
@@ -31,7 +50,7 @@ class ImagensController extends Controller
      */
     public function store(Request $request)
     {
-        $imagens = new imagens();
+        $imagens = $this->imagens;
         $request->validate($imagens->rules(), $imagens->feedback());
 
         //capture the file and stores it with an acronym given by laravel
@@ -59,7 +78,15 @@ class ImagensController extends Controller
      */
     public function show($id)
     {
-        $imagens = imagens::find($id);
+        $imagensRepo = new ImagensRepo($this->imagens);
+
+        $imagens = $imagensRepo->findResult('imagens', $id);
+
+        if ($imagens === null) {
+
+            return response()->json(['error' => 'A imagem que procura não existe'], 404);
+        }
+        // $imagens = imagens::find($id);
 
         return response()->json($imagens, 200);
     }
@@ -77,7 +104,7 @@ class ImagensController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $imagens = imagens::find($id);
+        $imagens = $this->imagens->find($id);
 
         if ($imagens === null) {
             return response()->json(['error' => 'Impossivel realizar o update, o id identificado não existe'], 404);
@@ -137,7 +164,11 @@ class ImagensController extends Controller
      */
     public function destroy($id)
     {
-        $imagens = imagens::find($id);
+        $imagens = $this->imagens->find($id);
+
+        if ($imagens === null) {
+            return response()->json(['error' => 'Impossivel eliminar o registo, o id identificado não existe'], 404);
+        }
 
         //remind to use the facades
         Storage::disk('public')->delete($imagens->nome);

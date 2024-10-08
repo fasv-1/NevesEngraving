@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido_Detalhe;
+use App\Repositories\PedidoDetalheRepo;
 use Illuminate\Http\Request;
+
 
 class PedidoDetalheController extends Controller
 {
@@ -25,18 +27,17 @@ class PedidoDetalheController extends Controller
      */
     public function index(Request $request)
     {
-         $Pedido_Detalhe = $this->Pedido_Detalhe->get();
+        $PedidoDetalheRepo = new PedidoDetalheRepo($this->Pedido_Detalhe);
 
-         if ($request->has('filtro')) {
-             $conditions = explode(':', $request->filtro);
-             $Pedido_Detalhe = $Pedido_Detalhe->where($conditions[0], $conditions[1], $conditions[2]);
- 
-             if (isset($conditions[3])) {
-                 $Pedido_Detalhe = $Pedido_Detalhe->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
-             }
-         } else {
-             $Pedido_Detalhe = $Pedido_Detalhe;
-         }
+        if ($request->has('filtro')) {
+
+            $PedidoDetalheRepo->filter($request->filtro);
+
+            $Pedido_Detalhe = $PedidoDetalheRepo->getResult($request->filtro);
+        } else {
+            $Pedido_Detalhe = $PedidoDetalheRepo->getResult('allOrderDetails');
+        }
+
          return response()->json(['Pedido_Detalhe' => $Pedido_Detalhe ], 200);
     }
 
@@ -57,7 +58,14 @@ class PedidoDetalheController extends Controller
      */
     public function show($id)
     {
-        $Pedido_Detalhe = $this->Pedido_Detalhe->find($id);
+        $PedidoDetalheRepo = new PedidoDetalheRepo($this->Pedido_Detalhe);
+
+        $Pedido_Detalhe = $PedidoDetalheRepo->findResult('detalheDoPedido', $id);
+
+        if ($Pedido_Detalhe === null) {
+
+            return response()->json(['error' => 'O detalhes do pedido que procura não existem'], 404);
+        }
 
         return response()->json(['Pedido_detalhe' => $Pedido_Detalhe], 200);
     }

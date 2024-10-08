@@ -83,9 +83,11 @@ class ProdutoController extends Controller
         $produtoRepo->relatedRegists('categoria');
 
         if($cacheName == ''){
+            $cacheName = $request->page;
             $product = $produtoRepo->getResult('allProducts');
-            $productPaginated = $produtoRepo->getPaginatedResult($request->page, 15);
+            $productPaginated = $produtoRepo->getPaginatedResult($cacheName, 15);
         }else{
+            $cacheName .= $request->page; 
             $product = $produtoRepo->getResult($cacheName);
             $productPaginated = $produtoRepo->getPaginatedResult($cacheName, 15);
         }
@@ -121,7 +123,21 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima')->with('ocasioes')->with('categoria')->find($id);
+        $produtoRepo = new ProdutoRepo($this->produto);
+
+        $produtoRepo->relatedRegists('desconto');
+        $produtoRepo->relatedRegists('materiaPrima');
+        $produtoRepo->relatedRegists('ocasioes');
+        $produtoRepo->relatedRegists('categoria');
+
+        $product = $produtoRepo->findResult('produto', $id);
+
+        if ($product === null) {
+
+            return response()->json(['error' => 'O produto que procura não existe'], 404);
+        }
+
+        // $product = $this->produto->with('desconto')->with('categoria')->with('materiaPrima')->with('ocasioes')->with('categoria')->find($id);
 
         return response()->json($product, 200);
     }

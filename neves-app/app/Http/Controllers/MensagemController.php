@@ -6,6 +6,7 @@ use App\Models\Mensagem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Messages;
+use App\Repositories\MensagemRepo;
 
 class MensagemController extends Controller
 {
@@ -21,18 +22,18 @@ class MensagemController extends Controller
      */
     public function index(Request $request)
     {
-        $mensagem = array();
+        $mensagemRepo = new MensagemRepo($this->mensagem);
 
         if ($request->has('filtro')) {
-            $conditions = explode(':', $request->filtro);
-            $mensagem = $this->mensagem->where($conditions[0], $conditions[1], $conditions[2])->get();
 
-            if (isset($conditions[3])) {
-                $mensagem = $this->mensagem->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5])->get();
-            }
+            $mensagemRepo->filter($request->filtro);
+
+            $mensagem = $mensagemRepo->getResult($request->filtro);
         } else {
-            $mensagem = $this->mensagem->all();
+            $mensagem = $mensagemRepo->getResult('allMensages');
         }
+        
+        
         
         return response()->json(['mensagem' => $mensagem], 200);
     }
@@ -58,7 +59,14 @@ class MensagemController extends Controller
      */
     public function show($id)
     {
-        $mensagem = $this->mensagem->find($id);
+        $mensagemRepo = new MensagemRepo($this->mensagem);
+
+        $mensagem = $mensagemRepo->findResult('mensagem', $id);
+
+        if ($mensagem === null) {
+
+            return response()->json(['error' => 'A mensagem que procura não existe'], 404);
+        }
 
         return response()->json(['mensagem' => $mensagem], 200);
     }

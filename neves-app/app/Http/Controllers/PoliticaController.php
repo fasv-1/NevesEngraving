@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Politica;
+use App\Repositories\PoliticaRepo;
 use Illuminate\Http\Request;
 
 class PoliticaController extends Controller
@@ -22,18 +23,16 @@ class PoliticaController extends Controller
      */
     public function index(Request $request)
     {
-        $politicas = $this->politica->get();
+        $politicaRepo = new PoliticaRepo($this->politica);
 
-         if ($request->has('filtro')) {
-             $conditions = explode(':', $request->filtro);
-             $politicas = $politicas->where($conditions[0], $conditions[1], $conditions[2]);
- 
-             if (isset($conditions[3])) {
-                 $politicas = $politicas->where($conditions[0], $conditions[1], $conditions[2])->where($conditions[3], $conditions[4], $conditions[5]);
-             }
-         } else {
-             $politicas = $politicas;
-         }
+        if ($request->has('filtro')) {
+
+            $politicaRepo->filter($request->filtro);
+
+            $politicas = $politicaRepo->getResult($request->filtro);
+        } else {
+            $politicas = $politicaRepo->getResult('allPolitics');
+        }
 
          return response()->json(['policies' => $politicas ], 200);
     }
@@ -55,7 +54,14 @@ class PoliticaController extends Controller
      */
     public function show($id)
     {
-        $politica = $this->politica->find($id);
+        $politicaRepo = new PoliticaRepo($this->politica);
+
+        $politica = $politicaRepo->findResult('politica', $id);
+
+        if ($politica === null) {
+
+            return response()->json(['error' => 'A politica que procura não existe'], 404);
+        }
 
         return response()->json($politica, 200);
     }
