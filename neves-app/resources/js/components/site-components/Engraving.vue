@@ -1,10 +1,6 @@
 <template>
     <div class="container">
-        <div class="responsive-container responsive-center">
-            <div class="titulo text-red">
-                <h1>Engraving</h1>
-            </div>
-        </div>
+
         <div class="dynamic-box">
             <!----------------------------------------- Image menu --------------------------------------------->
             <div id="option" class="img-menu" @scroll="scroll">

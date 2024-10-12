@@ -28,6 +28,8 @@ const store = createStore({
       csrf: document.querySelector("meta[name='csrf-token']"), // saves globally the csrf token
 
       token: '',
+
+      componentKey: '',
     }
   }
 })

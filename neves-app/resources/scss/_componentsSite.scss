@@ -155,7 +155,7 @@
       #search-input {
         width: 100%;
         input[type="text"] {
-          padding: 0.2em 0.2em;
+          padding: 0.3em 0.2em;
           width: 15%;
           color: $Text-grey;
           background: url(../../storage/app/public/images/Icons/search.png) no-repeat right;
@@ -310,7 +310,8 @@
     .start-links {
       display: flex;
       width: 100%;
-      justify-content: space-evenly;
+      justify-content: space-between;
+      margin-left: 1em;
 
       //---------------Media queries ---------------------------
       @media (max-width: $descktop) {
@@ -1414,6 +1415,11 @@
 }
 //------------------- Home page components --------------------------------------------------
 .home-intro {
+  background-image: url(../../storage/app/public/images/logos/Logo-trans2.png);
+  background-position: center ;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   .home-anim {
     display: flex;
     flex-wrap: wrap;

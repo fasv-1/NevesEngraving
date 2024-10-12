@@ -105,7 +105,11 @@ export default {
         }
     },
     methods: {
+        forceRerender() {
+            this.$store.state.componentKey += 1;
+        },
         remove(i) {
+
             let url = this.$store.state.Url + 'cart'
 
             let formdata = new FormData()
@@ -124,7 +128,7 @@ export default {
                 .then(response => {
                     alert(response.data.msg)
                     this.getData()
-                    location.reload()
+                    this.forceRerender()
                 })
                 .catch(errors => {
                     console.log(errors)
@@ -153,6 +157,7 @@ export default {
                 .then(response => {
                     console.log(response)
                     this.getData()
+                    this.forceRerender()
                 })
                 .catch(errors => {
                     console.log(errors)

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <navbar-component :altroutes=false>
+    <navbar-component :altroutes=false :key=$store.state.componentKey>
         @auth
             <!-- Used the auth tag to show the user name and an profile dropdown -->
             <div class="hello">

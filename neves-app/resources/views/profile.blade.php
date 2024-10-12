@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <navbar-component :altroutes=true>
+    <navbar-component :altroutes=true :key=$store.state.componentKey>
         @auth
             <div class="hello">
                 <p><a href="#drop-profile"> <b>Hi {{ auth()->user()->name }}</b></a></p>

@@ -98,6 +98,9 @@ export default {
     }
   },
   methods: {
+    forceRerender() {
+      this.$store.state.componentKey += 1;
+    },
     addedProductPopUp(n){
       let image = ''
       let name = ''
@@ -120,7 +123,7 @@ export default {
       this.active = true
 
      setTimeout(() => {
-       this.$router.go(0)
+       this.active = false
      }, 2000);
 
       
@@ -144,6 +147,7 @@ export default {
       axios.post(url, formData, config)
         .then((response) => {
           console.log(response)
+          this.forceRerender()
         })
         .catch(errors => {
           console.log(errors.response.data.message)
@@ -296,8 +300,6 @@ export default {
     this.getImage()
     this.getFavorites()
     this.getReviews()
-    // this.addedProductPopUp()
-    // console.log(this.$store.state.user)
   }
 
 }

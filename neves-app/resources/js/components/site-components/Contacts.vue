@@ -2,9 +2,6 @@
   <div class="container">
       <div class="responsive-container responsive-center">
         <!----------------------------------------Contact intruction--------------------------------------------->
-          <div class="titulo text-red">
-            <h1>Contacts</h1>
-          </div>
           <div class="margin4 line-17">
             <h5>Texto de ajuda aqui</h5>
             <br>
