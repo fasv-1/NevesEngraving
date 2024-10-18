@@ -9,26 +9,26 @@
         <form method="POST" action="" @submit.prevent="register($event)">
           <input type="hidden" name="_token" :value="csrf_token">
 
-          <input-container id="name" title="Nome" help="nome" helpText="O seu nome" size="l-input">
-            <input type="text" class="form-control" name="name" autocomplete="nome" autofocus v-model="nome">
+          <input-container id="name" title="Nome" help="nome" helpText="O seu nome">
+            <input type="text" class="form-control l-input" name="name" autocomplete="nome" autofocus v-model="nome">
           </input-container>
 
-          <input-container id="email" title="Email" help="email" helpText="O seu email" size="l-input">
-            <input type="email" class="form-control" name="email" autocomplete="email" autofocus
+          <input-container id="email" title="Email" help="email" helpText="O seu email">
+            <input type="email" class="form-control l-input" name="email" autocomplete="email" autofocus
               v-model="email">
           </input-container>
 
 
           <div>
-            <input-container id="password" title="Password" help="password" helpText="O sua password" size="l-input">
-              <input type="password" class="form-control" name="password" autocomplete="current-password"
+            <input-container id="password" title="Password" help="password" helpText="O sua password">
+              <input type="password" class="form-control l-input" name="password" autocomplete="current-password"
                 v-model="password">
             </input-container>
           </div>
 
           <input-container id="password_confirmation" title="Confirme a Password" help="password_confirmation"
-            helpText="Confirmação da password" size="l-input">
-            <input id="password_confirmation" type="password" class="form-control " name="password_confirmation"
+            helpText="Confirmação da password">
+            <input id="password_confirmation" type="password" class="form-control l-input" name="password_confirmation"
               autocomplete="password_confirmation" v-model="password_confirmation">
               <p class="error" v-for=" error, index in this.$store.state.transaction.message" :key="index">{{ index
     == 'password' ? error.toString() : '' }}</p>

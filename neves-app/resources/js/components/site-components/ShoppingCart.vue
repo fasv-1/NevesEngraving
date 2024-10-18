@@ -18,7 +18,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="product, index in cartProducts.data" :key="index">
-                            <td><img :src="'/storage/' + getImage(index)" alt="product image"
+                            <td><img :src="'/storage/' + getImage(product.productId)" alt="product image"
                                     style="width:30px; height:30px"></td>
                             <td>{{ product.title }}</td>
                             <td>{{ product.color }}</td>
@@ -27,7 +27,7 @@
                                     @change="update(index)"></td>
                             <td>{{ product.strike_price }}</td>
                             <td>{{ calculatedValue(product) }} €</td>
-                            <td><a href="" @click.prevent="remove(index)">x</a></td>
+                            <td><a href="" @click.prevent="remove(index)"><img src="/storage/images/Icons/delete-icon.png" alt="" width="20px"></a></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -155,7 +155,6 @@ export default {
 
             axios.post(url, formdata, config)
                 .then(response => {
-                    console.log(response)
                     this.getData()
                     this.forceRerender()
                 })
@@ -185,8 +184,10 @@ export default {
         getImage(id) {
             let image = ''
             Object.values(this.images.data).forEach(v => {
+                
                 if (v.produto_id == id && v.posicao == 1) {
                     image = v.nome
+
                 }
             })
             return image
@@ -201,7 +202,6 @@ export default {
             axios.get(urlDiscount)
                 .then((response) => {
                     this.discounts.data = response.data
-                    //   console.log(response.data)
                 })
                 .catch(errors => {
                     console.log(errors.response.data.message)
@@ -212,7 +212,6 @@ export default {
                     this.cartProducts.data = response.data.cart_products
                     this.cartTotal = response.data.cart_total
                     this.totalProducts = response.data.total_products_count
-                    console.log(response)
                 })
                 .catch(errors => {
                     console.log(errors.response.data.message)

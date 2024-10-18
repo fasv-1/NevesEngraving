@@ -23,10 +23,12 @@
     margin: 0 0.5em 0 0.5em;
     border-radius: 3px;
     transition: 0.2s ease-in;
+
     &:hover {
       background-color: $Global-red;
     }
   }
+
   .input-form-image {
     background-color: #1f6f8a28;
     border-radius: 3px;
@@ -35,6 +37,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .product-information {
     background-color: #1f6f8a1a;
     border-radius: 3px;
@@ -52,12 +55,14 @@
       border-top: 1px solid #ccc;
     }
   }
+
   .product-images {
     background-color: #1f6f8a10;
     border-radius: 3px;
     padding: 1em;
     grid-area: images;
   }
+
   .input-product-images {
     background-color: #1f6f8a07;
     border-radius: 3px;
@@ -80,7 +85,7 @@
 }
 
 #dash-screen {
-  min-width: 80%;
+  max-width: 80%;
 }
 
 #dash-menu {
@@ -93,8 +98,8 @@
   -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
-  
 }
+
 .sticky {
   display: flex;
   flex-direction: column;
@@ -112,9 +117,6 @@
     width: 100%;
     background-color: $Global-red;
     padding: 0.5em;
-    // -webkit-box-shadow: $boxShadow;
-    // -moz-box-shadow: $boxShadow;
-    // box-shadow: $boxShadow;
     border-radius: 0 0 2px 2px;
 
     .dash-logo {
@@ -127,8 +129,10 @@
       font-weight: bold;
       justify-content: center;
     }
+
     @media (max-width: $tablet) {
       margin: 0;
+
       h6 {
         display: none;
       }
@@ -159,12 +163,13 @@
       margin: 0;
       cursor: pointer;
 
-      h5{
+      h5 {
         display: none;
       }
 
       @media (min-width: $tablet) {
         margin-left: 1em;
+
         h5 {
           display: block;
         }
@@ -179,8 +184,9 @@
       }
     }
   }
+
   .active {
-    background-color: $DshMenuActive;
+    background-color: $Lighter-blue;
   }
 }
 
@@ -309,11 +315,9 @@
   padding: 0.2em 0;
   border-bottom: 1px solid $Brdr-grey;
   border-top: 1px solid $Brdr-grey;
-  // border-radius: 6px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  // width: 100%;
   flex-wrap: wrap;
   margin: 1em 0;
 
@@ -344,7 +348,7 @@
 .content {
   margin: 1em;
   @media (max-width: $tablet) {
-    margin: 0 0.5em
+    margin: 0 0.5em;
   }
 }
 
@@ -361,7 +365,6 @@ input[type="file"] {
 }
 
 .slider {
-  // overflow: hidden;
   display: flex;
   width: 100%;
   height: 80vh;
@@ -372,6 +375,10 @@ input[type="file"] {
 
   &:hover #buttons {
     opacity: 1;
+  }
+
+  @media (max-width: $tablet) {
+    height: 65vh;
   }
 
   .slide {
@@ -389,14 +396,24 @@ input[type="file"] {
     flex-direction: column;
     justify-content: flex-end;
 
+    @media (max-width: $tablet) {
+      background-position: 50% 50%;
+      background-size: 130% 100%;
+    }
+
     .img-info {
-      background-color: #cdf2ff79;
+      background-color: #d3f3ffa6;
       margin: 0 0 100px 50px;
       padding: 1em;
       font-size: 1.5em;
       width: fit-content;
       border-radius: 6px;
-      color: white;
+      color: #000;
+
+      @media (max-width: $tablet) {
+        font-size: 1em;
+        margin: 0 0 100px 0;
+      }
     }
   }
   #buttons {

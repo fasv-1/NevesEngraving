@@ -19,7 +19,7 @@
                         <div class="form-label">
                             <label for="email">Email</label>
                         </div>
-                        <input type="email" name="email" class="form-email" placeholder="E-mail">
+                        <input type="email" name="email" class="form-email l-input" placeholder="E-mail">
                         <div id="help" class="form-help">Place youe email for us to send an reset password link</div>
 
                         @if ($errors->has('email'))

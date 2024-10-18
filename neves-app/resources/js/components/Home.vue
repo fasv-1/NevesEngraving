@@ -19,7 +19,7 @@
       <div class="home-anim">
         <div class="responsive-container row-reverse">
           <div class="animation">
-            <img src="/storage/images/gerais/EngravingAnim.gif" alt="" height="280px">
+            <img src="/storage/images/gerais/EngravingAnim.gif" alt="" >
           </div>
           <div class="text">
             <div class="title">
@@ -94,8 +94,9 @@
 
     <!----------------------------------------------Promo Image or Caroussel-------------------------------->
     <div class="home-promo">
-      <div class="content">
-      </div>
+      <router-link to="/home/amazing_gifts" class="publicity">
+      </router-link>
+        <!-- <img src="/storage/images/gerais/Publicity store.png" alt=""> -->
     </div>
 
     <!----------------------------------------------Contact form--------------------------------------------->

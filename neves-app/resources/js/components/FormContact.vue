@@ -1,40 +1,51 @@
 <template>
   <div class="form-contacts">
-    <div class="form-cont">
-      <div class="title">
-        <p>Contact</p>
-        <h2>How can we help you ?</h2>
+    <div class="form-intro">
+      <h1><b>Contact us</b></h1>
+      <p>Email, call or complete the form to adress any question you have.</p>
+      <p>info@nevesengraving.com</p>
+      <p>+351 945 212 001</p>
+      <div class="form-info-contact">
+        <div>
+          <p class="tt"><b>Customer Support</b></p>
+          <p>Our support team will answer as sone as possible to adress any concern or question you may have. </p>
+        </div>
+        <div>
+          <p class="tt"><b>Feedback and Suggestions</b></p>
+          <p>We value your feedback and are continuously working to inprove our website. Your opinion is crucial to us.
+          </p>
+        </div>
       </div>
-      <div class="contact-form">
-        <form method="POST" action="" @submit.prevent="contact($event)">
-          <input type="hidden" name="_token" :value="$store.state.csrf">
-          <div>
-            <input-container id="nome" title="First name" help="first-name" helpText="Your first name"
-              size="m-input">
-              <input type="text" name="nome" required v-model="firstName">
-            </input-container>
-            <input-container id="apelido" title="Last name" help="last_name" helpText="Your last name" size="m-input">
-              <input type="text" name="apelido" required v-model="lastName">
-            </input-container>
-          </div>
-          <div>
-            <input-container id="email" title="Email" help="email" helpText="Your email here" size="l-input">
-              <input type="email" name="email" required v-model="email">
-            </input-container>
-          </div>
-          <div>
-            <input-container id="mensagem" title="Message" help="message" helpText="Your message here" size="l-input">
-              <textarea name="mensagem" required v-model="message"></textarea>
-            </input-container>
-          </div>
-          <div class="button-form">
-            <div class="btn-pass">
-              <button type="submit" class="button-save">
+
+    </div>
+    <div class="form-container">
+      <div class="form-cont">
+        <div class="title">
+          <h3><b>Any Question?</b></h3>
+          <h4><b>You can reach us any time.</b></h4>
+
+        </div>
+        <div class="contact-form">
+          <form method="POST" action="" @submit.prevent="contact($event)">
+
+            <input type="hidden" name="_token" :value="$store.state.csrf">
+            <div class="form-name">
+              <input type="text" name="nome" placeholder="First Name" required v-model="firstName">
+              <input type="text" name="apelido" placeholder="Last Name" required v-model="lastName">
+            </div>
+            <div>
+              <input type="email" name="email" placeholder="Email" class="l-input" required v-model="email">
+            </div>
+            <div>
+              <textarea name="mensagem" placeholder="How can we help you" class="form-m" required v-model="message"></textarea>
+            </div>
+            <div class="button-form">
+              <button type="submit" class="button-small">
                 Send
               </button>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +62,7 @@ export default {
     }
   },
   methods: {
-    contact(){
+    contact() {
       let url = this.$store.state.Url + 'api/mensagem'
 
       let formData = new FormData()
@@ -62,21 +73,21 @@ export default {
       formData.append('mensagem', this.message)
 
       let config = {
-        headers:{
+        headers: {
           'Content-Type': 'x-www-form-urlencoded',
           'Accept': 'application/json'
         }
       }
 
       axios.post(url, formData, config)
-        .then(response =>{
+        .then(response => {
           alert(response.data.msg)
           this.firstName = ''
           this.lastName = ''
           this.email = ''
           this.message = ''
         })
-        .catch(errors =>{
+        .catch(errors => {
           console.log(errors)
           this.$store.state.transaction.message = errors.response.data.errors
         })

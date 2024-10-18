@@ -9,15 +9,15 @@
         <form method="POST" action="" @submit.prevent="login($event)">
           <input type="hidden" name="_token" :value="csrf_token">
 
-          <input-container id="Email" title="Email" help="email" helpText="O seu email" size="l-input">
-            <input type="email" class="form-control" name="Email" required autocomplete="email" autofocus
+          <input-container id="Email" title="Email" help="email" helpText="O seu email" >
+            <input type="email" class="form-control l-input" name="Email" required autocomplete="email" autofocus
               v-model="email">
           </input-container>
 
 
-          <input-container id="password" title="Password" help="password" helpText="O sua password" size="l-input">
-            <input type="password" class="form-control " name="password" required autocomplete="current-password"
-              v-model="password">
+          <input-container id="password" title="Password" help="password" helpText="O sua password" >
+            <input type="password" class="form-control l-input" name="password" required autocomplete="current-password"
+              v-model="password" >
           </input-container>
 
           <div class="error-container" v-if="$store.state.transaction.message">

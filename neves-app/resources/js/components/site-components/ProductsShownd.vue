@@ -132,7 +132,7 @@
         <template v-slot:Reviews>
           <div class="reviews ">
             <div class="flex-container responsive-end mrghor2" v-if="$store.state.user != null">
-              <a href="#addComentModal" class="button-save">Adicionar avaliação</a>
+              <a href="#addComentModal" class="button-small">Adicionar avaliação</a>
             </div>
             <div v-for="review, index in reviews.data" :key="index">
               <div class="user-review" v-if="review.comentario != null">
@@ -187,7 +187,7 @@
         </template>
 
         <template v-slot:footer>
-          <button class="button-save" @click="addReview()">Enviar</button>
+          <button class="button-small" @click="addReview()">Enviar</button>
         </template>
 
       </modal-component>

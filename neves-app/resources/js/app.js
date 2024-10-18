@@ -69,7 +69,7 @@ const routes = [
     name: 'AmazingGifts',
     meta: {
       breadcrumb: 'amazing_gifts'
-    }
+    },
   },
   {
     path: '/home/amazing_gifts/:id',
@@ -167,6 +167,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior (to, from, savedPosition){
+    return { top:0 }
+  }
 })
 
 //-------------------------Components-----------------------------------------

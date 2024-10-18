@@ -82,7 +82,6 @@ input[type="number"]::-webkit-inner-spin-button {
     bottom: 0;
 }
 
-
 table {
   width: 100%;
   border-spacing: 0;
@@ -94,6 +93,7 @@ table {
   .feel {
     width: 20px;
   }
+
   caption {
     text-transform: uppercase;
     font-weight: bold;
@@ -101,29 +101,25 @@ table {
     text-align: center;
     padding-bottom: 0.5em;
   }
+
   thead {
     th {
       text-transform: uppercase;
       text-align: center;
       font-weight: bold;
       padding: 1em;
-      // color: $Global-red;
       font-size: 1em;
-      // border-radius: 6px;
       align-content: center;
       background-color: $Brdr-grey;
-      // border-bottom: 1px solid $Darker-blue;
       
       @media (max-width: $tablet) {
         padding: 0.3em 0.5em;
         font-size: 1em;
       }
-
-      // border: 1px solid #F1F1F1;
     }
   }
+
   tbody {
-    // background-color: rgb(243, 243, 0);
     tr {
       color: #000;
 
@@ -133,20 +129,20 @@ table {
         text-align: center;
         height: 100%;
         align-content: center;
+        
         @media (max-width: $tablet) {
           padding: 0.3em 0.5em;
           font-size: 0.8em;
         }
-        // border: 1px solid #000;
       }
       
       th {
         border-top: 1px solid $Darker-blue;
         text-align: center;
-        // border: 1px solid #000;
       }
     }
   }
+
   tfoot {
     tr {
       td {
@@ -214,8 +210,8 @@ input[type="password"]
 textarea{
   border: 1px solid $Darker-blue;
   border-radius: 6px;
-  padding: 0.6em 0;
-  width: 100%;
+  padding: 0.6em 0.4em;
+  width: 96%;
 
   &:focus{
     -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
@@ -223,16 +219,6 @@ textarea{
   box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   }
 }
-
-// input[type="text"],
-// input[type="number"],
-// input[type="checkbox"],
-// select,
-// textarea :focus {
-//   -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-//   -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-//   box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-// }
 
 input,
 select,

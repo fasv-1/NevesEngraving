@@ -59,7 +59,7 @@
       </div>
 
       <!-----------------------------------------------------About-------------------------------------->
-      <div class="colum-info">
+      <div class="colum-info ">
           <div class="title">
             <h5>About</h5>
           </div>
