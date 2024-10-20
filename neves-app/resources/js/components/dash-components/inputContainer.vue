@@ -1,6 +1,6 @@
 <template>
   <!--Dynamic label and help for inputs-->
-  <div class="inputContainer" :style="'width:'+ size + ';'">
+  <div class="inputContainer">
 
     <div class="form-label">
       <label :for="id">{{ title }}</label>
@@ -17,6 +17,6 @@
 
 <script>
 export default {
-  props: ['id', 'title', 'help', 'helpText', 'size']
+  props: ['id', 'title', 'help', 'helpText']
 }
 </script>

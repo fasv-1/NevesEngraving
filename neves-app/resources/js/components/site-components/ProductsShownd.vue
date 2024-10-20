@@ -203,6 +203,7 @@
     </section>
 
   </div>
+  <popupCart-component :name = popUpInfo.name :quantity = popUpInfo.quantity :image = popUpInfo.image :display = "active"></popupCart-component>
 </template>
 
 <script>
@@ -236,9 +237,40 @@ export default {
         name: 'No color',
       },
       textSelected: '',
+      popUpInfo : {},
+      active : false,
     }
   },
   methods: {
+    forceRerender() {
+      this.$store.state.componentKey += 1;
+    },
+    addedProductPopUp(n, q){
+      let image = ''
+      let name = this.product.data.meta_nome
+      let quantity = q
+
+      this.productImages.data.forEach(i =>{
+        if(i.posicao == 1){
+          image = i.nome
+        }
+      })
+
+      // this.products.forEach(p =>{
+      //   if(p.id == n){
+      //     name = p.meta_nome
+      //   }
+      // })
+
+      this.popUpInfo = {'name' : name, 'quantity' : quantity, 'image' : image}
+
+      this.active = true
+
+     setTimeout(() => {
+       this.active = false
+     }, 2000);
+     
+    },
     addToCart(e) {
 
       let url = this.$store.state.Url + 'cart'
@@ -260,12 +292,14 @@ export default {
       axios.post(url, formData, config)
         .then((response) => {
           console.log(response)
-          alert('Produto adicionado ao carrinho')
-          location.reload()
+          // alert('Produto adicionado ao carrinho')
+          this.forceRerender()
         })
         .catch(errors => {
           console.log(errors.response.data.message)
         })
+
+        this.addedProductPopUp(e, this.quantity)
     },
 
     selectColor(c) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="gifts-container">
+  <div class="gifts-container" >
 
     <div class="menu-container" :class = "openMenu == true ? 'open': ''">
       <!-----------------------------------------Side menu--------------------------------------------->
@@ -200,6 +200,7 @@ export default {
       localStorage.setItem('linkcliked', i)
 
       this.localStorage()
+      this.openMenu = false;
     },
 
     materialFilter(i, e) {
@@ -212,6 +213,7 @@ export default {
       localStorage.setItem('material', materialId)
 
       this.localStorage()
+      this.openMenu = false;
     },
 
     discountFilter(i, e) {
@@ -224,6 +226,7 @@ export default {
       localStorage.setItem('discount', discountId)
 
       this.localStorage()
+      this.openMenu = false;
     },
 
     ocasionFilter(i) {
@@ -241,6 +244,7 @@ export default {
       localStorage.setItem('ocasion', ocasionId)
 
       this.localStorage()
+      this.openMenu = false;
     },
 
     ocasionCategoryFilter(i, e) {
@@ -270,6 +274,7 @@ export default {
       localStorage.setItem('ocasionCategory', categoryId)
 
       this.localStorage()
+      this.openMenu = false;
     },
 
     getProducts() {
@@ -285,6 +290,8 @@ export default {
       }
 
       this.localStorage()
+
+      this.openMenu = false;
 
     },
 

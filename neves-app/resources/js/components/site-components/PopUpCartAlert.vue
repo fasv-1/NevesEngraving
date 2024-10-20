@@ -4,22 +4,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h6 class="modal-title " id="ModalLabel"> Product Added to Cart </h6>
+          <h3 class="modal-title " id="ModalLabel"> Product Added to Cart </h3>
           <!-- <a class="x-close" href="#" @click="erraserror()">
             <h4>X</h4>
           </a> -->
         </div>
         <div class="modal-body">
-          <div>
-            <img id="pop-img" :src="'/storage/' + image" width="40" height="40" alt="Product Image">
+          <div class="pop-prod">
+            <img id="pop-img" :src="'/storage/' + image" alt="Product Image">
+            <p id="pop-name">{{ name }}</p>
           </div>
-          <div>
-            <label for="pop-name">Name</label>
-            <h5 id="pop-name">{{ name }}</h5>
-          </div>
-          <div>
-            <label for="pop-qnt">Quantity</label>
-            <h5 id="pop-qnt">{{ quantity }}</h5>
+          <div class="pop-qnt">
+            <label for="pop-qnt">Qnt</label>
+            <p id="pop-qnt">{{ quantity }}</p>
           </div>
         </div>
         <div class="modal-footer">

@@ -11,9 +11,11 @@
       </button>
     </div>
 
-    <div class="type-button">
-      <a class="high-link add" href="#addProductModal">+ Novo</a>
-    </div>
+    <a class="high-link add" href="#addProductModal">
+      <div class="type-button">
+        + Novo
+      </div>
+    </a>
   </div>
 
   <div class="product-filters" v-if="openFilters == true">
@@ -81,58 +83,69 @@
   <modal-component id="addProductModal" title="Adicionar novo produto">
     <template v-slot:content>
       <div class="container-inputs">
-        <div class="input-form-names">
-          <input-container id="nome" title="Nome" help="productNameHelp" helpText="Nome do produto" size="m-input">
-            <input type="text" name="nome" aria-describedby="productName" v-model="newProduct.name">
-          </input-container>
-
-          <input-container id="meta_nome" title="Meta-Nome" help="productMetaNameHelp"
-            helpText="Nome abreviado do produto">
-            <input type="text" name="meta_nome" aria-describedby="productMetaName" v-model="newProduct.metaName">
-          </input-container>
-
+        <div class="responsive-container responsive-between">
+          <div>
+            <input-container id="nome" title="Nome" help="productNameHelp" helpText="Nome do produto">
+              <input type="text" name="nome" aria-describedby="productName" v-model="newProduct.name">
+            </input-container>
+          </div>
+          <div>
+            <input-container id="meta_nome" title="Meta-Nome" help="productMetaNameHelp"
+              helpText="Nome abreviado do produto">
+              <input type="text" name="meta_nome" aria-describedby="productMetaName" v-model="newProduct.metaName">
+            </input-container>
+          </div>
         </div>
-        <div class="select-options">
-          <input-container id="ocasioes_id" title="Ocasiões" help="ocasionsHelp" helpText="Escolha uma ocasião">
-            <select name="ocasioes_id" v-model="newProduct.ocasion" required>
-              <option value="" disabled>Escolhe uma</option>
-              <option v-for="c in ocasions.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
-            </select>
-          </input-container>
+        <div class="responsive-container responsive-between">
 
-          <input-container id="categoria_id" title="Categoria" help="categoryHelp" helpText="Escolha uma categoria">
-            <select name="categoria_id" v-model="newProduct.category" required>
-              <option value="" disabled>Escolhe uma</option>
-              <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
-            </select>
-          </input-container>
+          <div>
+            <input-container id="ocasioes_id" title="Ocasiões" help="ocasionsHelp" helpText="Escolha uma ocasião">
+              <select name="ocasioes_id" v-model="newProduct.ocasion" required>
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="c in ocasions.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
+              </select>
+            </input-container>
+          </div>
+          <div>
+            <input-container id="categoria_id" title="Categoria" help="categoryHelp" helpText="Escolha uma categoria">
+              <select name="categoria_id" v-model="newProduct.category" required>
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="c in categorys.data" :key="c.id" :value="c.id">{{ c.nome }}</option>
+              </select>
+            </input-container>
+          </div>
+          <div>
+            <input-container id="materia_prima_id" title="Materia-prima" help="materialHelp"
+              helpText="Escolha uma matéria-prima">
+              <select name="materia_prima_id" v-model="newProduct.material" required>
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
+              </select>
+            </input-container>
+          </div>
+        </div>
 
-          <input-container id="materia_prima_id" title="Materia-prima" help="materialHelp"
-            helpText="Escolha uma matéria-prima">
-            <select name="materia_prima_id" v-model="newProduct.material" required>
-              <option value="" disabled>Escolhe uma</option>
-              <option v-for="m in materials.data" :key="m.id" :value="m.id">{{ m.nome }}</option>
-            </select>
-          </input-container>
-
-          <input-container id="desconto_id" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
-            <select name="desconto_id" v-model="newProduct.discount" required>
-              <option value="" disabled>Escolhe uma</option>
-              <option v-for="d in discounts.data " :key="d.id" :value="d.id">{{ d.nome }}</option>
-            </select>
-          </input-container>
-
-          <input-container id="costumizavel" title="Costumização" help="customizationtHelp"
-            helpText="Escolha um tipo de costumização">
-            <select name="costumizavel" v-model="newProduct.customization" required>
-              <option value="" disabled>Escolhe uma</option>
-              <option value="0">Sem costumização</option>
-              <option value="1">Cor</option>
-              <option value="2">Texto</option>
-              <option value="3">Cor e Texto</option>
-            </select>
-          </input-container>
-
+        <div class="responsive-container responsive-between">
+          <div>
+            <input-container id="desconto_id" title="Desconto" help="discountHelp" helpText="Escolha um desconto">
+              <select name="desconto_id" v-model="newProduct.discount" required>
+                <option value="" disabled>Escolhe uma</option>
+                <option v-for="d in discounts.data " :key="d.id" :value="d.id">{{ d.nome }}</option>
+              </select>
+            </input-container>
+          </div>
+          <div>
+            <input-container id="costumizavel" title="Costumização" help="customizationtHelp"
+              helpText="Escolha um tipo de costumização">
+              <select name="costumizavel" v-model="newProduct.customization" required>
+                <option value="" disabled>Escolhe uma</option>
+                <option value="0">Sem costumização</option>
+                <option value="1">Cor</option>
+                <option value="2">Texto</option>
+                <option value="3">Cor e Texto</option>
+              </select>
+            </input-container>
+          </div>
           <!-- <input-container id="customization" title="Costumização" help="costumizationHelp"
             helpText="Caso seja possível costumizar">
             <input type="checkbox" name="customization" class="form-checkbox" aria-describedby="customization"
@@ -164,7 +177,8 @@
     </template>
 
     <template v-slot:footer>
-      <button class="button-save" @click="save()">Adicionar</button>
+      <a @click="resetInput()" href="#"><button class="button-save">Cancelar</button></a>
+      <div><button class="button-login" @click="save()">Adicionar</button></div>
     </template>
 
   </modal-component>
@@ -202,6 +216,18 @@ export default {
     }
   },
   methods: {
+    resetInput() {
+        this.newProduct.name = ''
+        this.newProduct.metaName = ''
+        this.newProduct.category = ''
+        this.newProduct.ocasion = ''
+        this.newProduct.material = ''
+        this.newProduct.discount = ''
+        this.newProduct.customization = ''
+        this.newProduct.description = ''
+        this.newProduct.quantity = ''
+        this.newProduct.price = ''
+    },
     filtro(f, n) {
       if (n == 1) {
 

@@ -93,7 +93,7 @@ export default {
       userFavorites: { data: [] },
       reviews: { data: [] },
       popUpInfo : {},
-      active: false
+      active: false,
       
     }
   },
@@ -125,9 +125,7 @@ export default {
      setTimeout(() => {
        this.active = false
      }, 2000);
-
-      
-
+     
     },
     addToCart(e) {
 
