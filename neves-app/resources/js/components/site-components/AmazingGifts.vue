@@ -88,7 +88,7 @@
         <p>S</p>
       </div>
     </div>
-    
+
     <!-----------------------------------------Area where the products are showned--------------------------------------------->
     <div class="show-products">
       <div class="show-header">
@@ -101,7 +101,7 @@
           <option value="nome:desc">Name desc</option>
           <option value="created_at:desc">Added recently</option>
         </select>
-        
+
       </div>
       <div class="cart-empty text-red" v-if="productsShownd.data == ''">
         <h1>Não existem produtos</h1>
@@ -153,7 +153,7 @@ export default {
     }
   },
   methods: {
-    orderBy() { 
+    orderBy() {
       let orderBy = this.order
 
       localStorage.setItem('order', orderBy)
@@ -164,7 +164,7 @@ export default {
       //if the id have the same value of the index on menu
       if (this.id == c) {
         this.active = !this.active; //toogle the menu options
-        this.id = c;// give the index value of the correspondent menu option for validation later 
+        this.id = c;// give the index value of the correspondent menu option for validation later
       }
       //if the id have diferent value from the index of menu
       if (this.id != c) {
@@ -370,7 +370,7 @@ export default {
         localStorage.setItem("urlPage", url)
       }
 
-      //gets the products only filtred by the price-bar 
+      //gets the products only filtred by the price-bar
       if (categoria == null && ocasiao == null && ocasiaoCategoria == null && maxValue != null && material == null && order == null) {
 
         urlProducts = urlProducts + '&intervalo=valor:' + minValue + ':' + maxValue
@@ -386,7 +386,7 @@ export default {
 
       //gets the products filtred by material, and if is set, price-bar
       if (material != null) {
-        this.linkcliked = linkcliked 
+        this.linkcliked = linkcliked
         urlProducts = urlProducts + '&filtro=materia_prima_id:=:' + material
 
         if (this.priceRange != '0') {
@@ -411,7 +411,7 @@ export default {
       }
       //gets the products filtred by material, and if is set, price-bar
       if (desconto != null) {
-        this.linkcliked = linkcliked 
+        this.linkcliked = linkcliked
         urlProducts = urlProducts + '&filtro=desconto_id:=:' + desconto
 
         if (this.priceRange != '0') {
@@ -437,7 +437,7 @@ export default {
 
       //gets the products filtred by category, and if is set, price-bar
       if (categoria != null) {
-        this.linkcliked = linkcliked 
+        this.linkcliked = linkcliked
         urlProducts = urlProducts + '&filtro=categoria_id:=:' + categoria + ':ocasioes_id:=:1'
 
         if (this.priceRange != '0') {
@@ -463,7 +463,7 @@ export default {
 
       //gets the products filtred by ocasion, and if is set, price-bar
       if (ocasiao != null) {
-        this.linkcliked = linkcliked 
+        this.linkcliked = linkcliked
         urlProducts = urlProducts + '&filtro=ocasioes_id:=:' + ocasiao
 
         if (this.priceRange != '0') {
@@ -489,7 +489,7 @@ export default {
 
       //gets the products filtred by category ocasion, and if is set, price-bar
       if (ocasiaoCategoria != null) {
-        this.linkcliked = linkcliked 
+        this.linkcliked = linkcliked
         urlProducts = urlProducts + '&filtro=categoria_id:=:' + ocasiaoCategoria + ':ocasioes_id:=:' + ocasiaodaCategoria
 
         if (this.priceRange != '0') {
@@ -516,7 +516,7 @@ export default {
 
       console.log(urlProducts)
       console.log(page)
-      
+
       // gets the products and sets the pagination
       axios.get(urlProducts)
         .then(response => {
@@ -553,7 +553,7 @@ export default {
       return categorys;
 
     },
-    dinamycOcasions() { // dinamic ocasions 
+    dinamycOcasions() { // dinamic ocasions
       let ocasions = []
       this.products.data.forEach(element => {
 

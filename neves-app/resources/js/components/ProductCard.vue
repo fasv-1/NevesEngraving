@@ -7,15 +7,15 @@
 
       <!----------------------------------Put product on the wish list-------------------------------------->
       <div class="wish" v-if="this.$store.state.user == null">
-        <a href="/login"><img src="/storage/images/Icons/heart.png" alt="small heart"></a>
+        <a href="/login"><img src="@/images/Icons/heart.png" alt="small heart"></a>
       </div>
       <div class="wish" v-if="this.$store.state.user != null">
-        <a href="" @click.prevent="addWish(value.id)"><img src="/storage/images/Icons/heart.png" alt="small heart"></a>
+        <a href="" @click.prevent="addWish(value.id)"><img src="@/images/Icons/heart.png" alt="small heart"></a>
       </div>
       <div class="wish" v-if="userFavorites.data != ''">
         <div v-for="favorites, index in userFavorites.data" :key="index">
           <a href="" v-if="favorites.produto_id == value.id">
-            <img @click.prevent="removeWish(favorites.id)" src="/storage/images/Icons/full-heart.png" alt="small heart">
+            <img @click.prevent="removeWish(favorites.id)" src="@/images/Icons/full-heart.png" alt="small heart">
           </a>
         </div>
       </div>
@@ -41,7 +41,7 @@
         </div>
         <div class="info-area">
           <h6 v-if="info.nome">{{ value.nome }}</h6>
-          <h3 v-if="info.meta_nome">{{ value.meta_nome }}</h3>
+          <h4 v-if="info.meta_nome">{{ value.meta_nome }}</h4>
           <h5 v-if="info.categoria">{{ value.ocasioes_categoria_id }}</h5>
           <h5 v-if="info.materia">{{ value.materia_prima.nome }}</h5>
           <h5 v-if="info.quantidade">Quant.: {{ value.quantidade }} </h5>
@@ -60,7 +60,7 @@
 
         </div>
         <div class="stars">
-          <img src="/storage/images/Icons/5-stars.png" alt="5stars">
+          <img src="@/images/Icons/5-stars.png" alt="5stars">
           <div class="bg-stars" :style="'width:' + reviewCalc(value.id) + 'px'"></div>
         </div>
       </a>
@@ -70,12 +70,12 @@
       <div class="cart-btn" v-if="cart">
         <form method="POST" action="" @submit.prevent="addToCart(value.id)">
           <input type="hidden" name="_token" :value="$store.state.csrf">
-        
+
           <button type="submit">
             <div class="bg-anim"></div>
             <h5>Add to cart</h5>
           </button>
-          
+
         </form>
       </div>
       <!----------------------------------end of product add to cart -------------------------------------------------->
@@ -94,7 +94,7 @@ export default {
       reviews: { data: [] },
       popUpInfo : {},
       active: false,
-      
+
     }
   },
   methods: {
@@ -125,7 +125,7 @@ export default {
      setTimeout(() => {
        this.active = false
      }, 2000);
-     
+
     },
     addToCart(e) {
 
@@ -152,7 +152,7 @@ export default {
         })
 
         this.addedProductPopUp(e)
-        
+
     },
 
     addWish(id) {
@@ -266,7 +266,7 @@ export default {
       this.$store.state.transaction.status = '';
       this.$store.state.transaction.message = '';
     },
-    
+
     getImage() {
       let urlImages = this.$store.state.Url + 'api/imagens_produto'
 
@@ -280,9 +280,9 @@ export default {
         })
     },
 
-    
 
-    
+
+
   },
   computed: {
     allImages(){

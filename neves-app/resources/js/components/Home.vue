@@ -19,7 +19,7 @@
       <div class="home-anim">
         <div class="responsive-container row-reverse">
           <div class="animation">
-            <img src="/storage/images/gerais/EngravingAnim.gif" alt="" >
+            <img src="@/images/gerais/EngravingAnim.gif" alt="" >
           </div>
           <div class="text">
             <div class="title">
@@ -35,7 +35,7 @@
       <div class="home-anim">
         <div class="animation">
           <video autoplay loop>
-            <source src="/storage/videos/lazer-cut-clip.mp4" type="video/mp4">
+            <source src="@/videos/lazer-cut-clip.mp4" type="video/mp4">
           </video>
         </div>
         <div class="text">
@@ -45,7 +45,7 @@
           <h6>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, excepturi minus a aut
           voluptate molestiae quod, laudantium dolorem reiciendis inventore mollitia corrupti fugiat itaque nam sequi
           quam. Earum, iure aspernatur.</h6>
-          
+
         </div>
       </div>
 
@@ -53,7 +53,7 @@
         <div class="responsive-container row-reverse">
           <div class="animation">
             <video autoplay loop>
-              <source src="/storage/videos/heartAcembling-clip.mp4" type="video/mp4">
+              <source src="@/videos/heartAcembling-clip.mp4" type="video/mp4">
             </video>
           </div>
           <div class="text">
@@ -66,10 +66,9 @@
           </div>
         </div>
       </div>
-
     </div>
     <!---------------------------- Slider ----------------------------------------------->
-    <div class="slider-container">
+    <div class="slider-container mrgvert2">
       <div class="slider">
         <div v-for="slide, index in sliderInfo">
           <div class="slide" v-if="itsOn == index" :style="'background-image: url(/storage/' + slide.media + ')'">
@@ -80,8 +79,8 @@
           </div>
         </div>
         <div id="buttons">
-          <button class="preview" @click="previewImage()"><img src="/storage/images/Icons/arrow.png" alt=""></button>
-          <button class="next" @click="nextImage()"><img src="/storage/images/Icons/arrow.png" alt=""></button>
+          <button class="preview" @click="previewImage()"><img src="@/images/Icons/arrow.png" alt=""></button>
+          <button class="next" @click="nextImage()"><img src="@/images/Icons/arrow.png" alt=""></button>
         </div>
         <div class="slider-map">
           <div :id=slide.posicao class="circle" :class="itsOn == index ? 'on' : ''" @click="itsOn = index"
@@ -96,7 +95,7 @@
     <div class="home-promo">
       <router-link to="/home/amazing_gifts" class="publicity">
       </router-link>
-        <!-- <img src="/storage/images/gerais/Publicity store.png" alt=""> -->
+        <!-- <img src="/images/gerais/Publicity store.png" alt=""> -->
     </div>
 
     <!----------------------------------------------Contact form--------------------------------------------->

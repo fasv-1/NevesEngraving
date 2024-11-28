@@ -7,7 +7,7 @@
     <div class="type-button" @click="openFilters = !openFilters">
       <h6><b>Menu pesquisa</b></h6>
       <button class="toogle-bg mrghor05">
-        <img :class="openFilters == true ? 'rotate' : ''" src="/storage/images/Icons/arrow-black.png" alt="">
+        <img :class="openFilters == true ? 'rotate' : ''" src="@/images/Icons/arrow-black.png" alt="">
       </button>
     </div>
 

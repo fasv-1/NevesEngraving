@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card-center">
       <div class="card-header">
-        <h1>Login</h1>
+        <h1>Sign In</h1>
       </div>
       <!-----------------------------Login Form---------------------------------->
       <div class="card-body">
@@ -28,7 +28,7 @@
           <div class="button-form">
             <div class="btn-pass">
               <button type="submit" class="button1">
-                Login
+                Sign in
               </button>
               <a class="password-link" href="/forgot-password">
                 Esqueci-me da password

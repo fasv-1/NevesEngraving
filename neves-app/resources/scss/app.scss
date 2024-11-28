@@ -111,7 +111,7 @@ table {
       font-size: 1em;
       align-content: center;
       background-color: $Brdr-grey;
-      
+
       @media (max-width: $tablet) {
         padding: 0.3em 0.5em;
         font-size: 1em;
@@ -129,13 +129,13 @@ table {
         text-align: center;
         height: 100%;
         align-content: center;
-        
+
         @media (max-width: $tablet) {
           padding: 0.3em 0.5em;
           font-size: 0.8em;
         }
       }
-      
+
       th {
         border-top: 1px solid $Darker-blue;
         text-align: center;
@@ -169,7 +169,7 @@ table {
 
 input[type="number"],
 input[type="checkbox"]{
-  border: 1px solid #000;
+  border: 1px solid #c5c5c5;
   border-radius: 6px;
   padding: 0.6em 0.4em;
 
@@ -179,7 +179,7 @@ input[type="checkbox"]{
 }
 
 select{
-  border: 1px solid #000;
+  border: 1px solid #c5c5c5;
   border-radius: 6px;
   padding: 0.5em 0.4em;
 
@@ -192,7 +192,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"]
 {
-  border: 1px solid #000;
+  border: 1px solid #c5c5c5;
   border-radius: 6px;
   padding: 0.6em 0.4em;
 
@@ -208,7 +208,7 @@ input[type="password"]
 }
 
 textarea{
-  border: 1px solid #000;
+  border: 1px solid #c5c5c5;
   border-radius: 6px;
   padding: 0.6em 0.4em;
   width: 96%;

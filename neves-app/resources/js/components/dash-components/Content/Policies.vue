@@ -41,7 +41,7 @@
                                             v-if="idUpdating != content.id || updateShow != content.titulo">
                                             <h4><b>{{ content.titulo }}</b></h4>
                                             <img class="edit-btn mrghor1"
-                                                src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                src="@/images/Icons/edit-square-icon.svg" alt=""
                                                 style="width: 30px;" @click="editfield(content.titulo, content.id)">
 
                                         </div>
@@ -64,7 +64,7 @@
                                             v-if="idUpdating != content.id || updateShow != content.subtitulo">
                                             <p><b>{{ content.subtitulo }}</b></p>
                                             <img class="edit-btn mrghor1"
-                                                src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                src="@/images/Icons/edit-square-icon.svg" alt=""
                                                 style="width: 30px;" @click="editfield(content.subtitulo, content.id)">
                                         </div>
                                         <div v-else>
@@ -85,7 +85,7 @@
                                     <div class="update-descr"
                                         v-if="idUpdating != content.id || updateShow != content.texto">
                                         <p>{{ content.texto }}</p>
-                                        <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                             alt="" style="width: 30px;" @click="editfield(content.texto, content.id)">
                                     </div>
                                     <div v-else>

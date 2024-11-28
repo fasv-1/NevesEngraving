@@ -21,7 +21,7 @@
                 @click.prevent="principal(index)"><router-link :to="page.link.url"><img :src=" page.icon" alt="icon" width="25"><h5>{{ page.link.text }}</h5></router-link></a>
               <h3 class="menuIcon" @click.prevent='toogle(index)'>
                 <img
-                  :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png' : '/storage/images/Icons/PlusIcon.png'">
+                  :src="active == true && id == index ? '/images/Icons/LessIcon.png' : '/images/Icons/PlusIcon.png'">
               </h3>
             </div>
             <div class="dash-nav-option" :class="{ show: id == index && active }">
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       activePage: 0, //set the value of the principal pages
-      selectedLink: '', //set the index value of the principal pages to link the option selected 
+      selectedLink: '', //set the index value of the principal pages to link the option selected
       activeLink: '', //the name of the option selected
       active: false, //set the style to highlight the principal menu selected
       id: "", // for validations
@@ -85,13 +85,13 @@ export default {
           link: { text: 'Home', url: '/dashboard' },
           pageTitle: 'Dashboard',
           content: '',
-          logoPath: "/storage/images/logos/LogoVetorizadoFundBranco.png",
+          logoPath: "/images/logos/LogoVetorizadoFundBranco.png",
           alt: "Logo da marca"
         },
         {
           link: { text: 'Produtos', url: '/dashboard/produtos' },
           pageTitle: "Produtos",
-          icon: '/storage/images/Icons/new.png',
+          icon: '/images/Icons/new.png',
           options: [
             {
               info: 'Descontos',
@@ -107,7 +107,7 @@ export default {
         {
           link: { text: 'Conteudo', url: '/dashboard/conteudo' },
           pageTitle: "Conteudo",
-          icon: '/storage/images/Icons/content.png',
+          icon: '/images/Icons/content.png',
           options: [
             {
               info: 'Politicas',
@@ -122,7 +122,7 @@ export default {
         {
           link: { text: 'Estatísticas', url: '/dashboard/estatisticas' },
           pageTitle: "Estatísticas",
-          icon: '/storage/images/Icons/diagram.png',
+          icon: '/images/Icons/diagram.png',
           options: [
             {
               info: 'Avaliações',
@@ -145,7 +145,7 @@ export default {
         {
           link: { text: 'Utilizadores', url: '/dashboard/users' },
           pageTitle: "Utilizadores",
-          icon: '/storage/images/Icons/group.png',
+          icon: '/images/Icons/group.png',
           options: [
             {
               info: 'Mensagens',
@@ -164,7 +164,7 @@ export default {
         {
           link: { text: 'Defenições', url: '/dashboard/defenicoes' },
           pageTitle: "Defenições",
-          icon: '/storage/images/Icons/settings.png',
+          icon: '/images/Icons/settings.png',
           options: [
             {
               info: 'Cores',
@@ -186,7 +186,7 @@ export default {
       //if the id have the same value of the index of menu
       if (this.id == c) {
         this.active = !this.active; //toogle the menu options
-        this.id = c;// give the index value of the arrow correspondent to the menu option for validation later 
+        this.id = c;// give the index value of the arrow correspondent to the menu option for validation later
       }
       //if the id have diferent value from the index of menu
       if (this.id != c) {
@@ -201,7 +201,7 @@ export default {
     },
     opcao(x, y) {
       this.activeLink = x; //gives the name of the option selected
-      this.activePage = this.id; //gives the same value of the arrow clicked to check if the option selected matches 
+      this.activePage = this.id; //gives the same value of the arrow clicked to check if the option selected matches
       this.selectedLink = y;// gives the index value of the option selected to compare with the menu open
     },
 

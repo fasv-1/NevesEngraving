@@ -5,29 +5,29 @@
             <!----------------------------------------- Image menu --------------------------------------------->
             <div id="option" class="img-menu" @scroll="scroll">
                 <div class="option" @click="select(0)">
-                    <img src="/storage/images/gerais/woodEngrv.jpg" alt="wood-link">
+                    <img src="@/images/gerais/woodEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 0 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 0 ? 'active' : ''">Wood</div>
                 </div>
                 <div class="option" :class="this.optionSelected == 1 ? 'active' : ''" @click="select(1)">
-                    <img src="/storage/images/gerais/acrylicEngrv.jpg" alt="wood-link">
+                    <img src="@/images/gerais/acrylicEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 1 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 1 ? 'active' : ''">Acrylic</div>
                 </div>
 
                 <div class="option" :class="this.optionSelected == 2 ? 'active' : ''" @click="select(2)">
-                    <img src="/storage/images/gerais/alumEngrv.jpg" alt="wood-link">
+                    <img src="@/images/gerais/alumEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 2 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 2 ? 'active' : ''">Aluminium</div>
                 </div>
 
                 <div class="option" :class="this.optionSelected == 4 ? 'active' : ''" @click="select(4)">
-                    <img src="/storage/images/gerais/glassEngrv.jpg" alt="wood-link">
+                    <img src="@/images/gerais/glassEngrv.jpg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 4 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 4 ? 'active' : ''">Glass</div>
                 </div>
                 <div class="option" :class="this.optionSelected == 5 ? 'active' : ''" @click="select(5)">
-                    <img src="/storage/images/gerais/cardEngrv.jpeg" alt="wood-link">
+                    <img src="@/images/gerais/cardEngrv.jpeg" alt="wood-link">
                     <div class="blur" :class="this.optionSelected == 5 ? 'active' : ''"></div>
                     <div class="eng-name" :class="this.optionSelected == 5 ? 'active' : ''">Business Cards</div>
                 </div>
@@ -163,7 +163,7 @@
         </div>
         <contact-component></contact-component>
     </div>
-    
+
 </template>
 
 <script>

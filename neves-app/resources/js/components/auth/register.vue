@@ -2,32 +2,32 @@
   <div class="container">
     <div class="card-center">
       <div class="card-header">
-        <h1>Registo</h1>
+        <h1>Sign up</h1>
       </div>
       <!-----------------------------Register Form---------------------------------->
       <div class="card-body">
         <form method="POST" action="" @submit.prevent="register($event)">
           <input type="hidden" name="_token" :value="csrf_token">
 
-          <input-container id="name" title="Nome" help="nome" helpText="O seu nome">
-            <input type="text" class="form-control l-input" name="name" autocomplete="nome" autofocus v-model="nome">
+          <input-container id="name" title="Name" help="nome" helpText="Your name">
+            <input type="text" class="form-control l-input" name="name" autofocus v-model="nome">
           </input-container>
 
-          <input-container id="email" title="Email" help="email" helpText="O seu email">
+          <input-container id="email" title="Email" help="email" helpText="Your email">
             <input type="email" class="form-control l-input" name="email" autocomplete="email" autofocus
               v-model="email">
           </input-container>
 
 
           <div>
-            <input-container id="password" title="Password" help="password" helpText="O sua password">
+            <input-container id="password" title="Password" help="password" helpText="Your password">
               <input type="password" class="form-control l-input" name="password" autocomplete="current-password"
                 v-model="password">
             </input-container>
           </div>
 
-          <input-container id="password_confirmation" title="Confirme a Password" help="password_confirmation"
-            helpText="Confirmação da password">
+          <input-container id="password_confirmation" title="Repeat password" help="password_confirmation"
+            helpText="Password confirmation">
             <input id="password_confirmation" type="password" class="form-control l-input" name="password_confirmation"
               autocomplete="password_confirmation" v-model="password_confirmation">
               <p class="error" v-for=" error, index in this.$store.state.transaction.message" :key="index">{{ index
@@ -36,12 +36,12 @@
           <div class="button-form">
             <div class="btn-pass">
               <button type="submit" class="button1">
-                Enviar
+                Send
               </button>
             </div>
             <div class="register-link">
               <a href="/login">
-                Já estou registado
+                Oh I forgot, already have an account
               </a>
             </div>
           </div>

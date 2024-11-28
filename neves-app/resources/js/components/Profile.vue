@@ -28,17 +28,21 @@
                         <div class="fields" v-if="index == 0">
                             <div class="update-link">
                                 <a href="" @click.prevent="updatePage(4)"><img class="edit-btn"
-                                        src="/storage/images/Icons/edit-square-icon.svg" style="width:30px" alt=""></a>
+                                        src="@/images/Icons/edit.png" style="width:30px" alt=""></a>
                             </div>
-                            <div class="field">
-                                <p>Nome</p>
-                                <h4>{{ user.name }}</h4>
-                            </div>
-                            <div class="field">
-                                <p>Email</p>
-                                <h4>{{ user.email }}</h4>
-                            </div>
+                            <div class="side-fields">
 
+
+                                <div class="side">
+                                    <p>Nome</p>
+                                    <h4>{{ user.name }}</h4>
+                                </div>
+                                <div class="side">
+                                    <p>Email</p>
+                                    <h4>{{ user.email }}</h4>
+                                </div>
+
+                            </div>
                         </div>
 
                         <!----------------------------------Personal Info------------------------------------------------------->
@@ -49,8 +53,7 @@
                             <div class="dinamyc-fields" v-else>
                                 <div class="update-link">
                                     <a href="" @click.prevent="updatePage(5)">
-                                        <img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg"
-                                            style="width:30px" alt="">
+                                        <img class="edit-btn" src="@/images/Icons/edit.png" style="width:30px" alt="">
                                     </a>
                                 </div>
                                 <div class="field">
@@ -61,21 +64,24 @@
                                     <h6>Morada adicional</h6>
                                     <h4>{{ addressInfo.morada2 }}</h4>
                                 </div>
+
                                 <div class="field">
                                     <h6>Contacto telefónico</h6>
                                     <h4>{{ addressInfo.telemovel }}</h4>
                                 </div>
-                                <div class="field">
-                                    <h6>Cidade</h6>
-                                    <h4>{{ addressInfo.cidade }}</h4>
-                                </div>
-                                <div class="field">
-                                    <h6>País</h6>
-                                    <h4>{{ addressInfo.pais }}</h4>
-                                </div>
-                                <div class="field">
-                                    <h6>Código postal</h6>
-                                    <h4>{{ addressInfo.codigo_postal }}</h4>
+                                <div class="side-fields">
+                                    <div class="side">
+                                        <h6>Cidade</h6>
+                                        <h4>{{ addressInfo.cidade }}</h4>
+                                    </div>
+                                    <div class="side">
+                                        <h6>País</h6>
+                                        <h4>{{ addressInfo.pais }}</h4>
+                                    </div>
+                                    <div class="side">
+                                        <h6>Código postal</h6>
+                                        <h4>{{ addressInfo.codigo_postal }}</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +106,8 @@
                                     </div>
                                     <div class="buttons">
                                         <a href="" v-if="review.id" @click.prevent="destroy(review.id, 'comments')"><img
-                                                class="delete-btn" src="/storage/images/Icons/delete.svg"
-                                                style="width:30px" alt=""></a>
+                                                class="delete-btn" src="@/images/Icons/delete-icon.png"
+                                                style="width:20px" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -116,19 +122,22 @@
                     </div>
                     <div class="fields">
                         <form method="patch" action="" @submit.prevent="updateCredencials($event)">
-                            <div class="field">
-                                <input-container id="updateName" title="Atualizar nome de usuario" help="updateName"
-                                    helpText="Nome de usuário">
-                                    <input type="text" name="updateName" aria-describedby="updateName"
-                                        v-model="updateName">
-                                </input-container>
-                            </div>
-                            <div class="field">
-                                <input-container id="updateEmail" title="Atualizar email de usuario" help="updateEmail"
-                                    helpText="Email de usuário (caso o faça, é necessário validar o novo email)">
-                                    <input type="text" name="updateEmail" aria-describedby="updateEmail"
-                                        v-model="updateEmail">
-                                </input-container>
+                            <div class="side-fields">
+                                <div class="side">
+                                    <input-container id="updateName" title="Atualizar nome de usuario" help="updateName"
+                                        helpText="Nome de usuário">
+                                        <input type="text" name="updateName" aria-describedby="updateName"
+                                            v-model="updateName">
+                                    </input-container>
+                                </div>
+                                <div class="side">
+                                    <input-container id="updateEmail" title="Atualizar email de usuario"
+                                        help="updateEmail"
+                                        helpText="Email de usuário (caso o faça, é necessário validar o novo email)">
+                                        <input type="text" name="updateEmail" aria-describedby="updateEmail"
+                                            v-model="updateEmail">
+                                    </input-container>
+                                </div>
                             </div>
                             <div class="button">
                                 <button type="submit" class="button1">Atualizar</button>
@@ -146,16 +155,18 @@
                         <form method="patch" action="" @submit.prevent="updateAdress($event, addressInfo.id)">
                             <div class="field">
                                 <input-container id="morada1" title="Atualizar morada" help="updateMorada1"
-                                    helpText="Digite a nova morada de usuário" size="ml-input">
-                                    <input type="text" name="updateMorada1" aria-describedby="updateMorada1"
-                                        :placeHolder="addressInfo.morada1" v-model="updateMorada1">
+                                    helpText="Digite a nova morada de usuário" size="l-input">
+                                    <input type="text" name="updateMorada1" class="width70"
+                                        aria-describedby="updateMorada1" :placeHolder="addressInfo.morada1"
+                                        v-model="updateMorada1">
                                 </input-container>
                             </div>
                             <div class="field">
                                 <input-container id="morada2" title="Atualizar morada adicional" help="updateMorada2"
                                     helpText="Digite a nova morada adicional" size="ml-input">
-                                    <input type="text" name="updateMorada2" aria-describedby="updateMorada2"
-                                        :placeHolder="addressInfo.morada2" v-model="updateMorada2">
+                                    <input type="text" name="updateMorada2" class="width70"
+                                        aria-describedby="updateMorada2" :placeHolder="addressInfo.morada2"
+                                        v-model="updateMorada2">
                                 </input-container>
                             </div>
                             <div class="field">
@@ -315,7 +326,7 @@ export default {
         }
     },
     methods: {
-        timeOut() { // sets a timeout to delay the change of page incoming on-going in the url  
+        timeOut() { // sets a timeout to delay the change of page incoming on-going in the url
             setTimeout(() => {
                 if (this.$route.query.wish) {
                     localStorage.setItem('activePage', this.$route.query.wish);

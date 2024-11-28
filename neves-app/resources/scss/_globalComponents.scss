@@ -78,9 +78,11 @@
   border-radius: 6px;
   transition: 0.2s ease-in;
 
+
   &:hover {
-    background-color: $Darker-blue;
-  }
+    box-shadow: $boxShadow;
+    background-color: $Brdr-grey;
+}
 }
 
 .button-login {
@@ -105,12 +107,14 @@
 }
 
 .button1 {
-  background-color: #50b1d1;
+  background-color: $Global-blue;
   padding: 0.5em 0.8em;
-  font-weight: 800;
+  font-weight: 600;
   border-radius: 6px;
   border: 2px solid $Darker-blue;
   letter-spacing: 0.1em;
+  transition: all 0.2s ease-in-out;
+  color: #fff;
 
   @media (max-width: $tablet) {
     padding: 0.3em 0.8em;
@@ -118,9 +122,9 @@
 
   &:hover {
     background-color: $Darker-blue;
-    color: #fff;
     border: 2px solid $Global-blue;
     cursor: pointer;
+    transform: translateY(-2px);
   }
 }
 
@@ -229,6 +233,10 @@
 .container {
   margin: 0 1em;
   min-height: 70vh;
+
+  @media (min-width: $descktop-hd) {
+    margin: 0 5em;
+  }
 }
 
 .space-between {
@@ -407,6 +415,10 @@
   width: 70%;
 }
 
+.width50 {
+  width: 50%;
+}
+
 .mini-card {
   height: 100px;
 }
@@ -568,7 +580,7 @@
     margin: 1em 0;
 
     @media (min-width: $descktop) {
-      margin: 1em 4em 1em 1em;
+      margin: 1em 4em 1em 0;
     }
   }
 }
@@ -668,7 +680,7 @@
     padding: 0.4em 0.5em;
     top: -30px;
     right: -25px;
-  
+
     &:hover {
       // color: $Darker-blue;
       box-shadow: inset 0px 0px 5px -4px rgba(0,0,0);

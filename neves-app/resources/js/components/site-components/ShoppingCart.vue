@@ -27,7 +27,7 @@
                                     @change="update(index)"></td>
                             <td>{{ product.strike_price }}</td>
                             <td>{{ calculatedValue(product) }} €</td>
-                            <td><a href="" @click.prevent="remove(index)"><img src="/storage/images/Icons/delete-icon.png" alt="" width="20px"></a></td>
+                            <td><a href="" @click.prevent="remove(index)"><img src="@/images/Icons/delete-icon.png" alt="" width="20px"></a></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -184,7 +184,7 @@ export default {
         getImage(id) {
             let image = ''
             Object.values(this.images.data).forEach(v => {
-                
+
                 if (v.produto_id == id && v.posicao == 1) {
                     image = v.nome
 
@@ -235,7 +235,7 @@ export default {
                 values.push(this.calculatedValue(v))
             })
 
-            function sum(a) { //sum all the product final value and return the total with decimals 
+            function sum(a) { //sum all the product final value and return the total with decimals
                 return (a.length && parseFloat(a[0]) + sum(a.slice(1))) || 0;
             }
 

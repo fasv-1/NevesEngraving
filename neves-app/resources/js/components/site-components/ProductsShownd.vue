@@ -7,8 +7,8 @@
       <div class="characteristics">
         <div class="product-images">
           <div class="images">
-            <img :src="firstImage" alt="product image" v-if="openImage == ''">
-            <img :src="openImage" alt="product image" v-else>
+            <img :src=" '/storage/' + firstImage" alt="product image" v-if="openImage == ''">
+            <img :src=" '/storage/' + openImage" alt="product image" v-else>
           </div>
           <div class="miniatures">
             <div class="min-image" v-for=" image, index in productImages.data " :key="index"
@@ -27,7 +27,7 @@
               </div>
               <div class="ranking">
                 <div class="stars">
-                  <img src="/storage/images/Icons/5-stars.png" alt="5stars">
+                  <img src="@/images/Icons/5-stars.png" alt="5stars">
                   <div class="bg-stars" :style="'width:' + getRating + 'px'"></div>
                 </div>
                 <!-- <p>Reviews ({{ reviewsNumb }})</p> -->
@@ -35,15 +35,15 @@
             </div>
             <div class="share">
               <ul>
-                <li><a href=""><img src="/storage/images/icons/facebook.png" alt="facebook-icon" style="width:20px">
+                <li><a href=""><img src="@/images/icons/facebook.png" alt="facebook-icon" style="width:20px">
                     <p class="marginMinHor">Share</p>
                   </a>
                 </li>
-                <li><a href=""><img src="/storage/images/icons/instagram.png" alt="instagram-icon" style="width:20px">
+                <li><a href=""><img src="@/images/icons/instagram.png" alt="instagram-icon" style="width:20px">
                     <p class="marginMinHor">Share</p>
                   </a>
                 </li>
-                <li><a href=""><img src="/storage/images/icons/Postal.png" alt="mail-icon" style="width:32px">
+                <li><a href=""><img src="@/images/icons/Postal.png" alt="mail-icon" style="width:32px">
                     <p class="marginMinHor">Email</p>
                   </a>
                 </li>
@@ -137,7 +137,7 @@
             <div v-for="review, index in reviews.data" :key="index">
               <div class="user-review" v-if="review.comentario != null">
                 <div class="stars">
-                  <img src="/storage/images/Icons/5-stars.png" alt="5stars">
+                  <img src="@/images/Icons/5-stars.png" alt="5stars">
                   <div class="bg-stars" :style="'width:' + (review.rating * 100) / 5 + 'px'"></div>
                 </div>
                 <div class="comentary">
@@ -168,15 +168,15 @@
             <div id="rating">
               <ul>
                 <li @click="starvalue(1)" :style="rating >= 1 ? 'background:#dc4151;' : ''"><img
-                    src="/storage/images/Icons/Estrela.png" alt="star"></li>
+                    src="@/images/Icons/Estrela.png" alt="star"></li>
                 <li @click="starvalue(2)" :style="rating >= 2 ? 'background:#dc4151;' : ''"><img
-                    src="/storage/images/Icons/Estrela.png" alt="star"></li>
+                    src="@/images/Icons/Estrela.png" alt="star"></li>
                 <li @click="starvalue(3)" :style="rating >= 3 ? 'background:#dc4151;' : ''"><img
-                    src="/storage/images/Icons/Estrela.png" alt="star"></li>
+                    src="@/images/Icons/Estrela.png" alt="star"></li>
                 <li @click="starvalue(4)" :style="rating >= 4 ? 'background:#dc4151;' : ''"><img
-                    src="/storage/images/Icons/Estrela.png" alt="star"></li>
+                    src="@/images/Icons/Estrela.png" alt="star"></li>
                 <li @click="starvalue(5)" :style="rating >= 5 ? 'background:#dc4151;' : ''"><img
-                    src="/storage/images/Icons/Estrela.png" alt="star"></li>
+                    src="@/images/Icons/Estrela.png" alt="star"></li>
               </ul>
             </div>
           </input-container>
@@ -269,7 +269,7 @@ export default {
      setTimeout(() => {
        this.active = false
      }, 2000);
-     
+
     },
     addToCart(e) {
 
@@ -365,7 +365,7 @@ export default {
     },
 
     setImage(image) {
-      this.openImage = '/storage/' + image
+      this.openImage = '/' + image
     },
 
     getData() {
@@ -446,7 +446,7 @@ export default {
         }
       })
 
-      return '/storage/' + image[0]
+      return '/' + image[0]
     },
 
     getPrice() { //get the price with discount

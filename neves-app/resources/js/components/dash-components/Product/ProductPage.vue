@@ -5,8 +5,8 @@
     <div class="title-cont">
       <h2 class="titulo1">{{ product.data.nome }}</h2>
       <div>
-        <a href="#updateProductModal"><img class="edit-btn" src="/storage/images/Icons/edit-square-icon.svg" alt=""></a>
-        <a href="#deleteProductModal"><img class="delete-btn" src="/storage/images/Icons/delete.svg" style="width:40px"
+        <a href="#updateProductModal"><img class="edit-btn" src="@/images/Icons/edit-square-icon.svg" alt=""></a>
+        <a href="#deleteProductModal"><img class="delete-btn" src="@/images/Icons/delete.svg" style="width:40px"
             alt=""></a>
       </div>
     </div>
@@ -20,7 +20,7 @@
       </label>
       <div class="principal-image-preview">
         <div>
-          <img :src="'/storage/' + productMainImage[0].nome">
+          <img :src="'@/' + productMainImage[0].nome">
         </div>
         <div class="image-btns">
           <button class="btn-remove" @click="removeImage(productMainImage[0].id)">Remover imagem</button>
@@ -120,7 +120,7 @@
               <div class="space-between marginMinvert" v-if="detail.cor != null">
                 <h4>- {{ detail.cor }}</h4>
                 <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
-                    src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
+                    src="@/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
               </div>
             </li>
           </ul>
@@ -145,7 +145,7 @@
               <div class="space-between marginMinvert" v-if="detail.descricao != null">
                 <h4>- {{ detail.descricao }}</h4>
                 <a href="" @click.prevent="removeDetail(detail.id)"><img class="delete-btn"
-                    src="/storage/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
+                    src="@/images/Icons/delete.svg" alt="" style="width: 20px;"></a>
               </div>
             </li>
           </ul>
@@ -178,7 +178,7 @@
       </label>
       <div class="images-preview" v-if="productImages != ''">
         <div class="preview-cont" v-for="i, indexValue in productImages" :key="indexValue">
-          <img :src="'/storage/' + i.nome">
+          <img :src="'@/' + i.nome">
           <button class="btn-remove" @click="removeImage(i.id)">Remover imagem</button>
         </div>
       </div>

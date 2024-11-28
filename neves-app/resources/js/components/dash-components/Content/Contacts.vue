@@ -1,4 +1,4 @@
-<template> 
+<template>
     <div class="container">
         <div class="">
             <div class="title-cont">
@@ -25,7 +25,7 @@
                                             v-if="idUpdating != contacts.id || updateShow != contacts.nome">
                                             <h6><b>{{ contacts.nome }}</b></h6>
                                             <img class="edit-btn mrghor1"
-                                                src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                src="@/images/Icons/edit-square-icon.svg" alt=""
                                                 style="width: 30px;" @click="editfield(contacts.nome, contacts.id)">
 
                                         </div>
@@ -48,7 +48,7 @@
                                             v-if="idUpdating != contacts.id || updateShow != contacts.contacto">
                                             <p>{{ contacts.contacto }}</p>
                                             <img class="edit-btn mrghor1"
-                                                src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                src="@/images/Icons/edit-square-icon.svg" alt=""
                                                 style="width: 30px;" @click="editfield(contacts.contacto, contacts.id)">
 
                                         </div>

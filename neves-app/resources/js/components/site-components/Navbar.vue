@@ -13,28 +13,28 @@
 
         <div class="wish">
           <a href="/profile?wish=2">
-            <img src="/storage/images/Icons/heart.png" alt="wish-icon">
+            <img src="@/images/Icons/heart.png" alt="wish-icon">
             <p class="wish-label">Wish List</p>
           </a>
         </div>
 
         <!---------------------------Logs/Profile link------------------------------------->
         <div class="logs">
-          <img src="/storage/images/Icons/user-check.png" alt="user-icon">
+          <img src="@/images/Icons/user-check.png" alt="user-icon">
 
           <slot></slot>
         </div>
         <!---------------------------Shopping-cart link------------------------------------->
         <div class="shopping-cart" v-if="altroutes == true">
           <a href="/home/shopping_cart">
-            <img src="/storage/images/Icons/shopping-cart-1.png" alt="user-icon">
+            <img src="@/images/Icons/shopping-cart-1.png" alt="user-icon">
             <p class="num-items"> <b>{{ cartTotal }}</b></p>
             <p class="total"><b>{{ totalPrice }}€</b></p>
           </a>
         </div>
         <div class="shopping-cart" v-else>
           <router-link to="/home/shopping_cart" @click="active = false">
-            <img src="/storage/images/Icons/shopping-cart-1.png" alt="user-icon">
+            <img src="@/images/Icons/shopping-cart-1.png" alt="user-icon">
             <p class="num-items"> <b>{{ cartTotal }}</b></p>
             <p class="total"><b>{{ totalPrice }}€</b></p>
           </router-link>
@@ -56,14 +56,14 @@
     <div class="navbar-logo" v-if="altroutes == true">
       <a href="/home">
         <div class="bg-logo" >
-          <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" width="50" alt="Logo marca">
+          <img src="@/images/logos/LogoVetorizadoFundBranco.png" width="50" alt="Logo marca">
         </div>
       </a>
     </div>
     <div class="navbar-logo" v-else>
       <router-link to="/home" >
         <div class="bg-logo">
-          <img src="/storage/images/logos/LogoVetorizadoFundBranco.png" width="50" alt="Logo marca">
+          <img src="@/images/logos/LogoVetorizadoFundBranco.png" width="50" alt="Logo marca">
         </div>
       </router-link>
     </div>
@@ -74,7 +74,7 @@
         <a href="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'AmazingGifts' ? 'active' : ''">
           <div id="glow-div">
-            <p><b>AMAZING GIFTS</b></p>
+            <p><b>GIFTS</b></p>
           </div>
         </a>
         <a href="/home/engraving" @click="clearStorage()" class="nav-link"
@@ -108,7 +108,7 @@
         <router-link to="/home/amazing_gifts" @click="clearStorage()" class="nav-link"
           :class="$route.name == 'AmazingGifts' ? 'active' : ''">
           <div id="glow-div">
-            <p><b>AMAZING GIFTS</b></p>
+            <p><b>GIFTS</b></p>
           </div>
         </router-link>
         <router-link to="/home/engraving" @click="clearStorage()" class="nav-link"

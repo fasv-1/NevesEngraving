@@ -41,7 +41,7 @@ const checkedIntro = ref([])
                                     <h6><b>Animações e Info</b></h6>
                                     <button class="toogle-bg mrghor1" @click="openHome(1)"><img
                                             :class="home == 1 && openMenu == true ? 'rotate' : ''"
-                                            src="/storage/images/Icons/arrow-black.png" alt=""></button>
+                                            src="@/images/Icons/arrow-black.png" alt=""></button>
                                 </div>
                                 <div class="responsive-container">
                                     <input type="radio" id="animInfo" value="animInfo" v-model="checkedIntro" />
@@ -57,7 +57,7 @@ const checkedIntro = ref([])
                                             <div class="title responsive-center" v-if="updateShow != content.titulo">
                                                 <h1>{{ content.titulo }}</h1>
                                                 <img class="edit-btn mrghor1"
-                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    src="@/images/Icons/edit-square-icon.svg" alt=""
                                                     style="width: 30px;" @click="editfield(content.titulo)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
@@ -78,7 +78,7 @@ const checkedIntro = ref([])
                                                 v-if="updateShow != content.descricao">
                                                 <h6>{{ content.descricao }}</h6>
                                                 <img class="edit-btn mrghor1"
-                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    src="@/images/Icons/edit-square-icon.svg" alt=""
                                                     style="width: 30px;" @click="editfield(content.descricao)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
@@ -105,7 +105,7 @@ const checkedIntro = ref([])
                                             <div class="title" v-if="updateShow != content.titulo">
                                                 <h2>{{ content.titulo }}</h2>
                                                 <img class="edit-btn mrghor1"
-                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    src="@/images/Icons/edit-square-icon.svg" alt=""
                                                     style="width: 30px;" @click="editfield(content.titulo)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
@@ -124,7 +124,7 @@ const checkedIntro = ref([])
                                             <div class="responsive-container row-reverse">
                                                 <!------------------------------- animation update------------------------------------->
                                                 <div class="animation">
-                                                    <img src="/storage/images/gerais/EngravingAnim.gif" alt=""
+                                                    <img src="@/images/gerais/EngravingAnim.gif" alt=""
                                                         height="200">
                                                 </div>
 
@@ -132,7 +132,7 @@ const checkedIntro = ref([])
                                                 <div class="text" v-if="updateShow != content.descricao">
                                                     {{ content.descricao }}
                                                     <img class="edit-btn mrghor1"
-                                                        src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                        src="@/images/Icons/edit-square-icon.svg" alt=""
                                                         style="width: 30px;" @click="editfield(content.descricao)">
                                                 </div>
                                                 <div class="flex-container width100 responsive-center"
@@ -160,7 +160,7 @@ const checkedIntro = ref([])
                                             <div class="title responsive-end" v-if="updateShow != content.titulo">
                                                 <h2>{{ content.titulo }}</h2>
                                                 <img class="edit-btn mrghor1"
-                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    src="@/images/Icons/edit-square-icon.svg" alt=""
                                                     style="width: 30px;" @click="editfield(content.titulo)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
@@ -179,14 +179,14 @@ const checkedIntro = ref([])
                                             <!------------------------------- animation update------------------------------------->
                                             <div class="animation">
                                                 <video autoplay loop>
-                                                    <source src="/storage/videos/lazer-cut-clip.mp4" type="video/mp4">
+                                                    <source src="@/videos/lazer-cut-clip.mp4" type="video/mp4">
                                                 </video>
                                             </div>
                                             <!------------------------------- descricao update------------------------------------->
                                             <div class="text" v-if="updateShow != content.descricao">
                                                 {{ content.descricao }}
                                                 <img class="edit-btn mrghor1"
-                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    src="@/images/Icons/edit-square-icon.svg" alt=""
                                                     style="width: 30px;" @click="editfield(content.descricao)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
@@ -212,7 +212,7 @@ const checkedIntro = ref([])
                                             <div class="title" v-if="updateShow != content.titulo">
                                                 <h2>{{ content.titulo }}</h2>
                                                 <img class="edit-btn mrghor1"
-                                                    src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                    src="@/images/Icons/edit-square-icon.svg" alt=""
                                                     style="width: 30px;" @click="editfield(content.titulo)">
                                             </div>
                                             <div class="flex-container width100 responsive-center"
@@ -232,7 +232,7 @@ const checkedIntro = ref([])
                                                 <!------------------------------- animation update------------------------------------->
                                                 <div class="animation">
                                                     <video autoplay loop>
-                                                        <source src="/storage/videos/heartAcembling-clip.mp4"
+                                                        <source src="@/videos/heartAcembling-clip.mp4"
                                                             type="video/mp4">
                                                     </video>
                                                 </div>
@@ -240,7 +240,7 @@ const checkedIntro = ref([])
                                                 <div class="text" v-if="updateShow != content.descricao">
                                                     {{ content.descricao }}
                                                     <img class="edit-btn mrghor1"
-                                                        src="/storage/images/Icons/edit-square-icon.svg" alt=""
+                                                        src="@/images/Icons/edit-square-icon.svg" alt=""
                                                         style="width: 30px;" @click="editfield(content.descricao)">
                                                 </div>
                                                 <div class="flex-container width100 responsive-center"
@@ -269,7 +269,7 @@ const checkedIntro = ref([])
                                     <h6><b>Slider e melhores produtos</b></h6>
                                     <button class="toogle-bg mrghor1" @click="openHome(2)"><img
                                             :class="home == 2 && openMenu == true ? 'rotate' : ''"
-                                            src="/storage/images/Icons/arrow-black.png" alt=""></button>
+                                            src="@/images/Icons/arrow-black.png" alt=""></button>
                                 </div>
                                 <div class="responsive-container">
                                     <input type="radio" id="slider" value="slider" v-model="checkedIntro" />
@@ -286,7 +286,7 @@ const checkedIntro = ref([])
                                             <h6>Slide nº {{ index + 1 }}</h6>
                                         </div>
                                         <div class="card-body">
-                                            <img :id="index" :src="'/storage/' + slide.media" alt="imgSlide">
+                                            <img :id="index" :src="'/' + slide.media" alt="imgSlide">
                                             <div class="card-info">
                                                 <h5>{{ slide.titulo }}</h5>
                                                 <p>{{ slide.descricao }}</p>
@@ -350,8 +350,8 @@ const checkedIntro = ref([])
                             <div v-if="content.posicao == 'engraving'">
 
                                 <div class="update-image" v-if="updateShow != content.media">
-                                    <img :src="'/storage/' + content.media" alt="" width="100">
-                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                    <img :src="'@/' + content.media" alt="" width="100">
+                                    <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                         alt="" style="width: 30px;" @click="editfield(content.media, content.id)">
                                 </div>
                                 <div v-else>
@@ -374,7 +374,7 @@ const checkedIntro = ref([])
                                 <div class="update-title"
                                     v-if="idUpdating != content.id || updateShow != content.titulo">
                                     <h4>{{ content.titulo }}</h4>
-                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                    <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                         alt="" style="width: 30px;" @click="editfield(content.titulo, content.id)">
 
                                 </div>
@@ -394,7 +394,7 @@ const checkedIntro = ref([])
                                 <div class="update-descr"
                                     v-if="idUpdating != content.id || updateShow != content.descricao">
                                     <p>{{ content.descricao }}</p>
-                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                    <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                         alt="" style="width: 30px;" @click="editfield(content.descricao, content.id)">
                                 </div>
                                 <div v-else>
@@ -424,9 +424,9 @@ const checkedIntro = ref([])
                             <div v-if="content.posicao == 'lazer_cut'">
                                 <div class="update-image" v-if="updateShow != content.media">
                                     <video controls loop width="640">
-                                        <source :src="'/storage/' + content.media">
+                                        <source :src="'/' + content.media">
                                     </video>
-                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                    <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                         alt="" style="width: 30px;" @click="editfield(content.media, content.id)">
                                 </div>
                                 <div v-else>
@@ -449,7 +449,7 @@ const checkedIntro = ref([])
                                 <div class="update-title"
                                     v-if="idUpdating != content.id || updateShow != content.titulo">
                                     <h4>{{ content.titulo }}</h4>
-                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                    <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                         alt="" style="width: 30px;" @click="editfield(content.titulo, content.id)">
 
                                 </div>
@@ -469,7 +469,7 @@ const checkedIntro = ref([])
                                 <div class="update-descr"
                                     v-if="idUpdating != content.id || updateShow != content.descricao">
                                     <p>{{ content.descricao }}</p>
-                                    <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                    <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                         alt="" style="width: 30px;" @click="editfield(content.descricao, content.id)">
                                 </div>
                                 <div v-else>
@@ -503,8 +503,8 @@ const checkedIntro = ref([])
                             <div class="" v-for="content, index in appContent.data " :key=index>
                                 <div v-if="content.posicao == 'shop_cart'">
                                     <div class="update-image" v-if="updateShow != content.media">
-                                        <img :src="'/storage/' + content.media" alt="imagem" width="200">
-                                        <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        <img :src="'@/' + content.media" alt="imagem" width="200">
+                                        <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                             alt="" style="width: 30px;" @click="editfield(content.media, content.id)">
                                     </div>
                                     <div v-else>
@@ -527,7 +527,7 @@ const checkedIntro = ref([])
                                     <div class="update-title"
                                         v-if="idUpdating != content.id || updateShow != content.titulo">
                                         <h4>{{ content.titulo }}</h4>
-                                        <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                             alt="" style="width: 30px;" @click="editfield(content.titulo, content.id)">
 
                                     </div>
@@ -547,7 +547,7 @@ const checkedIntro = ref([])
                                     <div class="update-descr"
                                         v-if="idUpdating != content.id || updateShow != content.descricao">
                                         <p>{{ content.descricao }}</p>
-                                        <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                             alt="" style="width: 30px;"
                                             @click="editfield(content.descricao, content.id)">
                                     </div>
@@ -631,7 +631,7 @@ const checkedIntro = ref([])
                                     <div class="update-descr"
                                         v-if="idUpdating != content.id || updateShow != content.descricao">
                                         <p>{{ content.descricao }}</p>
-                                        <img class="edit-btn mrghor1" src="/storage/images/Icons/edit-square-icon.svg"
+                                        <img class="edit-btn mrghor1" src="@/images/Icons/edit-square-icon.svg"
                                             alt="" style="width: 30px;"
                                             @click="editfield(content.descricao, content.id)">
                                     </div>
