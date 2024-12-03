@@ -47,14 +47,14 @@
           <h5 v-if="info.quantidade">Quant.: {{ value.quantidade }} </h5>
           <div class="discount" v-if="info.valor">
             <div v-if="value.desconto.ativo == 1">
-              <h2>{{ round(value.valor - (value.valor * value.desconto.desconto)) }} €</h2>
+              <h3>{{ round(value.valor - (value.valor * value.desconto.desconto)) }} €</h3>
               <s>
                 <h6>{{ value.valor }} €</h6>
               </s>
 
             </div>
             <div v-if="value.desconto.ativo == 0">
-              <h2>{{ value.valor }} €</h2>
+              <h3>{{ value.valor }} €</h3>
             </div>
           </div>
 

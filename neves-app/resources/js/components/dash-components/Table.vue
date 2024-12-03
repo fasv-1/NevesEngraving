@@ -14,7 +14,7 @@
           <tr v-for="obj, index in FiltredData" :key="index">
             <td class="brd" v-if="images">
               <div v-for="image, index in images" :key="index" v-if="images">
-                <span class="img" v-if="image.produto_id == obj.id && image.posicao == 1"><img :src="'@/' + image.nome"
+                <span class="img" v-if="image.produto_id == obj.id && image.posicao == 1"><img :src="'/storage/' + image.nome"
                     alt="Product image" ></span>
               </div>
             </td>

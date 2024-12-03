@@ -10,7 +10,7 @@
             <a href="/dashboard" class="dash-logo" :title="'This link goes to the ' + page.link.text + ' page'"
               @click="principal(index)">
 
-              <img :src="page.logoPath" :alt="page.logoPath">
+              <img :src="'/storage/' + page.logoPath" :alt="page.logoPath">
               <h6 class="marginMinHor">Neves Engraving</h6>
             </a>
           </div>
@@ -21,7 +21,7 @@
                 @click.prevent="principal(index)"><router-link :to="page.link.url"><img :src=" page.icon" alt="icon" width="25"><h5>{{ page.link.text }}</h5></router-link></a>
               <h3 class="menuIcon" @click.prevent='toogle(index)'>
                 <img
-                  :src="active == true && id == index ? '/images/Icons/LessIcon.png' : '/images/Icons/PlusIcon.png'">
+                  :src="active == true && id == index ? '/storage/images/Icons/LessIcon.png' : '/storage/images/Icons/PlusIcon.png'">
               </h3>
             </div>
             <div class="dash-nav-option" :class="{ show: id == index && active }">
@@ -91,7 +91,7 @@ export default {
         {
           link: { text: 'Produtos', url: '/dashboard/produtos' },
           pageTitle: "Produtos",
-          icon: '/images/Icons/new.png',
+          icon: '/storage/images/Icons/new.png',
           options: [
             {
               info: 'Descontos',
@@ -107,7 +107,7 @@ export default {
         {
           link: { text: 'Conteudo', url: '/dashboard/conteudo' },
           pageTitle: "Conteudo",
-          icon: '/images/Icons/content.png',
+          icon: '/storage/images/Icons/content.png',
           options: [
             {
               info: 'Politicas',
@@ -122,7 +122,7 @@ export default {
         {
           link: { text: 'Estatísticas', url: '/dashboard/estatisticas' },
           pageTitle: "Estatísticas",
-          icon: '/images/Icons/diagram.png',
+          icon: '/storage/images/Icons/diagram.png',
           options: [
             {
               info: 'Avaliações',
@@ -145,7 +145,7 @@ export default {
         {
           link: { text: 'Utilizadores', url: '/dashboard/users' },
           pageTitle: "Utilizadores",
-          icon: '/images/Icons/group.png',
+          icon: '/storage/images/Icons/group.png',
           options: [
             {
               info: 'Mensagens',
@@ -164,7 +164,7 @@ export default {
         {
           link: { text: 'Defenições', url: '/dashboard/defenicoes' },
           pageTitle: "Defenições",
-          icon: '/images/Icons/settings.png',
+          icon: '/storage/images/Icons/settings.png',
           options: [
             {
               info: 'Cores',

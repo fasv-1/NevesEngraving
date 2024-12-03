@@ -18,22 +18,33 @@ class ProdutoDetalheController extends Controller
         // $this->middleware(['permission:role-edit'], ['only' => ['edit', 'update']]);
         // $this->middleware(['permission:role-delete'], ['only' => ['destroy']]);
         $this->detalhe = $detalhe;
-        
+
         // $this->middleware(['role:User|Admin']);
     }
-    public function index(Request $request){
-        
-        $detalheRepo = new ProdDetalheRepo($this->detalhe);
+    public function index(Request $request)
+    {
+
+        $detalheRepo = $this->detalhe;
 
         if ($request->has('filtro')) {
 
-            $detalheRepo->filter($request->filtro);
+            $filtros = explode(';', $request->filtro);
 
-            $produtoDetalhe = $detalheRepo->getResult($request->filtro);
+            foreach ($filtros as $key => $condicao) {
+
+                $c = explode(':', $condicao);
+                $detalheRepo = $this->detalhe->where($c[0], $c[1], $c[2]);
+            }
+
+            // $detalheRepo->filter($request->filtro);
+
+            $produtoDetalhe = $detalheRepo->get();
         } else {
             $produtoDetalhe = $detalheRepo->getResult('allProdDetails');
         }
-        
+
+        // dd($produtoDetalhe);
+
 
         return response()->json($produtoDetalhe, 200);
     }
@@ -41,7 +52,8 @@ class ProdutoDetalheController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $produtoDetalhe = $this->detalhe;
 
         $request->validate($produtoDetalhe->rules(), $produtoDetalhe->feedback());
@@ -49,13 +61,13 @@ class ProdutoDetalheController extends Controller
         $produtoDetalhe->create($request->all());
 
         return response()->json(['msg' => 'Detalhe adicionado com sucesso'], 201);
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $produtoDetalhe = $this->detalhe->find($id);
 
@@ -65,6 +77,5 @@ class ProdutoDetalheController extends Controller
 
         $produtoDetalhe->delete();
         return response()->json(['msg' => 'Detalhe eliminado com sucesso'], 200);
-
     }
 }

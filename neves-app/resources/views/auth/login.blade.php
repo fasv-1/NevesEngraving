@@ -3,7 +3,7 @@
 @section('content')
     <navbar-component :altroutes=true>
         @guest
-            <a href={{ route('login') }}><p><b>My Account</b></p></a>
+            <a href={{ route('login') }}><p><b>MY ACCOUNT</b></p></a>
         @endguest
     </navbar-component>
     <login-component csrf_token="{{ @csrf_token() }}"></login-component>
@@ -15,7 +15,7 @@
       <input type="email" name="email" class="form-email" placeholder="E-mail">
       <input type="password" name="password" class="form-password" placeholder="Password">
 
-     <button type="submit" class="button-1">Submit</button> 
+     <button type="submit" class="button-1">Submit</button>
       </form>
     </div> --}}
     {{-- <a href="{{ route('password.request')}}">Forgot your password?</a>

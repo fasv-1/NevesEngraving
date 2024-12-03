@@ -14,7 +14,7 @@
         <div class="wish">
           <a href="/profile?wish=2">
             <img src="@/images/Icons/heart.png" alt="wish-icon">
-            <p class="wish-label">Wish List</p>
+            <p class="wish-label">WISH LIST</p>
           </a>
         </div>
 

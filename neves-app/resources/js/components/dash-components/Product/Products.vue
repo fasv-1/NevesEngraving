@@ -163,7 +163,7 @@
 
         <div class="select-options">
           <input-container id="quantidade" title="Quantidade do produto" help="quantityHelp"
-            helpText="Quantidade deste produto que pretende adicionar">
+            helpText="Quantidade do produto">
             <input type="number" name="quantidade" aria-describedby="quantity" v-model="newProduct.quantity"
               class="s-input">
           </input-container>

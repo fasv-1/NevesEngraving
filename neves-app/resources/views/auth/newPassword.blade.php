@@ -3,7 +3,7 @@
 @section('content')
     <navbar-component :altroutes=true>
         @guest
-            <a href={{ route('login') }}><p><b>My Account</b></p></a>
+            <a href={{ route('login') }}><p><b>MY ACCOUNT</b></p></a>
         @endguest
     </navbar-component>
     <div class="container">

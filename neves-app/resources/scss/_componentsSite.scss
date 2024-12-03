@@ -1003,6 +1003,10 @@
                             cursor: pointer;
                             opacity: 1;
                         }
+
+                    }
+                    .active{
+                        opacity: 1;
                     }
                 }
             }
@@ -1093,6 +1097,7 @@
                             height: 35px;
                             border-radius: 10px;
                             border: 3px solid transparent;
+                            cursor: pointer;
                         }
 
                         .drop {
